@@ -98,13 +98,12 @@ function Form() {
   const yearRegex = /^\d+$/;
   const phoneRegex = /^\d{11}$/;
   const songRegex = /^.{0,30}$/;
-  const mbtiRegex = /^[EISNTFPJ]*$/;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "year" && !yearRegex.test(value)) {
-      alert("학번은 9자리의 숫자로 입력하세요.");
+      alert("학번은 2자리의 숫자로 입력하세요.");
       return;
     }
 
@@ -162,7 +161,8 @@ function Form() {
 
     //전화번호가 이미 존재하는지 확인
     const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/users?phone=${formData.phone}`
+      `https://onesons.site/register?phone=${formData.phone}`
+      //"https://jsonplaceholder.typicode.com/posts?phone=${formData.phone}`",
     );
 
     if (response.data.length > 0) {
@@ -186,8 +186,8 @@ function Form() {
 
     try {
       const response = await axios.post(
-        "https://jsonplaceholder.typicode.com/posts",
-        // "https://onesons.site/register",
+        //"https://jsonplaceholder.typicode.com/posts",
+        "https://onesons.site/register",
         formDataWithIntYear
       );
 
