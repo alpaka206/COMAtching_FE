@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Form.css";
 
 function Form() {
+  const [contactMethod, setContactMethod] = useState("phone");
   const [formData, setFormData] = useState({
     depart: "",
     year: "",
@@ -88,39 +89,52 @@ function Form() {
     },
     {
       label: "타학교",
-      options: ["??"],
+      options: ["가톨릭대학교가 아닙니다"],
     },
   ];
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedMajor, setSelectedMajor] = useState("");
 
-  const yearRegex = /^\d+$/;
-  const phoneRegex = /^\d{11}$/;
-  const songRegex = /^.{0,30}$/;
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "year" && !yearRegex.test(value)) {
-      alert("학번은 2자리의 숫자로 입력하세요.");
-      return;
+    if (name === "year") {
+      if (/^\d{0,2}$/.test(value)) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      } else {
+        alert("학번은 2자리의 숫자로 입력하세요. (예: 22)");
+      }
+    } else if (name === "phone") {
+      if (/^\d{0,11}$/.test(value)) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      } else {
+        alert("(-)없이 전화번호를 입력하세요. (예: 01012345678)");
+      }
+    } else if (name === "song") {
+      if (/^.{0,30}$/.test(value)) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      } else {
+        alert("최대 30자 입력가능합니다.");
+      }
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
     }
+  };
 
-    if (name === "phone" && !phoneRegex.test(value)) {
-      alert("(-)를 제외한 전화번호를 입력하세요. (예: 01012345678)");
-      return;
-    }
-
-    if (name === "song" && !songRegex.test(value)) {
-      alert("좋아하는 노래는 최대 30자까지 입력 가능합니다.");
-      return;
-    }
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const handleContactMethod = (method) => {
+    setContactMethod(method);
   };
 
   const handleGenderSelection = (value) => {
@@ -156,19 +170,33 @@ function Form() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    //전화번호가 이미 존재하는지 확인
+  const checkIfExists = async () => {
     const response = await axios.get(
       `https://onesons.site/register?phone=${formData.phone}`
-      //"https://jsonplaceholder.typicode.com/posts?phone=${formData.phone}`",
     );
+    return response;
+  };
 
-    if (response.data.length > 0) {
-      alert("이미 존재하는 전화번호입니다.");
-      return;
+  const handleCheck = async () => {
+    const response = await checkIfExists();
+    const alreadyExists = response.data;
+    if (alreadyExists) {
+      alert(
+        `이미 존재하는 ${
+          contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
+        }입니다.`
+      );
+    } else {
+      alert(
+        `입력한 ${
+          contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
+        }는 사용 가능합니다.`
+      );
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const yearAsInt = parseInt(formData.year, 10);
 
@@ -186,8 +214,8 @@ function Form() {
 
     try {
       const response = await axios.post(
-        //"https://jsonplaceholder.typicode.com/posts",
-        "https://onesons.site/register",
+        "https://jsonplaceholder.typicode.com/posts",
+        //"https://onesons.site/register",
         formDataWithIntYear
       );
 
@@ -198,189 +226,279 @@ function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          <h3>학과</h3>
-        </label>
-        <label>
-          <select
-            name="depart"
-            value={selectedCategory}
-            onChange={handleCategoryChange}
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <div className="header">
+          <div>
+            <img
+              src={process.env.PUBLIC_URL + `assets/logowhite.png`}
+              alt="로고"
+              style={{ width: "142px", height: "auto", marginLeft: "24px" }}
+            />
+          </div>
+          <button
+            style={{
+              backgroundColor: "#ff4d61",
+              width: "98px",
+              height: "29px",
+              marginRight: "24px",
+              borderRadius: "15px",
+              textAlign: "center",
+              color: "#ffffff",
+              fontSize: "16px",
+              fontWeight: "bold",
+              paddingTop: "4px",
+            }}
           >
-            <option value="" disabled>
-              선택하세요
-            </option>
-            {majorCategories.map((category) => (
-              <option key={category.label} value={category.label}>
-                {category.label}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      {selectedCategory && (
-        <div>
-          <label>
-            전공 선택
-            <select
-              name="year"
-              value={selectedMajor}
-              onChange={handleMajorChange}
-            >
-              <option value="" disabled>
-                선택하세요
-              </option>
-              {majorCategories
-                .find((category) => category.label === selectedCategory)
-                .options.map((major) => (
-                  <option key={major} value={major}>
-                    {major}
-                  </option>
-                ))}
-            </select>
-          </label>
+            조회하기
+          </button>
         </div>
-      )}
-      <div>
-        <label>
-          학번
-          <input
-            type="text"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          전화번호
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          좋아하는 노래
-          <input
-            type="text"
-            name="song"
-            value={formData.song}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          성별
-          <button
-            type="button"
-            value="male"
-            onClick={() => handleGenderSelection("male")}
-            style={{
-              border: formData.gender ? "2px solid #000" : "none",
-            }}
-          >
-            남자
-          </button>
-          <button
-            type="button"
-            value="female"
-            onClick={() => handleGenderSelection("female")}
-            style={{
-              border: !formData.gender ? "2px solid #000" : "none",
-            }}
-          >
-            여자
-          </button>
-        </label>
-      </div>
-      <div>
-        <label>
-          MBTI
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("E")}
-            style={{
-              border: formData.mbti.includes("E") ? "2px solid #000" : "none",
-            }}
-          >
-            E
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("I")}
-            style={{
-              border: formData.mbti.includes("I") ? "2px solid #000" : "none",
-            }}
-          >
-            I
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("S")}
-            style={{
-              border: formData.mbti.includes("S") ? "2px solid #000" : "none",
-            }}
-          >
-            S
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("N")}
-            style={{
-              border: formData.mbti.includes("N") ? "2px solid #000" : "none",
-            }}
-          >
-            N
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("T")}
-            style={{
-              border: formData.mbti.includes("T") ? "2px solid #000" : "none",
-            }}
-          >
-            T
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("F")}
-            style={{
-              border: formData.mbti.includes("F") ? "2px solid #000" : "none",
-            }}
-          >
-            F
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("P")}
-            style={{
-              border: formData.mbti.includes("P") ? "2px solid #000" : "none",
-            }}
-          >
-            P
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("J")}
-            style={{
-              border: formData.mbti.includes("J") ? "2px solid #000" : "none",
-            }}
-          >
-            J
-          </button>
-        </label>
-      </div>
-      <button type="submit">제출</button>
-    </form>
+        <div className="content">
+          <div onSubmit={handleSubmit} style={{ display: "flex" }}>
+            <div style={{ marginRight: "13px" }}>
+              <label>
+                <h4>학과</h4>
+              </label>
+              <label>
+                <select
+                  name="depart"
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                >
+                  <option value="" disabled>
+                    선택하세요
+                  </option>
+                  {majorCategories.map((category) => (
+                    <option key={category.label} value={category.label}>
+                      {category.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <div>
+              <label>
+                <h4 class="major">전공 선택</h4>
+                <select
+                  name="major"
+                  value={selectedMajor}
+                  onChange={handleMajorChange}
+                >
+                  <option value="" disabled>
+                    선택하세요
+                  </option>
+                  {selectedCategory &&
+                    majorCategories
+                      .find((category) => category.label === selectedCategory)
+                      .options.map((major) => (
+                        <option key={major} value={major}>
+                          {major}
+                        </option>
+                      ))}
+                </select>
+              </label>
+            </div>
+          </div>
+          <div>
+            <label>
+              <h4>학번</h4>
+              <input
+                type="text"
+                name="year"
+                value={formData.year}
+                onChange={handleChange}
+                placeholder="23"
+              />
+            </label>
+          </div>
+          <div className="contact-method">
+            <label>
+              <h4>연락처</h4>
+              <button
+                type="button"
+                onClick={() => handleContactMethod("phone")}
+                style={{
+                  border: contactMethod === "phone" ? "2px solid #000" : "none",
+                }}
+              >
+                전화번호
+              </button>
+              <button
+                type="button"
+                onClick={() => handleContactMethod("insta")}
+                style={{
+                  border: contactMethod === "insta" ? "2px solid #000" : "none",
+                }}
+              >
+                인스타그램
+              </button>
+            </label>
+            <div className="contact-input">
+              {contactMethod === "phone" ? (
+                <label>
+                  <h4>전화번호</h4>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="01012345678"
+                  />
+                  <button type="button" onClick={handleCheck}>
+                    확인
+                  </button>
+                </label>
+              ) : (
+                <label>
+                  <h4>인스타그램</h4>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="@cuk_coma"
+                  />
+                  <button type="button" onClick={handleCheck}>
+                    확인
+                  </button>
+                </label>
+              )}
+            </div>
+          </div>
+          <div>
+            <label>
+              <h4>좋아하는 노래</h4>
+              <input
+                type="text"
+                name="song"
+                value={formData.song}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              <h4>성별</h4>
+              <button
+                type="button"
+                value="male"
+                onClick={() => handleGenderSelection("male")}
+                style={{
+                  border: formData.gender ? "2px solid #000" : "none",
+                }}
+              >
+                남자
+              </button>
+              <button
+                type="button"
+                value="female"
+                onClick={() => handleGenderSelection("female")}
+                style={{
+                  border: !formData.gender ? "2px solid #000" : "none",
+                }}
+              >
+                여자
+              </button>
+            </label>
+          </div>
+          <div>
+            <label>
+              <h4>MBTI</h4>
+              <button
+                type="button"
+                onClick={() => handleMBTISelection("E")}
+                style={{
+                  border: formData.mbti.includes("E")
+                    ? "2px solid #000"
+                    : "none",
+                }}
+              >
+                E
+              </button>
+              <button
+                type="button"
+                onClick={() => handleMBTISelection("I")}
+                style={{
+                  border: formData.mbti.includes("I")
+                    ? "2px solid #000"
+                    : "none",
+                }}
+              >
+                I
+              </button>
+              <button
+                type="button"
+                onClick={() => handleMBTISelection("S")}
+                style={{
+                  border: formData.mbti.includes("S")
+                    ? "2px solid #000"
+                    : "none",
+                }}
+              >
+                S
+              </button>
+              <button
+                type="button"
+                onClick={() => handleMBTISelection("N")}
+                style={{
+                  border: formData.mbti.includes("N")
+                    ? "2px solid #000"
+                    : "none",
+                }}
+              >
+                N
+              </button>
+              <button
+                type="button"
+                onClick={() => handleMBTISelection("T")}
+                style={{
+                  border: formData.mbti.includes("T")
+                    ? "2px solid #000"
+                    : "none",
+                }}
+              >
+                T
+              </button>
+              <button
+                type="button"
+                onClick={() => handleMBTISelection("F")}
+                style={{
+                  border: formData.mbti.includes("F")
+                    ? "2px solid #000"
+                    : "none",
+                }}
+              >
+                F
+              </button>
+              <button
+                type="button"
+                onClick={() => handleMBTISelection("P")}
+                style={{
+                  border: formData.mbti.includes("P")
+                    ? "2px solid #000"
+                    : "none",
+                }}
+              >
+                P
+              </button>
+              <button
+                type="button"
+                onClick={() => handleMBTISelection("J")}
+                style={{
+                  border: formData.mbti.includes("J")
+                    ? "2px solid #000"
+                    : "none",
+                }}
+              >
+                J
+              </button>
+            </label>
+          </div>
+          <button type="submit">제출</button>
+        </div>
+      </form>
+    </div>
   );
 }
 

@@ -1,12 +1,39 @@
-form {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px 40px 20px 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+@media (max-width: 768px) {
+  .container {
+    background-size: cover;
+  }
+  .header,
+  .content {
+    width: 100%;
+  }
 }
 
+.container {
+  text-align: center;
+  background-image: url("../images/background.png");
+}
+
+.content {
+  background: #ffffff;
+  width: 90%;
+  margin-top: 27px;
+  display: inline-block;
+  border-radius: 32px;
+  margin-bottom: 50px;
+}
+
+h4 {
+  padding-left: 23px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+h4[class="major"] {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
 .label-container {
   display: flex;
   align-items: center;
@@ -20,19 +47,30 @@ form {
   margin-bottom: 0;
 }
 
-.label-container input[type="text"] {
-  flex-basis: 70%;
-  margin-bottom: 10px;
+input {
+  width: 85%;
+  height: 24px;
+  padding: 5px 8px 5px 8px;
+  margin-top: 7px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+}
+input[name="phone"] {
+  width: 65%;
+  height: 24px;
+  padding: 5px 8px 5px 8px;
+  margin-top: 7px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  margin-top: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+select[name="depart"] {
+  margin-left: 23px;
+  width: 100px;
+  height: 30px;
+  border-radius: 30px;
 }
+
 .button-group label {
   margin-right: 10px;
 }
