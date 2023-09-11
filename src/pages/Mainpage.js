@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./Mainpage.css";
+import { useNavigate } from "react-router-dom";
 
 function MainPage() {
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [showAgreement, setShowAgreement] = useState(false);
 
@@ -18,7 +20,7 @@ function MainPage() {
 
   const handleSubmit = () => {
     if (isChecked) {
-      // 제출 로직을 작성하세요.
+      navigate("/Form");
     } else {
       alert("개인정보 수집 동의에 체크해주세요.");
     }
@@ -35,8 +37,8 @@ function MainPage() {
           />
         </div>
         <button
+          className="look-button"
           style={{
-            backgroundColor: "#ff4d61",
             width: "98px",
             height: "29px",
             marginRight: "24px",
@@ -47,6 +49,7 @@ function MainPage() {
             fontWeight: "bold",
             paddingTop: "4px",
           }}
+          onClick={() => navigate("/Error")}
         >
           조회하기
         </button>
@@ -75,16 +78,30 @@ function MainPage() {
         <div className="checkbox-label">
           <label
             style={{
-              fontSize: "16px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "14px",
               fontWeight: "bold",
+              margin: "10px 0",
             }}
           >
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleCheckboxChange}
+              style={{
+                width: "13px",
+                textAlign: "center",
+              }}
             />
-            개인정보 수집 및 이용에 대해 동의합니다
+            <div
+              style={{
+                paddingTop: "2px",
+              }}
+            >
+              개인정보 수집 및 이용에 대해 동의합니다
+            </div>
           </label>
         </div>
         <div>
