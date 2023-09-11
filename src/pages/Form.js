@@ -101,9 +101,11 @@ function Form() {
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedMajor, setSelectedMajor] = useState("");
+  const [isContactVerified, setIsContactVerified] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "year") {
       if (/^\d{0,2}$/.test(value)) {
         setFormData((prevFormData) => ({
@@ -113,7 +115,7 @@ function Form() {
       } else {
         alert("학번은 2자리의 숫자로 입력하세요. (예: 22)");
       }
-    } else if (name === "phone") {
+    } else if (name === "phone" && contactMethod === "phone") {
       if (/^\d{0,11}$/.test(value)) {
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -121,6 +123,15 @@ function Form() {
         }));
       } else {
         alert("(-)없이 전화번호를 입력하세요. (예: 01012345678)");
+      }
+    } else if (name === "phone" && contactMethod === "insta") {
+      if (/^[a-z0-9_.]{0,30}$/.test(value)) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      } else {
+        alert("인스타 아이디는 영어,숫자,언더바(_),마침표(.)만 가능합니다.");
       }
     } else if (name === "song") {
       if (/^.{0,30}$/.test(value)) {
@@ -221,20 +232,41 @@ function Form() {
           contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
         }는 사용 가능합니다.`
       );
+      setIsContactVerified(true);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const yearAsInt = parseInt(formData.year, 10);
-
+    if (!formData.depart || !selectedMajor) {
+      alert("학과와 전공을 선택하세요.");
+      return;
+    }
+    if (!/^\d{11}$/.test(formData.phone) && contactMethod === "phone") {
+      alert("전화번호는 11자리를 입력해주세요");
+      return;
+    }
     // Check if the conversion was successful
     if (isNaN(yearAsInt)) {
-      console.error("학과는 정수를 입력해 주세요");
+      alert("올바른 학번을 입력해주세요 (1부터 23까지 가능).");
       return;
     }
 
+    if (yearAsInt < 0 || yearAsInt > 23) {
+      alert("올바른 학번을 입력해주세요 (1부터 23까지 가능).");
+      return;
+    }
+    if (formData.song.length > 30 || formData.song.length < 1) {
+      alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
+      return;
+    }
+
+    // Check if all MBTI preferences are selected
+    if (formData.mbti.length !== 4) {
+      alert("MBTI를 모두 선택해주세요.");
+      return;
+    }
     // Create a copy of formData with 'year' as integer
     const formDataWithIntYear = {
       ...formData,
@@ -339,7 +371,12 @@ function Form() {
                 name="year"
                 value={formData.year}
                 onChange={handleChange}
-                placeholder="23"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
+                placeholder="00학번부터 23학번까지 가능합니다 ex)23"
               />
             </label>
           </div>
@@ -401,7 +438,12 @@ function Form() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="01012345678"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                      }
+                    }}
+                    placeholder="ex)01012345678"
                   />
                   <button
                     type="button"
@@ -418,7 +460,12 @@ function Form() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="@cuk_coma"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                      }
+                    }}
+                    placeholder="ex)cuk_coma (@는 빼고 넣어주세요)"
                   />
                   <button
                     type="button"
@@ -439,7 +486,12 @@ function Form() {
                 name="song"
                 value={formData.song}
                 onChange={handleChange}
-                placeholder="antifreeze"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
+                placeholder="ex)antifreeze"
               />
             </label>
           </div>
@@ -644,7 +696,7 @@ function Form() {
             </label>
           </div>
 
-          <button type="submit-button">
+          <button type="submit-button" disabled={!isContactVerified}>
             <img src={process.env.PUBLIC_URL + `assets/heart.png`} alt="전송" />
           </button>
         </div>

@@ -7,7 +7,7 @@
     width: 100%;
   }
 }
-
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 /* styles.css */
 .container {
   text-align: center;
@@ -65,4 +65,17 @@
 }
 .look-button {
   background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+}
+.textPM {
+  margin-bottom: 20px;
+  font-size: 8px;
+}
+.textFE {
+  font-size: 8px;
+}
+.textBE {
+  font-size: 8px;
+}
+.textDB {
+  font-size: 15px;
 }
