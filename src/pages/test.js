@@ -257,6 +257,10 @@ function Form() {
       alert("올바른 학번을 입력해주세요 (1부터 23까지 가능).");
       return;
     }
+    if (formData.phone.length < 1) {
+      alert("연락처 입력란을 확인해 주세요");
+      return;
+    }
     if (formData.song.length > 30 || formData.song.length < 1) {
       alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
       return;
@@ -714,7 +718,7 @@ function Form() {
               </div>
             </label>
           </div>
-          <button type="submit-button" disabled={!isContactVerified}>
+          <button type="submit-button">
             <img src={process.env.PUBLIC_URL + `assets/heart.png`} alt="전송" />
           </button>
         </div>
