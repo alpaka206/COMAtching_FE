@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Form.css";
+import { useNavigate } from "react-router-dom";
 
 function Form() {
+  const navigate = useNavigate();
+  const [contactMethod, setContactMethod] = useState("phone");
+  const [selectedEI, setSelectedEI] = useState("");
+  const [selectedSN, setSelectedSN] = useState("");
+  const [selectedTF, setSelectedTF] = useState("");
+  const [selectedPJ, setSelectedPJ] = useState("");
   const [formData, setFormData] = useState({
     depart: "",
     year: "",
@@ -88,39 +95,63 @@ function Form() {
     },
     {
       label: "타학교",
-      options: ["??"],
+      options: ["가톨릭대학교가 아닙니다"],
     },
   ];
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedMajor, setSelectedMajor] = useState("");
-
-  const yearRegex = /^\d+$/;
-  const phoneRegex = /^\d{11}$/;
-  const songRegex = /^.{0,30}$/;
+  const [isContactVerified, setIsContactVerified] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "year" && !yearRegex.test(value)) {
-      alert("학번은 2자리의 숫자로 입력하세요.");
-      return;
+    if (name === "year") {
+      if (/^\d{0,2}$/.test(value)) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      } else {
+        alert("학번은 2자리의 숫자로 입력하세요. (예: 22)");
+      }
+    } else if (name === "phone" && contactMethod === "phone") {
+      if (/^\d{0,11}$/.test(value)) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      } else {
+        alert("(-)없이 전화번호를 입력하세요. (예: 01012345678)");
+      }
+    } else if (name === "phone" && contactMethod === "insta") {
+      if (/^[a-z0-9_.]{0,30}$/.test(value)) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      } else {
+        alert("인스타 아이디는 영어,숫자,언더바(_),마침표(.)만 가능합니다.");
+      }
+    } else if (name === "song") {
+      if (/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,30}$/.test(value)) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      } else {
+        alert("노래에는 특수기호를 쓸수 없습니다");
+      }
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
     }
+  };
 
-    if (name === "phone" && !phoneRegex.test(value)) {
-      alert("(-)를 제외한 전화번호를 입력하세요. (예: 01012345678)");
-      return;
-    }
-
-    if (name === "song" && !songRegex.test(value)) {
-      alert("좋아하는 노래는 최대 30자까지 입력 가능합니다.");
-      return;
-    }
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const handleContactMethod = (method) => {
+    setContactMethod(method);
   };
 
   const handleGenderSelection = (value) => {
@@ -131,12 +162,35 @@ function Form() {
   };
 
   const handleMBTISelection = (value) => {
-    setFormData({
-      ...formData,
-      mbti: formData.mbti.includes(value)
-        ? formData.mbti.replace(value, "")
-        : formData.mbti + value,
-    });
+    const category =
+      value === "E" || value === "I"
+        ? "EI"
+        : value === "S" || value === "N"
+        ? "SN"
+        : value === "T" || value === "F"
+        ? "TF"
+        : "PJ";
+
+    // Update the corresponding state variable with the selected value
+    if (category === "EI") {
+      setSelectedEI(value);
+    } else if (category === "SN") {
+      setSelectedSN(value);
+    } else if (category === "TF") {
+      setSelectedTF(value);
+    } else if (category === "PJ") {
+      setSelectedPJ(value);
+    }
+
+    // Update formData's mbti with the selected preferences
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      mbti: `${category === "EI" ? value : selectedEI}${
+        category === "SN" ? value : selectedSN
+      }${category === "TF" ? value : selectedTF}${
+        category === "PJ" ? value : selectedPJ
+      }`,
+    }));
   };
 
   const handleCategoryChange = (e) => {
@@ -156,29 +210,65 @@ function Form() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    //전화번호가 이미 존재하는지 확인
+  const checkIfExists = async () => {
     const response = await axios.get(
       `https://onesons.site/register?phone=${formData.phone}`
-      //"https://jsonplaceholder.typicode.com/posts?phone=${formData.phone}`",
     );
+    return response;
+  };
 
-    if (response.data.length > 0) {
-      alert("이미 존재하는 전화번호입니다.");
+  const handleCheck = async () => {
+    const response = await checkIfExists();
+    const alreadyExists = response.data;
+    if (alreadyExists) {
+      alert(
+        `이미 존재하는 ${
+          contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
+        }입니다.`
+      );
+    } else {
+      alert(
+        `입력한 ${
+          contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
+        }는 사용 가능합니다.`
+      );
+      setIsContactVerified(true);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const yearAsInt = parseInt(formData.year, 10);
+    if (!formData.depart || !selectedMajor) {
+      alert("학과와 전공을 선택하세요.");
       return;
     }
-
-    const yearAsInt = parseInt(formData.year, 10);
-
+    if (!/^\d{11}$/.test(formData.phone) && contactMethod === "phone") {
+      alert("전화번호는 11자리를 입력해주세요");
+      return;
+    }
     // Check if the conversion was successful
     if (isNaN(yearAsInt)) {
-      console.error("학과는 정수를 입력해 주세요");
+      alert("올바른 학번을 입력해주세요 (1부터 23까지 가능).");
       return;
     }
 
-    // Create a copy of formData with 'year' as integer
+    if (yearAsInt < 0 || yearAsInt > 23) {
+      alert("올바른 학번을 입력해주세요 (1부터 23까지 가능).");
+      return;
+    }
+    if (formData.song.length > 30 || formData.song.length < 1) {
+      alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
+      return;
+    }
+    if (formData.mbti.length !== 4) {
+      alert("MBTI를 모두 선택해주세요.");
+      return;
+    }
+    if (isContactVerified === false) {
+      alert("전화번호 확인버튼을 눌러주세요!");
+      return;
+    }
     const formDataWithIntYear = {
       ...formData,
       year: yearAsInt,
@@ -186,201 +276,450 @@ function Form() {
 
     try {
       const response = await axios.post(
-        //"https://jsonplaceholder.typicode.com/posts",
         "https://onesons.site/register",
         formDataWithIntYear
       );
+      const generatedPassword = response.data.result.passwd;
+      const generatedSuccess = response.data.isSuccess;
+      const generatedMessage = response.data.message;
+      if (generatedSuccess === true) {
+        navigate("/Complete", { state: { generatedPassword } });
+      } else {
+        alert(generatedMessage);
 
-      console.log("응답 데이터:", response.data);
+        return;
+      }
     } catch (error) {
       console.error("오류 발생:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          <h3>학과</h3>
-        </label>
-        <label>
-          <select
-            name="depart"
-            value={selectedCategory}
-            onChange={handleCategoryChange}
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <div className="header">
+          <div>
+            <img
+              src={process.env.PUBLIC_URL + `assets/logowhite.png`}
+              alt="로고"
+              style={{ width: "142px", height: "auto", marginLeft: "24px" }}
+              onClick={() => navigate("/")}
+            />
+          </div>
+          <button
+            className="look-button"
+            style={{
+              width: "98px",
+              height: "29px",
+              marginRight: "24px",
+              borderRadius: "15px",
+              textAlign: "center",
+              color: "#ffffff",
+              fontSize: "16px",
+              fontWeight: "bold",
+              paddingTop: "4px",
+            }}
+            onClick={() => navigate("/Error")}
           >
-            <option value="" disabled>
-              선택하세요
-            </option>
-            {majorCategories.map((category) => (
-              <option key={category.label} value={category.label}>
-                {category.label}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      {selectedCategory && (
-        <div>
-          <label>
-            전공 선택
-            <select
-              name="year"
-              value={selectedMajor}
-              onChange={handleMajorChange}
-            >
-              <option value="" disabled>
-                선택하세요
-              </option>
-              {majorCategories
-                .find((category) => category.label === selectedCategory)
-                .options.map((major) => (
-                  <option key={major} value={major}>
-                    {major}
-                  </option>
-                ))}
-            </select>
-          </label>
+            조회하기
+          </button>
         </div>
-      )}
-      <div>
-        <label>
-          학번
-          <input
-            type="text"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          전화번호
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          좋아하는 노래
-          <input
-            type="text"
-            name="song"
-            value={formData.song}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          성별
-          <button
-            type="button"
-            value="male"
-            onClick={() => handleGenderSelection("male")}
+        <div className="content">
+          <div onSubmit={handleSubmit} style={{ display: "flex" }}>
+            <div style={{ marginRight: "13px" }}>
+              <label>
+                <h4>학과</h4>
+              </label>
+              <label>
+                <select
+                  name="depart"
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                >
+                  <option value="" disabled>
+                    선택
+                  </option>
+                  {majorCategories.map((category) => (
+                    <option key={category.label} value={category.label}>
+                      {category.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <div>
+              <label>
+                <h4 class="major">전공</h4>
+                <select
+                  name="major"
+                  value={selectedMajor}
+                  onChange={handleMajorChange}
+                >
+                  <option value="" disabled>
+                    선택
+                  </option>
+                  {selectedCategory &&
+                    majorCategories
+                      .find((category) => category.label === selectedCategory)
+                      .options.map((major) => (
+                        <option key={major} value={major}>
+                          {major}
+                        </option>
+                      ))}
+                </select>
+              </label>
+            </div>
+          </div>
+          <div>
+            <label>
+              <h4>학번</h4>
+              <input
+                type="text"
+                name="year"
+                value={formData.year}
+                onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
+                placeholder="00학번부터 23학번까지 가능합니다 ex)23"
+              />
+            </label>
+          </div>
+          <div className="contact-method">
+            <label>
+              <h4 class="phone">연락처</h4>
+              <div className="space">&nbsp;</div>
+              <button
+                type="button"
+                class="phonebutton"
+                onClick={() => handleContactMethod("phone")}
+                style={{
+                  backgroundColor:
+                    contactMethod === "phone" ? "#ff775e" : "#ffffff",
+                  border:
+                    contactMethod === "phone" ? "none" : "2px solid #e0e0e0",
+                  marginTop: "17px",
+                  marginRight: "6px",
+                }}
+              >
+                <img
+                  src={process.env.PUBLIC_URL + `assets/phone.png`}
+                  alt="전화번호"
+                  style={{
+                    width: "12px",
+                    height: "12px",
+                  }}
+                />
+              </button>
+              <button
+                type="button"
+                class="phonebutton"
+                onClick={() => handleContactMethod("insta")}
+                style={{
+                  backgroundColor:
+                    contactMethod === "insta" ? "#ff775e" : "#ffffff",
+                  border:
+                    contactMethod === "insta" ? "none" : "2px solid #e0e0e0",
+                  marginTop: "17px",
+                  marginRight: "14px",
+                }}
+              >
+                <img
+                  src={process.env.PUBLIC_URL + `assets/insta.png`}
+                  alt="insta"
+                  style={{
+                    width: "16px",
+                    height: "16px",
+                    marginTop: "-3px",
+                  }}
+                />
+              </button>
+            </label>
+            <div className="contact-input">
+              {contactMethod === "phone" ? (
+                <label>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                      }
+                    }}
+                    placeholder="ex)01012345678"
+                  />
+                  <button
+                    type="button"
+                    class="checkbutton"
+                    onClick={handleCheck}
+                  >
+                    확인
+                  </button>
+                </label>
+              ) : (
+                <label>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                      }
+                    }}
+                    placeholder="ex)cuk_coma (@는 빼고 넣어주세요)"
+                  />
+                  <button
+                    type="button"
+                    class="checkbutton"
+                    onClick={handleCheck}
+                  >
+                    확인
+                  </button>
+                </label>
+              )}
+            </div>
+          </div>
+          <h6
             style={{
-              border: formData.gender ? "2px solid #000" : "none",
+              textAlign: "left",
+              marginLeft: "19px",
+              marginTop: "5px",
+              color: "red",
+              display: isContactVerified ? "none" : "block",
             }}
           >
-            남자
+            중복입력 방지를 위해 확인버튼을 눌러주세요
+          </h6>
+          <div>
+            <label>
+              <h4>좋아하는 노래</h4>
+              <input
+                type="text"
+                name="song"
+                value={formData.song}
+                onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
+                placeholder="ex)antifreeze"
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              <h4>성별</h4>
+              <button
+                type="button"
+                class="genderbutton"
+                value="male"
+                onClick={() => handleGenderSelection("male")}
+                style={{
+                  backgroundColor: formData.gender ? "#ff775e" : "#ffffff",
+                  color: formData.gender ? "#ffffff" : "#A5A5A5",
+                  border: formData.gender ? "none" : "2px solid #e0e0e0",
+                }}
+              >
+                남자
+              </button>
+              <button
+                type="button"
+                class="genderbutton"
+                value="female"
+                onClick={() => handleGenderSelection("female")}
+                style={{
+                  backgroundColor: formData.gender ? "#ffffff" : "#ff775e",
+                  color: formData.gender ? "#A5A5A5" : "#ffffff",
+                  border: formData.gender ? "2px solid #e0e0e0" : "none",
+                }}
+              >
+                여자
+              </button>
+            </label>
+          </div>
+          <div className="mbtidiv">
+            <label>
+              <h4>MBTI</h4>
+              <div style={{ display: "flex" }}>
+                <div>
+                  <button
+                    type="button"
+                    class="mbtibutton"
+                    onClick={() => handleMBTISelection("E")}
+                    style={{
+                      backgroundColor: formData.mbti.includes("E")
+                        ? "#ff775e"
+                        : "#ffffff",
+                      color: formData.mbti.includes("E")
+                        ? "#ffffff"
+                        : "#A5A5A5",
+                      border: formData.mbti.includes("E")
+                        ? "none"
+                        : "2px solid #e0e0e0",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    E
+                  </button>
+                  <button
+                    type="button"
+                    class="mbtibutton"
+                    onClick={() => handleMBTISelection("I")}
+                    style={{
+                      backgroundColor: formData.mbti.includes("I")
+                        ? "#ff775e"
+                        : "#ffffff",
+                      color: formData.mbti.includes("I")
+                        ? "#ffffff"
+                        : "#A5A5A5",
+                      border: formData.mbti.includes("I")
+                        ? "none"
+                        : "2px solid #e0e0e0",
+                    }}
+                  >
+                    I
+                  </button>
+                </div>
+
+                {/* 두 번째 열 */}
+                <div>
+                  <button
+                    type="button"
+                    class="mbtibutton"
+                    onClick={() => handleMBTISelection("N")}
+                    style={{
+                      backgroundColor: formData.mbti.includes("N")
+                        ? "#ff775e"
+                        : "#ffffff",
+                      color: formData.mbti.includes("N")
+                        ? "#ffffff"
+                        : "#A5A5A5",
+                      border: formData.mbti.includes("N")
+                        ? "none"
+                        : "2px solid #e0e0e0",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    N
+                  </button>
+                  <button
+                    type="button"
+                    class="mbtibutton"
+                    onClick={() => handleMBTISelection("S")}
+                    style={{
+                      backgroundColor: formData.mbti.includes("S")
+                        ? "#ff775e"
+                        : "#ffffff",
+                      color: formData.mbti.includes("S")
+                        ? "#ffffff"
+                        : "#A5A5A5",
+                      border: formData.mbti.includes("S")
+                        ? "none"
+                        : "2px solid #e0e0e0",
+                    }}
+                  >
+                    S
+                  </button>
+                </div>
+
+                {/* 세 번째 열 */}
+                <div>
+                  <button
+                    type="button"
+                    class="mbtibutton"
+                    onClick={() => handleMBTISelection("T")}
+                    style={{
+                      backgroundColor: formData.mbti.includes("T")
+                        ? "#ff775e"
+                        : "#ffffff",
+                      color: formData.mbti.includes("T")
+                        ? "#ffffff"
+                        : "#A5A5A5",
+                      border: formData.mbti.includes("T")
+                        ? "none"
+                        : "2px solid #e0e0e0",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    T
+                  </button>
+                  <button
+                    type="button"
+                    class="mbtibutton"
+                    onClick={() => handleMBTISelection("F")}
+                    style={{
+                      backgroundColor: formData.mbti.includes("F")
+                        ? "#ff775e"
+                        : "#ffffff",
+                      color: formData.mbti.includes("F")
+                        ? "#ffffff"
+                        : "#A5A5A5",
+                      border: formData.mbti.includes("F")
+                        ? "none"
+                        : "2px solid #e0e0e0",
+                    }}
+                  >
+                    F
+                  </button>
+                </div>
+
+                {/* 네 번째 열 */}
+                <div>
+                  <button
+                    type="button"
+                    class="mbtibutton"
+                    onClick={() => handleMBTISelection("P")}
+                    style={{
+                      backgroundColor: formData.mbti.includes("P")
+                        ? "#ff775e"
+                        : "#ffffff",
+                      color: formData.mbti.includes("P")
+                        ? "#ffffff"
+                        : "#A5A5A5",
+                      border: formData.mbti.includes("P")
+                        ? "none"
+                        : "2px solid #e0e0e0",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    P
+                  </button>
+                  <button
+                    type="button"
+                    class="mbtibutton"
+                    onClick={() => handleMBTISelection("J")}
+                    style={{
+                      backgroundColor: formData.mbti.includes("J")
+                        ? "#ff775e"
+                        : "#ffffff",
+                      color: formData.mbti.includes("J")
+                        ? "#ffffff"
+                        : "#A5A5A5",
+                      border: formData.mbti.includes("J")
+                        ? "none"
+                        : "2px solid #e0e0e0",
+                    }}
+                  >
+                    J
+                  </button>
+                </div>
+              </div>
+            </label>
+          </div>
+          <button type="submit-button" disabled={!isContactVerified}>
+            매칭 등록(Click) ▶
           </button>
-          <button
-            type="button"
-            value="female"
-            onClick={() => handleGenderSelection("female")}
-            style={{
-              border: !formData.gender ? "2px solid #000" : "none",
-            }}
-          >
-            여자
-          </button>
-        </label>
-      </div>
-      <div>
-        <label>
-          MBTI
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("E")}
-            style={{
-              border: formData.mbti.includes("E") ? "2px solid #000" : "none",
-            }}
-          >
-            E
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("I")}
-            style={{
-              border: formData.mbti.includes("I") ? "2px solid #000" : "none",
-            }}
-          >
-            I
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("S")}
-            style={{
-              border: formData.mbti.includes("S") ? "2px solid #000" : "none",
-            }}
-          >
-            S
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("N")}
-            style={{
-              border: formData.mbti.includes("N") ? "2px solid #000" : "none",
-            }}
-          >
-            N
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("T")}
-            style={{
-              border: formData.mbti.includes("T") ? "2px solid #000" : "none",
-            }}
-          >
-            T
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("F")}
-            style={{
-              border: formData.mbti.includes("F") ? "2px solid #000" : "none",
-            }}
-          >
-            F
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("P")}
-            style={{
-              border: formData.mbti.includes("P") ? "2px solid #000" : "none",
-            }}
-          >
-            P
-          </button>
-          <button
-            type="button"
-            onClick={() => handleMBTISelection("J")}
-            style={{
-              border: formData.mbti.includes("J") ? "2px solid #000" : "none",
-            }}
-          >
-            J
-          </button>
-        </label>
-      </div>
-      <button type="submit">제출</button>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 }
 

@@ -7,11 +7,16 @@
     width: 100%;
   }
 }
-
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 /* styles.css */
 .container {
+  height: 100vh;
+  width: 100vw;
+  font-family: Pretendard;
   text-align: center;
-  background-image: url("../images/background.png");
+  background-image: url("../images/background_iPad.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .header {
@@ -28,6 +33,10 @@
   display: inline-block;
   border-radius: 32px;
   margin-bottom: 50px;
+}
+
+.h4 {
+  font-size: 180px;
 }
 
 .checkbox-label {
@@ -51,11 +60,27 @@
 }
 .submit-button {
   margin-top: 10px;
-  background-color: #ff775e;
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
   color: #ffffff;
   width: 100%;
   height: 89px;
   border-radius: 0 0 32px 32px;
   font-size: 32px;
   font-weight: bold;
+}
+.look-button {
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+}
+.textPM {
+  margin-bottom: 20px;
+  font-size: 8px;
+}
+.textFE {
+  font-size: 8px;
+}
+.textBE {
+  font-size: 8px;
+}
+.textDB {
+  font-size: 15px;
 }
