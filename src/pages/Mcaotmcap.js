@@ -5,72 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 function Mcaotmcap() {
   const navigate = useNavigate();
-  const [contactMethod, setContactMethod] = useState("phone");
-  const [selectedEI, setSelectedEI] = useState("");
-  const [selectedPJ, setSelectedPJ] = useState("");
+  const [selectedEIZ, setSelectedEIZ] = useState("");
+  const [selectedPJX, setSelectedPJX] = useState("");
   const [formData, setFormData] = useState({
-    depart: "",
-    year: "",
-    phone: "",
-    song: "",
+    passwd: "",
     gender: true,
     mbti: "",
   });
-
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedMajor, setSelectedMajor] = useState("");
-  const [isContactVerified, setIsContactVerified] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "year") {
-      if (/^\d{0,2}$/.test(value)) {
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
-        }));
-      } else {
-        alert("학번은 2자리의 숫자로 입력하세요. (예: 22)");
-      }
-    } else if (name === "phone" && contactMethod === "phone") {
-      if (/^\d{0,11}$/.test(value)) {
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
-        }));
-      } else {
-        alert("(-)없이 전화번호를 입력하세요. (예: 01012345678)");
-      }
-    } else if (name === "phone" && contactMethod === "insta") {
-      if (/^[a-z0-9_.]{0,30}$/.test(value)) {
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
-        }));
-      } else {
-        alert("인스타 아이디는 영어,숫자,언더바(_),마침표(.)만 가능합니다.");
-      }
-    } else if (name === "song") {
-      if (/^.{0,30}$/.test(value)) {
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
-        }));
-      } else {
-        alert("최대 30자 입력가능합니다.");
-      }
-    } else {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleContactMethod = (method) => {
-    setContactMethod(method);
-  };
 
   const handleGenderSelection = (value) => {
     setFormData({
@@ -81,128 +22,64 @@ function Mcaotmcap() {
 
   const handleMBTISelection = (value) => {
     const category =
-      value === "E" || value === "I"
-        ? "EI"
-        : value === "S" || value === "N"
-        ? "SN"
-        : value === "T" || value === "F"
-        ? "TF"
-        : "PJ";
+      value === "E" || value === "I" || value === "Z" ? "EIZ" : "PJX";
 
-    // Update the corresponding state variable with the selected value
-    if (category === "EI") {
-      setSelectedEI(value);
-    } else if (category === "PJ") {
-      setSelectedPJ(value);
+    if (category === "EIZ") {
+      setSelectedEIZ(value);
+    } else if (category === "PJX") {
+      setSelectedPJX(value);
     }
 
-    // Update formData's mbti with the selected preferences
     setFormData((prevFormData) => ({
       ...prevFormData,
-      mbti: `${category === "EI" ? value : selectedEI}${
-        category === "PJ" ? value : selectedPJ
+      mbti: `${category === "EIZ" ? value : selectedEIZ}${
+        category === "PJX" ? value : selectedPJX
       }`,
     }));
   };
 
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-    setSelectedMajor("");
-    setFormData({
-      ...formData,
-      depart: e.target.value,
-    });
-  };
-
-  const handleMajorChange = (e) => {
-    setSelectedMajor(e.target.value);
-    setFormData({
-      ...formData,
-      depart: e.target.value,
-    });
-  };
-
-  const checkIfExists = async () => {
-    const response = await axios.get(
-      `https://onesons.site/register?phone=${formData.phone}`
-    );
-    return response;
-  };
-
-  const handleCheck = async () => {
-    const response = await checkIfExists();
-    const alreadyExists = response.data;
-    if (alreadyExists) {
-      alert(
-        `이미 존재하는 ${
-          contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
-        }입니다.`
-      );
-    } else {
-      alert(
-        `입력한 ${
-          contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
-        }는 사용 가능합니다.`
-      );
-      setIsContactVerified(true);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const yearAsInt = parseInt(formData.year, 10);
-    if (!formData.depart || !selectedMajor) {
-      alert("학과와 전공을 선택하세요.");
-      return;
-    }
-    if (!/^\d{11}$/.test(formData.phone) && contactMethod === "phone") {
-      alert("전화번호는 11자리를 입력해주세요");
-      return;
-    }
-    // Check if the conversion was successful
-    if (isNaN(yearAsInt)) {
-      alert("올바른 학번을 입력해주세요 (1부터 23까지 가능).");
-      return;
-    }
 
-    if (yearAsInt < 0 || yearAsInt > 23) {
-      alert("올바른 학번을 입력해주세요 (1부터 23까지 가능).");
-      return;
-    }
-    if (formData.song.length > 30 || formData.song.length < 1) {
-      alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
-      return;
-    }
-
-    // Check if all MBTI preferences are selected
-    if (formData.mbti.length !== 4) {
+    if (formData.mbti.length !== 2) {
       alert("MBTI를 모두 선택해주세요.");
       return;
     }
-    // Create a copy of formData with 'year' as integer
-    const formDataWithIntYear = {
-      ...formData,
-      year: yearAsInt,
-    };
 
     try {
-      const response = await axios.post(
-        "https://onesons.site/register",
-        formDataWithIntYear
-      );
-      const generatedPassword = response.data.result.passwd;
-      const generatedSuccess = response.data.isSuccess;
+      const response = await axios.get("https://onesons.site/match", {
+        params: {
+          mbti: formData.mbti,
+          passwd: formData.passwd,
+          gender: formData.gender,
+        },
+      });
       const generatedMessage = response.data.message;
-      //   console.log("비밀번호 보기1: ", generatedPassword);
-      //   console.log("메시지1: ", generatedSuccess);
-      //   console.log("메시지2: ", response.data);
-      //   console.log("메시지3: ", response.data.message);
-      //   console.log("메시지3: ", response.data.isSuccess);
+      const generatedSuccess = response.data.isSuccess;
+      const generatedPhone = response.data.result.phone;
+      const generatedDepart = response.data.result.depart;
+      const generatedSong = response.data.result.song;
+      const generatedYear = response.data.result.year;
+      const generatedMbti = response.data.result.mbti;
+      console.log(
+        generatedPhone,
+        generatedDepart,
+        generatedSong,
+        generatedYear,
+        generatedMbti
+      );
       if (generatedSuccess === true) {
-        navigate("/Complete", { state: { generatedPassword } });
+        navigate("/Mcaotmcapresult", {
+          state: {
+            generatedPhone,
+            generatedDepart,
+            generatedSong,
+            generatedYear,
+            generatedMbti,
+          },
+        });
       } else {
         alert(generatedMessage);
-
         return;
       }
     } catch (error) {
@@ -243,28 +120,27 @@ function Mcaotmcap() {
         <div className="content">
           <div>
             <label>
-              <h4>비밀번호를 입력하세요.</h4>
+              <h4 className="mcaotext">비밀번호를 입력하세요.</h4>
               <input
                 type="text"
-                name="year"
+                class="passwd"
                 value={formData.year}
-                onChange={handleChange}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
                   }
                 }}
-                placeholder="00학번부터 23학번까지 가능합니다 ex)23"
+                placeholder="* * * * * *"
               />
             </label>
           </div>
 
           <div>
             <label>
-              <h4>원하는 매칭상대를 선택하세요!</h4>
+              <h4 className="mcaotext">원하는 매칭상대를 선택하세요!</h4>
               <button
                 type="button"
-                class="genderbutton"
+                class="mcaogenderbutton"
                 value="male"
                 onClick={() => handleGenderSelection("male")}
                 style={{
@@ -277,7 +153,7 @@ function Mcaotmcap() {
               </button>
               <button
                 type="button"
-                class="genderbutton"
+                class="mcaogenderbutton"
                 value="female"
                 onClick={() => handleGenderSelection("female")}
                 style={{
@@ -290,13 +166,18 @@ function Mcaotmcap() {
               </button>
             </label>
           </div>
-          <div className="mbtidiv">
+          <div>
             <label>
-              <div style={{ display: "flex" }}>
-                <div>
+              <div className="mcaombti">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
                   <button
                     type="button"
-                    class="mbtibutton"
+                    className="mcaombtibutton"
                     onClick={() => handleMBTISelection("E")}
                     style={{
                       backgroundColor: formData.mbti.includes("E")
@@ -309,13 +190,14 @@ function Mcaotmcap() {
                         ? "none"
                         : "2px solid #e0e0e0",
                       marginBottom: "10px",
+                      display: "inline-block", // Added this line
                     }}
                   >
                     E
                   </button>
                   <button
                     type="button"
-                    class="mbtibutton"
+                    className="mcaombtibutton"
                     onClick={() => handleMBTISelection("I")}
                     style={{
                       backgroundColor: formData.mbti.includes("I")
@@ -328,13 +210,14 @@ function Mcaotmcap() {
                         ? "none"
                         : "2px solid #e0e0e0",
                       marginBottom: "10px",
+                      display: "inline-block", // Added this line
                     }}
                   >
                     I
                   </button>
                   <button
                     type="button"
-                    class="mbtibutton"
+                    className="mcaombtibutton"
                     onClick={() => handleMBTISelection("Z")}
                     style={{
                       backgroundColor: formData.mbti.includes("Z")
@@ -347,17 +230,18 @@ function Mcaotmcap() {
                         ? "none"
                         : "2px solid #e0e0e0",
                       marginBottom: "10px",
+                      display: "inline-block", // Added this line
                     }}
                   >
                     선택 안함
                   </button>
                 </div>
 
-                {/* 네 번째 열 */}
-                <div>
+                {/* 두 번째 열 */}
+                <div style={{ display: "flex", flexDirection: "row" }}>
                   <button
                     type="button"
-                    class="mbtibutton"
+                    className="mcaombtibutton"
                     onClick={() => handleMBTISelection("P")}
                     style={{
                       backgroundColor: formData.mbti.includes("P")
@@ -376,7 +260,7 @@ function Mcaotmcap() {
                   </button>
                   <button
                     type="button"
-                    class="mbtibutton"
+                    className="mcaombtibutton"
                     onClick={() => handleMBTISelection("J")}
                     style={{
                       backgroundColor: formData.mbti.includes("J")
@@ -395,16 +279,16 @@ function Mcaotmcap() {
                   </button>
                   <button
                     type="button"
-                    class="mbtibutton"
-                    onClick={() => handleMBTISelection("Z")}
+                    className="mcaombtibutton"
+                    onClick={() => handleMBTISelection("X")}
                     style={{
-                      backgroundColor: formData.mbti.includes("Z")
+                      backgroundColor: formData.mbti.includes("X")
                         ? "#ff775e"
                         : "#ffffff",
-                      color: formData.mbti.includes("Z")
+                      color: formData.mbti.includes("X")
                         ? "#ffffff"
                         : "#A5A5A5",
-                      border: formData.mbti.includes("Z")
+                      border: formData.mbti.includes("X")
                         ? "none"
                         : "2px solid #e0e0e0",
                       marginBottom: "10px",
@@ -417,9 +301,7 @@ function Mcaotmcap() {
             </label>
           </div>
 
-          <button type="submit-button" disabled={!isContactVerified}>
-            <img src={process.env.PUBLIC_URL + `assets/heart.png`} alt="전송" />
-          </button>
+          <button type="submit-button">매칭하기</button>
         </div>
       </form>
     </div>

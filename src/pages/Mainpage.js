@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Mainpage.css";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +7,7 @@ function MainPage() {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [showAgreement, setShowAgreement] = useState(false);
+  const [numParticipants, setNumParticipants] = useState(null);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -25,7 +27,18 @@ function MainPage() {
       alert("개인정보 수집 동의에 체크해주세요.");
     }
   };
+  useEffect(() => {
+    const fetchParticipants = async () => {
+      try {
+        const response = await axios.get("https://onesons.site/participations");
+        setNumParticipants(response.data);
+      } catch (error) {
+        console.error("Error fetching participants:", error);
+      }
+    };
 
+    fetchParticipants();
+  }, []);
   return (
     <div className="container">
       <div className="header">
@@ -55,13 +68,18 @@ function MainPage() {
         </button>
       </div>
       <div className="content">
+        {/* <h4
+          style={{ textAlign: "center", marginTop: "40px", color: "#FF4D61" }}
+        >
+          현재 이벤트 진행중!
+        </h4> */}
         <img
           src={process.env.PUBLIC_URL + `assets/helloemoji.png`}
           alt="사람 이미지"
           style={{
             width: "80%",
             height: "auto",
-            paddingTop: "50px",
+            paddingTop: "30px",
           }}
         />
         <div>
@@ -71,10 +89,25 @@ function MainPage() {
             style={{
               width: "75%",
               height: "auto",
-              marginTop: "30px",
+              marginTop: "20px",
             }}
           />
         </div>
+        {numParticipants !== null && (
+          <div
+            style={{
+              fontSize: "25px",
+              fontWeight: "w600",
+              marginTop: "5px",
+            }}
+          >
+            현재{" "}
+            <span style={{ color: "#FF4D61", fontWeight: "900" }}>
+              {numParticipants}
+            </span>
+            명 참여중이에요!
+          </div>
+        )}
         <div className="checkbox-label">
           <label
             style={{

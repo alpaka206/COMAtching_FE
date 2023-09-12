@@ -16,8 +16,13 @@
 }
 /* styles.css */
 .container {
+  height: 100vh;
+  width: 100vw;
+  font-family: Pretendard;
   text-align: center;
-  background-image: url("../images/background.png");
+  background-image: url("../images/background_iPad.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .header {

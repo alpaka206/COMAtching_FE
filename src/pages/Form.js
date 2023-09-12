@@ -134,7 +134,7 @@ function Form() {
         alert("인스타 아이디는 영어,숫자,언더바(_),마침표(.)만 가능합니다.");
       }
     } else if (name === "song") {
-      if (/^[^?!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,30}$/.test(value)) {
+      if (/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,30}$/.test(value)) {
         setFormData((prevFormData) => ({
           ...prevFormData,
           [name]: value,
@@ -715,7 +715,7 @@ function Form() {
             </label>
           </div>
           <button type="submit-button" disabled={!isContactVerified}>
-            <img src={process.env.PUBLIC_URL + `assets/heart.png`} alt="전송" />
+            매칭 등록(Click) ▶
           </button>
         </div>
       </form>

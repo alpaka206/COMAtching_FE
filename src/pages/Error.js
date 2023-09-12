@@ -1,7 +1,7 @@
 import "./Error.css";
 import { useNavigate } from "react-router-dom";
 
-function MainPage() {
+function Error() {
   const navigate = useNavigate();
 
   return (
@@ -40,4 +40,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default Error;
