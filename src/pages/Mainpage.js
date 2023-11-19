@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import {
+  isCheckedState,
+  numParticipantsState,
+  showAgreementState,
+} from "../Atoms";
 import axios from "axios";
 import "./Mainpage.css";
 import ComatHeader from "../components/ComatHeader";
@@ -8,12 +14,13 @@ import { useNavigate } from "react-router-dom";
 
 function MainPage() {
   const navigate = useNavigate();
-  const [isChecked, setIsChecked] = useState(false);
-  const [showAgreement, setShowAgreement] = useState(false);
-  const [numParticipants, setNumParticipants] = useState(null);
+  const [isChecked, setIsChecked] = useRecoilState(isCheckedState);
+  const [numParticipants, setNumParticipants] =
+    useRecoilState(numParticipantsState);
+  const [showAgreement, setShowAgreement] = useRecoilState(showAgreementState);
 
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    setIsChecked((prev) => !prev);
   };
 
   const handleAgreementClick = () => {
@@ -41,7 +48,7 @@ function MainPage() {
     };
 
     fetchParticipants();
-  }, []);
+  }, [setNumParticipants]);
   return (
     <div className="container">
       <ComatHeader destination="/" buttonText="처음으로" />

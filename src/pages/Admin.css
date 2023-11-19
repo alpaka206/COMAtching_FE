@@ -1,0 +1,16 @@
+.userInfoList_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfoList_body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.pickMebuttonList {
+  display: flex;
+}

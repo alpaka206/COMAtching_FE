@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Admin.css";
 import AdminModal from "../components/AdminModal";
+import UserInfoListItem from "../components/UserInfoListItem";
 
 function Acdommian() {
+  const [userData, setUserData] = useState([]);
+  const [pickValues, setPickValues] = useState({});
+  const [pickMe, setPickMe] = useState(0);
+  const [pickSomeone, setPickSomeone] = useState(0);
   const [showModal, setShowModal] = useState(true);
   const [adminPassword, setAdminPassword] = useState("");
   const [password, setPassword] = useState("");
@@ -12,29 +17,93 @@ function Acdommian() {
     phone: "",
     passwd: "",
   });
-  const handlePasswordSubmit = async (enteredPassword) => {
-    try {
-      const response = await axios.get(
-        `https://onesons.site/inquiry/passwd?password=${enteredPassword}`
-      );
 
-      if (response.data === "valid") {
-        setAdminPassword(enteredPassword);
-      } else {
-        alert("올바르지 않은 비밀번호입니다.");
-      }
-    } catch (error) {
-      console.error("오류 발생:", error);
-    }
+  const handlePickMeIncrement = (email) => {
+    setPickValues((prevValues) => ({
+      ...prevValues,
+      [email]: {
+        ...prevValues[email],
+        pickMe: prevValues[email].pickMe + 1,
+      },
+    }));
   };
-  // const handlePasswordSubmit = (enteredPassword) => {
-  //   if (enteredPassword === "1234") {
-  //     setShowModal(false);
-  //     setAdminPassword(enteredPassword);
-  //   } else {
-  //     alert("올바르지 않은 비밀번호입니다.");
+
+  const handlePickMeDecrement = (email) => {
+    setPickValues((prevValues) => ({
+      ...prevValues,
+      [email]: {
+        ...prevValues[email],
+        pickMe: Math.max(0, prevValues[email].pickMe - 1),
+      },
+    }));
+  };
+
+  const handlePickSomeoneIncrement = (email) => {
+    setPickValues((prevValues) => ({
+      ...prevValues,
+      [email]: {
+        ...prevValues[email],
+        pickSomeone: prevValues[email].pickSomeone + 1,
+      },
+    }));
+  };
+
+  const handlePickSomeoneDecrement = (email) => {
+    setPickValues((prevValues) => ({
+      ...prevValues,
+      [email]: {
+        ...prevValues[email],
+        pickSomeone: Math.max(0, prevValues[email].pickSomeone - 1),
+      },
+    }));
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/comments"
+        );
+        const initialPickValues = {};
+
+        response.data.forEach((user) => {
+          initialPickValues[user.email] = {
+            pickMe: 0,
+            pickSomeone: 0,
+          };
+        });
+
+        setPickValues(initialPickValues);
+        setUserData(response.data);
+      } catch (error) {
+        console.error("오류 발생:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  // const handlePasswordSubmit = async (enteredPassword) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://onesons.site/inquiry/passwd?password=${enteredPassword}`
+  //     );
+
+  //     if (response.data === "valid") {
+  //       setAdminPassword(enteredPassword);
+  //     } else {
+  //       alert("올바르지 않은 비밀번호입니다.");
+  //     }
+  //   } catch (error) {
+  //     console.error("오류 발생:", error);
   //   }
   // };
+  const handlePasswordSubmit = (enteredPassword) => {
+    if (enteredPassword === "1234") {
+      setShowModal(false);
+      setAdminPassword(enteredPassword);
+    } else {
+      alert("올바르지 않은 비밀번호입니다.");
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormPasswd((prevFormData) => ({
@@ -42,39 +111,13 @@ function Acdommian() {
       [name]: value,
     }));
   };
+  const handleConfirmClick = (email) => {
+    // You can perform any additional logic before updating the counts
+    console.log(`Confirm button clicked for email: ${email}`);
 
-  const handleSubmitFindPassword = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.get(
-        `/adminSearchPhone?phone=${formPasswd.phone}`
-      );
-      console.log(response.data);
-      const retrievedPassword = response.data;
-
-      setPassword(retrievedPassword);
-      alert(retrievedPassword);
-    } catch (error) {
-      console.error("오류 발생:", error);
-    }
-  };
-
-  const handleSubmitChangeOpportunity = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post("/adminButton", formPasswd);
-
-      console.log(response.data);
-      const retrievedresult = response.data;
-
-      setResult(retrievedresult);
-      alert(retrievedresult);
-      // Handle the response as needed
-    } catch (error) {
-      console.error("오류 발생:", error);
-    }
+    // Update the counts for the specific email
+    handlePickMeIncrement(email);
+    handlePickSomeoneIncrement(email);
   };
 
   return (
@@ -87,74 +130,34 @@ function Acdommian() {
       {adminPassword && (
         <div>
           <div className="content">
-            <form>
-              <label>
-                <h4 className="findpasswd">연락처를 적으세요</h4>
-                <input
-                  type="text"
-                  className="findpasswd"
-                  value={formPasswd.phone}
-                  name="phone"
-                  onChange={handleChange}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                    }
-                  }}
+            <div className="userInfoList">
+              <div className="userInfoList_header">
+                <h3>이메일</h3>
+                <h3>pick me</h3>
+                <h3>pick someone</h3>
+                <h3>확인</h3>
+                <h3>삭제</h3>
+              </div>
+              {userData.map((user) => (
+                <UserInfoListItem
+                  key={user.id}
+                  email={user.email}
+                  pickMe={pickValues[user.email].pickMe}
+                  pickSomeone={pickValues[user.email].pickSomeone}
+                  pickMeIncrement={() => handlePickMeIncrement(user.email)}
+                  pickMeDecrement={() => handlePickMeDecrement(user.email)}
+                  pickSomeoneIncrement={() =>
+                    handlePickSomeoneIncrement(user.email)
+                  }
+                  pickSomeoneDecrement={() =>
+                    handlePickSomeoneDecrement(user.email)
+                  }
+                  onConfirmClick={() => handleConfirmClick(user.email)}
                 />
-              </label>
-              <button type="submit-button" onClick={handleSubmitFindPassword}>
-                비밀번호 찾기
-              </button>
-            </form>
+              ))}
+            </div>
+          </div>
 
-            {password && (
-              <div>
-                <h4>찾은 비밀번호 :</h4>
-                <p>{password}</p>
-              </div>
-            )}
-          </div>
-          <div className="content">
-            <form>
-              <label>
-                <h4 className="findpasswd">비밀번호를 적으세요</h4>
-                <input
-                  type="text"
-                  className="findpasswd"
-                  value={formPasswd.passwd}
-                  name="passwd"
-                  onChange={handleChange}
-                />
-                <h4 className="findpasswd">pick me 기회 증가</h4>
-                <input
-                  type="text"
-                  className="findpasswd"
-                  value={formPasswd.choose}
-                  name="choose"
-                  onChange={handleChange}
-                />
-                <h4 className="findpasswd">pick someone 기회 증가</h4>
-                <input
-                  type="text"
-                  className="findpasswd"
-                  value={formPasswd.chance}
-                  name="chance"
-                  onChange={handleChange}
-                />
-              </label>
-              <button
-                type="submit-button"
-                onClick={handleSubmitChangeOpportunity}
-              >
-                뽑기 횟수 변경
-              </button>
-              <div>
-                <h4>결과 : </h4>
-                <p>{result}</p>
-              </div>
-            </form>
-          </div>
           <div>
             <div
               className="textDB"

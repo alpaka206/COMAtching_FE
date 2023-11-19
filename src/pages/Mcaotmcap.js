@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import MyInput from "./../components/MyInput";
 import MBTIButton from "../components/MBTIButton";
@@ -7,17 +7,15 @@ import Footer from "../components/Footer";
 import ComatHeader from "../components/ComatHeader";
 import "./Mcaotmcap.css";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { mcaotmcapState, mcaotmcapResultState } from "../Atoms";
 
 function Mcaotmcap() {
   const navigate = useNavigate();
-  const [selectedMBTI, setSelectedMBTI] = useState([]);
-  const [history, setHistory] = useState("");
-  const [sortedMBTI, setSortedMBTI] = useState([]);
-  const [formData, setFormData] = useState({
-    passwd: "",
-    gender: true,
-    mbti: "",
-  });
+  const [mcaotmcapState, setMcaotmcapState] = useRecoilState(mcaotmcapState);
+  const [mcaotmcapResultState, setMcaotmcapResultState] =
+    useRecoilState(mcaotmcapResultState);
+  const { selectedMBTI, history, sortedMBTI, formData } = mcaotmcapState;
 
   useEffect(() => {
     // selectedMBTI 값 변경시 sortedMBTI값 변경
@@ -27,20 +25,31 @@ function Mcaotmcap() {
       ...selectedMBTI.filter((mbti) => mbti === "T" || mbti === "F"),
       ...selectedMBTI.filter((mbti) => mbti === "P" || mbti === "J"),
     ];
-    setSortedMBTI(sortedMBTI);
+    setMcaotmcapState((prevState) => ({
+      ...prevState,
+      sortedMBTI,
+    }));
     console.log("Sorted MBTI:", sortedMBTI);
-  }, [selectedMBTI]);
+  }, [selectedMBTI, setMcaotmcapState]);
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      passwd: e.target.value,
-    });
+    setMcaotmcapState((prevState) => ({
+      ...prevState,
+      formData: {
+        ...prevState.formData,
+        passwd: e.target.value,
+      },
+    }));
   };
+
   const handleGenderSelection = (value) => {
-    setFormData({
-      ...formData,
-      gender: value === "male" ? true : false,
-    });
+    setMcaotmcapState((prevState) => ({
+      ...prevState,
+      formData: {
+        ...prevState.formData,
+        gender: value === "male" ? true : false,
+      },
+    }));
     console.log("Sorted MBTI:", formData);
   };
 
@@ -56,29 +65,38 @@ function Mcaotmcap() {
 
     if (history.includes(category)) {
       // 이미 선택된 카테고리가 있다면, 해당 카테고리에서 선택한 값만 변경
-      setSelectedMBTI((prevMBTI) => {
-        const updatedMBTI = [...prevMBTI];
+      setMcaotmcapState((prevState) => {
+        const updatedMBTI = [...prevState.selectedMBTI];
         updatedMBTI.pop(); // 마지막 항목을 제거
         updatedMBTI.push(value); // 새로운 MBTI 추가
         console.log("Updated MBTI:", updatedMBTI);
-        return updatedMBTI;
+        return {
+          ...prevState,
+          selectedMBTI: updatedMBTI,
+        };
       });
     } else {
       if (selectedMBTI.length >= 2) {
         // 이미 두 개의 MBTI를 선택한 상태이면, 첫 번째 선택한 MBTI를 해제하고 새로운 MBTI 추가
-        setSelectedMBTI((prevMBTI) => {
-          const updatedMBTI = [...prevMBTI];
+        setMcaotmcapState((prevState) => {
+          const updatedMBTI = [...prevState.selectedMBTI];
           updatedMBTI.shift(); // 첫 번째 항목을 제거
           updatedMBTI.push(value); // 새로운 MBTI 추가
           console.log("Updated MBTI:", updatedMBTI);
-          return updatedMBTI;
+          return {
+            ...prevState,
+            selectedMBTI: updatedMBTI,
+            history: [category],
+          };
         });
-        setHistory((prevHistory) => [category]);
         console.log("Updated History:", category);
       } else {
         // 두 개의 MBTI를 선택하지 않은 상태이면, 새로운 MBTI 추가
-        setSelectedMBTI((prevMBTI) => [...prevMBTI, value]);
-        setHistory((prevHistory) => [category]);
+        setMcaotmcapState((prevState) => ({
+          ...prevState,
+          selectedMBTI: [...prevState.selectedMBTI, value],
+          history: [category],
+        }));
         console.log("Updated History:", category);
         console.log("Updated MBTI:", [...selectedMBTI, value]);
       }
@@ -105,16 +123,17 @@ function Mcaotmcap() {
         const generatedSong = response.data.result.song;
         const generatedYear = response.data.result.year;
         const generatedMbti = response.data.result.mbti;
-        navigate("/Mcaotmcapresult", {
-          state: {
-            generatedCode,
-            generatedPhone,
-            generatedDepart,
-            generatedSong,
-            generatedYear,
-            generatedMbti,
-          },
+
+        setMcaotmcapResultState({
+          generatedCode,
+          generatedPhone,
+          generatedDepart,
+          generatedSong,
+          generatedYear,
+          generatedMbti,
         });
+
+        navigate("/Mcaotmcapresult");
       } else {
         alert(generatedMessage);
         return;
