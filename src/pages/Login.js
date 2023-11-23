@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import { userState } from "../Atoms";
 import axios from "axios";
 import MyInput from "../components/MyInput";
 import ComatHeader from "../components/ComatHeader";
@@ -7,47 +10,31 @@ import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
+  const [formData, setFormData] = useRecoilState(userState);
+  const [showPassword, setShowPassword] = useState(false);
 
-  // State variables
-  const [formData, setFormData] = useState({
-    id: "",
-  });
-
-  //   function validateYear(value) {
-  //     return /^\d{0,2}$/.test(value);
-  //   }
-
-  //   function validatePhone(value) {
-  //     return /^\d{0,11}$/.test(value);
-  //   }
-
-  //   function validateSong(value) {
-  //     return /^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,30}$/.test(value);
-  //   }
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const yearAsInt = parseInt(formData.year, 10);
-    const formDataWithIntYear = {
-      ...formData,
-      year: yearAsInt,
-    };
-
     try {
-      const response = await axios.post(
-        "https://onesons.site/register",
-        formDataWithIntYear
-      );
+      const { email, passwd } = formData;
+      const response = await axios.post("https://onesons.site/register", {
+        email,
+        passwd,
+      });
 
-      const generatedPassword = response.data.result.passwd;
-      const generatedSuccess = response.data.isSuccess;
-      const generatedMessage = response.data.message;
+      const { token, isSuccess, message } = response.data;
 
-      if (generatedSuccess === true) {
-        navigate("/Complete", { state: { generatedPassword } });
+      if (isSuccess === true) {
+        // localStorage.setItem("jwtToken", token);
+        document.cookie = `jwtToken=${token}; path=/;`;
+        navigate("/form");
       } else {
-        alert(generatedMessage);
+        alert(message);
       }
     } catch (error) {
       console.error("오류 발생:", error);
@@ -59,25 +46,39 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <ComatHeader destination="/" buttonText="처음으로" />
         <div className="content">
-          <div className="user-id">
+          <div className="user-email">
             <label>
-              <h3>아이디</h3>
-              <MyInput name="user-id" value={formData.id} placeholder="id" />
+              <h3>이메일</h3>
+              <MyInput
+                name="user-email"
+                value={formData.email}
+                placeholder="email"
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+              />
             </label>
           </div>
           <div className="user-passwd">
             <label>
-              <h3>아이디</h3>
-              <MyInput
-                name="user-passwd"
-                value={formData.passwd}
-                placeholder="passwd"
-              />
+              <h3>비밀번호</h3>
+              <div className="password-input">
+                <MyInput
+                  name="user-passwd"
+                  value={formData.passwd}
+                  placeholder="passwd"
+                  type={showPassword ? "text" : "password"}
+                  onChange={(e) =>
+                    setFormData({ ...formData, passwd: e.target.value })
+                  }
+                />
+                <div className="password-toggle" onClick={handleTogglePassword}>
+                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                </div>
+              </div>
             </label>
           </div>
-
-          {/* <button type="submit-button" disabled={!isContactVerified}> */}
-          <button type="submit-button">로그인 ▶</button>
+          <button type="submit-button">로그인</button>
           <div onClick={() => navigate("/Register")}>회원가입하기</div>
         </div>
       </form>

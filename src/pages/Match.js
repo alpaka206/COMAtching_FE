@@ -1,56 +1,40 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import MyInput from "./../components/MyInput";
 import MBTIButton from "../components/MBTIButton";
-import GenderButton from "../components/GenderButton";
 import Footer from "../components/Footer";
 import ComatHeader from "../components/ComatHeader";
-import "./Mcaotmcap.css";
+import "./Match.css";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { mcaotmcapState, mcaotmcapResultState } from "../Atoms";
+import { MatchRecoilState, MatchResultRecoilState } from "../Atoms";
 
-function Mcaotmcap() {
+function Match() {
   const navigate = useNavigate();
-  const [mcaotmcapState, setMcaotmcapState] = useRecoilState(mcaotmcapState);
-  const [mcaotmcapResultState, setMcaotmcapResultState] =
-    useRecoilState(mcaotmcapResultState);
-  const { selectedMBTI, history, sortedMBTI, formData } = mcaotmcapState;
+  const [MatchState, setMatchState] = useRecoilState(MatchRecoilState);
+  const [MatchResultState, setMatchResultState] = useRecoilState(
+    MatchResultRecoilState
+  );
 
   useEffect(() => {
     // selectedMBTI 값 변경시 sortedMBTI값 변경
     const sortedMBTI = [
-      ...selectedMBTI.filter((mbti) => mbti === "E" || mbti === "I"),
-      ...selectedMBTI.filter((mbti) => mbti === "S" || mbti === "N"),
-      ...selectedMBTI.filter((mbti) => mbti === "T" || mbti === "F"),
-      ...selectedMBTI.filter((mbti) => mbti === "P" || mbti === "J"),
+      ...MatchState.selectedMBTI.filter((mbti) => mbti === "E" || mbti === "I"),
+      ...MatchState.selectedMBTI.filter((mbti) => mbti === "S" || mbti === "N"),
+      ...MatchState.selectedMBTI.filter((mbti) => mbti === "T" || mbti === "F"),
+      ...MatchState.selectedMBTI.filter((mbti) => mbti === "P" || mbti === "J"),
     ];
-    setMcaotmcapState((prevState) => ({
-      ...prevState,
-      sortedMBTI,
-    }));
+    setMatchState((prev) => ({ ...prev, sortedMBTI }));
     console.log("Sorted MBTI:", sortedMBTI);
-  }, [selectedMBTI, setMcaotmcapState]);
+  }, [MatchState.selectedMBTI]);
 
   const handleChange = (e) => {
-    setMcaotmcapState((prevState) => ({
-      ...prevState,
+    setMatchState((prev) => ({
+      ...prev,
       formData: {
-        ...prevState.formData,
+        ...prev.formData,
         passwd: e.target.value,
       },
     }));
-  };
-
-  const handleGenderSelection = (value) => {
-    setMcaotmcapState((prevState) => ({
-      ...prevState,
-      formData: {
-        ...prevState.formData,
-        gender: value === "male" ? true : false,
-      },
-    }));
-    console.log("Sorted MBTI:", formData);
   };
 
   const handleMBTISelection = (value) => {
@@ -63,42 +47,35 @@ function Mcaotmcap() {
         ? "TF"
         : "PJ";
 
-    if (history.includes(category)) {
+    if (MatchState.history.includes(category)) {
       // 이미 선택된 카테고리가 있다면, 해당 카테고리에서 선택한 값만 변경
-      setMcaotmcapState((prevState) => {
-        const updatedMBTI = [...prevState.selectedMBTI];
+      setMatchState((prev) => {
+        const updatedMBTI = [...prev.selectedMBTI];
         updatedMBTI.pop(); // 마지막 항목을 제거
         updatedMBTI.push(value); // 새로운 MBTI 추가
         console.log("Updated MBTI:", updatedMBTI);
-        return {
-          ...prevState,
-          selectedMBTI: updatedMBTI,
-        };
+        // return updatedMBTI;
+        return { ...prev, selectedMBTI: updatedMBTI };
       });
     } else {
-      if (selectedMBTI.length >= 2) {
+      if (MatchState.selectedMBTI.length >= 2) {
         // 이미 두 개의 MBTI를 선택한 상태이면, 첫 번째 선택한 MBTI를 해제하고 새로운 MBTI 추가
-        setMcaotmcapState((prevState) => {
-          const updatedMBTI = [...prevState.selectedMBTI];
-          updatedMBTI.shift(); // 첫 번째 항목을 제거
-          updatedMBTI.push(value); // 새로운 MBTI 추가
+        setMatchState((prev) => {
+          const updatedMBTI = [...prev.selectedMBTI];
+          updatedMBTI.shift();
+          updatedMBTI.push(value);
           console.log("Updated MBTI:", updatedMBTI);
-          return {
-            ...prevState,
-            selectedMBTI: updatedMBTI,
-            history: [category],
-          };
+          return { ...prev, selectedMBTI: updatedMBTI, history: [category] };
         });
         console.log("Updated History:", category);
       } else {
-        // 두 개의 MBTI를 선택하지 않은 상태이면, 새로운 MBTI 추가
-        setMcaotmcapState((prevState) => ({
-          ...prevState,
-          selectedMBTI: [...prevState.selectedMBTI, value],
+        setMatchState((prev) => ({
+          ...prev,
+          selectedMBTI: [...prev.selectedMBTI, value],
           history: [category],
         }));
         console.log("Updated History:", category);
-        console.log("Updated MBTI:", [...selectedMBTI, value]);
+        console.log("Updated MBTI:", [...MatchState.selectedMBTI, value]);
       }
     }
   };
@@ -107,35 +84,27 @@ function Mcaotmcap() {
     e.preventDefault();
 
     try {
-      const response = await axios.get("/match", {
+      const response = await axios.get("https://onesons.site/match", {
         params: {
-          mbti: sortedMBTI,
-          passwd: formData.passwd,
-          gender: formData.gender,
+          mbti: MatchState.sortedMBTI,
         },
       });
-      const generatedMessage = response.data.message;
-      const generatedCode = response.data.code;
-      const generatedSuccess = response.data.isSuccess;
-      if (generatedSuccess === true) {
-        const generatedPhone = response.data.result.phone;
-        const generatedDepart = response.data.result.depart;
-        const generatedSong = response.data.result.song;
-        const generatedYear = response.data.result.year;
-        const generatedMbti = response.data.result.mbti;
 
-        setMcaotmcapResultState({
-          generatedCode,
-          generatedPhone,
-          generatedDepart,
-          generatedSong,
-          generatedYear,
-          generatedMbti,
+      const { message, code, isSuccess, result } = response.data;
+
+      if (isSuccess === true) {
+        const { phone, depart, song, year, mbti } = result;
+        setMatchResultState({
+          generatedCode: code,
+          generatedPhone: phone,
+          generatedDepart: depart,
+          generatedSong: song,
+          generatedYear: year,
+          generatedMbti: mbti,
         });
-
-        navigate("/Mcaotmcapresult");
+        navigate("/Matchresult");
       } else {
-        alert(generatedMessage);
+        alert(message);
         return;
       }
     } catch (error) {
@@ -148,103 +117,97 @@ function Mcaotmcap() {
       <form onSubmit={handleSubmit}>
         <ComatHeader destination="/check" buttonText="조회하기" />
         <div className="content">
-          <div>
+          {/* <div>
             <label>
               <h4 className="mcaotext">비밀번호를 입력하세요.</h4>
               <MyInput
                 name="passwd"
-                value={formData.passwd}
+                value={MatchState.formData.passwd}
                 onChange={handleChange}
                 placeholder="* * * * * *"
               />
             </label>
-          </div>
+          </div> */}
 
-          <div>
+          {/* <div>
             <label>
-              <h4 className="mcaotext">원하는 매칭상대를 선택하세요!</h4>
               <div className="gender-button-container">
                 <GenderButton
-                  isActive={formData.gender}
+                  isActive={MatchState.formData.gender}
                   value="male"
-                  onClick={handleGenderSelection}
+                  onClick={() => handleGenderSelection("male")}
                   label="남자"
                   className="gender-button"
                 />
                 <GenderButton
-                  isActive={!formData.gender}
+                  isActive={!MatchState.formData.gender}
                   value="female"
-                  onClick={handleGenderSelection}
+                  onClick={() => handleGenderSelection("female")}
                   label="여자"
                   className="gender-button"
                 />
               </div>
             </label>
-          </div>
+          </div> */}
           <br />
           <br />
           <div>
             <label>
+              <h4 className="mcaotext">원하는 매칭상대를 선택하세요!</h4>
               <div className="mbtidiv">
                 <div className="mbtibutton-container">
                   {/* 첫 번째 열 */}
                   <div className="mbtibutton-column">
                     <MBTIButton
-                      isActive={sortedMBTI.includes("E")}
+                      isActive={MatchState.sortedMBTI.includes("E")}
                       onClick={() => handleMBTISelection("E")}
                       label="E"
                       className="mbtibutton"
                     />
                     <MBTIButton
-                      isActive={sortedMBTI.includes("I")}
+                      isActive={MatchState.sortedMBTI.includes("I")}
                       onClick={() => handleMBTISelection("I")}
                       label="I"
                       className="mbtibutton"
                     />
                   </div>
-
-                  {/* 두 번째 열 */}
                   <div className="mbtibutton-column">
                     <MBTIButton
-                      isActive={sortedMBTI.includes("N")}
+                      isActive={MatchState.sortedMBTI.includes("N")}
                       onClick={() => handleMBTISelection("N")}
                       label="N"
                       className="mbtibutton"
                     />
                     <MBTIButton
-                      isActive={sortedMBTI.includes("S")}
+                      isActive={MatchState.sortedMBTI.includes("S")}
                       onClick={() => handleMBTISelection("S")}
                       label="S"
                       className="mbtibutton"
                     />
                   </div>
-
-                  {/* 세 번째 열 */}
                   <div className="mbtibutton-column">
                     <MBTIButton
-                      isActive={sortedMBTI.includes("T")}
+                      isActive={MatchState.sortedMBTI.includes("T")}
                       onClick={() => handleMBTISelection("T")}
                       label="T"
                       className="mbtibutton"
                     />
                     <MBTIButton
-                      isActive={sortedMBTI.includes("F")}
+                      isActive={MatchState.sortedMBTI.includes("F")}
                       onClick={() => handleMBTISelection("F")}
                       label="F"
                       className="mbtibutton"
                     />
                   </div>
-
-                  {/* 네 번째 열 */}
                   <div className="mbtibutton-column">
                     <MBTIButton
-                      isActive={sortedMBTI.includes("P")}
+                      isActive={MatchState.sortedMBTI.includes("P")}
                       onClick={() => handleMBTISelection("P")}
                       label="P"
                       className="mbtibutton"
                     />
                     <MBTIButton
-                      isActive={sortedMBTI.includes("J")}
+                      isActive={MatchState.sortedMBTI.includes("J")}
                       onClick={() => handleMBTISelection("J")}
                       label="J"
                       className="mbtibutton"
@@ -303,4 +266,4 @@ function Mcaotmcap() {
   );
 }
 
-export default Mcaotmcap;
+export default Match;

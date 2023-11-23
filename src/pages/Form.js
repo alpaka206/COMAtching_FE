@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import MyInput from "../components/MyInput";
 import MBTIButton from "../components/MBTIButton";
@@ -6,6 +6,15 @@ import GenderButton from "../components/GenderButton";
 import ComatHeader from "../components/ComatHeader";
 import majorCategories from "../data/majorCategories";
 import { validateForm } from "../myfunction/formValidation";
+import { useRecoilState } from "recoil";
+import {
+  userState,
+  selectedMBTIState,
+  contactMethodState,
+  selectedCategoryState,
+  selectedMajorState,
+  isContactVerifiedState,
+} from "../Atoms";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
@@ -13,22 +22,16 @@ function Form() {
   const navigate = useNavigate();
 
   // State variables
-  const [formData, setFormData] = useState({
-    depart: "",
-    year: "",
-    phone: "",
-    song: "",
-    gender: true,
-    mbti: "",
-  });
-  const [contactMethod, setContactMethod] = useState("phone");
-  const [selectedEI, setSelectedEI] = useState("");
-  const [selectedSN, setSelectedSN] = useState("");
-  const [selectedTF, setSelectedTF] = useState("");
-  const [selectedPJ, setSelectedPJ] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedMajor, setSelectedMajor] = useState("");
-  const [isContactVerified, setIsContactVerified] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
+  const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState);
+  const [contactMethod, setContactMethod] = useRecoilState(contactMethodState);
+  const [selectedCategory, setSelectedCategory] = useRecoilState(
+    selectedCategoryState
+  );
+  const [selectedMajor, setSelectedMajor] = useRecoilState(selectedMajorState);
+  const [isContactVerified, setIsContactVerified] = useRecoilState(
+    isContactVerifiedState
+  );
 
   function validateYear(value) {
     return /^\d{0,2}$/.test(value);
@@ -61,10 +64,7 @@ function Form() {
     } else if (name === "song" && !validateSong(value)) {
       alert("노래에는 특수기호를 쓸수 없습니다");
     } else {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
+      setUser((prevUser) => ({ ...prevUser, [name]: value }));
     }
   };
 
@@ -73,10 +73,10 @@ function Form() {
   };
 
   const handleGenderSelection = (value) => {
-    setFormData({
-      ...formData,
+    setUser((prevUser) => ({
+      ...prevUser,
       gender: value === "male" ? true : false,
-    });
+    }));
   };
 
   const handleMBTISelection = (value) => {
@@ -90,23 +90,17 @@ function Form() {
         : "PJ";
 
     // Update the corresponding state variable with the selected value
-    if (category === "EI") {
-      setSelectedEI(value);
-    } else if (category === "SN") {
-      setSelectedSN(value);
-    } else if (category === "TF") {
-      setSelectedTF(value);
-    } else if (category === "PJ") {
-      setSelectedPJ(value);
-    }
-
+    setSelectedMBTI((prevMBTI) => ({
+      ...prevMBTI,
+      [category]: value,
+    }));
     // Update formData's mbti with the selected preferences
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      mbti: `${category === "EI" ? value : selectedEI}${
-        category === "SN" ? value : selectedSN
-      }${category === "TF" ? value : selectedTF}${
-        category === "PJ" ? value : selectedPJ
+    setUser((prevUser) => ({
+      ...prevUser,
+      mbti: `${category === "EI" ? value : selectedMBTI.EI}${
+        category === "SN" ? value : selectedMBTI.SN
+      }${category === "TF" ? value : selectedMBTI.TF}${
+        category === "PJ" ? value : selectedMBTI.PJ
       }`,
     }));
   };
@@ -114,23 +108,23 @@ function Form() {
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
     setSelectedMajor("");
-    setFormData({
-      ...formData,
+    setUser((prevUser) => ({
+      ...prevUser,
       depart: e.target.value,
-    });
+    }));
   };
 
   const handleMajorChange = (e) => {
     setSelectedMajor(e.target.value);
-    setFormData({
-      ...formData,
+    setUser((prevUser) => ({
+      ...prevUser,
       depart: e.target.value,
-    });
+    }));
   };
 
   const checkIfExists = async () => {
     const response = await axios.get(
-      `https://onesons.site/register?phone=${formData.phone}`
+      `https://onesons.site/register?phone=${user.phone}`
     );
     return response;
   };
@@ -159,15 +153,13 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !validateForm(formData, selectedMajor, contactMethod, isContactVerified)
-    ) {
+    if (!validateForm(user, selectedMajor, contactMethod, isContactVerified)) {
       return;
     }
 
-    const yearAsInt = parseInt(formData.year, 10);
+    const yearAsInt = parseInt(user.year, 10);
     const formDataWithIntYear = {
-      ...formData,
+      ...user,
       year: yearAsInt,
     };
 
@@ -177,14 +169,11 @@ function Form() {
         formDataWithIntYear
       );
 
-      const generatedPassword = response.data.result.passwd;
-      const generatedSuccess = response.data.isSuccess;
-      const generatedMessage = response.data.message;
-
-      if (generatedSuccess === true) {
-        navigate("/Complete", { state: { generatedPassword } });
+      if (response.data.isSuccess === true) {
+        setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }));
+        navigate("/");
       } else {
-        alert(generatedMessage);
+        alert(response.data.message);
       }
     } catch (error) {
       console.error("오류 발생:", error);
@@ -249,7 +238,7 @@ function Form() {
               <h3>학번</h3>
               <MyInput
                 name="year"
-                value={formData.year}
+                value={user.year}
                 onChange={handleChange}
                 placeholder="00학번부터 23학번까지 가능합니다 ex)23"
               />
@@ -294,7 +283,7 @@ function Form() {
                 <label>
                   <MyInput
                     name="phone"
-                    value={formData.phone}
+                    value={user.phone}
                     onChange={handleChange}
                     placeholder="ex)01012345678"
                   />
@@ -310,7 +299,7 @@ function Form() {
                 <label>
                   <MyInput
                     name="phone"
-                    value={formData.phone}
+                    value={user.phone}
                     onChange={handleChange}
                     placeholder="ex)cuk_coma (@는 빼고 넣어주세요)"
                   />
@@ -333,7 +322,7 @@ function Form() {
               <h3>좋아하는 노래</h3>
               <MyInput
                 name="song"
-                value={formData.song}
+                value={user.song}
                 onChange={handleChange}
                 placeholder="ex)antifreeze"
                 className="song-input"
@@ -345,14 +334,14 @@ function Form() {
               <h3>성별</h3>
               <div className="gender-button-container">
                 <GenderButton
-                  isActive={formData.gender}
+                  isActive={user.gender}
                   value="male"
                   onClick={handleGenderSelection}
                   label="남자"
                   className="gender-button"
                 />
                 <GenderButton
-                  isActive={!formData.gender}
+                  isActive={!user.gender}
                   value="female"
                   onClick={handleGenderSelection}
                   label="여자"
@@ -368,13 +357,13 @@ function Form() {
                 {/* 첫 번째 열 */}
                 <div className="mbtibutton-column">
                   <MBTIButton
-                    isActive={formData.mbti.includes("E")}
+                    isActive={user.mbti.includes("E")}
                     onClick={() => handleMBTISelection("E")}
                     label="E"
                     className="mbtibutton"
                   />
                   <MBTIButton
-                    isActive={formData.mbti.includes("I")}
+                    isActive={user.mbti.includes("I")}
                     onClick={() => handleMBTISelection("I")}
                     label="I"
                     className="mbtibutton"
@@ -384,13 +373,13 @@ function Form() {
                 {/* 두 번째 열 */}
                 <div className="mbtibutton-column">
                   <MBTIButton
-                    isActive={formData.mbti.includes("N")}
+                    isActive={user.mbti.includes("N")}
                     onClick={() => handleMBTISelection("N")}
                     label="N"
                     className="mbtibutton"
                   />
                   <MBTIButton
-                    isActive={formData.mbti.includes("S")}
+                    isActive={user.mbti.includes("S")}
                     onClick={() => handleMBTISelection("S")}
                     label="S"
                     className="mbtibutton"
@@ -400,13 +389,13 @@ function Form() {
                 {/* 세 번째 열 */}
                 <div className="mbtibutton-column">
                   <MBTIButton
-                    isActive={formData.mbti.includes("T")}
+                    isActive={user.mbti.includes("T")}
                     onClick={() => handleMBTISelection("T")}
                     label="T"
                     className="mbtibutton"
                   />
                   <MBTIButton
-                    isActive={formData.mbti.includes("F")}
+                    isActive={user.mbti.includes("F")}
                     onClick={() => handleMBTISelection("F")}
                     label="F"
                     className="mbtibutton"
@@ -416,13 +405,13 @@ function Form() {
                 {/* 네 번째 열 */}
                 <div className="mbtibutton-column">
                   <MBTIButton
-                    isActive={formData.mbti.includes("P")}
+                    isActive={user.mbti.includes("P")}
                     onClick={() => handleMBTISelection("P")}
                     label="P"
                     className="mbtibutton"
                   />
                   <MBTIButton
-                    isActive={formData.mbti.includes("J")}
+                    isActive={user.mbti.includes("J")}
                     onClick={() => handleMBTISelection("J")}
                     label="J"
                     className="mbtibutton"

@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import MyInput from "../components/MyInput";
 import ComatHeader from "../components/ComatHeader";
 import { useNavigate } from "react-router-dom";
-import { formDataState } from "../Atoms";
+import { userState } from "../Atoms";
 import "./Register.css";
 
 function Register() {
   const navigate = useNavigate();
 
   // State variables
-  const [formData, setFormData] = useRecoilState(formDataState);
-
-  //   function validateYear(value) {
-  //     return /^\d{0,2}$/.test(value);
-  //   }
-
-  //   function validatePhone(value) {
-  //     return /^\d{0,11}$/.test(value);
-  //   }
-
-  //   function validateSong(value) {
-  //     return /^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,30}$/.test(value);
-  //   }
+  const [formData, setFormData] = useRecoilState(userState);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordCheck, setShowPasswordCheck] = useState(false);
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+  const handleTogglePasswordCheck = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,14 +31,10 @@ function Register() {
         formData
       );
 
-      const generatedPassword = response.data.result.passwd;
-      const generatedSuccess = response.data.isSuccess;
-      const generatedMessage = response.data.message;
-
-      if (generatedSuccess === true) {
-        navigate("/Form", { state: { generatedPassword } });
+      if (response.data.isSuccess === true) {
+        navigate("/Form");
       } else {
-        alert(generatedMessage);
+        alert(response.data.message);
       }
     } catch (error) {
       console.error("오류 발생:", error);
@@ -82,29 +75,47 @@ function Register() {
               />
             </label>
           </div>
-
-          {/* <button type="submit-button" disabled={!isContactVerified}> */}
-
-          <div className="user-email">
+          <button type="submit-button">확인</button>
+          <div className="user-passwd">
             <label>
               <h3>비밀번호</h3>
-              <MyInput
-                name="user-email"
-                value={formData.email}
-                placeholder="email"
-              />
+              <div className="password-input">
+                <MyInput
+                  name="user-passwd"
+                  value={formData.passwd}
+                  placeholder="passwd"
+                  type={showPassword ? "text" : "password"}
+                  onChange={(e) =>
+                    setFormData({ ...formData, passwd: e.target.value })
+                  }
+                />
+                <div className="password-toggle" onClick={handleTogglePassword}>
+                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                </div>
+              </div>
             </label>
-          </div>
-          <div className="user-email">
             <label>
-              <h3>비밀번호 확인</h3>
-              <MyInput
-                name="user-email"
-                value={formData.email}
-                placeholder="email"
-              />
+              <h3>비밀번호확인</h3>
+              <div className="password-input">
+                <MyInput
+                  name="user-passwd"
+                  value={formData.passwd}
+                  placeholder="passwd"
+                  type={showPassword ? "text" : "password"}
+                  onChange={(e) =>
+                    setFormData({ ...formData, passwd: e.target.value })
+                  }
+                />
+                <div
+                  className="password-toggle"
+                  onClick={handleTogglePasswordCheck}
+                >
+                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                </div>
+              </div>
             </label>
           </div>
+
           <button type="submit-button">회원가입</button>
         </div>
       </form>

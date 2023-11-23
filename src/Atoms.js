@@ -15,17 +15,66 @@ export const showAgreementState = atom({
   default: false,
 });
 
-export const formDataState = atom({
-  key: "formDataState",
+export const userState = atom({
+  key: "userState",
   default: {
     email: "",
     passwd: "",
-    // Add other fields as needed
+    depart: "",
+    year: "",
+    phone: "",
+    song: "",
+    gender: true,
+    mbti: "",
+    isLoggedIn: false,
   },
 });
 
-export const mcaotmcapState = atom({
-  key: "mcaotmcapState",
+// export const formDataState = atom({
+//   key: "formDataState",
+//   default: {
+//     depart: "",
+//     year: "",
+//     phone: "",
+//     song: "",
+//     gender: true,
+//     mbti: "",
+//   },
+// });
+
+export const selectedMBTIState = atom({
+  key: "selectedMBTIState",
+  default: {
+    EI: "",
+    SN: "",
+    TF: "",
+    PJ: "",
+  },
+});
+
+export const contactMethodState = atom({
+  key: "contactMethodState",
+  default: "phone",
+});
+
+export const selectedCategoryState = atom({
+  key: "selectedCategoryState",
+  default: "",
+});
+
+export const selectedMajorState = atom({
+  key: "selectedMajorState",
+  default: "",
+});
+
+export const isContactVerifiedState = atom({
+  key: "isContactVerifiedState",
+  // default: false,
+  default: true,
+});
+
+export const MatchRecoilState = atom({
+  key: "mcaotmcapRecoilState",
   default: {
     selectedMBTI: [],
     history: "",
@@ -38,8 +87,8 @@ export const mcaotmcapState = atom({
   },
 });
 
-export const generatedDataState = atom({
-  key: "generatedDataState",
+export const MatchResultRecoilState = atom({
+  key: "mcaotmcapResultRecoilState",
   default: {
     generatedPhone: null,
     generatedDepart: null,
@@ -48,4 +97,9 @@ export const generatedDataState = atom({
     generatedMbti: null,
     generatedCode: null,
   },
+});
+
+export const generatedDataState = atom({
+  key: "generatedDataState",
+  default: [],
 });

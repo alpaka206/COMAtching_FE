@@ -1,9 +1,16 @@
 import React from "react";
 
-const MyInput = ({ name, value, onChange, onKeyDown, placeholder }) => {
+const MyInput = ({
+  type = "text",
+  name,
+  value,
+  onChange,
+  onKeyDown,
+  placeholder,
+}) => {
   return (
     <input
-      type="text"
+      type={type}
       name={name}
       value={value}
       onChange={onChange}

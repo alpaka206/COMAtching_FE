@@ -4,9 +4,11 @@ import axios from "axios";
 import Footer from "../components/Footer";
 import ComatHeader from "../components/ComatHeader";
 import { numParticipantsState } from "../Atoms";
-import "./Test.css";
+import "./MainpageLogin.css";
+import { useNavigate } from "react-router-dom";
 
-function Test() {
+function MainpageLogin() {
+  const navigate = useNavigate();
   const [numParticipants, setNumParticipants] =
     useRecoilState(numParticipantsState);
 
@@ -25,6 +27,15 @@ function Test() {
 
   const handleVisitInstagram = () => {
     window.open("https://www.instagram.com/cuk_coma", "_blank"); // "_blank"를 추가하여 새 창에서 열도록 설정
+  };
+  const handleVisitmatch = () => {
+    navigate("/match"); // "_blank"를 추가하여 새 창에서 열도록 설정
+  };
+  const handleVisitLoading = () => {
+    navigate("/Loading"); // "_blank"를 추가하여 새 창에서 열도록 설정
+  };
+  const handleVisitcheckresult = () => {
+    navigate("/checkresult"); // "_blank"를 추가하여 새 창에서 열도록 설정
   };
 
   return (
@@ -63,7 +74,7 @@ function Test() {
         </div>
 
         <div>
-          <button className="submit-button" onClick={handleVisitInstagram}>
+          <button className="submit-button" onClick={handleVisitmatch}>
             매칭하기
             {numParticipants !== null && (
               <div
@@ -83,13 +94,13 @@ function Test() {
           </button>
         </div>
         <div>
-          <button className="submit-button" onClick={handleVisitInstagram}>
+          <button className="submit-button" onClick={handleVisitLoading}>
             기회추가
           </button>
         </div>
         <div className="button-group">
           <div>
-            <button className="submit-button" onClick={handleVisitInstagram}>
+            <button className="submit-button" onClick={handleVisitcheckresult}>
               조회하기
             </button>
           </div>
@@ -105,4 +116,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default MainpageLogin;

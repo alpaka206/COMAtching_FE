@@ -1,11 +1,27 @@
-import "./Checkresult.css";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useRecoilState } from "recoil";
 import Footer from "../components/Footer";
 import ComatHeader from "../components/ComatHeader";
-import { useLocation } from "react-router-dom";
+import { generatedDataState } from "../Atoms";
+import "./Checkresult.css";
 
 function Checkresult() {
-  const location = useLocation();
-  const generatedData = location.state?.data || [];
+  const [generatedData, setGeneratedData] = useRecoilState(generatedDataState);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("/inquiry");
+      const data = response.data.result || [];
+      setGeneratedData(data);
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+  };
 
   return (
     <div className="container">

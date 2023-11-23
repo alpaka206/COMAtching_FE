@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import "./Mainpage.css";
+import "./MainpageUnLogin.css";
 import ComatHeader from "../components/ComatHeader";
 import Footer from "./../components/Footer";
 import FadeLoader from "react-spinners/FadeLoader";
 
-function MainPage() {
+function Loading() {
   useEffect(() => {
     // Simulate an asynchronous operation (e.g., fetching data) that sets loading to false when completed.
     const fetchData = async () => {
@@ -29,4 +29,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default Loading;
