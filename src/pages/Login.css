@@ -1,0 +1,23 @@
+.user-email,
+.user-passwd {
+  margin-bottom: 20px;
+}
+.password-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+
+  /* 추가된 스타일: 입력창과 아이콘이 같은 테두리에 속하도록 설정 */
+}
+.password-input input {
+  flex: 1;
+  border: none;
+  padding: 8px;
+}
+
+.password-toggle {
+  cursor: pointer;
+  padding: 8px;
+}

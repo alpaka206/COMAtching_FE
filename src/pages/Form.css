@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+.container {
+  min-height: 100vh;
+  font-family: Pretendard;
+  text-align: center;
+  background-image: url("../images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.content {
+  text-align: center;
+  background: #ffffff;
+  width: 90%;
+  margin: auto;
+=======
 @media (max-width: 768px) {
   .container {
     background-size: cover;
@@ -28,11 +46,22 @@
   background: #ffffff;
   width: 90%;
   margin-top: 27px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   display: inline-block;
   border-radius: 32px;
   margin-bottom: 50px;
 }
 
+<<<<<<< HEAD
+h3 {
+  margin-left: 14px;
+  margin-bottom: 7px;
+  text-align: left;
+}
+
+h3[class="major"] {
+  margin-left: 0px;
+=======
 h4 {
   margin-left: 14px;
   margin-bottom: 7px;
@@ -45,27 +74,44 @@ h4[class="major"] {
   margin-left: 0px;
   font-size: 18px;
   font-weight: bold;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 }
 .label-container {
   display: flex;
   align-items: center;
 }
 
+<<<<<<< HEAD
+/* .label-container h3 {
+  width: 200px;
+} */
+=======
 .label-container h3 {
   width: 200px;
 }
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 .label-container label {
   flex-basis: 30%;
   margin-bottom: 0;
 }
 
 input {
+<<<<<<< HEAD
+  box-sizing: border-box;
+  width: calc(100% - 44px);
+  height: 40px;
+=======
   width: 87%;
   height: 24px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   padding: 5px 8px 5px 8px;
   border: 1px solid #ccc;
   border-radius: 30px;
 }
+<<<<<<< HEAD
+input[name="phone"] {
+  width: calc(100% - 44px);
+=======
 input:focus {
   border: 1px solid #ff4d61; /* Change to the desired color */
 }
@@ -73,6 +119,7 @@ input[name="phone"] {
   width: 67%;
   height: 24px;
   padding: 5px 8px 5px 8px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   margin-left: 14px;
   margin-top: 7px;
   border: 1px solid #ccc;
@@ -82,12 +129,59 @@ input[name="phone"] {
 input::placeholder {
   color: #a5a5a5;
 }
+<<<<<<< HEAD
+.depart-major {
+  display: flex;
+  flex-wrap: wrap; /* Add this line */
+}
+.depart {
+  width: calc(30% - 22px);
+  margin-right: 22px;
+}
+.major {
+  width: calc(70% - 22px);
+}
+/* .major-select {
+  padding-left: 19px;
+} */
+select[name="depart"] {
+  display: block;
+  width: calc(100% - 22px);
+  height: 35px;
+  padding-left: 7px;
+  border: 1px solid #c1bebe;
+  border-radius: 30px;
+  margin-left: 22px;
+  /* margin-left: 14px;
+=======
 select[name="depart"] {
   margin-left: 14px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   padding-left: 7px;
   width: 100px;
   height: 35px;
   border-radius: 30px;
+<<<<<<< HEAD
+  border: 1px solid #c1bebe; */
+}
+select[name="major"] {
+  display: block;
+  width: 100%;
+  height: 35px;
+  padding-left: 7px;
+  border: 1px solid #c1bebe;
+  border-radius: 30px;
+
+  /* width: 200px;
+  padding-left: 7px;
+  height: 35px;
+  border: 1px solid #c1bebe;
+  border-radius: 30px; */
+}
+/* .button-group label {
+  margin-right: 10px;
+} */
+=======
   border: 1px solid #c1bebe;
 }
 select[name="major"] {
@@ -100,6 +194,7 @@ select[name="major"] {
 .button-group label {
   margin-right: 10px;
 }
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 
 button {
   padding: 8px 16px;
@@ -119,6 +214,84 @@ button[type="submit-button"] {
   font-weight: bold;
 }
 
+<<<<<<< HEAD
+.phonebutton {
+  width: 15%;
+  height: 28px;
+  border-radius: 40px;
+  background-color: "#ffffff";
+  border: none;
+  margin-top: 17px;
+  margin-right: 6px;
+}
+
+.phonebutton:focus {
+  background-color: #ff775e;
+  outline: none;
+}
+
+.phonebutton:not(:last-child) {
+  border-right: 2px solid #e0e0e0;
+  background-color: "#ffffff";
+}
+.song-input {
+  width: 100%;
+  padding: 8px;
+}
+.gender-button {
+  width: 100%;
+  height: 54px;
+  font-size: 22px;
+  margin: 0px 22px;
+  border-radius: 40px;
+  background-color: #ff775e;
+  color: #ffffff;
+  border: none;
+}
+.gender-button.inactive {
+  width: 100%;
+  height: 54px;
+  font-size: 22px;
+  margin: 0px 22px;
+  border-radius: 40px;
+  background-color: #ffffff;
+  color: #a5a5a5;
+  border: 2px solid #e0e0e0;
+}
+
+.gender-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mbtibutton-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+.mbtibutton-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+}
+.mbtibutton {
+  width: 90%;
+  height: 54px;
+  font-size: 20px;
+  margin: 0px 6px 10px 6px;
+  border-radius: 40px;
+  background-color: #ffffff;
+  color: #a5a5a5;
+  border: 2px solid #e0e0e0;
+}
+
+.mbtibutton.active {
+  background-color: #ff775e;
+  color: #ffffff;
+  border: none;
+=======
 button.phonebutton {
   width: 15%;
   height: 28px;
@@ -138,12 +311,17 @@ button.mbtibutton {
   font-size: 20px;
   margin: 0px 0px 0px 0px;
   border-radius: 40px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 }
 button.checkbutton {
   margin-right: 14px;
   width: 20%;
   margin-top: 6px;
+<<<<<<< HEAD
+  height: 40px;
+=======
   height: 36px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 40px;
@@ -164,6 +342,18 @@ button.checkbutton {
   padding: 0px 10px 0px 10px;
 }
 
+<<<<<<< HEAD
+.check-message {
+  text-align: left;
+  margin-left: 19px;
+  margin-top: 5px;
+  color: red;
+}
+
+.hidden {
+  display: none;
+=======
 .look-button {
   background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 }

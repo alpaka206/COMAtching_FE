@@ -1,21 +1,4 @@
-<<<<<<< HEAD
-.userInfoList_header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.userInfoList_body {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.pickMebuttonList {
-  display: flex;
-=======
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .container {
     background-size: cover;
   }
@@ -23,15 +6,8 @@
   .content {
     width: 100%;
   }
-}
-@font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-.container {
+} */
+/* .container {
   height: 100vh;
   width: 100vw;
   font-family: Pretendard;
@@ -39,16 +15,16 @@
   background-image: url("../images/background_iPad.png");
   background-repeat: no-repeat;
   background-size: cover;
-}
+} */
 
-.content {
+/* .content {
   background: #ffffff;
   width: 90%;
   margin-top: 27px;
   display: inline-block;
   border-radius: 32px;
   margin-bottom: 50px;
-}
+} */
 
 .mcaotext {
   margin-left: 47px;
@@ -58,7 +34,7 @@
   text-align: left;
 }
 
-.passwd {
+input[name="passwd"] {
   width: 87%;
   height: 89px;
   margin-top: 31px;
@@ -85,27 +61,4 @@ button[type="submit-button"] {
   border-radius: 0 0 32px 32px;
   font-size: 32px;
   font-weight: bold;
-}
-button.mcaogenderbutton {
-  width: 43%;
-  height: 89px;
-  font-size: 32px;
-  margin: 33px 12px 33px 12px;
-  border-radius: 40px;
-}
-
-button.mcaombtibutton {
-  width: 40%;
-  height: 89px;
-  font-size: 32px;
-  margin: 33px 12px 33px 12px;
-  border-radius: 40px;
-}
-
-.look-button {
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-}
-.mcaombti {
-  padding: 0px 33px 0px 33px;
->>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 }
