@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-.userInfoList_header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.userInfoList_body {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.pickMebuttonList {
-  display: flex;
-=======
 @media (max-width: 768px) {
   .container {
     background-size: cover;
@@ -44,36 +27,25 @@
 .content {
   background: #ffffff;
   width: 90%;
-  margin-top: 27px;
+  margin-top: 130px;
   display: inline-block;
   border-radius: 32px;
   margin-bottom: 50px;
 }
 
-.mcaotext {
-  margin-left: 47px;
-  margin-bottom: 7px;
-  font-size: 32px;
-  font-weight: bold;
-  text-align: left;
-}
-
-.passwd {
-  width: 87%;
-  height: 89px;
-  margin-top: 31px;
+.checkpasswd {
+  width: 67%;
+  height: 47px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   padding: 10px 8px 0px 8px;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-radius: 12px;
   font-size: 30px;
   text-align: center;
 }
 input::placeholder {
   color: #a5a5a5;
-}
-
-.button-group label {
-  margin-right: 10px;
 }
 
 button[type="submit-button"] {
@@ -86,20 +58,12 @@ button[type="submit-button"] {
   font-size: 32px;
   font-weight: bold;
 }
-button.mcaogenderbutton {
+button.FinalCheckbutton {
   width: 43%;
-  height: 89px;
+  height: 56px;
   font-size: 32px;
-  margin: 33px 12px 33px 12px;
-  border-radius: 40px;
-}
-
-button.mcaombtibutton {
-  width: 40%;
-  height: 89px;
-  font-size: 32px;
-  margin: 33px 12px 33px 12px;
-  border-radius: 40px;
+  margin: 0px 6px 15px 6px;
+  border-radius: 15px;
 }
 
 .look-button {
@@ -107,5 +71,10 @@ button.mcaombtibutton {
 }
 .mcaombti {
   padding: 0px 33px 0px 33px;
->>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
+}
+.passwdchecktext {
+  margin-bottom: 7px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
 }

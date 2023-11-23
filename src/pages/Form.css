@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .container {
   min-height: 100vh;
   font-family: Pretendard;
@@ -14,11 +15,44 @@
   background: #ffffff;
   width: 90%;
   margin: auto;
+=======
+@media (max-width: 768px) {
+  .container {
+    background-size: cover;
+  }
+  .header,
+  .content {
+    width: 100%;
+  }
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+.container {
+  height: 100vh;
+  width: 100vw;
+  font-family: Pretendard;
+  text-align: center;
+  background-image: url("../images/background_iPad.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.content {
+  background: #ffffff;
+  width: 90%;
+  margin-top: 27px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   display: inline-block;
   border-radius: 32px;
   margin-bottom: 50px;
 }
 
+<<<<<<< HEAD
 h3 {
   margin-left: 14px;
   margin-bottom: 7px;
@@ -27,30 +61,65 @@ h3 {
 
 h3[class="major"] {
   margin-left: 0px;
+=======
+h4 {
+  margin-left: 14px;
+  margin-bottom: 7px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+h4[class="major"] {
+  margin-left: 0px;
+  font-size: 18px;
+  font-weight: bold;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 }
 .label-container {
   display: flex;
   align-items: center;
 }
 
+<<<<<<< HEAD
 /* .label-container h3 {
   width: 200px;
 } */
+=======
+.label-container h3 {
+  width: 200px;
+}
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 .label-container label {
   flex-basis: 30%;
   margin-bottom: 0;
 }
 
 input {
+<<<<<<< HEAD
   box-sizing: border-box;
   width: calc(100% - 44px);
   height: 40px;
+=======
+  width: 87%;
+  height: 24px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   padding: 5px 8px 5px 8px;
   border: 1px solid #ccc;
   border-radius: 30px;
 }
+<<<<<<< HEAD
 input[name="phone"] {
   width: calc(100% - 44px);
+=======
+input:focus {
+  border: 1px solid #ff4d61; /* Change to the desired color */
+}
+input[name="phone"] {
+  width: 67%;
+  height: 24px;
+  padding: 5px 8px 5px 8px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   margin-left: 14px;
   margin-top: 7px;
   border: 1px solid #ccc;
@@ -60,6 +129,7 @@ input[name="phone"] {
 input::placeholder {
   color: #a5a5a5;
 }
+<<<<<<< HEAD
 .depart-major {
   display: flex;
   flex-wrap: wrap; /* Add this line */
@@ -83,10 +153,15 @@ select[name="depart"] {
   border-radius: 30px;
   margin-left: 22px;
   /* margin-left: 14px;
+=======
+select[name="depart"] {
+  margin-left: 14px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   padding-left: 7px;
   width: 100px;
   height: 35px;
   border-radius: 30px;
+<<<<<<< HEAD
   border: 1px solid #c1bebe; */
 }
 select[name="major"] {
@@ -106,6 +181,20 @@ select[name="major"] {
 /* .button-group label {
   margin-right: 10px;
 } */
+=======
+  border: 1px solid #c1bebe;
+}
+select[name="major"] {
+  width: 200px;
+  padding-left: 7px;
+  height: 35px;
+  border: 1px solid #c1bebe;
+  border-radius: 30px;
+}
+.button-group label {
+  margin-right: 10px;
+}
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 
 button {
   padding: 8px 16px;
@@ -125,6 +214,7 @@ button[type="submit-button"] {
   font-weight: bold;
 }
 
+<<<<<<< HEAD
 .phonebutton {
   width: 15%;
   height: 28px;
@@ -201,12 +291,37 @@ button[type="submit-button"] {
   background-color: #ff775e;
   color: #ffffff;
   border: none;
+=======
+button.phonebutton {
+  width: 15%;
+  height: 28px;
+  border-radius: 40px;
+}
+button.genderbutton {
+  width: 40%;
+  height: 54px;
+  font-size: 22px;
+  /* color: #ffffff; */
+  margin: 0px 10px 0px 10px;
+  border-radius: 40px;
+}
+button.mbtibutton {
+  width: 80%;
+  height: 54px;
+  font-size: 20px;
+  margin: 0px 0px 0px 0px;
+  border-radius: 40px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 }
 button.checkbutton {
   margin-right: 14px;
   width: 20%;
   margin-top: 6px;
+<<<<<<< HEAD
   height: 40px;
+=======
+  height: 36px;
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 40px;
@@ -227,6 +342,7 @@ button.checkbutton {
   padding: 0px 10px 0px 10px;
 }
 
+<<<<<<< HEAD
 .check-message {
   text-align: left;
   margin-left: 19px;
@@ -236,4 +352,8 @@ button.checkbutton {
 
 .hidden {
   display: none;
+=======
+.look-button {
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 }

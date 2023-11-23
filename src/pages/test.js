@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { userState } from "../Atoms";
-import MainpageUnLogin from "./MainpageUnLogin";
-import MainpageLogin from "./MainpageLogin";
-
-function Mainpage() {
-  const user = useRecoilValue(userState);
-
-  return <div>{user.isLoggedIn ? <MainpageLogin /> : <MainpageUnLogin />}</div>;
-}
-
-export default Mainpage;
-=======
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Mainpage.css";
@@ -83,11 +68,6 @@ function MainPage() {
         </button>
       </div>
       <div className="content">
-        {/* <h4
-          style={{ textAlign: "center", marginTop: "40px", color: "#FF4D61" }}
-        >
-          현재 이벤트 진행중!
-        </h4> */}
         <img
           src={process.env.PUBLIC_URL + `assets/helloemoji.png`}
           alt="사람 이미지"
@@ -113,7 +93,6 @@ function MainPage() {
             style={{
               fontSize: "25px",
               fontWeight: "w600",
-              marginTop: "5px",
             }}
           >
             현재{" "}
@@ -245,4 +224,3 @@ function MainPage() {
 }
 
 export default MainPage;
->>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6

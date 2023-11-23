@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* CSS 초기화 */
 * {
   margin: 0;
@@ -154,6 +155,8 @@ table {
   border-spacing: 0;
 }
 /* css 코드 시작 */
+=======
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 .App {
   text-align: center;
 }
@@ -163,6 +166,7 @@ table {
   pointer-events: none;
 }
 
+<<<<<<< HEAD
 /* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -184,6 +188,14 @@ table {
   font-weight: 400;
   font-style: normal;
 }
+=======
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -198,3 +210,15 @@ table {
 .App-link {
   color: #61dafb;
 }
+<<<<<<< HEAD
+=======
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+>>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
