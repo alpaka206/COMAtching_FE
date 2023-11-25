@@ -1,18 +1,8 @@
 import { atom } from "recoil";
 
-export const isCheckedState = atom({
-  key: "isCheckedState",
-  default: false,
-});
-
 export const numParticipantsState = atom({
   key: "numParticipantsState",
   default: null,
-});
-
-export const showAgreementState = atom({
-  key: "showAgreementState",
-  default: false,
 });
 
 export const userState = atom({
@@ -29,18 +19,6 @@ export const userState = atom({
     isLoggedIn: false,
   },
 });
-
-// export const formDataState = atom({
-//   key: "formDataState",
-//   default: {
-//     depart: "",
-//     year: "",
-//     phone: "",
-//     song: "",
-//     gender: true,
-//     mbti: "",
-//   },
-// });
 
 export const selectedMBTIState = atom({
   key: "selectedMBTIState",

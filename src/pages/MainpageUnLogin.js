@@ -1,41 +1,28 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import {
-  isCheckedState,
-  numParticipantsState,
-  showAgreementState,
-} from "../Atoms";
+import { numParticipantsState } from "../Atoms";
 import axios from "axios";
 import "./MainpageUnLogin.css";
 import ComatHeader from "../components/ComatHeader";
 import Footer from "../components/Footer";
-import AgreementBox from "../components/AgreementBox";
+// import AgreementBox from "../components/AgreementBox";
 import { useNavigate } from "react-router-dom";
 
 function MainpageUnLogin() {
   const navigate = useNavigate();
-  const [isChecked, setIsChecked] = useRecoilState(isCheckedState);
   const [numParticipants, setNumParticipants] =
     useRecoilState(numParticipantsState);
-  const [showAgreement, setShowAgreement] = useRecoilState(showAgreementState);
 
-  const handleCheckboxChange = () => {
-    setIsChecked((prev) => !prev);
-  };
-
-  const handleAgreementClick = () => {
-    setShowAgreement(true);
-  };
-  const handleCloseAgreement = () => {
-    setShowAgreement(false);
-  };
+  // const handleCheckboxChange = () => {
+  //   setIsChecked((prev) => !prev);
+  // };
 
   const handleSubmit = () => {
-    if (isChecked) {
-      navigate("/Login");
-    } else {
-      alert("개인정보 수집 동의에 체크해주세요.");
-    }
+    // if (isChecked) {
+    //   navigate("/Login");
+    // } else {
+    //   alert("개인정보 수집 동의에 체크해주세요.");
+    // }
   };
   useEffect(() => {
     const fetchParticipants = async () => {
@@ -93,7 +80,7 @@ function MainpageUnLogin() {
             명 참여중이에요!
           </div>
         )}
-        <div className="checkbox-label">
+        {/* <div className="checkbox-label">
           <label
             style={{
               display: "flex",
@@ -129,7 +116,7 @@ function MainpageUnLogin() {
         </div>
         {showAgreement && (
           <AgreementBox handleCloseAgreement={handleCloseAgreement} />
-        )}
+        )} */}
         <div>
           <button className="submit-button" onClick={handleSubmit}>
             시작하기
