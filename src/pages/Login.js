@@ -48,8 +48,8 @@ function Login() {
         <div className="content">
           <div className="inner-content">
           <div className="title">
-            <div className="login-text">Login</div>
-            <div className="login-inst-txt">
+            <div className="title-text">Login</div>
+            <div className="title-inst-txt">
                 가입하신 이메일과 비밀번호를
                 <br />
                 입력해 주세요.
