@@ -46,27 +46,36 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <ComatHeader destination="/" buttonText="처음으로" />
         <div className="content">
+          <div className="inner-content">
+          <div className="title">
+            <div className="login-text">Login</div>
+            <div className="login-inst-txt">
+                가입하신 이메일과 비밀번호를
+                <br />
+                입력해 주세요.
+              </div>
+          </div>
           <div className="user-email">
-            <label>
-              <h3>이메일</h3>
+            <label>이메일
+              <div className="email-input">
               <MyInput
                 name="user-email"
                 value={formData.email}
-                placeholder="email"
+                placeholder="example@gmail.com"
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
               />
+              </div>
             </label>
           </div>
           <div className="user-passwd">
-            <label>
-              <h3>비밀번호</h3>
+            <label>비밀번호
               <div className="password-input">
                 <MyInput
                   name="user-passwd"
                   value={formData.passwd}
-                  placeholder="passwd"
+                  placeholder="비밀번호를 입력해주세요"
                   type={showPassword ? "text" : "password"}
                   onChange={(e) =>
                     setFormData({ ...formData, passwd: e.target.value })
@@ -78,11 +87,23 @@ function Login() {
               </div>
             </label>
           </div>
-          <button type="submit-button">로그인</button>
-          <div onClick={() => navigate("/Register")}>회원가입하기</div>
+          <button class="login-button">
+            <span>로그인</span>
+          </button>
+          <div class="line-identifier"></div>
+          <div className="register">
+            <div className="reg-recommend">      
+              <div className="rec-text-title">아직 회원이 아니신가요?</div>
+              <p className="rec-text-inst">가입하시고 코매칭의 모든 서비스를 경험하세요!</p>
+            </div>
+            <div className="register-button" onClick={() => navigate("/Register")}>
+               <span>회원가입</span>
+            </div>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
+  </div>
   );
 }
 
