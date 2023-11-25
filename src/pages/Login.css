@@ -1,23 +1,187 @@
-.user-email,
-.user-passwd {
-  margin-bottom: 20px;
+/* Content a.k.a Container? */
+.content {
+  max-width: flex;
+  margin: 0 auto;
+  display: flex;
 }
-.password-input {
+
+/* The actual Content */
+/* Wanted to make padding for inside-only */
+.inner-content {
+  opacity: 1.0;
+  padding: 32px;
+}
+
+/* Title-Login */
+.title {
+  font-size: 44px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  letter-spacing: 0;
+  text-align: left;
+  line-height: normal;
+}
+
+.title-text {
+  color: #000000;
+  font-family: "Pretendard-Bold", Helvetica;
+  font-size: 36px;
+  font-weight: 700;
+  height: 29px;
+  position: relative;
+}
+
+.title-inst-txt {
+  color: #858585;
+  font-family: "Pretendard-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  height: 29px;
+  position: relative;
+  margin-top: 24px;
+}
+
+/* Email & PW */
+.user-email {
+  margin-top: 25px;
+}
+
+.user-email label,
+.user-passwd label {
+  color :#000000;
+  font-family: "Pretendard-SemiBold", Helvetica;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  display: block;
+}
+
+.user-passwd {
+  margin-top: 20px;
+}
+
+.email-input,
+.password-input{
+  color: #858585;
+  font-family: "Pretendard", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  height : 24px;
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 20px;
   padding: 8px;
-
-  /* 추가된 스타일: 입력창과 아이콘이 같은 테두리에 속하도록 설정 */
+  margin-top: 6px;
+  position: relative;
 }
+
+.email-input input,
 .password-input input {
   flex: 1;
   border: none;
-  padding: 8px;
 }
 
 .password-toggle {
   cursor: pointer;
   padding: 8px;
+}
+
+/* Login-Btn */
+
+.login-button {
+  width: 100%;
+  height: 44.62px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(93deg, black 0%, #FF775E 0%, #FF4D61 47%, #E83ABC 100%);
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.login-button::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(93deg, black 0%, #FF775E 0%, #FF4D61 47%, #E83ABC 100%);
+  border-radius: 15px;
+}
+
+.login-button span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  font-family: 'Pretendard', Helvetica;
+  font-weight: 700;
+  position: relative; 
+}
+
+
+/* Identifier */
+
+.line-identifier {
+  position: relative;
+  height: 1px;
+  background-color: #858585;
+  content: "";
+  display: block;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+/* Register */
+
+.register {
+  display: flex;
+  flex-direction: column; /* 수정된 부분 */
+}
+
+.reg-recommend{
+  text-align: left;
+
+}
+.rec-text-title {
+  color: #000000;
+  font-family: "Pretendard-SemiBold", Helvetica;
+  font-size: 18px;
+  font-weight: 600;
+}
+.rec-text-inst {
+  color: #858585;
+  font-family: "Pretendard-Medium", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.register-button {
+  width: 150px;
+  height: 44.62px;
+  background: linear-gradient(93deg, black 0%, #5E78FF 0%, #4DCAFF 59%, #E8D73A 100%);
+  border-radius: 15px;
+  cursor: pointer;
+  align-self: flex-end; 
+  margin-top: 20px;
+}
+
+.register-button span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  font-family: 'Pretendard', Helvetica;
+  font-weight: 700;
+  word-wrap: break-word;
 }
