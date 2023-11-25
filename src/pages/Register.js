@@ -5,7 +5,8 @@ import axios from "axios";
 import MyInput from "../components/MyInput";
 import ComatHeader from "../components/ComatHeader";
 import { useNavigate } from "react-router-dom";
-import { userState } from "../Atoms";
+import { showAgreementState, userState } from "../Atoms";
+import AgreementBox from "../components/AgreementBox";
 import "./Register.css";
 
 function Register() {
@@ -20,9 +21,18 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordCheck, setShowPasswordCheck] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [isCheckedPrivacy, setIsCheckedPrivacy] = useState(false); // State for privacy agreement checkbox
+  const [showAgreement, setShowAgreement] = useRecoilState(showAgreementState);
 
   // const [passwordMessage, setPasswordMessage] = useState("");
   // const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+
+  const handleAgreementClick = () => {
+    setShowAgreement(true);
+  };
+  const handleCloseAgreement = () => {
+    setShowAgreement(false);
+  };
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -34,6 +44,12 @@ function Register() {
   function isValidEmail(value) {
     return /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(value);
   }
+
+  const handleNextButtonClick = () => {
+    if (passwordsMatch && isCheckedPrivacy) {
+      navigate("/Form");
+    }
+  };
 
   useEffect(() => {
     setPasswordsMatch(showPassword.passwd === showPasswordCheck.passwd);
@@ -78,6 +94,11 @@ function Register() {
     e.preventDefault();
 
     try {
+      if (!isCheckedPrivacy) {
+        alert("개인정보 수집 및 이용에 동의해주세요.");
+        return;
+      }
+
       const response = await axios.post(
         "https://onesons.site/register",
         formData
@@ -105,48 +126,62 @@ function Register() {
     }
   };
 
+  const handlePrivacyCheckboxChange = () => {
+    setIsCheckedPrivacy((prev) => !prev);
+  };
+
   return (
     <div className="container">
       <ComatHeader destination="/" buttonText="처음으로" />
       <div className="content">
-        <div className="user-email">
-          <label>
-            <h3>이메일</h3>
-            <MyInput
-              name="email"
-              value={formData.email}
-              placeholder="email"
-              onChange={handleInputChange}
-              disabled={emailCodeSubmitted}
-            />
-          </label>
-        </div>
-        <button type="submit-button" onClick={handleSubmitEmail}>
-          인증 번호 보내기
-        </button>
-
+        <div className="inner-content">
+        <div className="title">
+            <div className="title-text">Sign Up</div>
+            <div className="title-inst-txt">
+                가입할 이메일과 비밀번호를
+                <br />
+                입력해 주세요.
+              </div>
+          </div>
+            <div className="reg-email">
+              <label>이메일
+                <div className="reg-email-input">
+                  <div className="reg-email-box">
+                    <MyInput
+                    name="email"
+                    value={formData.email}
+                    placeholder="abc@gmail.com"
+                    onChange={handleInputChange}
+                    disabled={emailCodeSubmitted}
+                  />
+                  </div>
+                <button className="code-send-btn" onClick={handleSubmitEmail}>
+                <span>인증번호 전송</span>
+              </button>
+            </div>
+            </label>
+          </div>
         <div className="user-emailpasswd">
-          <label>
-            <h3>이메일 확인 번호</h3>
-            <MyInput
+          <div className="emailpasswd-box">
+          <MyInput
               name="emailCode"
               value={emailCode.code}
-              placeholder="emailCode"
+              placeholder="인증번호"
               onChange={handleInputChange}
             />
-          </label>
-        </div>
-        <button type="submit-button" onClick={handleSubmitEmailCode}>
+          </div>
+          <button className="emailcheck-button" onClick={handleSubmitEmailCode}>
           확인
         </button>
-        <div className="user-passwd">
-          <label>
-            <h3>비밀번호</h3>
-            <div className="password-input">
+        </div>
+
+        <div className="register-passwd">
+          <label>비밀번호
+            <div className="reg-pw-input">
               <MyInput
                 name="user-passwd"
                 value={showPassword.passwd}
-                placeholder="passwd"
+                placeholder="6자 이상, 특수문자 포함"
                 type={showPassword ? "text" : "password"}
                 onChange={(e) =>
                   setShowPassword({ ...showPassword, passwd: e.target.value })
@@ -158,12 +193,11 @@ function Register() {
             </div>
           </label>
           <label>
-            <h3>비밀번호확인</h3>
-            <div className="password-input">
+            <div className="pw-check-input">
               <MyInput
                 name="user-passwd"
                 value={showPasswordCheck.passwd}
-                placeholder="passwd"
+                placeholder="비밀번호 재확인"
                 type={showPasswordCheck ? "text" : "password"}
                 onChange={(e) =>
                   setShowPasswordCheck({
@@ -186,9 +220,51 @@ function Register() {
             비밀번호와 비밀번호 확인이 일치하지 않습니다.
           </div>
         )}
-        <button type="submit-button" disabled={!passwordsMatch}>
-          회원가입
-        </button>
+        <div className="checkbox-label">
+        <label
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "14px",
+              fontWeight: "bold",
+              margin: "10px 0",
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={isCheckedPrivacy}
+              onChange={handlePrivacyCheckboxChange}
+              style={{
+                width: "13px",
+                textAlign: "center",
+              }}
+            />
+            <div
+              style={{
+                paddingTop: "2px",
+              }}
+            >
+              개인정보 수집 및 이용에 대해 동의합니다
+            </div>
+          </label>
+        </div>
+        <div>
+          <button className="privacy-button" onClick={handleAgreementClick}>
+            개인정보 수집 활용 동의서
+          </button>
+        </div>
+        {showAgreement && (
+          <AgreementBox handleCloseAgreement={handleCloseAgreement} />
+        )}
+        <button
+        className="reg-next-button"
+        onClick={handleNextButtonClick}
+        disabled={!passwordsMatch || !isCheckedPrivacy}
+      >
+      다음 &gt;
+    </button>
+        </div>
       </div>
     </div>
   );
