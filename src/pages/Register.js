@@ -88,16 +88,7 @@ function Register() {
         alert("개인정보 수집 및 이용에 동의해주세요.");
         return;
       } else {
-        const response = await axios.post(
-          "https://onesons.site/register",
-          formData
-        );
-
-        if (response.data.isSuccess === true) {
-          navigate("/Form");
-        } else {
-          alert(response.data.message);
-        }
+        navigate("/Form");
       }
     } catch (error) {
       console.error("오류 발생:", error);

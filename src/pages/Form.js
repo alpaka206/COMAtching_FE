@@ -172,7 +172,7 @@ function Form() {
       ...user,
       year: yearAsInt,
     };
-
+    console.log(formDataWithIntYear);
     try {
       const response = await axios.post(
         "https://onesons.site/register",
@@ -180,8 +180,18 @@ function Form() {
       );
 
       if (response.data.isSuccess === true) {
-        setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }));
-        navigate("/");
+        setUser((prevUser) => ({
+          email: "",
+          passwd: "",
+          depart: "",
+          year: "",
+          phone: "",
+          song: "",
+          gender: true,
+          mbti: "",
+          isLoggedIn: false,
+        }));
+        navigate("/login");
       } else {
         alert(response.data.message);
       }

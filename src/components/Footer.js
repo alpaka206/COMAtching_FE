@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <div className="footer">
-      <div className="textDB" style={{ paddingTop: "0px" }}>
+      <div className="textDB" style={{ paddingTop: "40px" }}>
         Developed by COMA 19s
       </div>
       <hr
@@ -13,7 +13,7 @@ function Footer() {
         }}
       />
       <div className="textBE" style={{ paddingBottom: "40px" }}>
-        BE 서승준 / FE 김규원 신희원 / PM 박승원 박상준
+        BE 서승준 / FE 김규원 / PM 박승원 박상준
       </div>
     </div>
   );

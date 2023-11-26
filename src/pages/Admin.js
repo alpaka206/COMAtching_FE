@@ -4,7 +4,7 @@ import "./Admin.css";
 import AdminModal from "../components/AdminModal";
 import UserInfoListItem from "../components/UserInfoListItem";
 
-function Acdommian() {
+function Admin() {
   const [userData, setUserData] = useState([]);
   const [pickValues, setPickValues] = useState({});
   const [pickMe, setPickMe] = useState(0);
@@ -188,4 +188,4 @@ function Acdommian() {
   );
 }
 
-export default Acdommian;
+export default Admin;
