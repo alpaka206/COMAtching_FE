@@ -14,10 +14,8 @@ function Register() {
 
   // State variables
   const [formData, setFormData] = useRecoilState(userState);
-  const [emailCode, setEmailCode] = useState({
-    code: "",
-  });
-  const [emailCodeSubmitted, setEmailCodeSubmitted] = useState(false);
+  const [emailAuthCode, setEmailAuthCode] = useState({});
+  const [emailAuthCodeSubmitted, setEmailAuthCodeSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordCheck, setShowPasswordCheck] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
@@ -52,10 +50,11 @@ function Register() {
       if (!isValidEmail(email)) {
         alert("올바른 이메일 형식이 아닙니다.");
         return;
+      } else {
+        await axios.post("https://onesons.site/register", {
+          email,
+        });
       }
-      // await axios.post("https://onesons.site/register", {
-      //   email,
-      // });
     } catch (error) {
       console.error("오류 발생:", error);
     }
@@ -63,15 +62,14 @@ function Register() {
 
   const handleSubmitEmailCode = async () => {
     try {
-      const emailCodes = emailCode;
       const email = formData;
-      console.log(emailCodes, email);
-      const response = await axios.post("https://onesons.site/register", {
-        emailCodes,
+      console.log(emailAuthCode, email);
+      const response = await axios.post("https://onesons.site//emailAuth", {
+        emailAuthCode,
         email,
       });
       if (response === true) {
-        setEmailCodeSubmitted(true);
+        setEmailAuthCodeSubmitted(true);
       } else {
         alert(response.data.message);
       }
@@ -98,7 +96,7 @@ function Register() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "emailCode") {
-      setEmailCode((prevEmailCode) => ({
+      setEmailAuthCode((prevEmailCode) => ({
         ...prevEmailCode,
         code: value,
       }));
@@ -134,7 +132,7 @@ function Register() {
                     value={formData.email}
                     placeholder="abc@gmail.com"
                     onChange={handleInputChange}
-                    disabled={emailCodeSubmitted}
+                    disabled={emailAuthCodeSubmitted}
                   />
                 </div>
                 <button className="code-send-btn" onClick={handleSubmitEmail}>
@@ -147,7 +145,7 @@ function Register() {
             <div className="emailpasswd-box">
               <MyInput
                 name="emailCode"
-                value={emailCode.code}
+                value={emailAuthCode.code}
                 placeholder="인증번호"
                 onChange={handleInputChange}
               />
