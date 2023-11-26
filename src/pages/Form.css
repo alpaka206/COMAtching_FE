@@ -17,10 +17,43 @@
   display: inline-block;
   border-radius: 32px;
   margin-bottom: 50px;
+  position: relative;
 }
 
+.inner-content {
+  opacity: 1.0;
+  padding: 32px;
+}
+  /* Title-Login */
+  .title {
+    font-size: 44px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 0;
+    text-align: left;
+    line-height: normal;
+  }
+  
+  .title-text {
+    color: #000000;
+    font-family: "Pretendard-Bold", Helvetica;
+    font-size: 36px;
+    font-weight: 700;
+    height: 29px;
+    position: relative;
+  }
+  
+  .title-inst-txt {
+    color: #858585;
+    font-family: "Pretendard-Medium", Helvetica;
+    font-size: 16px;
+    font-weight: 500;
+    height: 5px;
+    position: relative;
+    margin-top: 24px;
+  }
+
 h3 {
-  margin-left: 14px;
   margin-bottom: 7px;
   text-align: left;
 }
@@ -65,23 +98,22 @@ input::placeholder {
   flex-wrap: wrap; /* Add this line */
 }
 .depart {
-  width: calc(30% - 22px);
+  width: calc(50% - 22px);
   margin-right: 22px;
 }
 .major {
-  width: calc(70% - 22px);
+  width: 100%;
 }
 /* .major-select {
   padding-left: 19px;
 } */
 select[name="depart"] {
   display: block;
-  width: calc(100% - 22px);
+  width: 100%;
   height: 35px;
-  padding-left: 7px;
-  border: 1px solid #c1bebe;
-  border-radius: 30px;
-  margin-left: 22px;
+  background: white;
+  border: 1px #EAEAEA solid;
+  border-radius: 15px;
   /* margin-left: 14px;
   padding-left: 7px;
   width: 100px;
@@ -93,9 +125,9 @@ select[name="major"] {
   display: block;
   width: 100%;
   height: 35px;
-  padding-left: 7px;
-  border: 1px solid #c1bebe;
-  border-radius: 30px;
+  background: white;
+  border: 1px #EAEAEA solid;
+  border-radius: 15px;
 
   /* width: 200px;
   padding-left: 7px;
@@ -107,6 +139,28 @@ select[name="major"] {
   margin-right: 10px;
 } */
 
+.year,
+.music {
+  color: #858585;
+  font-family: "Pretendard", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  height : 24px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 8px;
+  margin-top: 6px;
+  position: relative;
+}
+
+.year input,
+.music input {
+  flex: 1;
+  border: none;
+}
+
 button {
   padding: 8px 16px;
   border: none;
@@ -114,36 +168,40 @@ button {
   cursor: pointer;
 }
 
-button[type="submit-button"] {
-  margin-top: 25px;
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  color: #ffffff;
-  width: 100%;
-  height: 89px;
-  border-radius: 0 0 32px 32px;
-  font-size: 32px;
-  font-weight: bold;
-}
 
 .phonebutton {
-  width: 15%;
+  width: 20%;
   height: 28px;
   border-radius: 40px;
   background-color: "#ffffff";
   border: none;
   margin-top: 17px;
   margin-right: 6px;
+  transition: all 0.3s; /* 트랜지션 효과 추가 */
+
 }
 
 .phonebutton:focus {
   background-color: #ff775e;
   outline: none;
+  border: none;
+  outline: none;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25)
 }
 
 .phonebutton:not(:last-child) {
   border-right: 2px solid #e0e0e0;
   background-color: "#ffffff";
+  margin-left: auto;
 }
+
+.phonebutton:not(:focus) {
+  background-color: #ffffff;
+  color: #a5a5a5;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25) inset;
+}
+
 .song-input {
   width: 100%;
   padding: 8px;
@@ -151,22 +209,27 @@ button[type="submit-button"] {
 .gender-button {
   width: 100%;
   height: 54px;
+  font-family: "Pretendard-SemiBold", Helvetica;
+  font-weight: 700;
   font-size: 22px;
-  margin: 0px 22px;
+  margin: 0px 5px;
   border-radius: 40px;
   background-color: #ff775e;
   color: #ffffff;
   border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
 }
 .gender-button.inactive {
   width: 100%;
   height: 54px;
   font-size: 22px;
-  margin: 0px 22px;
+  margin: 0px 5px;
   border-radius: 40px;
   background-color: #ffffff;
   color: #a5a5a5;
   border: 2px solid #e0e0e0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
 }
 
 .gender-button-container {
@@ -189,9 +252,11 @@ button[type="submit-button"] {
 .mbtibutton {
   width: 90%;
   height: 54px;
+  font-family: "Pretendard-SemiBold", Helvetica;
+  font-weight: 700;
   font-size: 20px;
   margin: 0px 6px 10px 6px;
-  border-radius: 40px;
+  border-radius: 30px;
   background-color: #ffffff;
   color: #a5a5a5;
   border: 2px solid #e0e0e0;
@@ -201,26 +266,42 @@ button[type="submit-button"] {
   background-color: #ff775e;
   color: #ffffff;
   border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
 button.checkbutton {
-  margin-right: 14px;
   width: 20%;
   margin-top: 6px;
   height: 40px;
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 40px;
+  border-radius: 15px;
+  margin-left: auto; /* 이 부분을 추가하세요 */
 }
 
 .contact-method label {
   display: flex;
   align-items: center;
+  justify-content: flex-end; /* 이 부분을 추가하세요 */
 }
 .space {
   width: 40%;
 }
+
+
 .contact-input label input {
   margin-right: 10px;
+  margin-left: 5px;
+  color: #858585;
+  font-family: "Pretendard", Helvetica;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 8px;
+  position: relative;
+
 }
 
 .mbtidiv {
@@ -236,4 +317,18 @@ button.checkbutton {
 
 .hidden {
   display: none;
+}
+
+.submit-button {
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  color: #ffffff;
+  width: 100%;
+  height: 89px;
+  border-radius: 0 0 32px 32px;
+  font-size: 32px;
+  font-weight: bold;
+  position: absolute;
+  bottom:0;
+  left: 0;
+  transform: translate(0, 70%);
 }
