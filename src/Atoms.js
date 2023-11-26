@@ -8,8 +8,8 @@ export const numParticipantsState = atom({
 export const userState = atom({
   key: "userState",
   default: {
-    email: "",
-    passwd: "",
+    userEmail: "",
+    userPw: "",
     depart: "",
     year: "",
     phone: "",

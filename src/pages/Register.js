@@ -14,48 +14,76 @@ function Register() {
 
   // State variables
   const [formData, setFormData] = useRecoilState(userState);
-  const [emailCode, setEmailCode] = useState({
-    code: "",
+  const [registerCheck, setRegisterCheck] = useState({
+    emailAuthCode: "",
+    emailAuthCodeSubmitted: false,
+    showUserPw: false,
+    userPwCheck: "",
+    showUserPwCheck: false,
+    userPwMatch: false,
+    isCheckedPrivacy: false,
+    showAgreement: false,
   });
-  const [emailCodeSubmitted, setEmailCodeSubmitted] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordCheck, setShowPasswordCheck] = useState(false);
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [isCheckedPrivacy, setIsCheckedPrivacy] = useState(false); // State for privacy agreement checkbox
-  const [showAgreement, setShowAgreement] = useState(false);
-
-  // const [passwordMessage, setPasswordMessage] = useState("");
-  // const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const handleToggleAgreement = () => {
-    setShowAgreement((prevShowAgreement) => !prevShowAgreement);
+    setRegisterCheck((prevRegisterCheck) => ({
+      ...prevRegisterCheck,
+      showAgreement: !prevRegisterCheck.showAgreement,
+    }));
+    console.log(
+      formData.userEmail,
+      registerCheck.emailAuthCode,
+      formData.userPw,
+      registerCheck.userPwCheck
+    );
   };
 
   const handleTogglePassword = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+    setRegisterCheck((prevRegisterCheck) => ({
+      ...prevRegisterCheck,
+      showUserPw: !registerCheck.showUserPw,
+    }));
   };
+
   const handleTogglePasswordCheck = () => {
-    setShowPasswordCheck((prevShowPasswordCheck) => !prevShowPasswordCheck);
+    setRegisterCheck((prevRegisterCheck) => ({
+      ...prevRegisterCheck,
+      showUserPwCheck: !registerCheck.showUserPwCheck,
+    }));
   };
 
   function isValidEmail(value) {
     return /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(value);
   }
 
+  function isValidPassword(value) {
+    return /^(?=.*[A-Za-z0-9])[A-Za-z\d@$!%*#?&]{6,}$/.test(value);
+  }
+
+  // useEffect(() => {
+  //   setPasswordsMatch(formData.userPw === showPasswordCheck.passwd);
+  // }, [formData.userPw, showPasswordCheck.passwd]);
+
   useEffect(() => {
-    setPasswordsMatch(showPassword.passwd === showPasswordCheck.passwd);
-  }, [showPassword.passwd, showPasswordCheck.passwd]);
+    setRegisterCheck((prevRegisterCheck) => ({
+      ...prevRegisterCheck,
+      userPwMatch: formData.userPw === registerCheck.userPwCheck,
+    }));
+  }, [formData.userPw, registerCheck.userPwCheck]);
 
   const handleSubmitEmail = async () => {
     try {
-      const email = formData;
+      const postdata = {
+        email: formData.userEmail,
+      };
+      console.log(postdata);
 
-      if (!isValidEmail(email)) {
+      if (!isValidEmail(formData.userEmail)) {
+        console.log();
         alert("올바른 이메일 형식이 아닙니다.");
         return;
+      } else {
+        await axios.post("https://onesons.site/userEmail", postdata);
       }
-      // await axios.post("https://onesons.site/register", {
-      //   email,
-      // });
     } catch (error) {
       console.error("오류 발생:", error);
     }
@@ -63,15 +91,21 @@ function Register() {
 
   const handleSubmitEmailCode = async () => {
     try {
-      const emailCodes = emailCode;
-      const email = formData;
-      console.log(emailCodes, email);
-      const response = await axios.post("https://onesons.site/register", {
-        emailCodes,
-        email,
-      });
-      if (response.data.isSuccess === true) {
-        setEmailCodeSubmitted(true);
+      const postdata = {
+        email: formData.email,
+        emailAuthCode: registerCheck.emailAuthCode,
+      };
+      console.log(postdata);
+      const response = await axios.post(
+        "https://onesons.site/emailAuth",
+        postdata
+      );
+      console.log(response);
+      if (response === true) {
+        setRegisterCheck((prevRegisterCheck) => ({
+          ...prevRegisterCheck,
+          emailAuthCodeSubmitted: true,
+        }));
       } else {
         alert(response.data.message);
       }
@@ -84,40 +118,32 @@ function Register() {
     e.preventDefault();
 
     try {
-      if (!isCheckedPrivacy) {
+      if (!registerCheck.isCheckedPrivacy) {
         alert("개인정보 수집 및 이용에 동의해주세요.");
         return;
-      } else {
-        const response = await axios.post(
-          "https://onesons.site/register",
-          formData
+      } else if (!isValidPassword(formData.userPw)) {
+        alert(
+          "비밀번호는 최소 6자 이상이어야 하며, 특수문자를 포함해야 합니다."
         );
-
-        if (response.data.isSuccess === true) {
-          navigate("/Form");
-        } else {
-          alert(response.data.message);
-        }
+        return;
+      } else {
+        navigate("/Form");
       }
     } catch (error) {
       console.error("오류 발생:", error);
     }
   };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "emailCode") {
-      setEmailCode((prevEmailCode) => ({
-        ...prevEmailCode,
-        code: value,
-      }));
-    } else {
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
-    }
+
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handlePrivacyCheckboxChange = () => {
-    setIsCheckedPrivacy((prev) => !prev);
+    setRegisterCheck((prevRegisterCheck) => ({
+      ...prevRegisterCheck,
+      isCheckedPrivacy: !prevRegisterCheck.isCheckedPrivacy,
+    }));
   };
 
   return (
@@ -139,11 +165,11 @@ function Register() {
               <div className="reg-email-input">
                 <div className="reg-email-box">
                   <MyInput
-                    name="email"
+                    name="userEmail"
                     value={formData.email}
                     placeholder="abc@gmail.com"
                     onChange={handleInputChange}
-                    disabled={emailCodeSubmitted}
+                    disabled={registerCheck.emailAuthCodeSubmitted}
                   />
                 </div>
                 <button className="code-send-btn" onClick={handleSubmitEmail}>
@@ -156,9 +182,14 @@ function Register() {
             <div className="emailpasswd-box">
               <MyInput
                 name="emailCode"
-                value={emailCode.code}
+                value={registerCheck.emailAuthCode}
                 placeholder="인증번호"
-                onChange={handleInputChange}
+                onChange={(e) =>
+                  setRegisterCheck((prevRegisterCheck) => ({
+                    ...prevRegisterCheck,
+                    emailAuthCode: e.target.value,
+                  }))
+                }
               />
             </div>
             <button
@@ -174,16 +205,14 @@ function Register() {
               비밀번호
               <div className="reg-pw-input">
                 <MyInput
-                  name="user-passwd"
-                  value={showPassword.passwd}
+                  name="userPw"
+                  value={formData.userPw}
                   placeholder="6자 이상, 특수문자 포함"
-                  type={showPassword ? "text" : "password"}
-                  onChange={(e) =>
-                    setShowPassword({ ...showPassword, passwd: e.target.value })
-                  }
+                  type={registerCheck.showUserPw ? "text" : "password"}
+                  onChange={handleInputChange}
                 />
                 <div className="password-toggle" onClick={handleTogglePassword}>
-                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                  {registerCheck.showUserPw ? <FaRegEyeSlash /> : <FaRegEye />}
                 </div>
               </div>
             </label>
@@ -191,26 +220,31 @@ function Register() {
               <div className="pw-check-input">
                 <MyInput
                   name="user-passwd"
-                  value={showPasswordCheck.passwd}
+                  value={registerCheck.userPwCheck}
                   placeholder="비밀번호 재확인"
-                  type={showPasswordCheck ? "text" : "password"}
+                  type={registerCheck.showUserPwCheck ? "text" : "password"}
                   onChange={(e) =>
-                    setShowPasswordCheck({
-                      ...showPasswordCheck,
-                      passwd: e.target.value,
-                    })
+                    setRegisterCheck((prevRegisterCheck) => ({
+                      ...prevRegisterCheck,
+                      userPwCheck: e.target.value,
+                    }))
                   }
                 />
+
                 <div
                   className="password-toggle"
                   onClick={handleTogglePasswordCheck}
                 >
-                  {showPasswordCheck ? <FaRegEyeSlash /> : <FaRegEye />}
+                  {registerCheck.showUserPwCheck ? (
+                    <FaRegEyeSlash />
+                  ) : (
+                    <FaRegEye />
+                  )}
                 </div>
               </div>
             </label>
           </div>
-          {!passwordsMatch && (
+          {!registerCheck.userPwMatch && (
             <div className="password-match-error">
               비밀번호와 비밀번호 확인이 일치하지 않습니다.
             </div>
@@ -228,7 +262,7 @@ function Register() {
             >
               <input
                 type="checkbox"
-                checked={isCheckedPrivacy}
+                checked={registerCheck.isCheckedPrivacy}
                 onChange={handlePrivacyCheckboxChange}
                 style={{
                   width: "13px",
@@ -249,13 +283,13 @@ function Register() {
               개인정보 수집 활용 동의서
             </button>
           </div>
-          {showAgreement && (
+          {registerCheck.showAgreement && (
             <AgreementBox handleCloseAgreement={handleToggleAgreement} />
           )}
           <button
             className="reg-next-button"
             onClick={handleSubmit}
-            disabled={!passwordsMatch}
+            disabled={!registerCheck.userPwMatch}
           >
             다음 &gt;
           </button>

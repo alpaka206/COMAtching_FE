@@ -13,10 +13,6 @@ function MainpageUnLogin() {
   const [numParticipants, setNumParticipants] =
     useRecoilState(numParticipantsState);
 
-  // const handleCheckboxChange = () => {
-  //   setIsChecked((prev) => !prev);
-  // };
-
   const handleSubmit = () => {
     navigate("/Login");
   };
@@ -76,7 +72,7 @@ function MainpageUnLogin() {
             명 참여중이에요!
           </div>
         )}
-        {/* <div className="checkbox-label">
+        <div className="checkbox-label">
           <label
             style={{
               display: "flex",
@@ -87,34 +83,24 @@ function MainpageUnLogin() {
               margin: "10px 0",
             }}
           >
-            <input
-              type="checkbox"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-              style={{
-                width: "13px",
-                textAlign: "center",
-              }}
-            />
             <div
               style={{
                 paddingTop: "2px",
               }}
             >
-              개인정보 수집 및 이용에 대해 동의합니다
+              이용에 도움이 필요하신가요?
             </div>
           </label>
         </div>
         <div>
-          <button className="privacy-button" onClick={handleAgreementClick}>
-            개인정보 수집 활용 동의서
-          </button>
+          {/* <button className="privacy-button" onClick={handleAgreementClick}> */}
+          <button className="privacy-button">서비스 이용법 안내</button>
         </div>
-        {showAgreement && (
+        {/* {showAgreement && (
           <AgreementBox handleCloseAgreement={handleCloseAgreement} />
         )} */}
         <div>
-          <button className="submit-button" onClick={handleSubmit}>
+          <button className="mainpage-submit-button" onClick={handleSubmit}>
             시작하기
           </button>
         </div>

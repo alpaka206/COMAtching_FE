@@ -1,17 +1,17 @@
 export const validateForm = (
-  formData,
+  user,
   selectedMajor,
   contactMethod,
   isContactVerified
 ) => {
-  const yearAsInt = parseInt(formData.year, 10);
+  const yearAsInt = parseInt(user.year, 10);
 
-  if (!formData.depart || !selectedMajor) {
+  if (!user.depart || !selectedMajor) {
     alert("학과와 전공을 선택하세요.");
     return false;
   }
 
-  if (!/^\d{11}$/.test(formData.phone) && contactMethod === "phone") {
+  if (!/^\d{11}$/.test(user.phone) && contactMethod === "phone") {
     alert("전화번호는 11자리를 입력해주세요");
     return false;
   }
@@ -21,12 +21,12 @@ export const validateForm = (
     return false;
   }
 
-  if (formData.song.length > 30 || formData.song.length < 1) {
+  if (user.song.length > 30 || user.song.length < 1) {
     alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
     return false;
   }
 
-  if (formData.mbti.length !== 4) {
+  if (user.mbti.length !== 4) {
     alert("MBTI를 모두 선택해주세요.");
     return false;
   }

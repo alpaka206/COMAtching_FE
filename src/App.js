@@ -7,7 +7,7 @@ import Form from "./pages/Form";
 import Match from "./pages/Match";
 import Matchresult from "./pages/Matchresult";
 import Checkresult from "./pages/Checkresult";
-import Acdommian from "./pages/Acdommian";
+import Admin from "./pages/Admin";
 import Loading from "./pages/Loading";
 import PrivateRoute from "./PrivateRoute";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -37,9 +37,9 @@ function App() {
               component={Checkresult}
             ></Route>
             <Route
-              path="Acdommian"
+              path="Admin"
               element={<PrivateRoute />}
-              component={Acdommian}
+              component={Admin}
             ></Route>
             <Route
               path="Loading"
@@ -49,7 +49,7 @@ function App() {
             {/* <Route path="/Match" element={<Match />} />
             <Route path="/Matchresult" element={<Matchresult />} />
             <Route path="/Checkresult" element={<Checkresult />} />
-            <Route path="/Acdommian" element={<Acdommian />} />
+            <Route path="/Admin" element={<Admin />} />
             <Route path="/Loading" element={<Loading />} /> */}
           </Routes>
         </BrowserRouter>
