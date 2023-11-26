@@ -1,18 +1,8 @@
 import { atom } from "recoil";
 
-export const isCheckedState = atom({
-  key: "isCheckedState",
-  default: false,
-});
-
 export const numParticipantsState = atom({
   key: "numParticipantsState",
   default: null,
-});
-
-export const showAgreementState = atom({
-  key: "showAgreementState",
-  default: false,
 });
 
 export const userState = atom({
@@ -30,18 +20,6 @@ export const userState = atom({
   },
 });
 
-// export const formDataState = atom({
-//   key: "formDataState",
-//   default: {
-//     depart: "",
-//     year: "",
-//     phone: "",
-//     song: "",
-//     gender: true,
-//     mbti: "",
-//   },
-// });
-
 export const selectedMBTIState = atom({
   key: "selectedMBTIState",
   default: {
@@ -50,27 +28,6 @@ export const selectedMBTIState = atom({
     TF: "",
     PJ: "",
   },
-});
-
-export const contactMethodState = atom({
-  key: "contactMethodState",
-  default: "phone",
-});
-
-export const selectedCategoryState = atom({
-  key: "selectedCategoryState",
-  default: "",
-});
-
-export const selectedMajorState = atom({
-  key: "selectedMajorState",
-  default: "",
-});
-
-export const isContactVerifiedState = atom({
-  key: "isContactVerifiedState",
-  // default: false,
-  default: true,
 });
 
 export const MatchRecoilState = atom({
