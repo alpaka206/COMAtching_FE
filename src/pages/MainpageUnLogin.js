@@ -18,11 +18,7 @@ function MainpageUnLogin() {
   // };
 
   const handleSubmit = () => {
-    // if (isChecked) {
-    //   navigate("/Login");
-    // } else {
-    //   alert("개인정보 수집 동의에 체크해주세요.");
-    // }
+    navigate("/Login");
   };
   useEffect(() => {
     const fetchParticipants = async () => {

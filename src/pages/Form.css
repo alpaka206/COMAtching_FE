@@ -21,37 +21,37 @@
 }
 
 .inner-content {
-  opacity: 1.0;
+  opacity: 1;
   padding: 32px;
 }
-  /* Title-Login */
-  .title {
-    font-size: 44px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    letter-spacing: 0;
-    text-align: left;
-    line-height: normal;
-  }
-  
-  .title-text {
-    color: #000000;
-    font-family: "Pretendard-Bold", Helvetica;
-    font-size: 36px;
-    font-weight: 700;
-    height: 29px;
-    position: relative;
-  }
-  
-  .title-inst-txt {
-    color: #858585;
-    font-family: "Pretendard-Medium", Helvetica;
-    font-size: 16px;
-    font-weight: 500;
-    height: 5px;
-    position: relative;
-    margin-top: 24px;
-  }
+/* Title-Login */
+.foam-title {
+  font-size: 44px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  letter-spacing: 0;
+  text-align: left;
+  line-height: normal;
+}
+
+.foam-title-text {
+  color: #000000;
+  font-family: "Pretendard-Bold", Helvetica;
+  font-size: 36px;
+  font-weight: 700;
+  height: 29px;
+  position: relative;
+}
+
+.foam-title-inst-txt {
+  color: #858585;
+  font-family: "Pretendard-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  height: 5px;
+  position: relative;
+  margin-top: 24px;
+}
 
 h3 {
   margin-bottom: 7px;
@@ -112,7 +112,7 @@ select[name="depart"] {
   width: 100%;
   height: 35px;
   background: white;
-  border: 1px #EAEAEA solid;
+  border: 1px #eaeaea solid;
   border-radius: 15px;
   /* margin-left: 14px;
   padding-left: 7px;
@@ -126,7 +126,7 @@ select[name="major"] {
   width: 100%;
   height: 35px;
   background: white;
-  border: 1px #EAEAEA solid;
+  border: 1px #eaeaea solid;
   border-radius: 15px;
 
   /* width: 200px;
@@ -145,7 +145,7 @@ select[name="major"] {
   font-family: "Pretendard", Helvetica;
   font-size: 16px;
   font-weight: 500;
-  height : 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
@@ -168,7 +168,6 @@ button {
   cursor: pointer;
 }
 
-
 .phonebutton {
   width: 20%;
   height: 28px;
@@ -178,28 +177,14 @@ button {
   margin-top: 17px;
   margin-right: 6px;
   transition: all 0.3s; /* 트랜지션 효과 추가 */
-
 }
 
-.phonebutton:focus {
+.phonebutton.active {
   background-color: #ff775e;
   outline: none;
   border: none;
   outline: none;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25)
-}
-
-.phonebutton:not(:last-child) {
-  border-right: 2px solid #e0e0e0;
-  background-color: "#ffffff";
-  margin-left: auto;
-}
-
-.phonebutton:not(:focus) {
-  background-color: #ffffff;
-  color: #a5a5a5;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
 .song-input {
@@ -218,7 +203,6 @@ button {
   color: #ffffff;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
 }
 .gender-button.inactive {
   width: 100%;
@@ -276,18 +260,17 @@ button.checkbutton {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 15px;
-  margin-left: auto; /* 이 부분을 추가하세요 */
+  margin-left: auto;
 }
 
 .contact-method label {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* 이 부분을 추가하세요 */
+  justify-content: flex-start;
 }
 .space {
   width: 40%;
 }
-
 
 .contact-input label input {
   margin-right: 10px;
@@ -301,7 +284,6 @@ button.checkbutton {
   border-radius: 15px;
   padding: 8px;
   position: relative;
-
 }
 
 .mbtidiv {
@@ -328,7 +310,7 @@ button.checkbutton {
   font-size: 32px;
   font-weight: bold;
   position: absolute;
-  bottom:0;
+  bottom: 0;
   left: 0;
   transform: translate(0, 70%);
 }

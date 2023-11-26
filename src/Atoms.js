@@ -30,27 +30,6 @@ export const selectedMBTIState = atom({
   },
 });
 
-export const contactMethodState = atom({
-  key: "contactMethodState",
-  default: "phone",
-});
-
-export const selectedCategoryState = atom({
-  key: "selectedCategoryState",
-  default: "",
-});
-
-export const selectedMajorState = atom({
-  key: "selectedMajorState",
-  default: "",
-});
-
-export const isContactVerifiedState = atom({
-  key: "isContactVerifiedState",
-  // default: false,
-  default: true,
-});
-
 export const MatchRecoilState = atom({
   key: "mcaotmcapRecoilState",
   default: {
