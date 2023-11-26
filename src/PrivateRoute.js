@@ -1,19 +1,21 @@
-import React, { Fragment } from "react";
-import { Route, Navigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { userState } from "./Atoms";
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { Cookies } from "react-cookie";
 
-const PrivateRoute = ({ element, path }) => {
-  const isLoggedIn = useRecoilValue(userState).isLoggedIn;
+const cookies = new Cookies();
 
-  return (
-    <Fragment>
-      {isLoggedIn ? (
-        <Route path={path} element={element} />
-      ) : (
-        <Navigate to="/Login" replace />
-      )}
-    </Fragment>
+const PrivateRoute = ({ component: RouteComponent }) => {
+  const showAlert = () => {
+    alert("로그인이 필요합니다.");
+  };
+
+  return cookies.get("Token") ? (
+    <RouteComponent />
+  ) : (
+    <>
+      {showAlert()}
+      <Navigate to="/" />;
+    </>
   );
 };
 

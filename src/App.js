@@ -9,7 +9,7 @@ import Matchresult from "./pages/Matchresult";
 import Checkresult from "./pages/Checkresult";
 import Acdommian from "./pages/Acdommian";
 import Loading from "./pages/Loading";
-
+import PrivateRoute from "./PrivateRoute";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
@@ -21,11 +21,36 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Form" element={<Form />} />
-            <Route path="/Match" element={<Match />} />
+            <Route
+              path="Match"
+              element={<PrivateRoute />}
+              component={Match}
+            ></Route>
+            <Route
+              path="Matchresult"
+              element={<PrivateRoute />}
+              component={Matchresult}
+            ></Route>
+            <Route
+              path="Checkresult"
+              element={<PrivateRoute />}
+              component={Checkresult}
+            ></Route>
+            <Route
+              path="Acdommian"
+              element={<PrivateRoute />}
+              component={Acdommian}
+            ></Route>
+            <Route
+              path="Loading"
+              element={<PrivateRoute />}
+              component={Loading}
+            ></Route>
+            {/* <Route path="/Match" element={<Match />} />
             <Route path="/Matchresult" element={<Matchresult />} />
             <Route path="/Checkresult" element={<Checkresult />} />
             <Route path="/Acdommian" element={<Acdommian />} />
-            <Route path="/Loading" element={<Loading />} />
+            <Route path="/Loading" element={<Loading />} /> */}
           </Routes>
         </BrowserRouter>
       </div>
