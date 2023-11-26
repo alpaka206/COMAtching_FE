@@ -159,7 +159,7 @@ function Form() {
     if (
       !validateForm(
         user,
-        checkMethod.majorajor,
+        checkMethod.major,
         checkMethod.contactMethod,
         checkMethod.contactVerified
       )
@@ -168,28 +168,32 @@ function Form() {
     }
 
     const yearAsInt = parseInt(user.year, 10);
-    const formDataWithIntYear = {
-      ...user,
+    const postData = {
+      gender: user.gender,
+      phone: user.phone,
+      depart: user.depart,
+      song: user.song,
+      mbti: user.mbti,
+      userEmail: user.userEmail,
+      userPw: user.userPw,
       year: yearAsInt,
     };
-    console.log(formDataWithIntYear);
     try {
       const response = await axios.post(
         "https://onesons.site/register",
-        formDataWithIntYear
+        postData
       );
 
       if (response.data.isSuccess === true) {
         setUser((prevUser) => ({
-          email: "",
-          passwd: "",
+          userEmail: "",
+          userPw: "",
           depart: "",
           year: "",
           phone: "",
           song: "",
           gender: true,
           mbti: "",
-          isLoggedIn: false,
         }));
         navigate("/login");
       } else {
