@@ -185,6 +185,13 @@ function Form() {
       <form onSubmit={handleSubmit}>
         <ComatHeader destination="/" buttonText="처음으로" />
         <div className="content">
+          <div className="inner-content">
+            <div className="title">
+              <div className="title-text">거의 다 왔습니다!</div>
+              <div className="title-inst-txt">
+                  본인의 정보를 모두 입력해 주세요.
+                </div>
+            </div>
           <div onSubmit={handleSubmit} style={{ display: "flex" }}>
             <div className="depart">
               <label>
@@ -236,12 +243,14 @@ function Form() {
           <div>
             <label>
               <h3>학번</h3>
+              <div className="year">
               <MyInput
                 name="year"
                 value={user.year}
                 onChange={handleChange}
-                placeholder="00학번부터 23학번까지 가능합니다 ex)23"
+                placeholder="00학번부터 23학번까지 가능합니다 ex) 23"
               />
+              </div>
             </label>
           </div>
           <div className="contact-method">
@@ -285,7 +294,7 @@ function Form() {
                     name="phone"
                     value={user.phone}
                     onChange={handleChange}
-                    placeholder="ex)01012345678"
+                    placeholder="ex) 01012345678"
                   />
                   <button
                     type="button"
@@ -301,7 +310,7 @@ function Form() {
                     name="phone"
                     value={user.phone}
                     onChange={handleChange}
-                    placeholder="ex)cuk_coma (@는 빼고 넣어주세요)"
+                    placeholder="ex) cuk_coma (@는 빼고 넣어주세요)"
                   />
                   <button
                     type="button"
@@ -319,14 +328,16 @@ function Form() {
           </h6>
           <div>
             <label>
-              <h3>좋아하는 노래</h3>
+            <h3>좋아하는 노래</h3>
+              <div className="music">
               <MyInput
                 name="song"
                 value={user.song}
                 onChange={handleChange}
-                placeholder="ex)antifreeze"
+                placeholder="ex) Antifreeze"
                 className="song-input"
               />
+              </div>
             </label>
           </div>
           <div>
@@ -421,7 +432,8 @@ function Form() {
             </label>
           </div>
           {/* <button type="submit-button" disabled={!isContactVerified}> */}
-          <button type="submit-button">매칭 등록(Click) ▶</button>
+          <button className="submit-button">매칭 등록(Click) ▶</button>
+          </div>
         </div>
       </form>
     </div>
