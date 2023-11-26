@@ -83,15 +83,6 @@ function MainpageUnLogin() {
               margin: "10px 0",
             }}
           >
-            <input
-              type="checkbox"
-              // checked={isChecked}
-              // onChange={handleCheckboxChange}
-              style={{
-                width: "13px",
-                textAlign: "center",
-              }}
-            />
             <div
               style={{
                 paddingTop: "2px",

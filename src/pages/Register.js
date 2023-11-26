@@ -70,7 +70,7 @@ function Register() {
         emailCodes,
         email,
       });
-      if (response.data.isSuccess === true) {
+      if (response === true) {
         setEmailCodeSubmitted(true);
       } else {
         alert(response.data.message);
