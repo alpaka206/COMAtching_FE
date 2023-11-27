@@ -26,6 +26,7 @@
   margin-bottom: 50px;
 } */
 
+/*
 .MatchresultTop {
   background-image: linear-gradient(135deg, #e83abc, #ff4d61, #ff775e);
   font-size: 30px;
@@ -36,52 +37,94 @@
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
 }
+*/
+
+.inner-content {
+  opacity: 1;
+  padding: 32px;
+  margin-top: 10px;
+  margin-bottom: 44px;
+}
+
+/* Title-Login */
+.result-title {
+  font-size: 44px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  letter-spacing: 0;
+  text-align: left;
+  line-height: normal;
+}
+
+.result-title-text {
+  color: #000000;
+  font-family: "Pretendard-Bold", Helvetica;
+  font-size: 36px;
+  font-weight: 700;
+  height: 29px;
+  position: relative;
+}
+
+.result-title-inst-txt {
+  color: #858585;
+  font-family: "Pretendard-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  height: 5px;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
 
 .MatchresultTopic {
-  font-size: 40px;
+  font-size: 22px;
   font-weight: bold;
   color: #777777;
   text-align: left;
-  margin-left: 41px;
-  margin-top: 32px;
+  margin-top: 24px;
 }
 .MatchresultText {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   color: #000000;
   text-align: left;
-  margin-left: 66px;
-  margin-top: 23px;
+  margin-left: 18px;
+  margin-top: 8px;
 }
 .MatchresultInstaTopic {
-  font-size: 40px;
+  font-size: 24px;
   font-weight: bold;
   color: #777777;
   margin-top: 45px;
 }
 .MatchresultMbtitext {
-  font-size: 40px;
+  font-size: 20px;
   font-weight: bold;
   color: #000000;
   text-align: left;
-  margin-left: 90px;
-  margin-top: 23px;
+  margin-left: 18px;
+  margin-top: 8px;
 }
 .MatchresultInstaText {
-  font-size: 40px;
+  font-size: 24px;
   font-weight: bold;
   color: #ff4d61;
-  margin-top: 19px;
+  margin-top: 8px;
+  margin-bottom: 32px;
+
 }
-.MatchresultBottom {
+.Retry_button {
   background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  font-size: 30px;
-  margin-top: 25px;
-  padding-top: 10px;
-  font-weight: bolder;
+  font-size: 22px;
+  width: 100%;
+  font-weight: bold;
   color: white;
   height: 89px;
-  width: 100%;
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
+  border-radius: 0 0 32px 32px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(0, 70%);
+  margin-bottom: 50px;
 }
+
