@@ -1,0 +1,125 @@
+.login-content {
+  width: 90%;
+  margin-top: 27px;
+  display: inline-block;
+  border-radius: 32px;
+  margin-bottom: 50px;
+  color: #ffffff;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.login-name {
+  text-align: left;
+}
+
+.myinfo {
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  color: #ffffff;
+  text-align: center;
+  margin-left: 80%;
+  height: 40px;
+  width: 20%;
+  border-radius: 20px 20px 0 0;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 0;
+}
+
+.CheckresultTopline2 {
+  padding-left: 23px;
+}
+
+.CheckresultItem {
+  width: 100%;
+}
+
+.CheckresultTopic2 {
+  text-align: right;
+}
+
+.CheckresultText2 {
+  text-align: right;
+}
+
+
+.matching-button {
+  margin-top: 20px;
+  color: #0c0c0c;
+  width: 100%;
+  height: 120px;
+  border-radius: 32px;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #ffffff;
+  border: 2px solid #ff6b81;
+}
+
+.number-button {
+  text-align: left;
+  margin-top: 10px;
+  color: #0c0c0c;
+  width: 100%;
+  height: 100px;
+  border-radius: 32px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #ffffff;
+}
+
+.number-button-opport {
+  margin-left: 45px;
+}
+
+.number-button-charge {
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.number-matching-group {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 10%;
+}
+
+.number-charge {
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  color: #ffffff;
+  text-align: center;
+  height: 40px;
+  width: 25%;
+  border-radius: 20px 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group-search {
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+  width: 300px;
+  height: 150px;
+  background-color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 32px;
+}
+
+.button-group-guide {
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+  width: 300px;
+  height: 150px;
+  background-color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 32px;
+}
+
