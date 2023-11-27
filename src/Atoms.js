@@ -8,6 +8,7 @@ export const numParticipantsState = atom({
 export const userState = atom({
   key: "userState",
   default: {
+    passwd: "",
     userEmail: "",
     userPw: "",
     depart: "",
@@ -16,7 +17,8 @@ export const userState = atom({
     song: "",
     gender: true,
     mbti: "",
-    isLoggedIn: true,
+    chance: 0,
+    isLoggedIn: false,
   },
 });
 

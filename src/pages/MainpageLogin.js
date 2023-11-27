@@ -1,16 +1,18 @@
 /*mainresult js*/
 
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
 import Footer from "../components/Footer";
 import ComatHeader from "../components/ComatHeader";
-import { numParticipantsState } from "../Atoms";
+import { numParticipantsState, userState } from "../Atoms";
 import "./MainpageLogin.css";
 import { useNavigate } from "react-router-dom";
 
 function MainpageLogin() {
   const navigate = useNavigate();
+  const formData = useRecoilValue(userState);
+
   const [numParticipants, setNumParticipants] =
     useRecoilState(numParticipantsState);
 
@@ -27,8 +29,8 @@ function MainpageLogin() {
     fetchParticipants();
   }, [setNumParticipants]);
 
-  const handleVisitInstagram = () => {
-    window.open("https://www.instagram.com/cuk_coma", "_blank"); // "_blank"를 추가하여 새 창에서 열도록 설정
+  const handleVisitGuide = () => {
+    navigate("/guide"); // "_blank"를 추가하여 새 창에서 열도록 설정
   };
   const handleVisitmatch = () => {
     navigate("/match"); // "_blank"를 추가하여 새 창에서 열도록 설정
@@ -58,32 +60,32 @@ function MainpageLogin() {
         >
           my info
         </div>
-        <div className="CheckresultItem">
-          <div className="CheckresultTopline">
-            <div className="CheckresultInlineItem">
-              <div className="CheckresultTopic">전공</div>
-              {/* <div className="CheckresultText">{item.year}</div> */}
-              <div className="CheckresultText">정보통신전자공학부</div>
+        <div className="MainLoginItem">
+          <div className="MainLoginTopline">
+            <div className="MainLoginInlineItem">
+              <div className="MainLoginTopic">전공</div>
+
+              <div className="MainLoginText">{formData.depart}</div>
             </div>
-            <div className="CheckresultInlineItem2">
-              <div className="CheckresultTopic2">학번</div>
-              {/* <div className="CheckresultText">{item.depart}</div> */}
-              <div className="CheckresultText2">19</div>
-            </div>
-          </div>
-          <div className="CheckresultInline">
-            <div className="CheckresultInlineItem">
-              <div className="CheckresultTopic">좋아하는 노래</div>
-              {/* <div className="CheckresultText">{item.mbti}</div> */}
-              <div className="CheckresultText">삐딱하게</div>
-            </div>
-            <div className="CheckresultInlineItem2">
-              <div className="CheckresultTopic2">MBTI</div>
-              {/* <div className="CheckresultText">{item.song}</div> */}
-              <div className="CheckresultText2">ESTJ</div>
+            <div className="MainLoginInlineItem">
+              <div className="MainLoginTopic">학번</div>
+
+              <div className="MainLoginText">{formData.year}</div>
             </div>
           </div>
-          <div className="CheckresultBottom">@kim.q1</div>
+          <div className="MainLoginInline">
+            <div className="MainLoginInlineItem">
+              <div className="MainLoginTopic">좋아하는 노래</div>
+
+              <div className="MainLoginText">{formData.song}</div>
+            </div>
+            <div className="MainLoginInlineItem">
+              <div className="MainLoginTopic">MBTI</div>
+
+              <div className="MainLoginText">{formData.mbti}</div>
+            </div>
+          </div>
+          <div className="MainLoginBottom">@kim.q1</div>
         </div>
 
         <div>
@@ -107,8 +109,10 @@ function MainpageLogin() {
           </button>
         </div>
         <div className="number-group">
-          <button className="number-button" onClick={handleVisitLoading}>
-            <span className="number-text">나의 매칭가능 횟수</span>
+          <div className="number-button">
+            <div className="number-text">
+              <br></br>나의 매칭가능 횟수
+            </div>
             <div
               className="number-button-opport"
               style={{
@@ -120,14 +124,16 @@ function MainpageLogin() {
             >
               {" "}
               <span style={{ color: "#FF4D61", fontWeight: "900" }}>
-                {numParticipants}
+                {formData.chance}
               </span>
               <div className="number-matching-group">
                 <span className="number-text2">1회</span>
-                <div className="number-charge">충전하기</div>
+                <button className="number-charge" onClick={handleVisitLoading}>
+                  충전하기
+                </button>
               </div>
             </div>
-          </button>
+          </div>
         </div>
         <div className="button-group">
           <button
@@ -141,7 +147,7 @@ function MainpageLogin() {
             <br></br>
             조회하기
           </button>
-          <button className="button-group-guide" onClick={handleVisitInstagram}>
+          <button className="button-group-guide" onClick={handleVisitGuide}>
             <img
               className="main-guideImage2"
               src={process.env.PUBLIC_URL + `assets/main_guide.png`}

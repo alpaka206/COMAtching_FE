@@ -5,11 +5,11 @@
   border-radius: 32px;
   margin-bottom: 50px;
   color: #ffffff;
-  text-align: left;
 }
 
 .login-name {
   text-align: left;
+  margin-top: -20px;
 }
 
 .myinfo {
@@ -24,22 +24,6 @@
   font-weight: bold;
   z-index: 0;
   line-height: 3;
-}
-
-.CheckresultTopline2 {
-  padding-left: 23px;
-}
-
-.CheckresultItem {
-  width: 100%;
-}
-
-.CheckresultTopic2 {
-  text-align: right;
-}
-
-.CheckresultText2 {
-  text-align: right;
 }
 
 .matching-button {
@@ -68,22 +52,16 @@
 
 .number-text {
   font-size: 20px;
-  margin-left: 10px;
+  margin-left: 10%;
 }
 
 .number-text2 {
   font-size: 30px;
-  margin-left: 10px;
+  margin-left: 10%;
 }
 
 .number-button-opport {
   margin-left: 45px;
-}
-
-.number-button-charge {
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  color: #ffffff;
-  font-size: 15px;
 }
 
 .number-matching-group {
@@ -101,8 +79,7 @@
   border-radius: 10px 10px;
   font-size: 20px;
   font-weight: bold;
-  line-height: 2;
-  margin-right: -20px;
+  margin-right: -15px;
 }
 
 .button-group {
@@ -136,4 +113,63 @@
 
 .main-guideImage2 {
   margin-top: 15px;
+}
+
+.MainLoginTopic {
+  font-size: 16px;
+  min-width: 50px;
+  font-weight: bold;
+  color: #777777;
+  text-align: left;
+  margin-top: 17px;
+}
+
+.MainLoginText {
+  min-width: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+  margin-top: 7px;
+}
+
+.MainLoginBottom {
+  margin-top: 5px;
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  font-size: 16px;
+  text-align: left;
+  font-weight: bolder;
+  color: white;
+  padding-top: 18px;
+  padding-left: 30px;
+  padding-bottom: 5px;
+
+  height: 30px;
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+}
+.MainLoginInline {
+  padding-top: 5px;
+  padding-left: 23px;
+  padding-right: 23px;
+  display: flex;
+}
+
+.MainLoginTopline {
+  padding-top: 5px;
+  padding-left: 23px;
+  display: flex;
+}
+
+.MainLoginInlineItem {
+  margin-right: 10px;
+  min-width: 40%;
+  height: 70px;
+}
+
+.MainLoginItem {
+  background: #ffffff;
+  width: 100%;
+  border-radius: 32px 0 32px 32px;
+  height: 200px;
 }

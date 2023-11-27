@@ -13,7 +13,7 @@ function Footer() {
         }}
       />
       <div className="textBE" style={{ paddingBottom: "40px" }}>
-        BE 서승준 / FE 김규원 / PM 박승원 박상준
+        BE 서승준 / FE 김규원 박승원 박상준
       </div>
     </div>
   );
