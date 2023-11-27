@@ -90,7 +90,7 @@ function MainpageLogin() {
           <button className="matching-button" onClick={handleVisitmatch}>
             매칭하기 ▶
             <div
-              /*</button>{numParticipants !== null && ( )} -- 요거 있으면 css 안보여서 */
+              /*</butto{numParticipants !== null && ( )} -- 요거 있으면 css 안보여서 */
               style={{
                 fontSize: "15px",
                 fontWeight: "w600",
@@ -136,6 +136,7 @@ function MainpageLogin() {
 
               </div>
             </div>
+            </button>
           </div>
         </div>
         <div className="button-group">

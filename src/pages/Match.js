@@ -120,151 +120,79 @@ function Match() {
         <div className="content">
 
           <div className="inner-content">
-
-
-          <br />
-          <br />
-        
             <label>
-
             <div className="match-title">
               <div className="match-title-text">Matching</div>
               <div className="match-title-inst-txt">
                 매칭할 상대의 MBTI를 두개 선택하세요!
-
-              <h4 className="mcaotext">원하는 매칭상대를 선택하세요!</h4>
-              <div className="mbtidiv">
-                <div className="mbtibutton-container">
-                  {/* 첫 번째 열 */}
-                  <div className="mbtibutton-column">
-                    <MBTIButton
-                      isActive={MatchState.sortedMBTI.includes("E")}
-                      onClick={() => handleMBTISelection("E")}
-                      label="E"
-                      className="mbtibutton"
-                    />
-                    <MBTIButton
-                      isActive={MatchState.sortedMBTI.includes("I")}
-                      onClick={() => handleMBTISelection("I")}
-                      label="I"
-                      className="mbtibutton"
-                    />
-                  </div>
-                  <div className="mbtibutton-column">
-                    <MBTIButton
-                      isActive={MatchState.sortedMBTI.includes("N")}
-                      onClick={() => handleMBTISelection("N")}
-                      label="N"
-                      className="mbtibutton"
-                    />
-                    <MBTIButton
-                      isActive={MatchState.sortedMBTI.includes("S")}
-                      onClick={() => handleMBTISelection("S")}
-                      label="S"
-                      className="mbtibutton"
-                    />
-                  </div>
-                  <div className="mbtibutton-column">
-                    <MBTIButton
-                      isActive={MatchState.sortedMBTI.includes("T")}
-                      onClick={() => handleMBTISelection("T")}
-                      label="T"
-                      className="mbtibutton"
-                    />
-                    <MBTIButton
-                      isActive={MatchState.sortedMBTI.includes("F")}
-                      onClick={() => handleMBTISelection("F")}
-                      label="F"
-                      className="mbtibutton"
-                    />
-                  </div>
-                  <div className="mbtibutton-column">
-                    <MBTIButton
-                      isActive={MatchState.sortedMBTI.includes("P")}
-                      onClick={() => handleMBTISelection("P")}
-                      label="P"
-                      className="mbtibutton"
-                    />
-                    <MBTIButton
-                      isActive={MatchState.sortedMBTI.includes("J")}
-                      onClick={() => handleMBTISelection("J")}
-                      label="J"
-                      className="mbtibutton"
-                    />
-                  </div>
-                </div>
-
               </div>
             </div>
             <div className="match-mbtidiv">
-  <div className="match-mbtibutton-container">
-    {/* First row */}
-    <div className="match-mbtibutton-row">
-      <MBTIButton
-        isActive={MatchState.sortedMBTI.includes("E")}
-        onClick={() => handleMBTISelection("E")}
-        label="E"
-        className="match-mbtibutton"
-      />
-      <MBTIButton
-        isActive={MatchState.sortedMBTI.includes("I")}
-        onClick={() => handleMBTISelection("I")}
-        label="I"
-        className="match-mbtibutton"
-      />
-    </div>
-    {/* Second row */}
-    <div className="match-mbtibutton-row">
-      <MBTIButton
-        isActive={MatchState.sortedMBTI.includes("N")}
-        onClick={() => handleMBTISelection("N")}
-        label="N"
-        className="match-mbtibutton"
-      />
-      <MBTIButton
-        isActive={MatchState.sortedMBTI.includes("S")}
-        onClick={() => handleMBTISelection("S")}
-        label="S"
-        className="match-mbtibutton"
-      />
-    </div>
-    {/* Third row */}
-    <div className="match-mbtibutton-row">
-      <MBTIButton
-        isActive={MatchState.sortedMBTI.includes("F")}
-        onClick={() => handleMBTISelection("F")}
-        label="F"
-        className="match-mbtibutton"
-      />
-      <MBTIButton
-        isActive={MatchState.sortedMBTI.includes("T")}
-        onClick={() => handleMBTISelection("T")}
-        label="T"
-        className="match-mbtibutton"
-      />
-    </div>
-    {/* Fourth row */}
-    <div className="match-mbtibutton-row">
-      <MBTIButton
-        isActive={MatchState.sortedMBTI.includes("P")}
-        onClick={() => handleMBTISelection("P")}
-        label="P"
-        className="match-mbtibutton"
-      />
-      <MBTIButton 
-        isActive={MatchState.sortedMBTI.includes("J")}
-        onClick={() => handleMBTISelection("J")}
-        label="J"
-        className="match-mbtibutton"
-      />
-    </div>
-  </div>
-</div>
-
+              <div className="match-mbtibutton-container">
+                {/* First row */}
+                <div className="match-mbtibutton-row">
+                  <MBTIButton
+                    isActive={MatchState.sortedMBTI.includes("E")}
+                    onClick={() => handleMBTISelection("E")}
+                    label="E"
+                    className="match-mbtibutton"
+                  />
+                  <MBTIButton
+                    isActive={MatchState.sortedMBTI.includes("I")}
+                    onClick={() => handleMBTISelection("I")}
+                    label="I"
+                    className="match-mbtibutton"
+                  />
+                </div>
+                {/* Second row */}
+                <div className="match-mbtibutton-row">
+                  <MBTIButton
+                    isActive={MatchState.sortedMBTI.includes("N")}
+                    onClick={() => handleMBTISelection("N")}
+                    label="N"
+                    className="match-mbtibutton"
+                  />
+                  <MBTIButton
+                    isActive={MatchState.sortedMBTI.includes("S")}
+                    onClick={() => handleMBTISelection("S")}
+                    label="S"
+                    className="match-mbtibutton"
+                  />
+                </div>
+                {/* Third row */}
+                <div className="match-mbtibutton-row">
+                  <MBTIButton
+                    isActive={MatchState.sortedMBTI.includes("F")}
+                    onClick={() => handleMBTISelection("F")}
+                    label="F"
+                    className="match-mbtibutton"
+                  />
+                  <MBTIButton
+                    isActive={MatchState.sortedMBTI.includes("T")}
+                    onClick={() => handleMBTISelection("T")}
+                    label="T"
+                    className="match-mbtibutton"
+                  />
+                </div>
+                {/* Fourth row */}
+                <div className="match-mbtibutton-row">
+                  <MBTIButton
+                    isActive={MatchState.sortedMBTI.includes("P")}
+                    onClick={() => handleMBTISelection("P")}
+                    label="P"
+                    className="match-mbtibutton"
+                  />
+                  <MBTIButton 
+                    isActive={MatchState.sortedMBTI.includes("J")}
+                    onClick={() => handleMBTISelection("J")}
+                    label="J"
+                    className="match-mbtibutton"
+                  />
+                </div>
+              </div>
+            </div>
             </label>
-          
-
-          <button type="submit-button">매칭하기</button>
+          <button className="match-button">매칭하기</button>
           </div>
         </div>
         <Footer />
