@@ -29,12 +29,33 @@ function Login() {
       };
       const response = await axios.post("https://onesons.site/login", postdata);
 
-      const { token, isSuccess, message } = response.data;
+      const { isSuccess, message } = response.data;
+      // const { token, isSuccess, message } = response.data;
 
       if (isSuccess === true) {
         // localStorage.setItem("jwtToken", token);
-        document.cookie = `jwtToken=${token}; path=/;`;
-        navigate("/form");
+        // document.cookie = `jwtToken=${token}; path=/;`;
+        // -----------------------------------------------------------------
+        // // 서버 응답에서 쿠키 추출
+        // const cookies = response.headers["set-cookie"];
+
+        // // 쿠키 저장
+        // cookies.forEach((cookie) => {
+        //   document.cookie = cookie;
+        // });
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          gender: response.gender,
+          phone: response.phone,
+          depart: response.depart,
+          song: response.song,
+          mbti: response.mbti,
+          userEmail: response.userEmail,
+          userPw: response.userPw,
+          year: response.year,
+          isLoggedIn: true,
+        }));
+        navigate("/");
       } else {
         alert(message);
       }

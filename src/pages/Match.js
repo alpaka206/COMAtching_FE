@@ -5,11 +5,12 @@ import Footer from "../components/Footer";
 import ComatHeader from "../components/ComatHeader";
 import "./Match.css";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { MatchRecoilState, MatchResultRecoilState } from "../Atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { MatchRecoilState, MatchResultRecoilState, userState } from "../Atoms";
 
 function Match() {
   const navigate = useNavigate();
+  const formData = useRecoilValue(userState);
   const [MatchState, setMatchState] = useRecoilState(MatchRecoilState);
   const [MatchResultState, setMatchResultState] = useRecoilState(
     MatchResultRecoilState
@@ -82,20 +83,21 @@ function Match() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const postdata = {
+      gender: !formData.gender,
+      mbti: MatchState.sortedMBTI,
+      passwd: formData.userEmail,
+    };
     try {
-      const response = await axios.get("https://onesons.site/match", {
-        params: {
-          mbti: MatchState.sortedMBTI,
-        },
-      });
+      const response = await axios.get("https://onesons.site/match", postdata);
 
       const { message, code, isSuccess, result } = response.data;
 
       if (isSuccess === true) {
-        const { phone, depart, song, year, mbti } = result;
+        const { gender, phone, depart, song, year, mbti } = result;
         setMatchResultState({
           generatedCode: code,
+          generatedGender: gender,
           generatedPhone: phone,
           generatedDepart: depart,
           generatedSong: song,
