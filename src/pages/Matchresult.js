@@ -70,8 +70,15 @@ function Matchresult() {
             </span>
           </div>
         ) : (
-          <div>
-            <div className="MatchresultTop">COMAtching 결과!</div>
+          <div className="inner-content">
+                     <div>
+            <div className="result-title">
+              <div className="result-title-text">매칭 완료</div>
+              <div className="result-title-inst-txt">
+                좋은 결과가 있길 바래요
+              </div>
+            </div>
+            {/* <div className="MatchresultTop">COMAtching 결과!</div> */}
             <div className="MatchresultTopic">| 전공</div>
             <div className="MatchresultText">
               {MatchResultState.generatedDepart}
@@ -88,7 +95,7 @@ function Matchresult() {
             <div className="MatchresultMbtitext">
               {MatchResultState.generatedMbti}{" "}
               {MatchResultState.generatedCode === 2001 && (
-                <span style={{ fontSize: "15px", color: "#FF775E" }}>
+                <span style={{ fontSize: "10px", color: "#FF775E" }}>
                   조건에 맞는 상대가 없어서 랜덤으로 매칭되었어요!
                 </span>
               )}
@@ -102,9 +109,10 @@ function Matchresult() {
             <div className="MatchresultInstaText">
               {MatchResultState.generatedPhone}
             </div>
-            <button className="MatchresultBottom" onClick={handleSubmit}>
+            <button className="Retry_button" onClick={handleSubmit}>
               이전과 같은 조건으로 한번 더 뽑기
             </button>
+          </div>
           </div>
         )}{" "}
       </div>

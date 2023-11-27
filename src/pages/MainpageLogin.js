@@ -58,32 +58,32 @@ function MainpageLogin() {
         >
           my info
         </div>
-        <div className="CheckresultItem">
-          <div className="CheckresultTopline">
-            <div className="CheckresultInlineItem">
-              <div className="CheckresultTopic">전공</div>
-              {/* <div className="CheckresultText">{item.year}</div> */}
-              <div className="CheckresultText">정보통신전자공학부</div>
+        <div className="MainLoginItem">
+          <div className="MainLoginTopline">
+            <div className="MainLoginInlineItem">
+              <div className="MainLoginTopic">전공</div>
+              {/* <div className="MainLoginText">{item.year}</div> */}
+              <div className="MainLoginText">바이오메디컬소프트웨어학과</div>
             </div>
-            <div className="CheckresultInlineItem2">
-              <div className="CheckresultTopic2">학번</div>
-              {/* <div className="CheckresultText">{item.depart}</div> */}
-              <div className="CheckresultText2">19</div>
-            </div>
-          </div>
-          <div className="CheckresultInline">
-            <div className="CheckresultInlineItem">
-              <div className="CheckresultTopic">좋아하는 노래</div>
-              {/* <div className="CheckresultText">{item.mbti}</div> */}
-              <div className="CheckresultText">삐딱하게</div>
-            </div>
-            <div className="CheckresultInlineItem2">
-              <div className="CheckresultTopic2">MBTI</div>
-              {/* <div className="CheckresultText">{item.song}</div> */}
-              <div className="CheckresultText2">ESTJ</div>
+            <div className="MainLoginInlineItem">
+              <div className="MainLoginTopic">학번</div>
+              {/* <div className="MainLoginText">{item.depart}</div> */}
+              <div className="MainLoginText">19</div>
             </div>
           </div>
-          <div className="CheckresultBottom">@kim.q1</div>
+          <div className="MainLoginInline">
+            <div className="MainLoginInlineItem">
+              <div className="MainLoginTopic">좋아하는 노래</div>
+              {/* <div className="MainLoginText">{item.mbti}</div> */}
+              <div className="MainLoginText">삐딱하게</div>
+            </div>
+            <div className="MainLoginInlineItem">
+              <div className="MainLoginTopic">MBTI</div>
+              {/* <div className="MainLoginText">{item.song}</div> */}
+              <div className="MainLoginText">ESTJ</div>
+            </div>
+          </div>
+          <div className="MainLoginBottom">@kim.q1</div>
         </div>
 
         <div>
@@ -107,8 +107,13 @@ function MainpageLogin() {
           </button>
         </div>
         <div className="number-group">
+
+          <div className="number-button">
+            <div className="number-text"><br></br>나의 매칭가능 횟수</div>
+
           <button className="number-button" onClick={handleVisitLoading}>
             <span className="number-text">나의 매칭가능 횟수</span>
+
             <div
               className="number-button-opport"
               style={{
@@ -124,10 +129,14 @@ function MainpageLogin() {
               </span>
               <div className="number-matching-group">
                 <span className="number-text2">1회</span>
+
+                <button className="number-charge" onClick={handleVisitLoading}>충전하기</button>
+
                 <div className="number-charge">충전하기</div>
+
               </div>
             </div>
-          </button>
+          </div>
         </div>
         <div className="button-group">
           <button
