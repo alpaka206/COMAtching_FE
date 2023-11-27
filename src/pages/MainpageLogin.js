@@ -107,8 +107,13 @@ function MainpageLogin() {
           </button>
         </div>
         <div className="number-group">
+
           <div className="number-button">
             <div className="number-text"><br></br>나의 매칭가능 횟수</div>
+
+          <button className="number-button" onClick={handleVisitLoading}>
+            <span className="number-text">나의 매칭가능 횟수</span>
+
             <div
               className="number-button-opport"
               style={{
@@ -124,7 +129,11 @@ function MainpageLogin() {
               </span>
               <div className="number-matching-group">
                 <span className="number-text2">1회</span>
+
                 <button className="number-charge" onClick={handleVisitLoading}>충전하기</button>
+
+                <div className="number-charge">충전하기</div>
+
               </div>
             </div>
           </div>
