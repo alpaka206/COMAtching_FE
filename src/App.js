@@ -8,6 +8,7 @@ import Match from "./pages/Match";
 import Matchresult from "./pages/Matchresult";
 import Checkresult from "./pages/Checkresult";
 import Admin from "./pages/Admin";
+import Guide from "./pages/Guide";
 import Loading from "./pages/Loading";
 import PrivateRoute from "./PrivateRoute";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -21,6 +22,7 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Form" element={<Form />} />
+            <Route path="/Guide" element={<Guide />} />
             {/* <Route
               path="Match"
               element={<PrivateRoute />}

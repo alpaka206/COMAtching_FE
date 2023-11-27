@@ -65,7 +65,7 @@ function MainpageLogin() {
               {/* <div className="MainLoginText">{item.year}</div> */}
               <div className="MainLoginText">바이오메디컬소프트웨어학과</div>
             </div>
-            <div className="MainLoginInlineItem">
+            <div className="MainLoginInlineItem2">
               <div className="MainLoginTopic">학번</div>
               {/* <div className="MainLoginText">{item.depart}</div> */}
               <div className="MainLoginText">19</div>
@@ -77,7 +77,7 @@ function MainpageLogin() {
               {/* <div className="MainLoginText">{item.mbti}</div> */}
               <div className="MainLoginText">삐딱하게</div>
             </div>
-            <div className="MainLoginInlineItem">
+            <div className="MainLoginInlineItem2">
               <div className="MainLoginTopic">MBTI</div>
               {/* <div className="MainLoginText">{item.song}</div> */}
               <div className="MainLoginText">ESTJ</div>
@@ -90,7 +90,7 @@ function MainpageLogin() {
           <button className="matching-button" onClick={handleVisitmatch}>
             매칭하기 ▶
             <div
-              /*</butto{numParticipants !== null && ( )} -- 요거 있으면 css 안보여서 */
+              /*</button>{numParticipants !== null && ( )} -- 요거 있으면 css 안보여서 */
               style={{
                 fontSize: "15px",
                 fontWeight: "w600",
@@ -106,38 +106,14 @@ function MainpageLogin() {
             </div>
           </button>
         </div>
-        <div className="number-group">
-
           <div className="number-button">
-            <div className="number-text"><br></br>나의 매칭가능 횟수</div>
-
-          <button className="number-button" onClick={handleVisitLoading}>
-            <span className="number-text">나의 매칭가능 횟수</span>
-
-            <div
-              className="number-button-opport"
-              style={{
-                fontSize: "32px",
-                fontWeight: "w600",
-                marginTop: "5px",
-                fontWeight: "bolder",
-              }}
-            >
-              {" "}
-              <span style={{ color: "#FF4D61", fontWeight: "900" }}>
-                {numParticipants}
-              </span>
-              <div className="number-matching-group">
-                <span className="number-text2">1회</span>
-
-                <button className="number-charge" onClick={handleVisitLoading}>충전하기</button>
-
-                <div className="number-charge">충전하기</div>
-
-              </div>
+            <div className="number-text">
+              나의 매칭가능 횟수
             </div>
-            </button>
-          </div>
+            <div className="number-bottom">
+              <span className="number-text2">1회</span>
+              <button className="number-charge" onClick={handleVisitLoading}>충전하기</button>     
+            </div>  
         </div>
         <div className="button-group">
           <button
