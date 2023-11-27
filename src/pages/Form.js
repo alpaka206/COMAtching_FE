@@ -210,9 +210,9 @@ function Form() {
         <ComatHeader destination="/" buttonText="처음으로" />
         <div className="content">
           <div className="inner-content">
-            <div className="foam-title">
-              <div className="foam-title-text">거의 다 왔습니다!</div>
-              <div className="foam-title-inst-txt">
+            <div className="form-title">
+              <div className="form-title-text">거의 다 왔습니다!</div>
+              <div className="form-title-inst-txt">
                 본인의 정보를 모두 입력해 주세요.
               </div>
             </div>

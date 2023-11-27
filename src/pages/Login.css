@@ -187,6 +187,7 @@
   cursor: pointer;
   align-self: flex-end;
   margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .register-button span {

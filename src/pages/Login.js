@@ -95,7 +95,7 @@ function Login() {
             </div>
             <div className="user-passwd">
               <label>
-                비밀번호e
+                비밀번호
                 <div className="password-input">
                   <MyInput
                     name="user-passwd"
