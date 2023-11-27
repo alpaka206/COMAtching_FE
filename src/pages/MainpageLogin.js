@@ -1,3 +1,5 @@
+/*mainresult js*/
+
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
@@ -52,7 +54,7 @@ function MainpageLogin() {
         </div>
         <div
           className="myinfo"
-          style={{ fontSize: "18px", fontWeight: "bolder" }}
+          style={{ fontSize: "15px", fontWeight: "bolder" }}
         >
           my info
         </div>
@@ -106,11 +108,11 @@ function MainpageLogin() {
         </div>
         <div className="number-group">
           <button className="number-button" onClick={handleVisitLoading}>
-            나의 매칭가능 횟수
+            <span className="number-text">나의 매칭가능 횟수</span>
             <div
               className="number-button-opport"
               style={{
-                fontSize: "24px",
+                fontSize: "32px",
                 fontWeight: "w600",
                 marginTop: "5px",
                 fontWeight: "bolder",
@@ -121,30 +123,34 @@ function MainpageLogin() {
                 {numParticipants}
               </span>
               <div className="number-matching-group">
-                1회
+                <span className="number-text2">1회</span>
                 <div className="number-charge">충전하기</div>
               </div>
             </div>
           </button>
         </div>
         <div className="button-group">
-          <div>
-            <button
-              className="button-group-search"
-              onClick={handleVisitcheckresult}
-            >
-              조회하기
-            </button>
-          </div>
-          <div>
-            <button
-              className="button-group-guide"
-              onClick={handleVisitInstagram}
-            >
-              COMAtching <br />
-              가이드북
-            </button>
-          </div>
+          <button
+            className="button-group-search"
+            onClick={handleVisitcheckresult}
+          >
+            <img
+              src={process.env.PUBLIC_URL + `assets/main_search.png`}
+              alt="조회버튼"
+            />
+            <br></br>
+            조회하기
+          </button>
+          <button className="button-group-guide" onClick={handleVisitInstagram}>
+            <img
+              className="main-guideImage2"
+              src={process.env.PUBLIC_URL + `assets/main_guide.png`}
+              alt="조회버튼"
+            />
+            <br></br>
+            COMAtching <br />
+            가이드북
+          </button>
         </div>
       </div>
       <Footer />

@@ -14,7 +14,10 @@ function ComatHeader({ destination, buttonText }) {
           onClick={() => navigate("/")}
         />
       </div>
-      <button className="look-button" onClick={() => navigate({ destination })}>
+      <button
+        className="look-button"
+        onClick={() => navigate(destination || -1)}
+      >
         {buttonText}
       </button>
     </div>

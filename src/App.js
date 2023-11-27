@@ -21,16 +21,16 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Form" element={<Form />} />
-            <Route
+            {/* <Route
               path="Match"
               element={<PrivateRoute />}
               component={Match}
-            ></Route>
-            <Route
+            ></Route> */}
+            {/* <Route
               path="Matchresult"
               element={<PrivateRoute />}
               component={Matchresult}
-            ></Route>
+            ></Route> */}
             <Route
               path="Checkresult"
               element={<PrivateRoute />}
@@ -46,8 +46,10 @@ function App() {
               element={<PrivateRoute />}
               component={Loading}
             ></Route>
-            {/* <Route path="/Match" element={<Match />} />
             <Route path="/Matchresult" element={<Matchresult />} />
+            <Route path="/Match" element={<Match />} />
+            {/*
+            
             <Route path="/Checkresult" element={<Checkresult />} />
             <Route path="/Admin" element={<Admin />} />
             <Route path="/Loading" element={<Loading />} /> */}
