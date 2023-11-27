@@ -1,3 +1,5 @@
+/*mainresult js*/
+
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
@@ -42,20 +44,11 @@ function MainpageLogin() {
     <div className="container">
       <ComatHeader destination="/" buttonText="로그아웃" />
       <div className="login-content">
-        <div
-          className="login-name"
-          style={{ fontSize: "40px", fontWeight: "bolder" }}
-        >
-          김규원님,
-          <br />
-          환영합니다.
+        <div className = "login-name" style={{ fontSize: "40px", fontWeight: "bolder"}}>
+          김규원님,<br />환영합니다.
         </div>
-        <div
-          className="myinfo"
-          style={{ fontSize: "18px", fontWeight: "bolder" }}
-        >
-          my info
-        </div>
+        <div className = "myinfo" style={{ fontSize: "15px", fontWeight: "bolder"}}>
+          my info</div>
         <div className="CheckresultItem">
           <div className="CheckresultTopline">
             <div className="CheckresultInlineItem">
@@ -76,9 +69,9 @@ function MainpageLogin() {
               <div className="CheckresultText">삐딱하게</div>
             </div>
             <div className="CheckresultInlineItem2">
-              <div className="CheckresultTopic2">MBTI</div>
+              <div className="CheckresultTopic3">MBTI</div>
               {/* <div className="CheckresultText">{item.song}</div> */}
-              <div className="CheckresultText2">ESTJ</div>
+              <div className="CheckresultText3">ESTJ</div>
             </div>
           </div>
           <div className="CheckresultBottom">@kim.q1</div>
@@ -87,64 +80,66 @@ function MainpageLogin() {
         <div>
           <button className="matching-button" onClick={handleVisitmatch}>
             매칭하기 ▶
-            <div
+              <div 
               /*</button>{numParticipants !== null && ( )} -- 요거 있으면 css 안보여서 */
-              style={{
-                fontSize: "15px",
-                fontWeight: "w600",
-                marginTop: "5px",
-                fontWeight: "bolder",
-              }}
-            >
-              현재{" "}
-              <span style={{ color: "#FF4D61", fontWeight: "900" }}>
-                {numParticipants}
-              </span>
-              102명 참여중이에요!
-            </div>
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "w600",
+                  marginTop: "5px",
+                  fontWeight: "bolder",
+                }}
+              >
+                현재{" "}
+                <span style={{ color: "#FF4D61", fontWeight: "900" }}>
+                  {numParticipants}
+                </span>
+                102명 참여중이에요!
+              </div>
+            
           </button>
         </div>
         <div className="number-group">
           <button className="number-button" onClick={handleVisitLoading}>
-            나의 매칭가능 횟수
-            <div
-              className="number-button-opport"
-              style={{
-                fontSize: "24px",
-                fontWeight: "w600",
-                marginTop: "5px",
-                fontWeight: "bolder",
-              }}
-            >
-              {" "}
-              <span style={{ color: "#FF4D61", fontWeight: "900" }}>
-                {numParticipants}
-              </span>
-              <div className="number-matching-group">
-                1회
+            <span className="number-text">나의 매칭가능 횟수</span>
+            <div className="number-button-opport"
+                style={{
+                  fontSize: "32px",
+                  fontWeight: "w600",
+                  marginTop: "5px",
+                  fontWeight: "bolder"    
+                }}
+              >
+                {" "}
+                <span style={{ color: "#FF4D61", fontWeight: "900" }}>
+                  {numParticipants}
+                </span>
+                <div className="number-matching-group">
+                  <span className="number-text2">1회</span>
                 <div className="number-charge">충전하기</div>
+                </div>
               </div>
-            </div>
+              
           </button>
+          
         </div>
         <div className="button-group">
-          <div>
-            <button
-              className="button-group-search"
-              onClick={handleVisitcheckresult}
-            >
+            <button className="button-group-search" onClick={handleVisitcheckresult}>
+              <img
+                src={process.env.PUBLIC_URL + `assets/main_search.png`}
+                alt = "조회버튼"
+              />
+              <br></br>
               조회하기
             </button>
-          </div>
-          <div>
-            <button
-              className="button-group-guide"
-              onClick={handleVisitInstagram}
-            >
-              COMAtching <br />
-              가이드북
+            <button className="button-group-guide" onClick={handleVisitInstagram}>
+              <img 
+                className = "main-guideImage2"
+                src={process.env.PUBLIC_URL + `assets/main_guide.png`}
+                alt = "조회버튼"
+              />
+              <br></br>
+              COMAtching <br />가이드북
             </button>
-          </div>
         </div>
       </div>
       <Footer />
