@@ -16,7 +16,7 @@ export const userState = atom({
     song: "",
     gender: true,
     mbti: "",
-    isLoggedIn: false,
+    isLoggedIn: true,
   },
 });
 
@@ -47,6 +47,7 @@ export const MatchRecoilState = atom({
 export const MatchResultRecoilState = atom({
   key: "mcaotmcapResultRecoilState",
   default: {
+    generatedGender: null,
     generatedPhone: null,
     generatedDepart: null,
     generatedSong: null,
