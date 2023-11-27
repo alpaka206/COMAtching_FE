@@ -80,6 +80,14 @@
 .password-input input {
   flex: 1;
   border: none;
+  caret-color: #ff775e; /* Cursor color */
+}
+
+.email-input input:focus,
+.password-input input:focus {
+  outline: none; /* Remove default focus outline */
+  background-color: transparent; /* Make background transparent on focus */
+  box-shadow: none; /* Remove any existing box shadow on focus */
 }
 
 .password-toggle {

@@ -9,8 +9,6 @@
   .inner-content {
     opacity: 1.0;
     padding: 32px;
-    overflow-y: auto;
-    max-height: 532px;
   }
   
   /* Title-Login */
@@ -81,6 +79,14 @@
   .emailpasswd-box input {
     flex: 1;
     border: none;
+    caret-color: #ff775e; /* Cursor color */
+  }
+
+  .reg-email-box input:focus,
+  .emailpasswd-box input:focus {
+    outline: none; /* Remove default focus outline */
+    background-color: transparent; /* Make background transparent on focus */
+    box-shadow: none; /* Remove any existing box shadow on focus */
   }
 
   .code-send-btn {
@@ -164,6 +170,14 @@
 .reg-pw-input input {
   flex: 1;
   border: none;
+  caret-color: #ff775e; /* Cursor color */
+}
+
+.pw-check-input input:focus,
+.reg-pw-input input:focus {
+  outline: none; /* Remove default focus outline */
+  background-color: transparent; /* Make background transparent on focus */
+  box-shadow: none; /* Remove any existing box shadow on focus */
 }
 
 .password-toggle {
