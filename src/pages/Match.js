@@ -28,16 +28,6 @@ function Match() {
     console.log("Sorted MBTI:", sortedMBTI);
   }, [MatchState.selectedMBTI]);
 
-  const handleChange = (e) => {
-    setMatchState((prev) => ({
-      ...prev,
-      formData: {
-        ...prev.formData,
-        passwd: e.target.value,
-      },
-    }));
-  };
-
   const handleMBTISelection = (value) => {
     const category =
       value === "E" || value === "I"
@@ -89,26 +79,35 @@ function Match() {
       passwd: formData.userEmail,
     };
     try {
-      const response = await axios.get("https://onesons.site/match", postdata);
+      // const response = await axios.get("https://onesons.site/match", postdata);
 
-      const { message, code, isSuccess, result } = response.data;
+      // const { message, code, isSuccess, result } = response.data;
 
-      if (isSuccess === true) {
-        const { gender, phone, depart, song, year, mbti } = result;
-        setMatchResultState({
-          generatedCode: code,
-          generatedGender: gender,
-          generatedPhone: phone,
-          generatedDepart: depart,
-          generatedSong: song,
-          generatedYear: year,
-          generatedMbti: mbti,
-        });
-        navigate("/Matchresult");
-      } else {
-        alert(message);
-        return;
-      }
+      // if (isSuccess === true) {
+      //   const { gender, phone, depart, song, year, mbti } = result;
+      //   setMatchResultState({
+      //     generatedCode: code,
+      //     generatedGender: gender,
+      //     generatedPhone: phone,
+      //     generatedDepart: depart,
+      //     generatedSong: song,
+      //     generatedYear: year,
+      //     generatedMbti: mbti,
+      //   });
+      //   navigate("/Matchresult");
+      // } else {
+      //   alert(message);
+      //   return;
+      // }
+
+      setMatchResultState({
+        generatedPhone: "01024120339",
+        generatedDepart: "정보통신전자공학부",
+        generatedSong: "1322",
+        generatedYear: "11",
+        generatedMbti: "estj",
+      });
+      navigate("/Matchresult");
     } catch (error) {
       console.error("오류 발생:", error);
     }
@@ -119,38 +118,6 @@ function Match() {
       <form onSubmit={handleSubmit}>
         <ComatHeader destination="/check" buttonText="조회하기" />
         <div className="content">
-          {/* <div>
-            <label>
-              <h4 className="mcaotext">비밀번호를 입력하세요.</h4>
-              <MyInput
-                name="passwd"
-                value={MatchState.formData.passwd}
-                onChange={handleChange}
-                placeholder="* * * * * *"
-              />
-            </label>
-          </div> */}
-
-          {/* <div>
-            <label>
-              <div className="gender-button-container">
-                <GenderButton
-                  isActive={MatchState.formData.gender}
-                  value="male"
-                  onClick={() => handleGenderSelection("male")}
-                  label="남자"
-                  className="gender-button"
-                />
-                <GenderButton
-                  isActive={!MatchState.formData.gender}
-                  value="female"
-                  onClick={() => handleGenderSelection("female")}
-                  label="여자"
-                  className="gender-button"
-                />
-              </div>
-            </label>
-          </div> */}
           <br />
           <br />
           <div>
@@ -215,46 +182,6 @@ function Match() {
                       className="mbtibutton"
                     />
                   </div>
-                  {/* <div style={{ display: "flex", flexDirection: "row" }}>
-                    <MBTIButton
-                      isActive={formData.mbti.includes("E")}
-                      onClick={() => handleMBTISelection("E")}
-                      label="E"
-                      className="mcaombtibutton"
-                    />
-                    <MBTIButton
-                      isActive={formData.mbti.includes("I")}
-                      onClick={() => handleMBTISelection("I")}
-                      label="I"
-                      className="mcaombtibutton"
-                    />
-                    <MBTIButton
-                      isActive={formData.mbti.includes("Z")}
-                      onClick={() => handleMBTISelection("Z")}
-                      label="선택 안함"
-                      className="mcaombtibutton"
-                    />
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "row" }}>
-                    <MBTIButton
-                      isActive={formData.mbti.includes("P")}
-                      onClick={() => handleMBTISelection("P")}
-                      label="P"
-                      className="mcaombtibutton"
-                    />
-                    <MBTIButton
-                      isActive={formData.mbti.includes("J")}
-                      onClick={() => handleMBTISelection("J")}
-                      label="J"
-                      className="mcaombtibutton"
-                    />
-                    <MBTIButton
-                      isActive={formData.mbti.includes("X")}
-                      onClick={() => handleMBTISelection("X")}
-                      label="선택 안함"
-                      className="mcaombtibutton"
-                    />
-                  </div> */}
                 </div>
               </div>
             </label>
