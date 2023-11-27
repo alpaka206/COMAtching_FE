@@ -9,6 +9,8 @@
   .inner-content {
     opacity: 1.0;
     padding: 32px;
+    overflow-y: auto;
+    max-height: 532px;
   }
   
   /* Title-Login */
@@ -93,7 +95,7 @@
   .code-send-btn span {
     align-items: center;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Pretendard', Helvetica;
     font-weight: 700;
   }
@@ -189,11 +191,11 @@
   }
   .privacy-button {
     background-color: unset;
-    margin-bottom:20px;
+    margin-bottom:30px;
+    margin-top:-10px;
   }  
   
   .agreement-box {
-    
     background-color: #ffffff; /* Set background color */
     border: 2px solid #000000; /* Add border */
     border-radius: 10px; /* Add border radius */
@@ -213,4 +215,5 @@
     bottom:0;
     left: 0;
     transform: translate(0, 70%);
+    margin-bottom: 50px;
   }
