@@ -1,6 +1,4 @@
 import React from "react";
-import axios from "axios";
-
 import ComatHeader from "../components/ComatHeader";
 import Footer from "../components/Footer";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -20,36 +18,46 @@ function Matchresult() {
   const isPhoneNumberStartsWith010 =
     MatchResultState.generatedPhone &&
     MatchResultState.generatedPhone.slice(0, 3) === "010";
-
+  const alarmUrl = () => {
+    alert("url강제 이동시 로그아웃 후 로그인 페이지로 이동됩니다.");
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const postdata = {
-      passwd: formData.passwd,
       gender: !formData.gender,
       mbti: MatchState.sortedMBTI,
+      passwd: formData.userEmail,
     };
     try {
-      const response = await axios.get("https://onesons.site/match", {
-        params: {
-          mbti: MatchState.sortedMBTI[0] + MatchState.sortedMBTI[1],
-          passwd: formData.passwd,
-          gender: !formData.gender,
-        },
-      });
+      // const response = await axios.get("https://onesons.site/match", postdata);
 
-      if (response.data.isSuccess === true) {
-        setMatchResultState({
-          generatedGender: response.data.result.gender,
-          generatedPhone: response.data.result.phone,
-          generatedDepart: response.data.result.depart,
-          generatedSong: response.data.result.song,
-          generatedYear: response.data.result.year,
-          generatedMbti: response.data.result.mbti,
-        });
-      } else {
-        alert(response.data.message);
-        return;
-      }
+      // const { message, code, isSuccess, result } = response.data;
+
+      // if (isSuccess === true) {
+      //   const { gender, phone, depart, song, year, mbti } = result;
+      //   setMatchResultState({
+      //     generatedCode: code,
+      //     generatedGender: gender,
+      //     generatedPhone: phone,
+      //     generatedDepart: depart,
+      //     generatedSong: song,
+      //     generatedYear: year,
+      //     generatedMbti: mbti,
+      //   });
+      //   navigate("/Matchresult");
+      // } else {
+      //   alert(message);
+      //   return;
+      // }
+
+      setMatchResultState({
+        generatedPhone: "0102122129",
+        generatedDepart: "정보123전자공학부",
+        generatedSong: "1r3122",
+        generatedYear: "19",
+        generatedMbti: "estj2",
+      });
+      console.log(MatchResultState);
     } catch (error) {
       console.error("오류 발생:", error);
     }
@@ -67,48 +75,59 @@ function Matchresult() {
                 </span>
               </div>
             ) : (
-              <div>
-                <div className="MatchresultTop">COMAtching 결과!</div>
-                <div className="MatchresultTopic">| 전공</div>
-                <div className="MatchresultText">
-                  {MatchResultState.generatedDepart}
-                </div>
-                <div className="MatchresultTopic">| 학번</div>
-                <div className="MatchresultText">
-                  {MatchResultState.generatedYear}
-                </div>
-                <div className="MatchresultTopic">| 좋아하는 노래</div>
-                <div className="MatchresultText">
-                  {MatchResultState.generatedSong}
-                </div>
-                <div className="MatchresultTopic">| 상대방의 MBTI</div>
-                <div className="MatchresultMbtitext">
-                  {MatchResultState.generatedMbti}{" "}
-                  {MatchResultState.generatedCode === 2001 && (
-                    <span style={{ fontSize: "15px", color: "#FF775E" }}>
-                      조건에 맞는 상대가 없어서 랜덤으로 매칭되었어요!
-                    </span>
+              <div className="inner-content">
+                <div>
+                  <div className="result-title">
+                    <div className="result-title-text">매칭 완료</div>
+                    <div className="result-title-inst-txt">
+                      좋은 결과가 있길 바래요
+                    </div>
+                  </div>
+                  {/* <div className="MatchresultTop">COMAtching 결과!</div> */}
+                  <div className="MatchresultTopic">| 전공</div>
+                  <div className="MatchresultText">
+                    {MatchResultState.generatedDepart}
+                  </div>
+                  <div className="MatchresultTopic">| 학번</div>
+                  <div className="MatchresultText">
+                    {MatchResultState.generatedYear}
+                  </div>
+                  <div className="MatchresultTopic">| 좋아하는 노래</div>
+                  <div className="MatchresultText">
+                    {MatchResultState.generatedSong}
+                  </div>
+                  <div className="MatchresultTopic">| 상대방의 MBTI</div>
+                  <div className="MatchresultMbtitext">
+                    {MatchResultState.generatedMbti}{" "}
+                    {MatchResultState.generatedCode === 2001 && (
+                      <span style={{ fontSize: "10px", color: "#FF775E" }}>
+                        조건에 맞는 상대가 없어서 랜덤으로 매칭되었어요!
+                      </span>
+                    )}
+                    {MatchResultState.generatedCode !== 2001 && <span> </span>}
+                  </div>
+                  {isPhoneNumberStartsWith010 ? (
+                    <div className="MatchresultInstaTopic">Phone_number</div>
+                  ) : (
+                    <div className="MatchresultInstaTopic">Instagram</div>
                   )}
-                  {MatchResultState.generatedCode !== 2001 && <span> </span>}
+                  <div className="MatchresultInstaText">
+                    {MatchResultState.generatedPhone}
+                  </div>
+                  <button className="Retry_button" onClick={handleSubmit}>
+                    이전과 같은 조건으로 한번 더 뽑기
+                  </button>
                 </div>
-                {isPhoneNumberStartsWith010 ? (
-                  <div className="MatchresultInstaTopic">Phone_number</div>
-                ) : (
-                  <div className="MatchresultInstaTopic">Instagram</div>
-                )}
-                <div className="MatchresultInstaText">
-                  {MatchResultState.generatedPhone}
-                </div>
-                <button className="MatchresultBottom" onClick={handleSubmit}>
-                  이전과 같은 조건으로 한번 더 뽑기
-                </button>
               </div>
             )}{" "}
           </div>
           <Footer />
         </div>
       ) : (
-        <Login />
+        <>
+          {alarmUrl()}
+          <Login />
+        </>
       )}
     </div>
   );

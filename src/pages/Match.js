@@ -28,7 +28,9 @@ function Match() {
     setMatchState((prev) => ({ ...prev, sortedMBTI }));
     console.log("Sorted MBTI:", sortedMBTI);
   }, [MatchState.selectedMBTI]);
-
+  const alarmUrl = () => {
+    alert("url강제 이동시 로그아웃 후 로그인 페이지로 이동됩니다.");
+  };
   const handleMBTISelection = (value) => {
     const category =
       value === "E" || value === "I"
@@ -124,7 +126,7 @@ function Match() {
           <form onSubmit={handleSubmit}>
             <ComatHeader destination="/check" buttonText="조회하기" />
             <div className="content">
-              <div className="inner-content">
+              <div className="match-inner-content">
                 <br />
                 <br />
 
@@ -208,7 +210,10 @@ function Match() {
           </form>
         </div>
       ) : (
-        <Login />
+        <>
+          {alarmUrl()}
+          <Login />
+        </>
       )}
     </div>
   );

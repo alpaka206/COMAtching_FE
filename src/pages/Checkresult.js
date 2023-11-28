@@ -9,7 +9,9 @@ import { generatedDataState, userState } from "../Atoms";
 function Checkresult() {
   const [formData, setFormData] = useRecoilState(userState);
   const [generatedData, setGeneratedData] = useRecoilState(generatedDataState);
-
+  const alarmUrl = () => {
+    alert("url강제 이동시 로그아웃 후 로그인 페이지로 이동됩니다.");
+  };
   useEffect(() => {
     fetchData();
   }, []);
@@ -63,7 +65,10 @@ function Checkresult() {
           <Footer />
         </div>
       ) : (
-        <Login />
+        <>
+          {alarmUrl()}
+          <Login />
+        </>
       )}
     </div>
   );

@@ -1,9 +1,18 @@
 import React from "react";
 import "./ComatHeader.css";
 import { useNavigate } from "react-router-dom";
-
+import { useRecoilState } from "recoil";
+import { userState } from "../Atoms";
 function ComatHeader({ destination, buttonText }) {
+  const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate();
+  const handleLogout = () => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      isLoggedIn: false,
+    }));
+  };
+
   return (
     <div className="header">
       <div>
@@ -14,12 +23,18 @@ function ComatHeader({ destination, buttonText }) {
           onClick={() => navigate("/")}
         />
       </div>
-      <button
-        className="look-button"
-        onClick={() => navigate(destination || -1)}
-      >
-        {buttonText}
-      </button>
+      {buttonText === "로그아웃" ? (
+        <button className="look-button" onClick={handleLogout}>
+          {buttonText}
+        </button>
+      ) : (
+        <button
+          className="look-button"
+          onClick={() => navigate(destination || -1)}
+        >
+          {buttonText}
+        </button>
+      )}
     </div>
   );
 }
