@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+![Comatching Logo](https://i.imgur.com/8f9mrrI.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <strong>학교에서 나랑 맞는 사람을 쉽게 만나볼 수는 없을까?</strong><br>
+  <strong>Comatching은 내가 직접 상대의 MBTI를 고를 수 있어 더 다양하고 쉬운 커플 매칭 서비스를 제공합니다.</strong><br>
+  <strong>Comatching에서 새로운 인연을 만나보세요!</strong>
+</p>
 
-## Available Scripts
 
-In the project directory, you can run:
+## 목차
+- [개요](#개요)
+- [서비스 설명](#서비스-설명)
+- [페이지 설명](#페이지-설명)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 개요
+- **프로젝트 이름:** Comatching
+- **개발 기간:** 2023.09~2023.11
+- **개발 언어:** Java, React
+- **멤버:**
+<div align="center">
+  <table>
+    <colgroup>
+      <col style="width: 25%;">
+      <col style="width: 25%;">
+      <col style="width: 25%;">
+      <col style="width: 25%;">
+    </colgroup>
+    <tr>
+      <td><img src="https://i.imgur.com/UORdypn.png" height="220" /></td>
+      <td><img src="https://i.imgur.com/dqu7lFs.png" height="200" /></td>
+      <td><img src="https://i.imgur.com/Iez91Tv.png" width="200" height="200" /></td>
+      <td><img src="https://i.imgur.com/pYkotmQ.png" width="200" height="200" /></td>
+    </tr>
+    <tr>
+      <td><strong><span style="font-size: 32pt;">서승준</span></strong><br> - Back-End (Spring)<br> - smdmim@gmail.com<br> - 00.02.29<br> - GitHub: greensnapback0229</td>
+      <td><strong><span style="font-size: 32pt;">김규원</span></strong><br> - Front-End (React)<br> - gyuwon05@gmail.com<br> - 00.05.17<br> - GitHub: alpaka206</td>
+      <td><strong><span style="font-size: 32pt;">박승원</span></strong><br> - Design (Figma/ CSS)<br> - iswpark99@gmail.com<br> - 99.04.22<br> - GitHub: winterizcoming</td>
+      <td><strong><span style="font-size: 32pt;">박상준</span></strong><br> - Design (CSS)<br> - rodonight@gmail.com<br> - 00.03.05<br> - GitHub: Rodonight</td>
+    </tr>
+  </table>
+</div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 서비스 설명
+<div align="center">
+  <table style="width: 80%;">
+    <colgroup>
+      <col style="width: 33.33%;">
+      <col style="width: 33.33%;">
+      <col style="width: 33.33%;">
+    </colgroup>
+    <tr>
+      <td><img src="https://i.imgur.com/6YZ5U9X.png" height="300" /></td>
+      <td><img src="https://i.imgur.com/DfJSD8G.png" height="300" /></td>
+      <td><img src="https://i.imgur.com/Aq2e8T9.png" height="300" /></td>
+    </tr>
+    <tr>
+      <td><strong>시작 화면</strong></td>
+      <td><strong>Dashboard</strong></td>
+      <td><strong>Result</strong></td>
+    </tr>
+  </table>
+</div>
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+개인주의가 커져가는 시대에 따라 단체 생활의 빈도가 적어지고, 나와 맞는 사람을 학교 내에서 찾기 점점 어려워지고 있다는 생각에, MBTI를 이용한 랜덤 커플 매칭 서비스가 있었으면 좋겠다는 생각에 Comatching을 개발하게 되었습니다. 9월 가톨릭대학교 다맛제에 이미 시범 운영을 하여 이틀동안 700명이 넘는 이용자를 확보하였으며, 굉장히 뜨거운 반응을 얻었습니다. 좋았던 점, 고쳐야 할 점을 반영하여 시범 운영한 경험을 바탕으로 더욱 기능을 강화하여 버전 2.0을 출시하였습니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **원하는 MBTI를 직접 선택하세요! 😃** <br>
+  Comatching과 다른 서비스들과의 차별점은, 본인이 원하는 MBTI를 직접 선택할 수 있다는 것입니다. <br>직관적이고, 간단하게, 본인이 평소 선호하는 MBTI의 이성을 만나보세요! <br><br>
+- **무슨 노래 좋아하세요? 🎧**<br>
+  노래는 그 사람의 취향과 성격을 나타내기도 합니다. <br>MBTI 만으로 알 수 없는 상대의 성격을 좋아하는 노래로 미리 짐작해보세요! <br><br>
+- **SHA-256 해시 함수 암호화로 안전하게! 🔒**<br>
+  Comatching은 SHA-256 해시 함수 암호화를 사용하여 여러분의 개인 정보를 안전하게 보관합니다. <br>혹시라도 공격자가 중간에 정보를 탈취하려고 해도 아무 소용 없죠.<br><br>
+- **누구나 쉽고 간단하게! 🤗**<br>
+  가이드북을 제공하여 누구나 쉽게 이용할 수 있도록 친절하게 설명하고, 직관적으로 디자인하였습니다.<br><br>
+  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## 페이지 설명
+<div align="center">
+  <table style="width: 80%;">
+    <colgroup>
+      <col style="width: 20%;">
+      <col style="width: 20%;">
+      <col style="width: 20%;">
+      <col style="width: 20%;">
+    </colgroup>
+    <tr>
+      <td><img src="https://i.imgur.com/6YZ5U9X.png" height="300" /></td>
+      <td><img src="https://i.imgur.com/SfoKrRV.png" height="300" /></td>
+      <td><img src="https://i.imgur.com/ldEaFWK.png" height="300" /></td>
+      <td><img src="https://i.imgur.com/0FQ0qqU.png" height="300" /></td>
+    </tr>
+    <tr>
+      <td><strong>시작 페이지</strong></td>
+      <td><strong>Login</strong></td>
+      <td><strong>Register</strong></td>
+      <td><strong>Form</strong></td>
+    </tr>
+    <tr>
+      <td>비로그인 시 시작 페이지</td>
+      <td>로그인 화면</td>
+      <td>개인정보 동의 후 로그인</td>
+      <td>본인의 MBTI,<br> 좋아하는 노래 입력</td>
+    </tr>
+  </table>
+</div>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<div align="center">
+  <table style="width: 80%;">
+    <colgroup>
+      <col style="width: 20%;">
+      <col style="width: 20%;">
+      <col style="width: 20%;">
+      <col style="width: 20%;">
+    </colgroup>
+    <tr>
+      <td><img src="https://i.imgur.com/DfJSD8G.png" height="300" /></td>
+      <td><img src="https://i.imgur.com/WsMvZwl.png" height="300" /></td>
+      <td><img src="https://i.imgur.com/Aq2e8T9.png" height="300" /></td>
+      <td><img src="https://i.imgur.com/4cd7NQ7.png" height="300" /></td>
+    </tr>
+    <tr>
+      <td><strong>Dashboard</strong></td>
+      <td><strong>매칭하기</strong></td>
+      <td><strong>결과 창</strong></td>
+      <td><strong>조회하기</strong></td>
+    </tr>
+    <tr>
+      <td>로그인 시 시작 페이지</td>
+      <td>원하는 MBTI <br> 2개 선택 후 매칭</td>
+      <td>결과 확인</td>
+      <td>본인이 뽑았던 내역 확인</td>
+    </tr>
+  </table>
+</div>
