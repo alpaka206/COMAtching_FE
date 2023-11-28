@@ -1,4 +1,4 @@
-
+/*mainpageLogin.css*/
 .login-content {
   width: 90%;
   margin-top: 27px;
@@ -40,11 +40,11 @@
 }
 
 .number-button {
-  text-align: left;
+  text-align: center;
   margin-top: 10px;
   color: #0c0c0c;
   width: 100%;
-  height: 100px;
+  height: 100%;
   border-radius: 32px;
   font-size: 15px;
   font-weight: bold;
@@ -52,13 +52,19 @@
 }
 
 .number-text {
+  padding-top: 5%;
   font-size: 20px;
   margin-left: 10%;
+  display: flex;
 }
 
 .number-text2 {
   font-size: 30px;
   margin-left: 10%;
+}
+
+.number-bottom {
+  padding-bottom: 10px;
 }
 
 .number-button-opport {
@@ -76,11 +82,11 @@
   color: #ffffff;
   text-align: center;
   height: 40px;
-  width: 45%;
+  width: 40%;
   border-radius: 10px 10px;
   font-size: 20px;
   font-weight: bold;
-  margin-right: -15px;
+  margin-left: 30%;
 }
 
 .button-group {
@@ -112,13 +118,8 @@
   margin-left: 2.5%;
 }
 
-.main-guideImage2 {
-  margin-top: 15px;
-}
-
 .MainLoginTopic {
   font-size: 16px;
-  min-width: 50px;
   font-weight: bold;
   color: #777777;
   text-align: left;
@@ -150,6 +151,7 @@
   border-bottom-right-radius: 32px;
 }
 .MainLoginInline {
+  width: 100%;
   padding-top: 5px;
   padding-left: 23px;
   padding-right: 23px;
@@ -157,14 +159,20 @@
 }
 
 .MainLoginTopline {
+  width: 100%;
   padding-top: 5px;
   padding-left: 23px;
   display: flex;
 }
 
 .MainLoginInlineItem {
-  margin-right: 10px;
-  min-width: 40%;
+  margin-right: 5%;
+  width: 50%;
+  height: 70px;
+}
+
+.MainLoginInlineItem2 {
+  margin-right: 5%;
   height: 70px;
 }
 
@@ -173,144 +181,4 @@
   width: 100%;
   border-radius: 32px 0 32px 32px;
   height: 200px;
-}
-
-.login-content {
-  width: 90%;
-  margin-top: 27px;
-  display: inline-block;
-  border-radius: 32px;
-  margin-bottom: 50px;
-  color: #ffffff;
-  text-align: left;
-}
-
-.login-name {
-  text-align: left;
-}
-
-.myinfo {
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  color: #ffffff;
-  text-align: center;
-  margin-left: 80%;
-  height: 40px;
-  width: 20%;
-  border-radius: 20px 20px 0 0;
-  font-size: 20px;
-  font-weight: bold;
-  z-index: 0;
-  line-height: 3;
-}
-
-.CheckresultTopline2 {
-  padding-left: 23px;
-}
-
-.CheckresultItem {
-  width: 100%;
-}
-
-.CheckresultTopic2 {
-  text-align: right;
-}
-
-.CheckresultText2 {
-  text-align: right;
-}
-
-.matching-button {
-  margin-top: 20px;
-  color: #0c0c0c;
-  width: 100%;
-  height: 120px;
-  border-radius: 32px;
-  font-size: 24px;
-  font-weight: bold;
-  background-color: #ffffff;
-  border: 2px solid #ff6b81;
-}
-
-.number-button {
-  text-align: left;
-  margin-top: 10px;
-  color: #0c0c0c;
-  width: 100%;
-  height: 100px;
-  border-radius: 32px;
-  font-size: 15px;
-  font-weight: bold;
-  background-color: #ffffff;
-}
-
-.number-text {
-  font-size: 20px;
-  margin-left: 10px;
-}
-
-.number-text2 {
-  font-size: 30px;
-  margin-left: 10px;
-}
-
-.number-button-opport {
-  margin-left: 45px;
-}
-
-.number-button-charge {
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  color: #ffffff;
-  font-size: 15px;
-}
-
-.number-matching-group {
-  display: flex;
-  justify-content: space-between;
-  margin-right: 10%;
-}
-
-.number-charge {
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  color: #ffffff;
-  text-align: center;
-  height: 40px;
-  width: 45%;
-  border-radius: 10px 10px;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 2;
-  margin-right: -20px;
-}
-
-.button-group {
-  display: flex;
-  justify-content: space-between;
-}
-
-.button-group-search {
-  text-align: center;
-  margin-top: 10px;
-  width: 90%;
-  height: 150px;
-  background-color: #ffffff;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 32px;
-  margin-right: 2.5%;
-}
-
-.button-group-guide {
-  text-align: center;
-  margin-top: 10px;
-  width: 90%;
-  height: 150px;
-  background-color: #ffffff;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 32px;
-  margin-left: 2.5%;
-}
-
-.main-guideImage2 {
-  margin-top: 15px;
 }

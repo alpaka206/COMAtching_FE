@@ -111,7 +111,6 @@
   color: #ff4d61;
   margin-top: 8px;
   margin-bottom: 32px;
-
 }
 .Retry_button {
   background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
@@ -127,4 +126,3 @@
   transform: translate(0, 70%);
   margin-bottom: 50px;
 }
-

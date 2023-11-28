@@ -136,13 +136,13 @@ function Form() {
     console.log(alreadyExists);
     if (alreadyExists) {
       alert(
-        `1이미 존재하는 ${
+        `이미 존재하는 ${
           checkMethod.contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
         }입니다.`
       );
     } else {
       alert(
-        `2입력한 ${
+        `입력한 ${
           checkMethod.contactMethod === "phone" ? "전화번호" : "인스타그램 ID"
         }는 사용 가능합니다.`
       );

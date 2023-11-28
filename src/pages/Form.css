@@ -90,7 +90,7 @@ input {
   border-radius: 30px;
   caret-color: #ff775e; /* Cursor color */
 }
-input:focus{
+input:focus {
   outline: none; /* Remove default focus outline */
   background-color: transparent; /* Make background transparent on focus */
   box-shadow: none; /* Remove any existing box shadow on focus */
@@ -291,7 +291,7 @@ button.checkbutton {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width:100%;
+  width: 100%;
   white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
 }
 .space {

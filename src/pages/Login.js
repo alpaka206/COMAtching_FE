@@ -12,9 +12,7 @@ function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useRecoilState(userState);
   const [showPassword, setShowPassword] = useState(false);
-  useEffect(() => {
-    console.log(formData);
-  });
+  useEffect(() => {});
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -29,41 +27,34 @@ function Login() {
       };
       const response = await axios.post("https://onesons.site/login", postdata);
 
-      const { isSuccess, message } = response.data;
-      // const { token, isSuccess, message } = response.data;
-
-      if (isSuccess === true) {
-        // localStorage.setItem("jwtToken", token);
-        // document.cookie = `jwtToken=${token}; path=/;`;
-        // -----------------------------------------------------------------
-        // // 서버 응답에서 쿠키 추출
-        // const cookies = response.headers["set-cookie"];
-
-        // // 쿠키 저장
-        // cookies.forEach((cookie) => {
-        //   document.cookie = cookie;
-        // });
+      console.log(response);
+      if (response.data.isSuccess === true) {
         setFormData((prevFormData) => ({
           ...prevFormData,
-          gender: response.gender,
-          phone: response.phone,
-          depart: response.depart,
-          song: response.song,
-          mbti: response.mbti,
-          userEmail: response.userEmail,
-          userPw: response.userPw,
-          year: response.year,
+          passwd: response.data.result.passwd,
+          gender: response.data.result.gender,
+          phone: response.data.result.phone,
+          depart: response.data.result.depart,
+          song: response.data.result.song,
+          mbti: response.data.result.mbti,
+          year: response.data.result.year,
+          chance: response.data.result.chance,
           isLoggedIn: true,
         }));
+        console.log(formData);
         navigate("/");
       } else {
-        alert(message);
+        alert(response.data.message);
       }
     } catch (error) {
       console.error("오류 발생:", error);
     }
   };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
@@ -83,12 +74,10 @@ function Login() {
                 이메일
                 <div className="email-input">
                   <MyInput
-                    name="user-email"
-                    value={formData.email}
+                    name="userEmail"
+                    value={formData.userEmail}
                     placeholder="example@gmail.com"
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
+                    onChange={handleInputChange}
                   />
                 </div>
               </label>
@@ -98,13 +87,11 @@ function Login() {
                 비밀번호
                 <div className="password-input">
                   <MyInput
-                    name="user-passwd"
-                    value={formData.passwd}
+                    name="userPw"
+                    value={formData.userPw}
                     placeholder="비밀번호를 입력해주세요"
                     type={showPassword ? "text" : "password"}
-                    onChange={(e) =>
-                      setFormData({ ...formData, passwd: e.target.value })
-                    }
+                    onChange={handleInputChange}
                   />
                   <div
                     className="password-toggle"

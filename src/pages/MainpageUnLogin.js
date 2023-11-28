@@ -16,6 +16,9 @@ function MainpageUnLogin() {
   const handleSubmit = () => {
     navigate("/Login");
   };
+  const handleVisitGuide = () => {
+    navigate("/guide"); // "_blank"를 추가하여 새 창에서 열도록 설정
+  };
   useEffect(() => {
     const fetchParticipants = async () => {
       try {
@@ -94,7 +97,9 @@ function MainpageUnLogin() {
         </div>
         <div>
           {/* <button className="privacy-button" onClick={handleAgreementClick}> */}
-          <button className="privacy-button">서비스 이용법 안내</button>
+          <button className="privacy-button" onClick={handleVisitGuide}>
+            서비스 이용법 안내
+          </button>
         </div>
         {/* {showAgreement && (
           <AgreementBox handleCloseAgreement={handleCloseAgreement} />
