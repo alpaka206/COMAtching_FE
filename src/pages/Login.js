@@ -12,11 +12,18 @@ function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useRecoilState(userState);
   const [showPassword, setShowPassword] = useState(false);
+  const Rest_api_key = "4c2e27b993e068dde1cd69f0f5c8fff8"; //REST API KEY
+  const redirect_uri = "http://localhost:3000/login"; //Redirect URI
+  // oauth 요청 URL
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+  const handleLogin = () => {
+    window.location.href = kakaoURL;
+  };
   useEffect(() => {});
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-
+  const code = new URL(window.location.href).searchParams.get("code"); // 코드 보내기
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -105,6 +112,8 @@ function Login() {
             <button class="login-button">
               <span>로그인</span>
             </button>
+            <button onClick={handleLogin}>카카오 로그인</button>
+
             <div class="line-identifier"></div>
             <div className="register">
               <div className="reg-recommend">
