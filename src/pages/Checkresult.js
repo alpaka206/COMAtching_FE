@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
 import "./Checkresult.css";
 import Login from "./Login";
 import { useRecoilState } from "recoil";
@@ -34,7 +34,7 @@ function Checkresult() {
     <div>
       {formData.isLoggedIn ? (
         <div className="container">
-          <ComatHeader destination="/" buttonText="처음으로" />
+          <HeaderNav destination="/" buttonText="처음으로" />
           <div className="checkresult-content">
             {generatedData.map((item, index) => (
               <div key={index} className="CheckresultItem">

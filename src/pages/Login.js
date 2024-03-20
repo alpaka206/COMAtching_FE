@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { userState } from "../Atoms";
 import axios from "axios";
 import MyInput from "../components/MyInput";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
@@ -65,7 +65,7 @@ function Login() {
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
-        <ComatHeader destination="/" buttonText="처음으로" />
+        <HeaderNav destination="/" buttonText="처음으로" />
         <div className="content">
           <div className="inner-content">
             <div className="title">

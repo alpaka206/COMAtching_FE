@@ -1,0 +1,21 @@
+.User-Info-Rrev {
+  background: #ffffff;
+  width: 100%;
+  border-radius: 32px 0 32px 32px;
+  height: 200px;
+}
+.User-Contact {
+  margin-top: 5px;
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  font-size: 16px;
+  text-align: left;
+  font-weight: bolder;
+  color: white;
+  padding-top: 18px;
+  padding-left: 30px;
+  padding-bottom: 5px;
+
+  height: 30px;
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+}

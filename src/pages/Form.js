@@ -3,7 +3,7 @@ import axios from "axios";
 import MyInput from "../components/MyInput";
 import MBTIButton from "../components/MBTIButton";
 import GenderButton from "../components/GenderButton";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
 import majorCategories from "../data/majorCategories";
 import { validateForm } from "../myfunction/formValidation";
 import { useRecoilState } from "recoil";
@@ -207,7 +207,7 @@ function Form() {
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
-        <ComatHeader destination="/" buttonText="처음으로" />
+        <HeaderNav destination="/" buttonText="처음으로" />
         <div className="content">
           <div className="inner-content">
             <div className="form-title">

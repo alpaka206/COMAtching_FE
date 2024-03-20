@@ -1,5 +1,5 @@
 import React from "react";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { MatchResultRecoilState, MatchRecoilState, userState } from "../Atoms";
@@ -66,7 +66,7 @@ function Matchresult() {
     <div>
       {formData.isLoggedIn ? (
         <div className="container">
-          <ComatHeader destination="/match" buttonText="이전으로" />
+          <HeaderNav destination="/match" buttonText="이전으로" />
           <div className="content">
             {MatchResultState.generatedCode === 2002 ? (
               <div style={{ textAlign: "center" }}>
