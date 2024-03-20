@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { numParticipantsState } from "../Atoms";
 import axios from "axios";
 import "./Guide.css";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 // import AgreementBox from "../components/AgreementBox";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ function Guide() {
   }, [setNumParticipants]);
   return (
     <div className="container">
-      <ComatHeader destination="/" buttonText="처음으로" />
+      <HeaderNav destination="/" buttonText="처음으로" />
       <div className="content">
         <div className="inner-content">
           <div className="title">

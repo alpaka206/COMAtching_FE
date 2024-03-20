@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import MyInput from "../components/MyInput";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
 import { useNavigate } from "react-router-dom";
 import { userState } from "../Atoms";
 import AgreementBox from "../components/AgreementBox";
@@ -148,7 +148,7 @@ function Register() {
 
   return (
     <div className="container">
-      <ComatHeader destination="/" buttonText="처음으로" />
+      <HeaderNav destination="/" buttonText="처음으로" />
       <div className="content">
         <div className="inner-content">
           <div className="title">

@@ -1,4 +1,3 @@
-/*mainpageLogin.css*/
 .login-content {
   width: 90%;
   margin-top: 27px;
@@ -6,25 +5,6 @@
   border-radius: 32px;
   margin-bottom: 50px;
   color: #ffffff;
-}
-
-.login-name {
-  text-align: left;
-  margin-top: -20px;
-}
-
-.myinfo {
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  color: #ffffff;
-  text-align: center;
-  margin-left: 80%;
-  height: 40px;
-  width: 20%;
-  border-radius: 20px 20px 0 0;
-  font-size: 20px;
-  font-weight: bold;
-  z-index: 0;
-  line-height: 3;
 }
 
 .matching-button {
@@ -118,67 +98,10 @@
   margin-left: 2.5%;
 }
 
-.MainLoginTopic {
-  font-size: 16px;
-  font-weight: bold;
-  color: #777777;
-  text-align: left;
-  margin-top: 17px;
-}
-
-.MainLoginText {
-  min-width: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #000000;
-  text-align: left;
-  margin-top: 7px;
-}
-
-.MainLoginBottom {
-  margin-top: 5px;
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  font-size: 16px;
-  text-align: left;
-  font-weight: bolder;
-  color: white;
-  padding-top: 18px;
-  padding-left: 30px;
-  padding-bottom: 5px;
-
-  height: 30px;
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
-}
 .MainLoginInline {
   width: 100%;
   padding-top: 5px;
   padding-left: 23px;
   padding-right: 23px;
   display: flex;
-}
-
-.MainLoginTopline {
-  width: 100%;
-  padding-top: 5px;
-  padding-left: 23px;
-  display: flex;
-}
-
-.MainLoginInlineItem {
-  margin-right: 5%;
-  width: 50%;
-  height: 70px;
-}
-
-.MainLoginInlineItem2 {
-  margin-right: 5%;
-  height: 70px;
-}
-
-.MainLoginItem {
-  background: #ffffff;
-  width: 100%;
-  border-radius: 32px 0 32px 32px;
-  height: 200px;
 }

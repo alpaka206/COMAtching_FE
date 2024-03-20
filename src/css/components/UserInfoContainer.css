@@ -1,0 +1,16 @@
+.User-Info__Container {
+  width: 100%;
+  padding-top: 5px;
+  padding-left: 23px;
+  display: flex;
+}
+.User-Info__Container__First-Item {
+  margin-right: 5%;
+  width: 50%;
+  height: 70px;
+}
+
+.User-Info__Container__Second-Item {
+  margin-right: 5%;
+  height: 70px;
+}

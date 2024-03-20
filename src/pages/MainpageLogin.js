@@ -1,12 +1,11 @@
-/*mainresult js*/
-
 import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
 import Footer from "../components/Footer";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
+import UserInfoRrev from "../components/UserInfoRrev";
 import { numParticipantsState, userState } from "../Atoms";
-import "./MainpageLogin.css";
+import "../css/pages/MainpageLogin.css";
 import { useNavigate } from "react-router-dom";
 
 function MainpageLogin() {
@@ -43,50 +42,9 @@ function MainpageLogin() {
 
   return (
     <div className="container">
-      <ComatHeader destination="/" buttonText="로그아웃" />
+      <HeaderNav destination="/" buttonText="로그아웃" />
       <div className="login-content">
-        <div
-          className="login-name"
-          style={{ fontSize: "40px", fontWeight: "bolder" }}
-        >
-          김규원님,
-          <br />
-          환영합니다.
-        </div>
-        <div
-          className="myinfo"
-          style={{ fontSize: "15px", fontWeight: "bolder" }}
-        >
-          my info
-        </div>
-        <div className="MainLoginItem">
-          <div className="MainLoginTopline">
-            <div className="MainLoginInlineItem">
-              <div className="MainLoginTopic">전공</div>
-              {/* <div className="MainLoginText">{item.year}</div> */}
-              <div className="MainLoginText">{formData.depart}</div>
-            </div>
-            <div className="MainLoginInlineItem2">
-              <div className="MainLoginTopic">학번</div>
-              {/* <div className="MainLoginText">{item.depart}</div> */}
-              <div className="MainLoginText">{formData.year}</div>
-            </div>
-          </div>
-          <div className="MainLoginInline">
-            <div className="MainLoginInlineItem">
-              <div className="MainLoginTopic">좋아하는 노래</div>
-              {/* <div className="MainLoginText">{item.mbti}</div> */}
-              <div className="MainLoginText">{formData.song}</div>
-            </div>
-            <div className="MainLoginInlineItem2">
-              <div className="MainLoginTopic">MBTI</div>
-              {/* <div className="MainLoginText">{item.song}</div> */}
-              <div className="MainLoginText">{formData.mbti}</div>
-            </div>
-          </div>
-          <div className="MainLoginBottom">@kim.q1</div>
-        </div>
-
+        <UserInfoRrev />
         <div>
           <button className="matching-button" onClick={handleVisitmatch}>
             매칭하기 ▶

@@ -1,9 +1,10 @@
 import React from "react";
-import "./ComatHeader.css";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../Atoms";
-function ComatHeader({ destination, buttonText }) {
+import "../css/components/HeaderNav.css";
+
+function HeaderNav({ destination, buttonText }) {
   const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -39,4 +40,4 @@ function ComatHeader({ destination, buttonText }) {
   );
 }
 
-export default ComatHeader;
+export default HeaderNav;

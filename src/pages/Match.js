@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import MBTIButton from "../components/MBTIButton";
 import Footer from "../components/Footer";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
 import "./Match.css";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -124,7 +124,7 @@ function Match() {
       {formData.isLoggedIn ? (
         <div className="container">
           <form onSubmit={handleSubmit}>
-            <ComatHeader destination="/check" buttonText="조회하기" />
+            <HeaderNav destination="/check" buttonText="조회하기" />
             <div className="content">
               <div className="match-inner-content">
                 <br />

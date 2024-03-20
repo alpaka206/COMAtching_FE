@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Loading.css";
-import ComatHeader from "../components/ComatHeader";
+import HeaderNav from "../components/HeaderNav";
 import Footer from "./../components/Footer";
 import FadeLoader from "react-spinners/FadeLoader";
 import Login from "./Login";
@@ -31,7 +31,7 @@ function Loading() {
     <div>
       {formData.isLoggedIn ? (
         <div className="loading-container">
-          <ComatHeader destination="/" buttonText="처음으로" />
+          <HeaderNav destination="/" buttonText="처음으로" />
           <div className="loading-content">
             <FadeLoader color="#C63DEE" height={30} width={10} margin={30} />
             <h3>로딩중 입니다</h3>

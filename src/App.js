@@ -10,6 +10,7 @@ import Checkresult from "./pages/Checkresult";
 import Admin from "./pages/Admin";
 import Loading from "./pages/Loading";
 import Guide from "./pages/Guide";
+import TossChecker from "./pages/TossChecker";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/Checkresult" element={<Checkresult />} />
             <Route path="/Admin" element={<Admin />} />
             <Route path="/Loading" element={<Loading />} />
+            <Route path="/TossChecker" element={<TossChecker />} />
           </Routes>
         </BrowserRouter>
       </div>
