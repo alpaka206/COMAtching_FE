@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { numParticipantsState } from "../Atoms";
 import axios from "axios";
 import "./Guide.css";
 import HeaderNav from "../components/HeaderNav";
@@ -8,27 +6,9 @@ import Footer from "../components/Footer";
 // import AgreementBox from "../components/AgreementBox";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
-import { useRecoilValue } from "recoil";
-import { userState } from "../Atoms";
-
 function Guide() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useRecoilState(userState);
-  const [numParticipants, setNumParticipants] =
-    useRecoilState(numParticipantsState);
 
-  useEffect(() => {
-    const fetchParticipants = async () => {
-      try {
-        const response = await axios.get("https://onesons.site/participations");
-        setNumParticipants(response.data);
-      } catch (error) {
-        console.error("Error fetching participants:", error);
-      }
-    };
-
-    fetchParticipants();
-  }, [setNumParticipants]);
   return (
     <div className="container">
       <HeaderNav destination="/" buttonText="처음으로" />
