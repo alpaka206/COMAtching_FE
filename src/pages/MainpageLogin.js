@@ -1,18 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
 import Footer from "../components/Footer";
 import HeaderNav from "../components/HeaderNav";
 import UserInfoRrev from "../components/UserInfoRrev";
-import { numParticipantsState, userState } from "../Atoms";
+import { userState } from "../Atoms";
 import "../css/pages/MainpageLogin.css";
 import { useNavigate } from "react-router-dom";
+import TotalUsersCounter from "../components/TotalUsersCounter";
+import BottomNavButton from "../components/BottomNavButton";
 
 function MainpageLogin() {
   const navigate = useNavigate();
   const formData = useRecoilValue(userState);
-  const [numParticipants, setNumParticipants] =
-    useRecoilState(numParticipantsState);
+  const [numParticipants, setNumParticipants] = useState(0);
 
   useEffect(() => {
     const fetchParticipants = async () => {
@@ -43,25 +44,12 @@ function MainpageLogin() {
   return (
     <div className="container">
       <HeaderNav destination="/" buttonText="로그아웃" />
-      <div className="login-content">
+      <div className="Mainpage__Login">
         <UserInfoRrev />
         <div>
           <button className="matching-button" onClick={handleVisitmatch}>
             매칭하기 ▶
-            <div
-              style={{
-                fontSize: "15px",
-                fontWeight: "w600",
-                marginTop: "5px",
-                fontWeight: "bolder",
-              }}
-            >
-              현재{" "}
-              <span style={{ color: "#FF4D61", fontWeight: "900" }}>
-                {numParticipants}
-              </span>
-              명 참여중이에요!
-            </div>
+            <TotalUsersCounter font_size="15px" />
           </button>
         </div>
         <div className="number-button">
@@ -74,26 +62,18 @@ function MainpageLogin() {
           </div>
         </div>
         <div className="button-group">
-          <button
-            className="button-group-search"
+          <BottomNavButton
             onClick={handleVisitcheckresult}
-          >
-            <img
-              src={process.env.PUBLIC_URL + `assets/main_search.png`}
-              alt="조회버튼"
-            />
-            <br></br>
-            조회하기
-          </button>
-          <button className="button-group-guide" onClick={handleVisitGuide}>
-            <img
-              src={process.env.PUBLIC_URL + `assets/main_guide.png`}
-              alt="조회버튼"
-            />
-            <br></br>
-            COMAtching<br></br>
-            가이드북
-          </button>
+            imgSrc={`assets/main_search.png`}
+            imgText="조회버튼"
+            buttonText="조회하기"
+          />
+          <BottomNavButton
+            onClick={handleVisitGuide}
+            imgSrc={`assets/main_guide.png`}
+            imgText="가이드북"
+            buttonText="COMAtching 가이드북"
+          />
         </div>
       </div>
       <Footer />

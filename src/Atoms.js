@@ -1,10 +1,5 @@
 import { atom } from "recoil";
 
-export const numParticipantsState = atom({
-  key: "numParticipantsState",
-  default: null,
-});
-
 export const userState = atom({
   key: "userState",
   default: {
