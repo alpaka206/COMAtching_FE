@@ -3,7 +3,22 @@
   width: 100%;
   border-radius: 32px 0 32px 32px;
   height: 200px;
+  overflow: hidden; /* 스크롤이 넘치는 부분 숨기기 */
 }
+
+.slider {
+  display: flex;
+  overflow-x: auto; /* 가로 스크롤을 허용 */
+  scroll-snap-type: x mandatory; /* 가로로 스크롤할 때 스냅되도록 함 */
+  scroll-behavior: smooth; /* 스크롤 애니메이션 부드럽게 */
+}
+
+.sliderpage {
+  flex: 0 0 auto;
+  width: 100%;
+  scroll-snap-align: start; /* 스냅할 때 왼쪽으로 정렬 */
+}
+
 .User-Contact {
   margin-top: 5px;
   background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);

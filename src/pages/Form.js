@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
-import MyInput from "../components/MyInput";
-import MBTIButton from "../components/MBTIButton";
-import GenderButton from "../components/GenderButton";
-import HeaderNav from "../components/HeaderNav";
-import majorCategories from "../data/majorCategories";
 import { validateForm } from "../myfunction/formValidation";
 import { useRecoilState } from "recoil";
 import { userState, selectedMBTIState } from "../Atoms";
 import { useNavigate } from "react-router-dom";
-import "./Form.css";
+import MyInput from "../components/MyInput";
+import MBTIButton from "../components/MBTIButton";
+import GenderButton from "../components/GenderButton";
+import HeaderNav from "../components/HeaderNav";
+import MajorSelector from "../components/MajorSelector";
+import FormTitle from "../components/FormTitle";
+import "../css/pages/Form.css";
+import StudentIdInput from "../components/StudentIdInput";
+import ContactMethodInput from "../components/ContactMethodInput";
 
 function Form() {
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ function Form() {
     contactVerified: false,
   });
 
-  function validateYear(value) {
+  function validatestudentid(value) {
     return /^\d{0,2}$/.test(value);
   }
 
@@ -38,7 +41,7 @@ function Form() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "year" && !validateYear(value)) {
+    if (name === "studentid" && !validatestudentid(value)) {
       alert("학번은 2자리의 숫자로 입력하세요. (예: 22)");
     } else if (
       name === "phone" &&
@@ -99,29 +102,6 @@ function Form() {
     }));
   };
 
-  const handleCategoryChange = (e) => {
-    setCheckMethod((prevState) => ({
-      ...prevState,
-      department: e.target.value,
-      major: "",
-    }));
-    setUser((prevUser) => ({
-      ...prevUser,
-      depart: e.target.value,
-    }));
-  };
-
-  const handleMajorChange = (e) => {
-    setCheckMethod((prevState) => ({
-      ...prevState,
-      major: e.target.value,
-    }));
-    setUser((prevUser) => ({
-      ...prevUser,
-      depart: e.target.value,
-    }));
-  };
-
   const checkIfExists = async () => {
     const response = await axios.get(
       `https://onesons.site/register?phone=${user.phone}`
@@ -167,7 +147,7 @@ function Form() {
       return;
     }
 
-    const yearAsInt = parseInt(user.year, 10);
+    const studentidAsInt = parseInt(user.studentid, 10);
     const postData = {
       gender: user.gender,
       phone: user.phone,
@@ -176,7 +156,7 @@ function Form() {
       mbti: user.mbti,
       userEmail: user.userEmail,
       userPw: user.userPw,
-      year: yearAsInt,
+      studentid: studentidAsInt,
     };
     try {
       const response = await axios.post(
@@ -189,7 +169,7 @@ function Form() {
           userEmail: "",
           userPw: "",
           depart: "",
-          year: "",
+          studentid: "",
           phone: "",
           song: "",
           gender: true,
@@ -210,76 +190,15 @@ function Form() {
         <HeaderNav destination="/" buttonText="처음으로" />
         <div className="content">
           <div className="inner-content">
-            <div className="form-title">
-              <div className="form-title-text">거의 다 왔습니다!</div>
-              <div className="form-title-inst-txt">
-                본인의 정보를 모두 입력해 주세요.
-              </div>
-            </div>
-            <div onSubmit={handleSubmit} style={{ display: "flex" }}>
-              <div className="depart">
-                <label>
-                  <h3>학과</h3>
-                </label>
-                <label className="depart-select">
-                  <select
-                    name="depart"
-                    value={checkMethod.department}
-                    onChange={handleCategoryChange}
-                  >
-                    <option value="" style={{ paddingRight: "15px" }} disabled>
-                      선택
-                    </option>
-                    {majorCategories.map((category) => (
-                      <option key={category.label} value={category.label}>
-                        {category.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
+            <FormTitle />
+            <MajorSelector
+              user={user}
+              setUser={setUser}
+              checkMethod={checkMethod}
+              setCheckMethod={setCheckMethod}
+            />
+            <StudentIdInput value={user.studentid} onChange={handleChange} />
 
-              <div className="major">
-                <label>
-                  <h3 class="major">전공</h3>
-                </label>
-                <label className="major-select">
-                  <select
-                    name="major"
-                    value={checkMethod.Major}
-                    onChange={handleMajorChange}
-                  >
-                    <option value="" disabled>
-                      선택
-                    </option>
-                    {checkMethod.department &&
-                      majorCategories
-                        .find(
-                          (category) =>
-                            category.label === checkMethod.department
-                        )
-                        .options.map((major) => (
-                          <option key={major} value={major}>
-                            {major}
-                          </option>
-                        ))}
-                  </select>
-                </label>
-              </div>
-            </div>
-            <div>
-              <label>
-                <h3>학번</h3>
-                <div className="year">
-                  <MyInput
-                    name="year"
-                    value={user.year}
-                    onChange={handleChange}
-                    placeholder="00학번부터 23학번까지 가능합니다 ex) 23"
-                  />
-                </div>
-              </label>
-            </div>
             <div className="contact-method">
               <label>
                 <h3 class="phone">연락처</h3>
@@ -318,41 +237,12 @@ function Form() {
                   />
                 </button>
               </label>
-              <div className="contact-input">
-                {checkMethod.contactMethod === "phone" ? (
-                  <label>
-                    <MyInput
-                      name="phone"
-                      value={user.phone}
-                      onChange={handleChange}
-                      placeholder="ex) 01012345678"
-                    />
-                    <button
-                      type="button"
-                      class="checkbutton"
-                      onClick={handleCheck}
-                    >
-                      확인
-                    </button>
-                  </label>
-                ) : (
-                  <label>
-                    <MyInput
-                      name="phone"
-                      value={user.phone}
-                      onChange={handleChange}
-                      placeholder="ex) cuk_coma (@는 빼고 넣어주세요)"
-                    />
-                    <button
-                      type="button"
-                      class="checkbutton"
-                      onClick={handleCheck}
-                    >
-                      확인
-                    </button>
-                  </label>
-                )}
-              </div>
+              <ContactMethodInput
+                method={checkMethod.contactMethod}
+                userPhone={user.phone}
+                handleChange={handleChange}
+                handleCheck={handleCheck}
+              />
             </div>
             <h6
               className={`check-message ${
