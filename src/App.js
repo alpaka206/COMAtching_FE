@@ -12,6 +12,7 @@ import Loading from "./pages/Loading";
 import Guide from "./pages/Guide";
 import TossChecker from "./pages/TossChecker";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
 function App() {
   return (
     <RecoilRoot>

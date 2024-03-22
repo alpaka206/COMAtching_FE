@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import UserInfoElement from "../components/UserInfoElement";
+import UserInfoElement from "./UserInfoElement";
 import "../css/components/UserInfoContainer.css";
 
 function UserInfoContainer({

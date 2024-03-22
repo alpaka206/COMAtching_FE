@@ -1,5 +1,4 @@
-/* CSS 초기화 */
-* {
+/* CSS 초기화 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -153,6 +152,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+*/
 /* css 코드 시작 */
 .App {
   text-align: center;
@@ -168,6 +168,7 @@ table {
     animation: App-logo-spin infinite 20s linear;
   }
 } */
+
 @media (max-width: 768px) {
   .container {
     background-size: cover;
@@ -197,4 +198,31 @@ table {
 
 .App-link {
   color: #61dafb;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  min-height: 100vh;
+  font-family: Pretendard;
+  text-align: center;
+  background-image: url("./images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.content {
+  text-align: center;
+  background: #ffffff;
+  width: 90%;
+  margin: auto;
+  display: inline-block;
+  border-radius: 32px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  position: relative;
 }
