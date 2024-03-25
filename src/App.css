@@ -94,7 +94,7 @@ video {
 }
 
 /* HTML5 display-role reset for older browsers */
-article,
+/* article,
 aside,
 details,
 figcaption,
@@ -151,8 +151,8 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-*/
+} */
+
 /* css 코드 시작 */
 .App {
   text-align: center;

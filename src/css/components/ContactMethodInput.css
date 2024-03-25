@@ -1,0 +1,24 @@
+.contact-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  white-space: nowrap;
+}
+.contact-input input {
+  margin-right: 10px;
+  margin-left: 0px;
+  color: #858585;
+  font-family: "Pretendard", Helvetica;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 8px;
+  position: relative;
+}
+
+input[name="phone"] {
+  margin-top: 7px;
+}

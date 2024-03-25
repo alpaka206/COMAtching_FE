@@ -12,7 +12,7 @@ import MajorSelector from "../components/MajorSelector";
 import FormTitle from "../components/FormTitle";
 import "../css/pages/Form.css";
 import StudentIdInput from "../components/StudentIdInput";
-import ContactMethodInput from "../components/ContactMethodInput";
+import ContactMethod from "../components/ContactMethod";
 
 function Form() {
   const navigate = useNavigate();
@@ -60,13 +60,6 @@ function Form() {
     } else {
       setUser((prevUser) => ({ ...prevUser, [name]: value }));
     }
-  };
-
-  const handleContactMethod = (method) => {
-    setCheckMethod((prevState) => ({
-      ...prevState,
-      contactMethod: method,
-    }));
   };
 
   const handleGenderSelection = (value) => {
@@ -199,58 +192,14 @@ function Form() {
             />
             <StudentIdInput value={user.studentid} onChange={handleChange} />
 
-            <div className="contact-method">
-              <label>
-                <h3 class="phone">연락처</h3>
-                <div className="space">&nbsp;</div>
-                <button
-                  type="button"
-                  className={`phonebutton ${
-                    checkMethod.contactMethod === "phone" ? "active" : ""
-                  }`}
-                  onClick={() => handleContactMethod("phone")}
-                >
-                  <img
-                    src={process.env.PUBLIC_URL + `assets/phone.png`}
-                    alt="전화번호"
-                    style={{
-                      width: "13px",
-                      height: "13px",
-                    }}
-                  />
-                </button>
-                <button
-                  type="button"
-                  className={`phonebutton ${
-                    checkMethod.contactMethod === "insta" ? "active" : ""
-                  }`}
-                  onClick={() => handleContactMethod("insta")}
-                >
-                  <img
-                    src={process.env.PUBLIC_URL + `assets/insta.png`}
-                    alt="insta"
-                    style={{
-                      width: "16px",
-                      height: "16px",
-                      marginTop: "-3px",
-                    }}
-                  />
-                </button>
-              </label>
-              <ContactMethodInput
-                method={checkMethod.contactMethod}
-                userPhone={user.phone}
-                handleChange={handleChange}
-                handleCheck={handleCheck}
-              />
-            </div>
-            <h6
-              className={`check-message ${
-                checkMethod.contactVerified ? "hidden" : ""
-              }`}
-            >
-              중복입력 방지를 위해 확인버튼을 눌러주세요
-            </h6>
+            <ContactMethod
+              checkMethod={checkMethod}
+              setCheckMethod={setCheckMethod}
+              user={user}
+              handleChange={handleChange}
+              handleCheck={handleCheck}
+            />
+
             <div>
               <label>
                 <h3>좋아하는 노래</h3>
