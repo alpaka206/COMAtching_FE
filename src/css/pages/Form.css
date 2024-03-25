@@ -18,20 +18,13 @@ input {
   padding: 5px 8px 5px 8px;
   border: 1px solid #ccc;
   border-radius: 30px;
+
   caret-color: #ff775e; /* Cursor color */
 }
 input:focus {
   outline: none; /* Remove default focus outline */
   background-color: transparent; /* Make background transparent on focus */
   box-shadow: none; /* Remove any existing box shadow on focus */
-}
-input[name="phone"] {
-  width: calc(100% - 44px);
-  margin-left: 14px;
-  margin-top: 7px;
-  border: 1px solid #ccc;
-  border-radius: 30px;
-  margin-right: 10px;
 }
 input::placeholder {
   color: #a5a5a5;
@@ -64,63 +57,9 @@ button {
   cursor: pointer;
 }
 
-.phonebutton {
-  width: 25%;
-  height: 28px;
-  border-radius: 40px;
-  background-color: "#ffffff";
-  border: none;
-  margin-top: 17px;
-  margin-right: 6px;
-  transition: all 0.3s; /* 트랜지션 효과 추가 */
-}
-.phonebutton.active img {
-  filter: brightness(0) invert(1);
-}
-
-.phonebutton:not(.active) {
-  border-radius: 40px;
-  background-color: #ffffff;
-  color: #a5a5a5;
-  border: 2px solid #e0e0e0;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25) inset;
-}
-
-.phonebutton.active {
-  background-color: #ff775e;
-  outline: none;
-  border: none;
-  outline: none;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-}
-
 .song-input {
   width: 100%;
   padding: 8px;
-}
-.gender-button {
-  width: 100%;
-  height: 54px;
-  font-family: "Pretendard-SemiBold", Helvetica;
-  font-weight: 700;
-  font-size: 22px;
-  margin: 0px 5px;
-  border-radius: 40px;
-  background-color: #ff775e;
-  color: #ffffff;
-  border: none;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.gender-button.inactive {
-  width: 100%;
-  height: 54px;
-  font-size: 22px;
-  margin: 0px 5px;
-  border-radius: 40px;
-  background-color: #ffffff;
-  color: #a5a5a5;
-  border: 2px solid #e0e0e0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
 }
 
 .gender-button-container {
@@ -170,44 +109,8 @@ button.checkbutton {
   margin-left: auto;
 }
 
-.contact-method label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-}
-.space {
-  width: 40%;
-}
-
-.contact-input label input {
-  margin-right: 10px;
-  margin-left: 0px;
-  color: #858585;
-  font-family: "Pretendard", Helvetica;
-  font-size: 12px;
-  font-weight: 500;
-  display: flex;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  padding: 8px;
-  position: relative;
-}
-
 .mbtidiv {
   padding: 0px 10px 0px 10px;
-}
-
-.check-message {
-  text-align: left;
-  margin-left: 19px;
-  margin-top: 5px;
-  color: red;
-}
-
-.hidden {
-  display: none;
 }
 
 .submit-button {

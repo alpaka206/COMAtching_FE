@@ -1,0 +1,10 @@
+.check-message {
+  text-align: left;
+  margin-left: 19px;
+  margin-top: 5px;
+  color: red;
+}
+
+.hidden {
+  display: none;
+}

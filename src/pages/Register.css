@@ -1,17 +1,14 @@
-/* Content Container */
 .content {
   max-width: flex;
   margin: 0 auto;
   position: relative;
 }
 
-/* Inner Content */
 .inner-content {
   opacity: 1;
   padding: 32px;
 }
 
-/* Title-Login */
 .title {
   font-size: 44px;
   font-weight: bold;
@@ -39,8 +36,6 @@
   position: relative;
   margin-top: 24px;
 }
-
-/* User Email Section */
 
 .reg-email {
   margin-top: 20px;
@@ -79,14 +74,14 @@
 .emailpasswd-box input {
   flex: 1;
   border: none;
-  caret-color: #ff775e; /* Cursor color */
+  caret-color: #ff775e;
 }
 
 .reg-email-box input:focus,
 .emailpasswd-box input:focus {
-  outline: none; /* Remove default focus outline */
-  background-color: transparent; /* Make background transparent on focus */
-  box-shadow: none; /* Remove any existing box shadow on focus */
+  outline: none;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .code-send-btn {
@@ -116,7 +111,6 @@
   align-self: flex-start;
 }
 
-/* Code Check Button */
 .emailcheck-button {
   height: 43px;
   width: 20%;
@@ -169,14 +163,14 @@
 .reg-pw-input input {
   flex: 1;
   border: none;
-  caret-color: #ff775e; /* Cursor color */
+  caret-color: #ff775e;
 }
 
 .pw-check-input input:focus,
 .reg-pw-input input:focus {
-  outline: none; /* Remove default focus outline */
-  background-color: transparent; /* Make background transparent on focus */
-  box-shadow: none; /* Remove any existing box shadow on focus */
+  outline: none;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .password-toggle {
@@ -209,11 +203,11 @@
 }
 
 .agreement-box {
-  background-color: #ffffff; /* Set background color */
-  border: 2px solid #000000; /* Add border */
-  border-radius: 10px; /* Add border radius */
-  padding: 20px; /* Add padding */
-  margin-top: 20px; /* Add margin */
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .reg-next-button {

@@ -24,7 +24,7 @@ function UserInfoRrev() {
               FirstTopic="전공"
               FirstText={formData.depart}
               SecoundTopic="학번"
-              SecondText={formData.year}
+              SecondText={formData.studentid}
             />
             <UserInfoContainer
               FirstTopic="좋아하는 노래"
@@ -33,7 +33,7 @@ function UserInfoRrev() {
               SecondText={formData.mbti}
             />
           </div>
-          <div className="sliderpage">
+          {/* <div className="sliderpage">
             <UserInfoContainer
               FirstTopic="전공"
               FirstText={formData.depart}
@@ -46,7 +46,7 @@ function UserInfoRrev() {
               SecoundTopic="MBTI"
               SecondText={formData.mbti}
             />
-          </div>
+          </div> */}
         </div>
         <div className="User-Contact">@kim.q1</div>
       </div>
