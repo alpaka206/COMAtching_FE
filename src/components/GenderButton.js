@@ -5,9 +5,7 @@ function GenderButton({ isActive, value, onClick, label, className }) {
   return (
     <button
       type="button"
-      className={`gender-button ${
-        isActive ? "active" : "inactive"
-      } ${className}`}
+      className={`gender-button ${isActive ? "active" : "inactive"}`}
       value={value}
       onClick={() => onClick(value)}
     >

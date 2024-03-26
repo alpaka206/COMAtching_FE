@@ -3,13 +3,7 @@ import ContactMethodInput from "../components/ContactMethodInput";
 import ContactMethodPick from "../components/ContactMethodPick";
 import "../css/components/ContactMethod.css";
 
-function ContactMethod({
-  checkMethod,
-  setCheckMethod,
-  user,
-  handleChange,
-  handleCheck,
-}) {
+function ContactMethod({ checkMethod, setCheckMethod, user, handleChange }) {
   return (
     <Fragment>
       <ContactMethodPick
@@ -18,10 +12,10 @@ function ContactMethod({
       />
 
       <ContactMethodInput
-        method={checkMethod.contactMethod}
-        userPhone={user.phone}
+        checkMethod={checkMethod}
+        user={user}
         handleChange={handleChange}
-        handleCheck={handleCheck}
+        setCheckMethod={setCheckMethod}
       />
       <h6
         className={`check-message ${
