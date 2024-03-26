@@ -1,0 +1,9 @@
+.MBTISection {
+  padding: 0px 10px 0px 10px;
+}
+.MBTIContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
