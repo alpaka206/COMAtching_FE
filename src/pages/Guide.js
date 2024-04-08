@@ -1,14 +1,8 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import "./Guide.css";
+import React from "react";
+import "../css/pages/Guide.css";
 import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
-// import AgreementBox from "../components/AgreementBox";
-import { useNavigate } from "react-router-dom";
-import Login from "./Login";
 function Guide() {
-  const navigate = useNavigate();
-
   return (
     <div className="container">
       <HeaderNav destination="/" buttonText="처음으로" />

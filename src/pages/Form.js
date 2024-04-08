@@ -62,6 +62,7 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 입력값 유효성 검사
     if (
       !validateForm(
         user,
@@ -73,8 +74,10 @@ function Form() {
       return;
     }
 
+    // 학번을 정수형으로 변환
     const studentidAsInt = parseInt(user.studentid, 10);
 
+    // POST 요청에 필요한 데이터 구성
     const postData = {
       gender: user.gender,
       phone: user.phone,
@@ -85,13 +88,16 @@ function Form() {
       userPw: user.userPw,
       studentid: studentidAsInt,
     };
+
     try {
+      // 서버로 데이터 전송
       const response = await axios.post(
         "https://onesons.site/register",
         postData
       );
 
       if (response.data.isSuccess === true) {
+        // 등록 성공 시 사용자 정보 초기화 및 로그인 페이지로 이동
         setUser((prevUser) => ({
           userEmail: "",
           userPw: "",
@@ -104,9 +110,11 @@ function Form() {
         }));
         navigate("/login");
       } else {
+        // 등록 실패 시 오류 메시지 표시
         alert(response.data.message);
       }
     } catch (error) {
+      // 오류 발생 시 콘솔에 오류 로그 출력
       console.error("오류 발생:", error);
     }
   };
