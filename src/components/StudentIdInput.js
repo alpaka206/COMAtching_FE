@@ -11,7 +11,7 @@ function StudentIdInput({ value, onChange }) {
           name="age"
           value={value}
           onChange={onChange}
-          placeholder="00학번부터 23학번까지 가능합니다 ex) 23"
+          placeholder="97년생부터 05년생만 가능합니다 ex) 05"
         />
       </div>
     </Fragment>
