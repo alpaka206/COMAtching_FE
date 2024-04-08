@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../Atoms";
 import LoginUserInfoTop from "../components/LoginUserInfoTop";
@@ -8,9 +8,14 @@ import UserInfoContainer from "../components/UserInfoContainer";
 function UserInfoRrev() {
   const formData = useRecoilValue(userState);
   const sliderRef = useRef(null);
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const scroll = (scrollOffset) => {
-    sliderRef.current.scrollLeft += scrollOffset;
+  // 슬라이드 함수 정의
+  const scroll = (pageIndex) => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft = sliderRef.current.offsetWidth * pageIndex;
+      setCurrentPage(pageIndex);
+    }
   };
 
   return (
@@ -18,13 +23,24 @@ function UserInfoRrev() {
       <LoginUserInfoTop />
 
       <div className="User-Info-Rrev">
+        {/* 좌측 화살표 */}
+        {currentPage > 0 && (
+          <div
+            className="slider-arrow left"
+            onClick={() => scroll(currentPage - 1)}
+          >
+            &lt;
+          </div>
+        )}
+
+        {/* 슬라이더 컨테이너 */}
         <div className="slider" ref={sliderRef}>
           <div className="sliderpage">
             <UserInfoContainer
               FirstTopic="전공"
               FirstText={formData.depart}
-              SecoundTopic="학번"
-              SecondText={formData.studentid}
+              SecoundTopic="나이"
+              SecondText={formData.age}
             />
             <UserInfoContainer
               FirstTopic="좋아하는 노래"
@@ -33,7 +49,25 @@ function UserInfoRrev() {
               SecondText={formData.mbti}
             />
           </div>
+          <div className="sliderpage">
+            <UserInfoContainer FirstTopic="취미" FirstText={formData.depart} />
+            <UserInfoContainer
+              FirstTopic="연락빈도"
+              FirstText={formData.song}
+            />
+          </div>
         </div>
+
+        {/* 우측 화살표 */}
+        {currentPage < 1 && (
+          <div
+            className="slider-arrow right"
+            onClick={() => scroll(currentPage + 1)}
+          >
+            &gt;
+          </div>
+        )}
+
         <div className="User-Contact">@kim.q1</div>
       </div>
     </Fragment>

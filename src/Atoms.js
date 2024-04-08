@@ -13,7 +13,7 @@ export const userState = atom({
     gender: true,
     mbti: "ESTJ",
     chance: 0,
-    isLoggedIn: false,
+    isLoggedIn: true,
   },
 });
 
