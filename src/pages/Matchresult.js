@@ -6,6 +6,7 @@ import { MatchResultRecoilState, MatchRecoilState, userState } from "../Atoms";
 import "./Matchresult.css";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
+import axios from "axios";
 
 function Matchresult() {
   const navigate = useNavigate();
@@ -29,34 +30,26 @@ function Matchresult() {
       passwd: formData.userEmail,
     };
     try {
-      // const response = await axios.get("https://onesons.site/match", postdata);
+      const response = await axios.get("https://onesons.site/match", postdata);
 
-      // const { message, code, isSuccess, result } = response.data;
+      const { message, code, isSuccess, result } = response.data;
 
-      // if (isSuccess === true) {
-      //   const { gender, phone, depart, song, year, mbti } = result;
-      //   setMatchResultState({
-      //     generatedCode: code,
-      //     generatedGender: gender,
-      //     generatedPhone: phone,
-      //     generatedDepart: depart,
-      //     generatedSong: song,
-      //     generatedYear: year,
-      //     generatedMbti: mbti,
-      //   });
-      //   navigate("/Matchresult");
-      // } else {
-      //   alert(message);
-      //   return;
-      // }
-
-      setMatchResultState({
-        generatedPhone: "0102122129",
-        generatedDepart: "정보123전자공학부",
-        generatedSong: "1r3122",
-        generatedYear: "19",
-        generatedMbti: "estj2",
-      });
+      if (isSuccess === true) {
+        const { gender, phone, depart, song, year, mbti } = result;
+        setMatchResultState({
+          generatedCode: code,
+          generatedGender: gender,
+          generatedPhone: phone,
+          generatedDepart: depart,
+          generatedSong: song,
+          generatedYear: year,
+          generatedMbti: mbti,
+        });
+        navigate("/Matchresult");
+      } else {
+        alert(message);
+        return;
+      }
       console.log(MatchResultState);
     } catch (error) {
       console.error("오류 발생:", error);

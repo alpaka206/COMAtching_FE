@@ -4,7 +4,6 @@ import "../css/components/ContactMethodInput.css";
 import axios from "axios";
 
 function ContactMethodInput({
-  method,
   handleChange,
   checkMethod,
   user,
@@ -47,7 +46,7 @@ function ContactMethodInput({
         value={user.phone}
         onChange={handleChange}
         placeholder={
-          method === "phone"
+          checkMethod.contactMethod === "phone"
             ? "ex) 01012345678"
             : "ex) cuk_coma (@는 빼고 넣어주세요)"
         }

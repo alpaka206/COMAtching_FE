@@ -4,17 +4,11 @@ import "../css/components/Footer.css";
 function Footer() {
   return (
     <div className="footer">
-      <div className="textDB" style={{ paddingTop: "40px" }}>
-        Developed by COMA 19s
-      </div>
-      <hr
-        style={{
-          backgroundColor: "#464646",
-          height: "1px",
-        }}
-      />
-      <div className="textBE" style={{ paddingBottom: "40px" }}>
-        BE 서승준 / FE 김규원 박승원 박상준
+      <div
+        className="textDB"
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+      >
+        Developed By COMA, Catholic University of Korea
       </div>
     </div>
   );
