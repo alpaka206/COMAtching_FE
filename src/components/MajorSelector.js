@@ -17,7 +17,13 @@ const MajorSelector = ({ user, setUser, checkMethod, setCheckMethod }) => {
       depart: value,
     }));
   };
-
+  const handleMajorChange = (e) => {
+    const value = e.target.value;
+    setCheckMethod((prevState) => ({
+      ...prevState,
+      major: value,
+    }));
+  };
   return (
     <div className="major-selector">
       <MajorSelectorElement
@@ -34,8 +40,8 @@ const MajorSelector = ({ user, setUser, checkMethod, setCheckMethod }) => {
         fieldType="major"
         labelname="major-select"
         selectname="major"
-        value={checkMethod?.major || ""}
-        onChange={(e) => handleInputChange("major", e.target.value)}
+        value={checkMethod.major}
+        onChange={handleMajorChange}
         options={
           checkMethod.department
             ? majorCategories.find(

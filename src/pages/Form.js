@@ -30,11 +30,13 @@ function Form() {
     let errorMessage = "";
 
     switch (name) {
-      case "studentid":
-        if (!/^\d{0,2}$/.test(value)) {
-          errorMessage = "학번은 2자리의 숫자로 입력하세요. (예: 22)";
+      case "age":
+        if (!/^9[7-9]|0[0-5]$/.test(value)) {
+          errorMessage =
+            "탄생년도는 97부터 05까지의 숫자로 입력하세요. (예: 05)";
         }
         break;
+
       case "phone":
         if (!/^\d{0,11}$/.test(value)) {
           errorMessage =
@@ -75,7 +77,7 @@ function Form() {
     }
 
     // 학번을 정수형으로 변환
-    const studentidAsInt = parseInt(user.studentid, 10);
+    const ageAsInt = parseInt(user.age, 10);
 
     // POST 요청에 필요한 데이터 구성
     const postData = {
@@ -86,7 +88,7 @@ function Form() {
       mbti: user.mbti,
       userEmail: user.userEmail,
       userPw: user.userPw,
-      studentid: studentidAsInt,
+      age: ageAsInt,
     };
 
     try {
@@ -102,7 +104,7 @@ function Form() {
           userEmail: "",
           userPw: "",
           depart: "",
-          studentid: "",
+          age: "",
           phone: "",
           song: "",
           gender: true,
@@ -132,7 +134,7 @@ function Form() {
               checkMethod={checkMethod}
               setCheckMethod={setCheckMethod}
             />
-            <StudentIdInput value={user.studentid} onChange={handleChange} />
+            <StudentIdInput value={user.age} onChange={handleChange} />
 
             <ContactMethod
               checkMethod={checkMethod}

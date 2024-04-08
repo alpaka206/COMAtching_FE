@@ -5,10 +5,10 @@ import "../css/components/StudentIdInput.css";
 function StudentIdInput({ value, onChange }) {
   return (
     <Fragment>
-      <h3>학번</h3>
-      <div className="studentid">
+      <h3>나이</h3>
+      <div className="age">
         <MyInput
-          name="studentid"
+          name="age"
           value={value}
           onChange={onChange}
           placeholder="00학번부터 23학번까지 가능합니다 ex) 23"

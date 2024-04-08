@@ -11,6 +11,7 @@ import Admin from "./pages/Admin";
 import Loading from "./pages/Loading";
 import Guide from "./pages/Guide";
 import TossChecker from "./pages/TossChecker";
+import ReadCode from "./pages/ReadCode";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/Admin" element={<Admin />} />
             <Route path="/Loading" element={<Loading />} />
             <Route path="/TossChecker" element={<TossChecker />} />
+            <Route path="/ReadCode" element={<ReadCode />} />
           </Routes>
         </BrowserRouter>
       </div>

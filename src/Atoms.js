@@ -7,7 +7,7 @@ export const userState = atom({
     userEmail: "",
     userPw: "",
     depart: "정보통신전자공학부",
-    studentid: "19",
+    age: "24",
     phone: "",
     song: "없음",
     gender: true,

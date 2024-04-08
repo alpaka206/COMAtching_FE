@@ -1,4 +1,4 @@
-.studentid {
+.age {
   color: #858585;
   font-family: "Pretendard", Helvetica;
   font-size: 16px;
@@ -13,7 +13,7 @@
   position: relative;
 }
 
-.studentid input {
+.age input {
   flex: 1;
   border: none;
 }
