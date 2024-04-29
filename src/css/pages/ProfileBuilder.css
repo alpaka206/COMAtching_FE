@@ -1,0 +1,19 @@
+.ProfileBuilder {
+  text-align: center;
+  background: #ffffff;
+  width: 85%;
+  display: inline-block;
+  border-radius: 16px;
+  margin-bottom: 8px;
+  text-align: left;
+  padding: 20px 0px 20px 24px;
+}
+.chat-message {
+  margin-top: 25px;
+  height: 300px;
+  overflow-y: auto;
+  padding-bottom: 30px;
+}
+.typing-animation {
+  white-space: pre-line;
+}

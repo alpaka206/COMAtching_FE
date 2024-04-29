@@ -7,10 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Kakao from "../data/Kakaokey";
 function MainpageUnLogin() {
   const navigate = useNavigate();
-  // const Rest_api_key = "4c2e27b993e068dde1cd69f0f5c8fff8"; //REST API KEY
-  // const redirect_uri = "http://localhost:3000/form"; //Redirect URI
-  // // oauth 요청 URL
-  // const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+
   const handleLogin = () => {
     window.location.href = Kakao.kakaoURL;
   };
