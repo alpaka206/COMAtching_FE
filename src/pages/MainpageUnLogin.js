@@ -20,8 +20,11 @@ function MainpageUnLogin() {
     <div className="container">
       <HeaderNav destination="/" buttonText="처음으로" />
       <div className="content">
+        <div className="bubble-counter">
+          <TotalUsersCounter font_size="16px" />
+        </div>
         <img
-          src={process.env.PUBLIC_URL + `assets/helloemoji.png`}
+          src={process.env.PUBLIC_URL + `assets/helloemoji.svg`}
           alt="사람 이미지"
           style={{
             width: "80%",
@@ -40,14 +43,22 @@ function MainpageUnLogin() {
             }}
           />
         </div>
-        <TotalUsersCounter font_size="25px" />
+
         <h1>
           캠퍼스의 설렘,
           <br />
           코매칭에서 만나보세요!
         </h1>
-        <h4>10초만에 빠른 가입</h4>
-        <button onClick={handleLogin}>카카오 시작하기</button>
+        <div className="bubble">⚡️10초만에 빠른 가입⚡️</div>
+        <button className="kakao-login" onClick={handleLogin}>
+          <div className="kakao-login-element">
+            <img
+              src={process.env.PUBLIC_URL + `assets/kakao.svg`}
+              alt="카카오"
+            />
+            <p>카카오로 시작하기</p>
+          </div>
+        </button>
         <div className="help-text">이용에 도움이 필요하신가요?</div>
         <div>
           <button className="privacy-button" onClick={handleVisitGuide}>

@@ -17,6 +17,9 @@
 .typing-animation {
   white-space: pre-line;
 }
+.Answer-box {
+  height: 250px;
+}
 .ProfileMaker {
   text-align: center;
   background: #d3b5b5;

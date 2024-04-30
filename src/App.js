@@ -4,7 +4,7 @@ import Mainpage from "./pages/Mainpage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Form from "./pages/Form";
-import FormTest from "./pages/FormTest";
+import Hobbyform from "./pages/Hobbyform";
 import Match from "./pages/Match";
 import Matchresult from "./pages/Matchresult";
 import Checkresult from "./pages/Checkresult";
@@ -27,7 +27,7 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Form" element={<Form />} />
-            <Route path="/FormTest" element={<FormTest />} />
+            <Route path="/Hobby" element={<Hobbyform />} />
             <Route path="/Guide" element={<Guide />} />
             <Route path="/Matchresult" element={<Matchresult />} />
             <Route path="/Match" element={<Match />} />
