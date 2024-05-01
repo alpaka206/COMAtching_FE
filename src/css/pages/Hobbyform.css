@@ -1,0 +1,31 @@
+/* Form.css 파일 */
+
+.hobby-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* 각 행에 3개의 아이템이 올 수 있도록 */
+  padding: 20px;
+}
+
+.hobby-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0;
+  background-color: transparent;
+}
+
+.hobby-item img {
+  background-color: #ffffff;
+  width: 36px;
+  height: 36px;
+  padding: 18px;
+  border-radius: 50%; /* 동그라미 모양 */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); /* drop shadow */
+  margin-bottom: 7px;
+}
+.hobby-item:focus img {
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25); /* innershadow 효과 */
+}
