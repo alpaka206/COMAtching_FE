@@ -17,6 +17,7 @@ import ProfileBuilder from "./pages/ProfileBuilder";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import MakeCode from "./pages/MakeCode";
+
 function App() {
   return (
     <RecoilRoot>
