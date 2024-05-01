@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# ver1 회고록
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 안녕하세요 COMAtching(코매칭) 개발진입니다.
+먼저 이번 축제기간 COMAtching에 많은 관심과 사랑에 너무나도 감사드립니다. 예상보다 너무 많은 참여로 개발진은 너무나도 뿌듯하고 큰 선물을 받은 기분이었습니다
+그래서 저희 이번 회고를 공유하고 피드백을 받아 개선해보고자 글을 작성합니다.
 
-## Available Scripts
+축제기간 동안 525분이라는 정말 많은 분이 이용해 주셨고 706번의 매칭 서비스가 이루어져 등록자보다 많은 매칭이 있었습니다.
+등록하신 매칭 기회(Pick me) 중 약 10% 정도의 기회가 매칭이 이루어지지 못했습니다.
+성비도 알려 드리자면 약 1 : 1.18(남:여)정도로 저희 생각과는 다르게 균형 있는 비율로 이용하셨습니다.
 
-In the project directory, you can run:
+개발을 할 때 신경 썼던 부분은 입력되는 데이터의 검증이었습니다. 최대한 데이터베이스에 알맞은 형식의 데이터만 저장될 수 있도록 노력했고 그래야 매칭되셨을 때
+잘못된 연락처를 받는 것을 최소화할 수 있다고 생각했습니다. 단기간의 개발이라 본인 인증 부분이 없었던 부분이 가장 아쉬웠습니다.
+또한 아무래도 개인정보를 받는 서비스 다 보니 보안에도 신경을 쓰게 되었습니다. 단순한 번호 나열이 아닌 개인에게 랜덤 코드를 부여하여 함부로 다른 사람의 코드를 예상하여 조회할 수 없도록 하였습니다.
+부스 운영시에도 개발자를 제외한 운영진들은 데이터를 직접적으로 볼 수 없도록 운영진 페이지도 따로 개발하였습니다.
+참고로 모든 개인 정보 및 매칭 데이터는 오늘 밤 10시에 모두 삭제될 예정입니다.
 
-### `npm start`
+저희가 이 서비스를 기획하고 개발하게 된 것은 축제 시작 4일 전이었습니다. 개발자 2명이서 너무나도 부족한 시간이었지만 학우 분들에게 즐거움을 드리고 싶다는 생각 하나로 밤낮없이 개발했던 거 같습니다.
+비하인드를 하나 말씀드리자면 서비스는 축제 당일 새벽 6시 경에 완성되어 아주 아슬아슬했습니다..ㅎ
+사실 개발 분야에서 이런 서비스를 개발해보고 사용자들이 실제로 서비스를 사용해보는 것은 학생인 저희에겐 아주 값진 경험입니다. 저희에게 이런 경험을 선물해주신 학우 분들께 무한한 감사를 표합니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+그래서 저희는 이번뿐만 아니라 다음에도 기회가 된다면 COMAtching 더욱 개선하여 여러분께 선보이고 싶습니다.
+이용하시면서 불편하셨던 점이나 더 있으면 좋겠다 싶은 기능들에 대한 피드백 해주시면 감사하겠습니다!
+다음에 더 나은 서비스로 성장하여 다시 찾아뵙겠습니다. 감사합니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+이번 개발에 도움 주신 분들과 코마 운영진분들께 깊은 감사를 드립니다
