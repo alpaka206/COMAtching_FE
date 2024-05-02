@@ -29,6 +29,7 @@ const ProfileBuilder = () => {
     ["나는 감성적이야", "나는 현실적이야", "F", "T", "TF"],
     ["나는 즉흥적이야", "나는 계획적이야", "P", "J", "PJ"],
   ]);
+  const [chooseAnswer, setChooseAnswer] = useState(null);
   const [questionNum, setQuestionNum] = useState(0);
   const [showAnswerBox, setShowAnswerBox] = useState(false);
 
@@ -89,7 +90,7 @@ const ProfileBuilder = () => {
               <div className="ProfileBuilder">
                 <TypeAnimation
                   sequence={[
-                    showMbtiAnswers[0][0],
+                    showMbtiAnswers[0][chooseAnswer],
                     1000,
                     () => setShowAnswerBox(false),
                     () => handleShowQuestion(1),
@@ -116,7 +117,7 @@ const ProfileBuilder = () => {
               <div className="ProfileBuilder">
                 <TypeAnimation
                   sequence={[
-                    showMbtiAnswers[1][0],
+                    showMbtiAnswers[1][chooseAnswer],
                     1000,
                     () => setShowAnswerBox(false),
                     () => handleShowQuestion(2),
@@ -143,7 +144,7 @@ const ProfileBuilder = () => {
               <div className="ProfileBuilder">
                 <TypeAnimation
                   sequence={[
-                    showMbtiAnswers[2][0],
+                    showMbtiAnswers[2][chooseAnswer],
                     1000,
                     () => setShowAnswerBox(false),
                     () => handleShowQuestion(3),
@@ -170,7 +171,7 @@ const ProfileBuilder = () => {
               <div className="ProfileBuilder">
                 <TypeAnimation
                   sequence={[
-                    showMbtiAnswers[3][0],
+                    showMbtiAnswers[3][chooseAnswer],
                     1000,
                     () => setShowAnswerBox(false),
                     () => navigatehobby(),
@@ -190,8 +191,8 @@ const ProfileBuilder = () => {
             mbtiAnswers={showMbtiAnswers}
             questionNum={questionNum}
             handleQuestionComplete={handleQuestionComplete}
-            selectedMBTI={selectedMBTI}
             setSelectedMBTI={setSelectedMBTI}
+            setChooseAnswer={setChooseAnswer}
           />
         )}
       </div>

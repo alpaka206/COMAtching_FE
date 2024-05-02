@@ -4,16 +4,17 @@ function MBTIMaker({
   mbtiAnswers,
   questionNum,
   handleQuestionComplete,
-  selectedMBTI,
   setSelectedMBTI,
+  setChooseAnswer,
 }) {
   const [answerChecked, setAnswerChecked] = useState(null);
-  const handleMBTIClick = (mbtiType, value) => {
+  const handleMBTIClick = (mbtiType, value, index) => {
     setSelectedMBTI((prevMBTI) => ({
       ...prevMBTI,
       [mbtiType]: value,
     }));
     setAnswerChecked(value);
+    setChooseAnswer(index);
   };
 
   return (
@@ -26,7 +27,8 @@ function MBTIMaker({
         onClick={() =>
           handleMBTIClick(
             mbtiAnswers[questionNum][4],
-            mbtiAnswers[questionNum][2]
+            mbtiAnswers[questionNum][2],
+            0
           )
         }
       >
@@ -42,7 +44,8 @@ function MBTIMaker({
         onClick={() =>
           handleMBTIClick(
             mbtiAnswers[questionNum][4],
-            mbtiAnswers[questionNum][3]
+            mbtiAnswers[questionNum][3],
+            1
           )
         }
       >
