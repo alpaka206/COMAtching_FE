@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderNav from "../components/HeaderNav";
 import "../css/pages/Hobbyform.css";
@@ -10,14 +10,14 @@ function Hobbyform() {
   const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = () => {
-    // 선택한 취미들을 MBTI 상태에 업데이트
     console.log(user.hobby);
-    // navigate("/다음페이지");
+    navigate("/form");
   };
 
   const handleHobbyClick = (index) => {
     // 이미 선택한 취미인지 확인
-    const updatedHobbies = user.hobby.includes(index)
+    const isAlreadySelected = user.hobby.includes(index);
+    const updatedHobbies = isAlreadySelected
       ? user.hobby.filter((hobby) => hobby !== index)
       : user.hobby.length < 5
       ? [...user.hobby, index]
@@ -27,7 +27,6 @@ function Hobbyform() {
       ...prevUser,
       hobby: updatedHobbies,
     }));
-
     console.log(updatedHobbies);
   };
 
@@ -42,7 +41,7 @@ function Hobbyform() {
             <button
               key={index}
               className={`hobby-item ${
-                user.hobby.includes(index) ? "selected" : ""
+                user.hobby.includes(hobby.label) ? "selected" : ""
               }`}
               onClick={() => handleHobbyClick(hobby.label)}
             >

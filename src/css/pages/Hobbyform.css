@@ -1,5 +1,3 @@
-/* Form.css 파일 */
-
 .hobby-grid {
   display: grid;
   grid-template-columns: repeat(
@@ -26,6 +24,7 @@
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); /* drop shadow */
   margin-bottom: 7px;
 }
-.hobby-item:focus img {
+
+.hobby-item.selected img {
   box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25); /* innershadow 효과 */
 }
