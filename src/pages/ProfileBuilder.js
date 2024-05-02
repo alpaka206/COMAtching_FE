@@ -4,8 +4,13 @@ import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 import { TypeAnimation } from "react-type-animation";
 import MBTIMaker from "../components/MBTIMaker";
+import { useRecoilState } from "recoil";
+import { selectedMBTIState } from "../Atoms";
+import { useNavigate } from "react-router-dom";
 
 const ProfileBuilder = () => {
+  const navigate = useNavigate();
+  const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState);
   const [showQuestions, setShowQuestions] = useState([
     [false, false],
     [false, false],
@@ -17,14 +22,12 @@ const ProfileBuilder = () => {
     "Q2. 당신은 어떤 쪽으로 탁월한가요?",
     "Q3. 당신은 감성적인가요, 현실적인가요?",
     "Q4. 당신은 계획적인가요, 즉흥적인가요?",
-    "Q5. 당신은 몇살인가요?",
-    "Q6. 당신의 ",
   ];
   const [showMbtiAnswers, setShowMbtiAnswers] = useState([
-    ["나는 외향적이야.", "나는 내향적이야.", "E", "I"],
-    ["나는 상상력이 좋아.", "나는 현재에 집중하는 편이야", "N", "S"],
-    ["나는 감성적이야", "나는 현실적이야", "F", "T"],
-    ["나는 즉흥적이야", "나는 계획적이야", "P", "J"],
+    ["나는 외향적이야.", "나는 내향적이야.", "E", "I", "EI"],
+    ["나는 상상력이 좋아.", "나는 현재에 집중하는 편이야", "N", "S", "SN"],
+    ["나는 감성적이야", "나는 현실적이야", "F", "T", "TF"],
+    ["나는 즉흥적이야", "나는 계획적이야", "P", "J", "PJ"],
   ]);
   const [questionNum, setQuestionNum] = useState(0);
   const [showAnswerBox, setShowAnswerBox] = useState(false);
@@ -42,9 +45,9 @@ const ProfileBuilder = () => {
     setShowQuestions((prevShowQuestions) => {
       const updatedQuestions = [...prevShowQuestions];
       updatedQuestions[index][1] = true;
+      console.log("Selected MBTI:", selectedMBTI);
       return updatedQuestions;
     });
-    // handleShowQuestion(index + 1); // 다음 질문 보이기
   };
   const chatMessageRef = useRef(null);
   useEffect(() => {
@@ -52,6 +55,9 @@ const ProfileBuilder = () => {
       chatMessageRef.current.scrollTop = chatMessageRef.current.scrollHeight;
     }
   }, [showQuestions]);
+  const navigatehobby = () => {
+    navigate("/Hobby");
+  };
   return (
     <div className="container">
       <HeaderNav destination="/" buttonText="처음으로" />
@@ -167,6 +173,7 @@ const ProfileBuilder = () => {
                     showMbtiAnswers[3][0],
                     1000,
                     () => setShowAnswerBox(false),
+                    () => navigatehobby(),
                   ]}
                   speed={65}
                   className="typing-animation"
@@ -183,6 +190,8 @@ const ProfileBuilder = () => {
             mbtiAnswers={showMbtiAnswers}
             questionNum={questionNum}
             handleQuestionComplete={handleQuestionComplete}
+            selectedMBTI={selectedMBTI}
+            setSelectedMBTI={setSelectedMBTI}
           />
         )}
       </div>

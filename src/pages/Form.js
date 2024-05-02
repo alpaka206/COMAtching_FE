@@ -166,7 +166,7 @@ function Form() {
               selectedMBTI={selectedMBTI}
             />
             {/* <button type="submit-button" disabled={!isContactVerified}> */}
-            <button className="submit-button">매칭 등록(Click) ▶</button>
+            <button className="submit-button">다음으로</button>
           </div>
         </div>
       </form>

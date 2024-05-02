@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderNav from "../components/HeaderNav";
 import "../css/pages/Hobbyform.css";
+import { useRecoilState } from "recoil";
+import { userState } from "../Atoms";
 
 function Hobbyform() {
   const navigate = useNavigate();
-  const [selectedHobbyIndex, setSelectedHobbyIndex] = useState(null);
+  const [user, setUser] = useRecoilState(userState);
+
+  const handleSubmit = () => {
+    // 선택한 취미들을 MBTI 상태에 업데이트
+    console.log(user.hobby);
+    // navigate("/다음페이지");
+  };
 
   const handleHobbyClick = (index) => {
-    setSelectedHobbyIndex(index);
+    // 이미 선택한 취미인지 확인
+    const updatedHobbies = user.hobby.includes(index)
+      ? user.hobby.filter((hobby) => hobby !== index)
+      : user.hobby.length < 5
+      ? [...user.hobby, index]
+      : user.hobby;
+
+    setUser((prevUser) => ({
+      ...prevUser,
+      hobby: updatedHobbies,
+    }));
+
+    console.log(updatedHobbies);
   };
 
   return (
@@ -18,14 +38,13 @@ function Hobbyform() {
         <div>취미 선택하기</div>
         <div>본인의 취미를 알려주세요. (1-5개)</div>
         <div className="hobby-grid">
-          {/* 취미 아이콘 그리드 */}
           {hobbyIcons.map((hobby, index) => (
             <button
               key={index}
               className={`hobby-item ${
-                selectedHobbyIndex === index ? "selected" : ""
+                user.hobby.includes(index) ? "selected" : ""
               }`}
-              onClick={() => handleHobbyClick(index)}
+              onClick={() => handleHobbyClick(hobby.label)}
             >
               <img
                 src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`}
@@ -35,6 +54,9 @@ function Hobbyform() {
             </button>
           ))}
         </div>
+        <button className="submit-button" onClick={handleSubmit}>
+          다음으로
+        </button>
       </div>
     </div>
   );
