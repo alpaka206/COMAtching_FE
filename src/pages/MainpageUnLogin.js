@@ -34,7 +34,7 @@ function MainpageUnLogin() {
         />
         <div>
           <img
-            src={process.env.PUBLIC_URL + `assets/logoblack.png`}
+            src={process.env.PUBLIC_URL + `assets/logoblack.svg`}
             alt="로고이미지"
             style={{
               width: "75%",
