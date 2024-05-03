@@ -12,11 +12,11 @@ import Admin from "./pages/Admin";
 import Loading from "./pages/Loading";
 import Guide from "./pages/Guide";
 import TossChecker from "./pages/TossChecker";
-import ReadCode from "./pages/ReadCode";
+import CodeReader from "./pages/CodeReader";
 import ProfileBuilder from "./pages/ProfileBuilder";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import MakeCode from "./pages/MakeCode";
+import QRGenerator from "./pages/QRGenerator";
 
 function App() {
   return (
@@ -36,8 +36,8 @@ function App() {
             <Route path="/Admin" element={<Admin />} />
             <Route path="/Loading" element={<Loading />} />
             <Route path="/TossChecker" element={<TossChecker />} />
-            <Route path="/ReadCode" element={<ReadCode />} />
-            <Route path="/MakeCode" element={<MakeCode />} />
+            <Route path="/CodeReader" element={<CodeReader />} />
+            <Route path="/QRGenerator" element={<QRGenerator />} />
             <Route path="/ProfileBuilder" element={<ProfileBuilder />} />
           </Routes>
         </BrowserRouter>
