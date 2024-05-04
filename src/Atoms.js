@@ -3,15 +3,15 @@ import { atom } from "recoil";
 export const userState = atom({
   key: "userState",
   default: {
-    depart: "",
+    depart: "코매칭",
     age: "",
-    phone: "",
-    song: "",
-    gender: "",
-    mbti: "",
-    hobby: [],
+    phone: "01011112222",
+    song: "아이유-에필로그",
+    gender: "Male",
+    mbti: "ESTJ",
+    hobby: ["독서", "음악감상", "그림그리기", "게임", "사진촬영"],
     chance: 0,
-    isLoggedIn: false,
+    isLoggedIn: true,
   },
 });
 

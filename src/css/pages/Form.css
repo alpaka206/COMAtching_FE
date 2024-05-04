@@ -15,14 +15,7 @@ input {
   height: 40px;
   padding: 5px 8px 5px 8px;
   border: 1px solid #ccc;
-  border-radius: 30px;
-
-  caret-color: #ff775e; /* Cursor color */
-}
-input:focus {
-  outline: none; /* Remove default focus outline */
-  background-color: transparent; /* Make background transparent on focus */
-  box-shadow: none; /* Remove any existing box shadow on focus */
+  border-radius: 15px;
 }
 input::placeholder {
   color: #a5a5a5;
@@ -38,7 +31,7 @@ input::placeholder {
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 15px;
-  padding: 8px;
+  padding: 8px 0px;
   margin-top: 6px;
   position: relative;
 }

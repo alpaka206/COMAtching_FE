@@ -9,7 +9,7 @@ import HeaderNav from "../components/HeaderNav";
 import MajorSelector from "../components/MajorSelector";
 import FormTitle from "../components/FormTitle";
 import "../css/pages/Form.css";
-import StudentIdInput from "../components/StudentIdInput";
+import AgeInputInput from "../components/AgeInput";
 import ContactMethod from "../components/ContactMethod";
 import GenderSelect from "../components/GenderSelect";
 import MBTISection from "../components/MBTISection";
@@ -30,19 +30,12 @@ function Form() {
     let errorMessage = "";
 
     switch (name) {
-      case "age":
-        if (!/^9[7-9]|0[0-5]$/.test(value)) {
-          errorMessage =
-            "탄생년도는 97부터 05까지의 숫자로 입력하세요. (예: 05)";
-        }
-        break;
-
       case "phone":
         if (!/^\d{0,11}$/.test(value)) {
           errorMessage =
             checkMethod.contactMethod === "insta"
               ? "인스타 아이디는 영어, 숫자, 언더바(_), 마침표(.)만 가능합니다."
-              : "(-) 없이 전화번호를 입력하세요. (예: 01012345678)";
+              : "(-) 없이 11자리 전화번호를 입력하세요. (예: 01012345678)";
         }
         break;
       case "song":
@@ -134,7 +127,7 @@ function Form() {
               checkMethod={checkMethod}
               setCheckMethod={setCheckMethod}
             />
-            <StudentIdInput value={user.age} onChange={handleChange} />
+            <AgeInputInput value={user.age} onChange={handleChange} />
 
             <ContactMethod
               checkMethod={checkMethod}

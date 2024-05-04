@@ -65,6 +65,7 @@ function MainpageLogin() {
             buttonText="나를 뽑을 횟수"
           />
         </div>
+        <div>부스에 충전 요청하기</div>
         <div className="button-group">
           <BottomNavButton
             onClick={handleVisitcheckresult}
