@@ -2,7 +2,7 @@ import React from "react";
 import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { MatchResultRecoilState, MatchRecoilState, userState } from "../Atoms";
+import { MatchResultState, MatchPickState, userState } from "../Atoms";
 import "./Matchresult.css";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
@@ -12,10 +12,9 @@ function Matchresult() {
   const navigate = useNavigate();
 
   const formData = useRecoilValue(userState);
-  const [MatchState, setMatchState] = useRecoilState(MatchRecoilState);
-  const [MatchResultState, setMatchResultState] = useRecoilState(
-    MatchResultRecoilState
-  );
+  const [MatchState, setMatchState] = useRecoilState(MatchPickState);
+  const [MatchResultState, setMatchResultState] =
+    useRecoilState(MatchResultState);
   const isPhoneNumberStartsWith010 =
     MatchResultState.generatedPhone &&
     MatchResultState.generatedPhone.slice(0, 3) === "010";

@@ -25,30 +25,33 @@ export const selectedMBTIState = atom({
   },
 });
 
-export const MatchRecoilState = atom({
-  key: "mcaotmcapRecoilState",
+export const MatchPickState = atom({
+  key: "MatchPickState",
   default: {
     selectedMBTI: [],
-    history: "",
+    selectedCategory: "",
     sortedMBTI: [],
     formData: {
-      passwd: "",
-      gender: true,
+      contactRate: "",
+      age: "",
       mbti: "",
+      samemajor: false,
+      hobby: [],
     },
   },
 });
 
-export const MatchResultRecoilState = atom({
-  key: "mcaotmcapResultRecoilState",
+export const MatchResultState = atom({
+  key: "MatchResultState",
   default: {
-    generatedGender: null,
-    generatedPhone: null,
     generatedDepart: null,
+    generatedAge: null,
     generatedSong: null,
-    generatedYear: null,
     generatedMbti: null,
-    generatedCode: null,
+    generatedHobby: [null],
+    generatedPhone: null,
+    generatedContactRate: null,
+    generatedCotactMethod: null,
   },
 });
 
