@@ -4,6 +4,7 @@ import HeaderNav from "../components/HeaderNav";
 import "../css/pages/Hobbyform.css";
 import { useRecoilState } from "recoil";
 import { userState } from "../Atoms";
+import hobbyIcons from "../data/hobbyIcons";
 
 function Hobbyform() {
   const navigate = useNavigate();
@@ -62,22 +63,5 @@ function Hobbyform() {
 }
 
 // 각 취미에 대한 아이콘 및 레이블 데이터 배열
-const hobbyIcons = [
-  { image: "music", alt: "음악감상", label: "음악감상" },
-  { image: "draw", alt: "그림그리기", label: "그림그리기" },
-  { image: "game", alt: "게임", label: "게임" },
-  { image: "photo", alt: "사진촬영", label: "사진촬영" },
-  { image: "activity", alt: "액티비티", label: "액티비티" },
-  { image: "exercise", alt: "운동", label: "운동" },
-  { image: "alcohol", alt: "술", label: "술" },
-  { image: "read", alt: "독서", label: "독서" },
-  { image: "music", alt: "음악감상", label: "음악감상" },
-  { image: "music", alt: "음악감상", label: "음악감상" },
-  { image: "music", alt: "음악감상", label: "음악감상" },
-  { image: "music", alt: "음악감상", label: "음악감상" },
-  { image: "music", alt: "음악감상", label: "음악감상" },
-  { image: "music", alt: "음악감상", label: "음악감상" },
-  { image: "music", alt: "음악감상", label: "음악감상" },
-];
 
 export default Hobbyform;

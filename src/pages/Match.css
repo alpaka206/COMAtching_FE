@@ -109,3 +109,58 @@ button[type="submit-button"] {
   opacity: 1;
   margin-top: 10px;
 }
+.match-premium-option {
+  display: flex;
+  justify-content: space-between;
+}
+.match-premium-option-right {
+  display: flex;
+  align-items: center;
+  margin-right: 42px;
+}
+.match-premium-option-cost {
+  display: flex;
+  align-items: center;
+  font-size: 32px;
+  background-color: #ffffff;
+  border-radius: 36px;
+  padding: 8px 32px;
+  height: 48px;
+  margin-right: 16px;
+}
+.match-premium-option-cost img {
+  height: 48px;
+  margin-right: 8px;
+}
+.match-premium-option-unclick-button {
+  text-align: center;
+  background-color: #ff775e;
+  font-size: 48px;
+  height: 64px;
+  width: 64px;
+  color: #ffffff;
+  border-radius: 100px;
+  padding: 0px;
+}
+.match-premium-option-click-button {
+  text-align: center;
+  background-color: #ffffff;
+  font-size: 48px;
+  height: 64px;
+  width: 64px;
+  color: #ffffff;
+  border-radius: 100px;
+  padding: 0px;
+}
+.match-hobby-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    5,
+    1fr
+  ); /* 각 행에 3개의 아이템이 올 수 있도록 */
+  padding: 20px;
+}
+.match-select-button {
+  display: flex;
+  justify-content: space-around;
+}

@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import "../css/components/MBTIButton.css";
 
-function MBTIButton({ user, handleMBTISelection, letter }) {
-  const isActive = user.mbti.includes(letter);
+function MBTIButton({ user, onClick, letter }) {
+  const isActive = user.includes(letter);
 
   const handleClick = () => {
-    handleMBTISelection(letter);
+    onClick(letter);
   };
 
   return (
@@ -22,10 +22,10 @@ function MBTIButton({ user, handleMBTISelection, letter }) {
   );
 }
 
-MBTIButton.propTypes = {
-  user: PropTypes.object.isRequired,
-  handleMBTISelection: PropTypes.func.isRequired,
-  letter: PropTypes.string.isRequired,
-};
+// MBTIButton.propTypes = {
+//   user: PropTypes.object.isRequired,
+//   handleMBTISelection: PropTypes.func.isRequired,
+//   letter: PropTypes.string.isRequired,
+// };
 
 export default MBTIButton;

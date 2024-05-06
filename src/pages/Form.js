@@ -113,7 +113,29 @@ function Form() {
       console.error("오류 발생:", error);
     }
   };
+  const handleMBTISelection = (value) => {
+    const category =
+      value === "E" || value === "I"
+        ? "EI"
+        : value === "S" || value === "N"
+        ? "SN"
+        : value === "T" || value === "F"
+        ? "TF"
+        : "PJ";
 
+    setSelectedMBTI((prevMBTI) => ({
+      ...prevMBTI,
+      [category]: value,
+    }));
+    setUser((prevUser) => ({
+      ...prevUser,
+      mbti: `${category === "EI" ? value : selectedMBTI.EI}${
+        category === "SN" ? value : selectedMBTI.SN
+      }${category === "TF" ? value : selectedMBTI.TF}${
+        category === "PJ" ? value : selectedMBTI.PJ
+      }`,
+    }));
+  };
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
@@ -151,13 +173,8 @@ function Form() {
               </label>
             </div>
             <GenderSelect user={user} setUser={setUser} />
-
-            <MBTISection
-              user={user}
-              setUser={setUser}
-              setSelectedMBTI={setSelectedMBTI}
-              selectedMBTI={selectedMBTI}
-            />
+            <h3>MBTI</h3>
+            <MBTISection user={user.mbti} onClick={handleMBTISelection} />
             {/* <button type="submit-button" disabled={!isContactVerified}> */}
             <button className="submit-button">다음으로</button>
           </div>
