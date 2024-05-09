@@ -2,13 +2,18 @@ import React from "react";
 import ContactMethodButton from "./ContactMethodButton";
 import "../css/components/ContactMethodPick.css";
 
-function ContactMethodPick({ checkMethod, setCheckMethod }) {
+function ContactMethodPick({ checkMethod, setCheckMethod, user, setUser }) {
   const handleContactMethod = (method) => {
     setCheckMethod((prevState) => ({
       ...prevState,
       contactMethod: method,
     }));
+    setUser((prev) => ({
+      ...prev,
+      contact: method,
+    }));
   };
+
   return (
     <div className="ContactMethodPick">
       <h3>연락처</h3>

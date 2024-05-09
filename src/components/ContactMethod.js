@@ -3,12 +3,20 @@ import ContactMethodInput from "../components/ContactMethodInput";
 import ContactMethodPick from "../components/ContactMethodPick";
 import "../css/components/ContactMethod.css";
 
-function ContactMethod({ checkMethod, setCheckMethod, user, handleChange }) {
+function ContactMethod({
+  checkMethod,
+  setCheckMethod,
+  user,
+  handleChange,
+  setUser,
+}) {
   return (
     <Fragment>
       <ContactMethodPick
         checkMethod={checkMethod}
         setCheckMethod={setCheckMethod}
+        user={user}
+        setUser={setUser}
       />
 
       <ContactMethodInput

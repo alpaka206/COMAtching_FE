@@ -13,6 +13,7 @@ import AgeInputInput from "../components/AgeInput";
 import ContactMethod from "../components/ContactMethod";
 import GenderSelect from "../components/GenderSelect";
 import MBTISection from "../components/MBTISection";
+import hobbyIcons from "../data/hobbyIcons";
 
 function Form() {
   const navigate = useNavigate();
@@ -85,29 +86,30 @@ function Form() {
     };
 
     try {
+      console.log(user);
       // 서버로 데이터 전송
-      const response = await axios.post(
-        "https://onesons.site/register",
-        postData
-      );
+      // const response = await axios.post(
+      //   "https://onesons.site/register",
+      //   postData
+      // );
 
-      if (response.data.isSuccess === true) {
-        // 등록 성공 시 사용자 정보 초기화 및 로그인 페이지로 이동
-        setUser((prevUser) => ({
-          userEmail: "",
-          userPw: "",
-          depart: "",
-          age: "",
-          phone: "",
-          song: "",
-          gender: true,
-          mbti: "",
-        }));
-        navigate("/login");
-      } else {
-        // 등록 실패 시 오류 메시지 표시
-        alert(response.data.message);
-      }
+      // if (response.data.isSuccess === true) {
+      //   // 등록 성공 시 사용자 정보 초기화 및 로그인 페이지로 이동
+      //   setUser((prevUser) => ({
+      //     userEmail: "",
+      //     userPw: "",
+      //     depart: "",
+      //     age: "",
+      //     phone: "",
+      //     song: "",
+      //     gender: "",
+      //     mbti: "",
+      //   }));
+      //   navigate("/login");
+      // } else {
+      //   // 등록 실패 시 오류 메시지 표시
+      //   alert(response.data.message);
+      // }
     } catch (error) {
       // 오류 발생 시 콘솔에 오류 로그 출력
       console.error("오류 발생:", error);
@@ -136,12 +138,18 @@ function Form() {
       }`,
     }));
   };
+  const handleAgeClick = (value, index) => {
+    setUser((prev) => ({
+      ...prev,
+      contact_frequency: value,
+    }));
+  };
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
         <HeaderNav destination="/" buttonText="처음으로" />
         <div className="content">
-          <div className="inner-content">
+          <div className="form-inner-content">
             <FormTitle />
             <MajorSelector
               user={user}
@@ -155,9 +163,68 @@ function Form() {
               checkMethod={checkMethod}
               setCheckMethod={setCheckMethod}
               user={user}
+              setUser={setUser}
               handleChange={handleChange}
             />
-
+            <GenderSelect user={user} setUser={setUser} />
+            <div>
+              <h3>연락빈도</h3>
+              <div className="match-select-button">
+                <button
+                  type="button"
+                  className={`form-AgeMaker ${
+                    user.contact_frequency === "적음" ? "selected" : ""
+                  }`}
+                  value={"적음"}
+                  onClick={() => handleAgeClick("적음", 0)}
+                >
+                  {"적음"}
+                </button>
+                <button
+                  type="button"
+                  className={`form-AgeMaker ${
+                    user.contact_frequency === "중간" ? "selected" : ""
+                  }`}
+                  value={"중간"}
+                  onClick={() => handleAgeClick("중간", 1)}
+                >
+                  {"중간"}
+                </button>
+                <button
+                  type="button"
+                  className={`form-AgeMaker ${
+                    user.contact_frequency === "많음" ? "selected" : ""
+                  }`}
+                  value={"많음"}
+                  onClick={() => handleAgeClick("많음", 2)}
+                >
+                  {"많음"}
+                </button>
+              </div>
+            </div>
+            <h3>MBTI</h3>
+            <MBTISection user={user.mbti} onClick={handleMBTISelection} />
+            <div>
+              <h3>취미</h3>
+              <div className="form-selected-hobbies">
+                {user.hobby.map((hobbyLabel, index) => {
+                  const hobby = hobbyIcons.find(
+                    (item) => item.label === hobbyLabel
+                  );
+                  return (
+                    <div key={index} className="selected-hobby">
+                      <img
+                        src={
+                          process.env.PUBLIC_URL + `assets/${hobby.image}.svg`
+                        }
+                        alt={hobby.alt}
+                      />
+                      <div>{hobby.label}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
             <div>
               <label>
                 <h3>좋아하는 노래</h3>
@@ -172,9 +239,21 @@ function Form() {
                 </div>
               </label>
             </div>
-            <GenderSelect user={user} setUser={setUser} />
-            <h3>MBTI</h3>
-            <MBTISection user={user.mbti} onClick={handleMBTISelection} />
+            <div>
+              <label>
+                <h3>나를 소개할 한마디</h3>
+                <div className="music">
+                  <MyInput
+                    name="comment"
+                    value={user.comment}
+                    onChange={handleChange}
+                    placeholder="상대에게 전하고 싶은 말을 자유롭게 작성해 주세요"
+                    className="comment-input"
+                  />
+                </div>
+              </label>
+            </div>
+
             {/* <button type="submit-button" disabled={!isContactVerified}> */}
             <button className="submit-button">다음으로</button>
           </div>

@@ -1,13 +1,11 @@
 .BottomNavButton {
   text-align: center;
-  margin-top: 10px;
-  width: 90%;
+  width: 48%;
   height: 70px;
   background-color: #ffffff;
   font-size: 18px;
   font-weight: bold;
   border-radius: 32px;
-  margin-right: 2.5%;
   display: flex; /* flexbox 사용 */
   justify-content: space-evenly; /* 가로 중앙 정렬 */
   align-items: center;

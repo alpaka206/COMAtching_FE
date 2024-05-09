@@ -1,18 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { userState } from "../Atoms";
 import "../css/components/HeaderNav.css";
 
-function HeaderNav({ destination, buttonText }) {
-  const [user, setUser] = useRecoilState(userState);
+function HeaderNav() {
   const navigate = useNavigate();
-  const handleLogout = () => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      isLoggedIn: false,
-    }));
-  };
 
   return (
     <div className="header">
@@ -24,18 +15,6 @@ function HeaderNav({ destination, buttonText }) {
           onClick={() => navigate("/")}
         />
       </div>
-      {buttonText === "로그아웃" ? (
-        <button className="look-button" onClick={handleLogout}>
-          {buttonText}
-        </button>
-      ) : (
-        <button
-          className="look-button"
-          onClick={() => navigate(destination || -1)}
-        >
-          {buttonText}
-        </button>
-      )}
     </div>
   );
 }

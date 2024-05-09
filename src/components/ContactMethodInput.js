@@ -42,8 +42,8 @@ function ContactMethodInput({
   return (
     <div className="contact-input">
       <MyInput
-        name="phone"
-        value={user.phone}
+        name="contact_id"
+        value={user.contact_id}
         onChange={handleChange}
         placeholder={
           checkMethod.contactMethod === "phone"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -10,11 +10,9 @@ import axios from "axios";
 
 function Matchresult() {
   const navigate = useNavigate();
-
   const formData = useRecoilValue(userState);
   const [MatchState, setMatchState] = useRecoilState(MatchPickState);
-  const [MatchResultState, setMatchResultState] =
-    useRecoilState(MatchResultState);
+  const [ResultState, setResultState] = useRecoilState(MatchResultState);
   const isPhoneNumberStartsWith010 =
     MatchResultState.generatedPhone &&
     MatchResultState.generatedPhone.slice(0, 3) === "010";
@@ -35,7 +33,7 @@ function Matchresult() {
 
       if (isSuccess === true) {
         const { gender, phone, depart, song, year, mbti } = result;
-        setMatchResultState({
+        setResultState({
           generatedCode: code,
           generatedGender: gender,
           generatedPhone: phone,
@@ -59,7 +57,7 @@ function Matchresult() {
       {formData.isLoggedIn ? (
         <div className="container">
           <HeaderNav destination="/match" buttonText="이전으로" />
-          <div className="content">
+          <div className={`matchresult-content }`}>
             {MatchResultState.generatedCode === 2002 ? (
               <div style={{ textAlign: "center" }}>
                 <span style={{ fontSize: "24px" }}>

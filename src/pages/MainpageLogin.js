@@ -15,7 +15,10 @@ function MainpageLogin() {
   const navigate = useNavigate();
   const formData = useRecoilValue(userState);
   const [numParticipants, setNumParticipants] = useState(0);
-
+  const [isClicked, setIsClicked] = useState(false);
+  const handleToggleClick = () => {
+    setIsClicked((prevIsClicked) => !prevIsClicked);
+  };
   useEffect(() => {
     const fetchParticipants = async () => {
       try {
@@ -65,7 +68,48 @@ function MainpageLogin() {
             buttonText="나를 뽑을 횟수"
           />
         </div>
-        <div>부스에 충전 요청하기</div>
+
+        {isClicked ? (
+          <div className="charge-request-clicked">
+            <div className="charge-request-clicked-top">
+              💁 부스에 충전 요청하기
+              <button
+                className="charge-request-clicked-img"
+                type="button"
+                onClick={handleToggleClick}
+              >
+                <img
+                  src={process.env.PUBLIC_URL + `assets/arrowup.svg`}
+                  alt="충전요청 닫기"
+                />
+              </button>
+            </div>
+            <li className="charge-request-clicked-text">
+              요청 후에는 입금 화면과 아이디를 보여 주세요.
+            </li>
+            <li className="charge-request-clicked-text">
+              버튼 남용 시 이용이 제한될 수 있으니 유의 바랍니다.
+            </li>
+            <button className="charge-request-clicked-button">
+              충전 요청하기
+            </button>
+          </div>
+        ) : (
+          <div className="charge-request-unclicked">
+            💁 부스에 충전 요청하기
+            <button
+              className="charge-request-unclicked-img"
+              type="button"
+              onClick={handleToggleClick}
+            >
+              <img
+                src={process.env.PUBLIC_URL + `assets/arrowbottom.svg`}
+                alt="충전요청 열기"
+              />
+            </button>
+          </div>
+        )}
+
         <div className="button-group">
           <BottomNavButton
             onClick={handleVisitcheckresult}

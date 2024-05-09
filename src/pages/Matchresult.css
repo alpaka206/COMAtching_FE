@@ -40,6 +40,8 @@
   color: #777777;
   text-align: left;
   margin-top: 24px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 1s;
 }
 .MatchresultText {
   font-size: 20px;
@@ -48,6 +50,7 @@
   text-align: left;
   margin-left: 18px;
   margin-top: 8px;
+  animation: fadeIn 0.7s ease;
 }
 .MatchresultInstaTopic {
   font-size: 24px;
@@ -83,4 +86,23 @@
   left: 0;
   transform: translate(0, 70%);
   margin-bottom: 50px;
+}
+.matchresult-content {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.75);
+  width: 90%;
+  margin: auto;
+  display: inline-block;
+  border-radius: 32px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  position: relative;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
