@@ -1,3 +1,17 @@
+.matchcontent {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.75);
+  width: 90%;
+  margin: auto;
+  display: inline-block;
+  border-radius: 32px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  position: relative;
+
+  padding: 31px 0px;
+}
+
 .mcaotext {
   margin-left: 47px;
   margin-bottom: 7px;
@@ -9,7 +23,6 @@
 .match-title {
   font-size: 44px;
   font-weight: bold;
-  margin-bottom: 20px;
   letter-spacing: 0;
   text-align: left;
   line-height: normal;
@@ -163,6 +176,7 @@ button[type="submit-button"] {
 .match-select-button {
   display: flex;
   justify-content: space-around;
+  margin-top: 15px;
 }
 .match-point-remaining {
   display: flex;
@@ -170,7 +184,7 @@ button[type="submit-button"] {
   justify-content: center;
   background-color: #ffffff;
   border-radius: 36px;
-  width: 277px;
+  width: 213px;
   height: 45px;
   font-size: 24px;
   font-weight: bold;
@@ -180,4 +194,11 @@ button[type="submit-button"] {
   width: 24px;
   height: 24px;
   margin: 0px 8px;
+}
+.match-header {
+  display: flex;
+  padding-top: 27px;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
 }
