@@ -30,16 +30,14 @@ export const selectedMBTIState = atom({
 export const MatchPickState = atom({
   key: "MatchPickState",
   default: {
-    selectedMBTI: [],
-    selectedCategory: "",
-    sortedMBTI: [],
+    selectedMBTI: ["X", "X", "X", "X"],
+    selectedCategory: [],
     point: 500,
     formData: {
       contactRate: "",
       age: "",
       mbti: "",
       samemajor: false,
-
       hobby: [],
     },
   },
@@ -48,14 +46,14 @@ export const MatchPickState = atom({
 export const MatchResultState = atom({
   key: "MatchResultState",
   default: {
-    generatedDepart: null,
+    generatedMajor: null,
     generatedAge: null,
-    generatedSong: null,
+    generatedHobby: [],
     generatedMbti: null,
-    generatedHobby: [null],
-    generatedPhone: null,
-    generatedContactRate: null,
-    generatedCotactMethod: null,
+    generatedSong: null,
+    generatedContact_Frequency: null,
+    generatedContact: null,
+    generatedContact_Id: null,
   },
 });
 

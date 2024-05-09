@@ -15,107 +15,124 @@ function Match() {
   const navigate = useNavigate();
   const formData = useRecoilValue(userState);
   const [MatchState, setMatchState] = useRecoilState(MatchPickState);
-  // const [MatchResultState, setMatchResultState] =
-  //   useRecoilState(MatchResultState);
+  const [MatchPageResult, setMatchPageResult] =
+    useRecoilState(MatchResultState);
   const [isUseOption, setIsUseOption] = useState([false, false, false, false]);
-  useEffect(() => {
-    const sortedMBTI = [
-      ...MatchState.selectedMBTI.filter((mbti) => mbti === "E" || mbti === "I"),
-      ...MatchState.selectedMBTI.filter((mbti) => mbti === "S" || mbti === "N"),
-      ...MatchState.selectedMBTI.filter((mbti) => mbti === "T" || mbti === "F"),
-      ...MatchState.selectedMBTI.filter((mbti) => mbti === "P" || mbti === "J"),
-    ];
-    setMatchState((prev) => ({ ...prev, sortedMBTI }));
-    console.log("Sorted MBTI:", MatchState);
-  }, [MatchState.selectedMBTI]);
+
   const alarmUrl = () => {
     alert("url강제 이동시 로그아웃 후 로그인 페이지로 이동됩니다.");
   };
   const handleMBTISelection = (value) => {
     const category =
       value === "E" || value === "I"
-        ? "EI"
+        ? 0
         : value === "S" || value === "N"
-        ? "SN"
+        ? 1
         : value === "T" || value === "F"
-        ? "TF"
-        : "PJ";
+        ? 2
+        : 3;
 
     if (MatchState.selectedCategory.includes(category)) {
       // 이미 선택된 카테고리가 있다면, 해당 카테고리에서 선택한 값만 변경
       setMatchState((prev) => {
         const updatedMBTI = [...prev.selectedMBTI];
-        updatedMBTI.pop(); // 마지막 항목을 제거
-        updatedMBTI.push(value); // 새로운 MBTI 추가
+        updatedMBTI[category] = value; // 새로운 MBTI 추가
         // return updatedMBTI;
         return { ...prev, selectedMBTI: updatedMBTI };
       });
     } else {
-      if (MatchState.selectedMBTI.length >= 2) {
+      if (MatchState.selectedCategory.length >= 2) {
         // 이미 두 개의 MBTI를 선택한 상태이면, 첫 번째 선택한 MBTI를 해제하고 새로운 MBTI 추가
         setMatchState((prev) => {
           const updatedMBTI = [...prev.selectedMBTI];
-          updatedMBTI.shift();
-          updatedMBTI.push(value);
+          updatedMBTI[category] = value;
+          const updatedMBTICategory = [...prev.selectedCategory];
+          updatedMBTI[updatedMBTICategory[0]] = "X";
+          updatedMBTICategory.shift();
+          updatedMBTICategory.push(category);
           return {
             ...prev,
             selectedMBTI: updatedMBTI,
-            selectedCategory: [category],
+            selectedCategory: updatedMBTICategory,
           };
         });
       } else {
-        setMatchState((prev) => ({
-          ...prev,
-          selectedMBTI: [...prev.selectedMBTI, value],
-          selectedCategory: [category],
-        }));
+        setMatchState((prev) => {
+          const updatedMBTI = [...prev.selectedMBTI];
+          updatedMBTI[category] = value;
+          const updatedMBTICategory = [...prev.selectedCategory];
+          updatedMBTICategory.push(category);
+          return {
+            ...prev,
+            selectedMBTI: updatedMBTI,
+            selectedCategory: updatedMBTICategory,
+          };
+        });
       }
     }
+    console.log("selectedMBTI:", MatchState.selectedMBTI);
+    console.log("selectedCategory:", MatchState.selectedCategory);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const postdata = {
-  //     passwd: formData.passwd,
-  //     mbti: MatchState.sortedMBTI[0] + MatchState.sortedMBTI[1],
-  //   };
-  //   console.log(postdata);
-  //   try {
-  //     const response = await axios.get("https://onesons.site/match", {
-  //       params: {
-  //         mbti: MatchState.sortedMBTI[0] + MatchState.sortedMBTI[1],
-  //         passwd: formData.passwd,
-  //         gender: !formData.gender,
-  //       },
-  //     });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  //     if (response.data.isSuccess === true) {
-  //       setMatchResultState({
-  //         generatedGender: response.data.result.gender,
-  //         generatedPhone: response.data.result.phone,
-  //         generatedDepart: response.data.result.depart,
-  //         generatedSong: response.data.result.song,
-  //         generatedYear: response.data.result.year,
-  //         generatedMbti: response.data.result.mbti,
-  //       });
-  //       navigate("/Matchresult");
-  //     } else {
-  //       alert(response.data.message);
-  //       return;
-  //     }
+    const submitmbti =
+      MatchState.selectedMBTI[0] +
+      MatchState.selectedMBTI[1] +
+      MatchState.selectedMBTI[2] +
+      MatchState.selectedMBTI[3];
+    console.log(submitmbti);
 
-  //     // setMatchResultState({
-  //     //   generatedPhone: "01024120339",
-  //     //   generatedDepart: "정보통신전자공학부",
-  //     //   generatedSong: "1322",
-  //     //   generatedYear: "11",
-  //     //   generatedMbti: "estj",
-  //     // });
-  //     navigate("/Matchresult");
-  //   } catch (error) {
-  //     console.error("오류 발생:", error);
-  //   }
-  // };
+    // try {
+    //   const response = await axios.get("https://onesons.site/match", {
+    //     params: {
+    //       mbti: MatchState.sortedMBTI[0] + MatchState.sortedMBTI[1],
+    //       passwd: formData.passwd,
+    //       gender: !formData.gender,
+    //     },
+    //   });
+
+    //   if (response.data.isSuccess === true) {
+    //     setMatchPageResult({
+    //       generatedMajor: response.data.result.generatedMajor,
+    //       generatedAge: response.data.result.generatedAge,
+    //       generatedHobby: response.data.result.generatedHobby,
+    //       generatedMbti: response.data.result.generatedMbti,
+    //       generatedSong: response.data.result.generatedSong,
+    //       generatedContact_Frequency:
+    //         response.data.result.generatedContact_Frequency,
+    //       generatedContact: response.data.result.generatedContact,
+    //       generatedContact_Id: response.data.result.generatedContact_Id,
+    //     });
+    //     navigate("/Matchresult");
+    //   } else {
+    //     alert(response.data.message);
+    //     return;
+    //   }
+
+    //     navigate("/Matchresult");
+    //   } catch (error) {
+    //     console.error("오류 발생:", error);
+    // }
+    setMatchPageResult({
+      generatedMajor: "정보통신전자공학부",
+      generatedAge: 20,
+      generatedHobby: [
+        "음악감상",
+        "그림그리기",
+        "사진촬영",
+        "액티비티",
+        "게임",
+      ],
+      generatedMbti: "ESTJ",
+      generatedSong: "아이유-에필로그",
+      generatedContact_Frequency: "많이",
+      generatedContact: "insta",
+      generatedContact_Id: "@COMA",
+    });
+    navigate("/Matchresult");
+  };
   const handleAgeSelection = (value, location) => {
     setMatchState((prev) => ({
       ...prev,
@@ -159,8 +176,8 @@ function Match() {
     <div>
       {formData.isLoggedIn ? (
         <div className="container">
-          <form /*onSubmit={handleSubmit}*/>
-            <div className="header">
+          <form onSubmit={handleSubmit}>
+            <div className="match-header">
               <div>
                 <img
                   className="logo-img"
@@ -178,7 +195,7 @@ function Match() {
                 2000
               </div>
             </div>
-            <div className="content">
+            <div className="matchcontent">
               <div className="match-title">
                 <div className="match-title-text">Matching</div>
                 <div className="match-title-inst-txt">
@@ -186,7 +203,7 @@ function Match() {
                 </div>
               </div>
             </div>
-            <div className="content">
+            <div className="matchcontent">
               <div className="match-title">
                 <div className="match-title-text">MBTI</div>
                 <div className="match-title-inst-txt">
@@ -198,7 +215,7 @@ function Match() {
                 onClick={handleMBTISelection}
               />
             </div>
-            <div className="content">
+            <div className="matchcontent">
               <div className="match-title">
                 <div className="match-premium-option">
                   <div>
@@ -258,7 +275,7 @@ function Match() {
                 />
               </div>
             </div>
-            <div className="content">
+            <div className="matchcontent">
               <div className="match-title">
                 <div className="match-premium-option">
                   <div>
@@ -319,7 +336,7 @@ function Match() {
                 />
               </div>
             </div>
-            <div className="content">
+            <div className="matchcontent">
               <div className="match-title">
                 <div className="match-premium-option">
                   <div>
@@ -385,7 +402,7 @@ function Match() {
                 ))}
               </div>
             </div>
-            <div className="content">
+            <div className="matchcontent">
               <div className="match-title">
                 <div className="match-premium-option">
                   <div>
