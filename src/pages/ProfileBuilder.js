@@ -5,13 +5,17 @@ import Footer from "../components/Footer";
 import { TypeAnimation } from "react-type-animation";
 import MBTIMaker from "../components/MBTIMaker";
 import { useRecoilState } from "recoil";
-import { selectedMBTIState } from "../Atoms";
+import { selectedMBTIState, userState } from "../Atoms";
 import { useNavigate } from "react-router-dom";
+import AgeMaker from "../components/AgeMaker";
 
 const ProfileBuilder = () => {
   const navigate = useNavigate();
   const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState);
+  const [currentUserState, setCurrentUserState] = useRecoilState(userState);
+
   const [showQuestions, setShowQuestions] = useState([
+    [false, false],
     [false, false],
     [false, false],
     [false, false],
@@ -22,12 +26,14 @@ const ProfileBuilder = () => {
     "Q2. 당신은 어떤 쪽으로 탁월한가요?",
     "Q3. 당신은 감성적인가요, 현실적인가요?",
     "Q4. 당신은 계획적인가요, 즉흥적인가요?",
+    "Q5. 당신의 연락빈도는 어떤가요?",
   ];
   const [showMbtiAnswers, setShowMbtiAnswers] = useState([
     ["나는 외향적이야.", "나는 내향적이야.", "E", "I", "EI"],
     ["나는 상상력이 좋아.", "나는 현재에 집중하는 편이야", "N", "S", "SN"],
     ["나는 감성적이야", "나는 현실적이야", "F", "T", "TF"],
     ["나는 즉흥적이야", "나는 계획적이야", "P", "J", "PJ"],
+    ["나는 적은편이야", "나는 중간이야", "나는 많은편이야", "", ""],
   ]);
   const [chooseAnswer, setChooseAnswer] = useState(null);
   const [questionNum, setQuestionNum] = useState(0);
@@ -57,6 +63,10 @@ const ProfileBuilder = () => {
     }
   }, [showQuestions]);
   const navigatehobby = () => {
+    setCurrentUserState((prev) => ({
+      ...prev,
+      mbti: `${selectedMBTI.EI}${selectedMBTI.SN}${selectedMBTI.TF}${selectedMBTI.PJ}`,
+    }));
     navigate("/Hobby");
   };
   return (
@@ -174,6 +184,33 @@ const ProfileBuilder = () => {
                     showMbtiAnswers[3][chooseAnswer],
                     1000,
                     () => setShowAnswerBox(false),
+                    () => handleShowQuestion(4),
+                  ]}
+                  speed={65}
+                  className="typing-animation"
+                  cursor={false}
+                />
+              </div>
+            )}
+          </Fragment>
+        )}
+        {showQuestions[4][0] && (
+          <Fragment>
+            <div className="ProfileBuilder">
+              <TypeAnimation
+                sequence={[questions[4], 1000, () => setShowAnswerBox(true)]}
+                speed={65}
+                className="typing-animation"
+                cursor={false}
+              />
+            </div>
+            {showQuestions[4][1] && (
+              <div className="ProfileBuilder">
+                <TypeAnimation
+                  sequence={[
+                    showMbtiAnswers[4][chooseAnswer],
+                    1000,
+                    () => setShowAnswerBox(false),
                     () => navigatehobby(),
                   ]}
                   speed={65}
@@ -186,15 +223,23 @@ const ProfileBuilder = () => {
         )}
       </div>
       <div className="Answer-box">
-        {showAnswerBox && (
-          <MBTIMaker
-            mbtiAnswers={showMbtiAnswers}
-            questionNum={questionNum}
-            handleQuestionComplete={handleQuestionComplete}
-            setSelectedMBTI={setSelectedMBTI}
-            setChooseAnswer={setChooseAnswer}
-          />
-        )}
+        {showAnswerBox &&
+          (questionNum < 4 ? (
+            <MBTIMaker
+              mbtiAnswers={showMbtiAnswers}
+              questionNum={questionNum}
+              handleQuestionComplete={handleQuestionComplete}
+              setSelectedMBTI={setSelectedMBTI}
+              setChooseAnswer={setChooseAnswer}
+            />
+          ) : (
+            <AgeMaker
+              handleQuestionComplete={handleQuestionComplete}
+              setCurrentUserState={setCurrentUserState}
+              currentUserState={currentUserState}
+              setChooseAnswer={setChooseAnswer}
+            />
+          ))}
       </div>
       <Footer />
     </div>

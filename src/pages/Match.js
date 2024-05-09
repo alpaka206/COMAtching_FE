@@ -15,8 +15,8 @@ function Match() {
   const navigate = useNavigate();
   const formData = useRecoilValue(userState);
   const [MatchState, setMatchState] = useRecoilState(MatchPickState);
-  const [MatchResultState, setMatchResultState] =
-    useRecoilState(MatchResultState);
+  // const [MatchResultState, setMatchResultState] =
+  //   useRecoilState(MatchResultState);
   const [isUseOption, setIsUseOption] = useState([false, false, false, false]);
   useEffect(() => {
     const sortedMBTI = [
@@ -126,12 +126,16 @@ function Match() {
     }));
     console.log("age:", MatchState);
   };
-  const handleButtonClick = (index) => {
+  const handleButtonClick = (index, cost) => {
     setIsUseOption((prev) => {
       const newState = [...prev];
       newState[index] = !newState[index];
       return newState;
     });
+    setMatchState((prev) => ({
+      ...prev,
+      point: prev.point + cost,
+    }));
   };
   const handleHobbyClick = (index) => {
     // 이미 선택한 취미인지 확인
@@ -156,7 +160,24 @@ function Match() {
       {formData.isLoggedIn ? (
         <div className="container">
           <form /*onSubmit={handleSubmit}*/>
-            <HeaderNav destination="/check" buttonText="조회하기" />
+            <div className="header">
+              <div>
+                <img
+                  className="logo-img"
+                  src={process.env.PUBLIC_URL + `assets/logowhite.png`}
+                  alt="로고"
+                  onClick={() => navigate("/")}
+                />
+              </div>
+              <div className="match-point-remaining">
+                잔여포인트
+                <img
+                  src={process.env.PUBLIC_URL + `assets/point.svg`}
+                  alt="cost"
+                />
+                2000
+              </div>
+            </div>
             <div className="content">
               <div className="match-title">
                 <div className="match-title-text">Matching</div>
@@ -196,7 +217,7 @@ function Match() {
                       <button
                         type="button"
                         className="match-premium-option-unclick-button"
-                        onClick={() => handleButtonClick(0)}
+                        onClick={() => handleButtonClick(0, 100)}
                       >
                         +
                       </button>
@@ -204,7 +225,7 @@ function Match() {
                       <button
                         type="button"
                         className="match-premium-option-click-button"
-                        onClick={() => handleButtonClick(0)}
+                        onClick={() => handleButtonClick(0, -100)}
                       >
                         <img
                           src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
@@ -258,7 +279,7 @@ function Match() {
                       <button
                         type="button"
                         className="match-premium-option-unclick-button"
-                        onClick={() => handleButtonClick(1)}
+                        onClick={() => handleButtonClick(1, 100)}
                       >
                         +
                       </button>
@@ -266,7 +287,7 @@ function Match() {
                       <button
                         type="button"
                         className="match-premium-option-click-button"
-                        onClick={() => handleButtonClick(1)}
+                        onClick={() => handleButtonClick(1, -100)}
                       >
                         <img
                           src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
@@ -319,7 +340,7 @@ function Match() {
                       <button
                         type="button"
                         className="match-premium-option-unclick-button"
-                        onClick={() => handleButtonClick(2)}
+                        onClick={() => handleButtonClick(2, 100)}
                       >
                         +
                       </button>
@@ -327,7 +348,7 @@ function Match() {
                       <button
                         type="button"
                         className="match-premium-option-click-button"
-                        onClick={() => handleButtonClick(2)}
+                        onClick={() => handleButtonClick(2, -100)}
                       >
                         <img
                           src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
@@ -381,11 +402,11 @@ function Match() {
                       />
                       200
                     </div>
-                    {!isUseOption[0] ? (
+                    {!isUseOption[3] ? (
                       <button
                         type="button"
                         className="match-premium-option-unclick-button"
-                        onClick={() => handleButtonClick(0)}
+                        onClick={() => handleButtonClick(3, 200)}
                       >
                         +
                       </button>
@@ -393,7 +414,7 @@ function Match() {
                       <button
                         type="button"
                         className="match-premium-option-click-button"
-                        onClick={() => handleButtonClick(0)}
+                        onClick={() => handleButtonClick(3, -200)}
                       >
                         <img
                           src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
@@ -406,7 +427,7 @@ function Match() {
               </div>
             </div>
 
-            <button type="submit-button">매칭하기</button>
+            <button type="submit-button">{MatchState.point}매칭하기</button>
             <Footer />
           </form>
         </div>

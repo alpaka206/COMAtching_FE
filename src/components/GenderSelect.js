@@ -6,21 +6,22 @@ function GenderSelect({ user, setUser }) {
   const handleGenderSelection = (value) => {
     setUser((prevUser) => ({
       ...prevUser,
-      gender: value === "male" ? true : false,
+      gender: value === "male" ? "Male" : "Female",
     }));
   };
+  const isActive = user.gender.includes("male");
   return (
     <Fragment>
       <h3>성별</h3>
       <div className="gender-container">
         <GenderButton
-          isActive={user.gender}
+          isActive={!isActive}
           value="male"
           onClick={() => handleGenderSelection("male")}
           label="남자"
         />
         <GenderButton
-          isActive={!user.gender}
+          isActive={isActive}
           value="female"
           onClick={() => handleGenderSelection("female")}
           label="여자"

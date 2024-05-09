@@ -12,15 +12,15 @@ const MajorSelector = ({ user, setUser, checkMethod, setCheckMethod }) => {
       [fieldName]: value,
       major: fieldName === "department" ? "" : prevState.major,
     }));
-    setUser((prevUser) => ({
-      ...prevUser,
-      depart: value,
-    }));
   };
   const handleMajorChange = (e) => {
     const value = e.target.value;
     setCheckMethod((prevState) => ({
       ...prevState,
+      major: value,
+    }));
+    setUser((prevUser) => ({
+      ...prevUser,
       major: value,
     }));
   };

@@ -1,0 +1,59 @@
+.MBTIMaker {
+  text-align: center;
+  background: #d3b5b5;
+  width: 85%;
+  display: inline-block;
+  border-radius: 16px;
+  padding: 24px 20px 15px 20px;
+}
+
+.MBTIMaker-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: left;
+  margin-left: 5px;
+}
+.MBTIMaker-choose-button {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 32px;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+}
+.MBTIMaker-choose-button.selected {
+  display: flex;
+  align-items: center;
+  background-color: #ff775e;
+  border-radius: 32px;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+}
+.MBTIMaker-button-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000000;
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+
+  margin-right: 15px;
+}
+
+.MBTIMaker-submit-button {
+  background-color: #ff775e;
+  border-radius: 36px;
+  height: 40px;
+  width: 40%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 60%;
+}

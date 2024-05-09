@@ -28,3 +28,40 @@
 .hobby-item.selected img {
   box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25); /* innershadow 효과 */
 }
+.selected-hobbies {
+  width: 80%;
+  margin: 12px 40px 0px 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.selected-hobby {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  width: auto;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 0px 8px;
+  margin: 2px 2px;
+  white-space: nowrap;
+}
+.selected-hobby img {
+  width: 16px;
+  height: 16px;
+}
+.select-hobby-topic {
+  text-align: left;
+  margin: 40px 0px 0px 40px;
+  font-size: 36px;
+  font-weight: bold;
+}
+.select-hobby-text {
+  text-align: left;
+  margin: 12px 0px 0px 40px;
+  font-size: 16px;
+  font-weight: medium;
+  color: #858585;
+}

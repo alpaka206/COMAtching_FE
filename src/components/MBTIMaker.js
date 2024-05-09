@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css/components/MBTIMaker.css";
 
 function MBTIMaker({
   mbtiAnswers,
@@ -18,10 +19,10 @@ function MBTIMaker({
   };
 
   return (
-    <div className="ProfileMaker">
-      <div className="ProfileMaker-text">내 답변</div>
+    <div className="MBTIMaker">
+      <div className="MBTIMaker-text">내 답변</div>
       <button
-        className={`profilemaker-choose-button ${
+        className={`MBTIMaker-choose-button ${
           answerChecked === mbtiAnswers[questionNum][2] ? "selected" : ""
         }`}
         onClick={() =>
@@ -32,13 +33,13 @@ function MBTIMaker({
           )
         }
       >
-        <div className="profilemaker-button-title">
+        <div className="MBTIMaker-button-title">
           {mbtiAnswers[questionNum][2]}
         </div>
         <div>{mbtiAnswers[questionNum][0]}</div>
       </button>
       <button
-        className={`profilemaker-choose-button ${
+        className={`MBTIMaker-choose-button ${
           answerChecked === mbtiAnswers[questionNum][3] ? "selected" : ""
         }`}
         onClick={() =>
@@ -49,13 +50,13 @@ function MBTIMaker({
           )
         }
       >
-        <div className="profilemaker-button-title">
+        <div className="MBTIMaker-button-title">
           {mbtiAnswers[questionNum][3]}
         </div>
         <div>{mbtiAnswers[questionNum][1]}</div>
       </button>
       <button
-        className="profilemaker-submit-button"
+        className="MBTIMaker-submit-button"
         onClick={() => handleQuestionComplete(questionNum)}
         disabled={!answerChecked}
       >

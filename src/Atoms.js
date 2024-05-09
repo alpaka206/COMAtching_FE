@@ -3,14 +3,16 @@ import { atom } from "recoil";
 export const userState = atom({
   key: "userState",
   default: {
-    depart: "코매칭",
-    age: "",
-    phone: "01011112222",
-    song: "아이유-에필로그",
+    major: "",
+    contact: "phone",
+    contact_id: "",
     gender: "Male",
-    mbti: "ESTJ",
-    hobby: ["독서", "음악감상", "그림그리기", "게임", "사진촬영"],
-    chance: 0,
+    age: "",
+    mbti: "",
+    hobby: [],
+    contact_frequency: "",
+    song: "",
+    comment: "",
     isLoggedIn: true,
   },
 });
@@ -31,11 +33,13 @@ export const MatchPickState = atom({
     selectedMBTI: [],
     selectedCategory: "",
     sortedMBTI: [],
+    point: 500,
     formData: {
       contactRate: "",
       age: "",
       mbti: "",
       samemajor: false,
+
       hobby: [],
     },
   },
