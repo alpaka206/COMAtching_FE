@@ -33,7 +33,7 @@ function Hobbyform() {
 
   return (
     <div className="container">
-      <HeaderNav destination="/" buttonText="처음으로" />
+      <HeaderNav />
       <div className="content">
         <div className="select-hobby-topic">취미 선택하기</div>
         <div className="select-hobby-text">

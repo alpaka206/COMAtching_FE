@@ -1,40 +1,42 @@
-export const validateForm = (
-  user,
-  selectedMajor,
-  contactMethod,
-  isContactVerified
-) => {
-  const yearAsInt = parseInt(user.year, 10);
+export const validateForm = (user) => {
+  const AgeInt = parseInt(user.age, 10);
 
-  if (!selectedMajor) {
-    alert("학과와 전공을 선택하세요.");
+  if (user.major.length < 1) {
+    alert("전공을 선택하세요.");
     return false;
   }
 
-  if (!/^\d{11}$/.test(user.contact_id) && contactMethod === "phone") {
-    alert("전화번호는 11자리를 입력해주세요");
+  if (isNaN(AgeInt) || AgeInt > 29 || AgeInt < 20) {
+    alert("올바른 나이를 입력해주세요 (20부터 29까지 가능).");
     return false;
   }
-
-  // if (isNaN(yearAsInt) || yearAsInt < 0 || yearAsInt > 23) {
-  //   alert("올바른 학번을 입력해주세요 (1부터 23까지 가능).");
-  //   return false;
-  // }
-
-  if (user.song.length > 30 || user.song.length < 1) {
-    alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
+  if (user.contact_id.length < 1) {
+    alert("연락처를 입력해주세요");
     return false;
   }
-
+  if (user.contact_id_Verified === false) {
+    alert("연락처 중복체크를 해주세요");
+    return false;
+  }
+  if (user.contact_frequency.length < 1) {
+    alert("연락빈도를 골라주세요");
+    return false;
+  }
   if (user.mbti.length !== 4) {
     alert("MBTI를 모두 선택해주세요.");
     return false;
   }
-
-  // if (isContactVerified === false) {
-  //   alert("전화번호 확인버튼을 눌러주세요!");
-  //   return false;
-  // }
-
+  if (user.hobby.length < 3) {
+    alert("관심사를 최소 3개 이상 선택해주세요.");
+    return false;
+  }
+  if (user.song.length > 30 || user.song.length < 1) {
+    alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
+    return false;
+  }
+  if (user.comment.length > 30 || user.comment.length < 1) {
+    alert("나를 소개할 한마디를 입력해주세요.");
+    return false;
+  }
   return true;
 };

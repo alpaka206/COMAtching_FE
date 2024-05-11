@@ -4,15 +4,17 @@ export const userState = atom({
   key: "userState",
   default: {
     major: "",
-    contact: "phone",
+    age: "",
+    contact: "kakao",
     contact_id: "",
     gender: "Male",
-    age: "",
-    mbti: "",
-    hobby: [],
     contact_frequency: "",
+    mbti: "s",
+    hobby: ["음악감상", "그림그리기", "그림그리기", "그림그리기", "그림그리기"],
+
     song: "",
     comment: "",
+    contact_id_Verified: false,
     isLoggedIn: true,
   },
 });

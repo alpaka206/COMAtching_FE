@@ -11,7 +11,11 @@ function UserInfoContainer({
   return (
     <Fragment>
       <div className="User-Info__Container">
-        <div className="User-Info__Container__First-Item">
+        <div
+          className={`User-Info__Container__First-Item ${
+            FirstTopic === "취미" ? "User-Info__Container__Hobby" : ""
+          }`}
+        >
           <UserInfoElement Topic={FirstTopic} Text={FirstText} />
         </div>
         <div className="User-Info__Container__Second-Item">

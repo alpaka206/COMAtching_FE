@@ -23,7 +23,7 @@ const Loading = () => {
 
   return (
     <div className="container">
-      <HeaderNav destination="/" buttonText="로그아웃" />
+      <HeaderNav />
       <div className="content">
         <div className="LoadingBar">
           <div

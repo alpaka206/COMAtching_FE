@@ -33,25 +33,25 @@ function MainpageLogin() {
   }, [setNumParticipants]);
 
   const handleVisitGuide = () => {
-    navigate("/guide"); // "_blank"를 추가하여 새 창에서 열도록 설정
+    navigate("/guide");
   };
-  const handleVisitmatch = () => {
-    navigate("/match"); // "_blank"를 추가하여 새 창에서 열도록 설정
+  const handleClickmatch = () => {
+    navigate("/QRGenerator");
   };
   const handleVisitLoading = () => {
-    navigate("/Loading"); // "_blank"를 추가하여 새 창에서 열도록 설정
+    navigate("/Loading");
   };
   const handleVisitcheckresult = () => {
-    navigate("/checkresult"); // "_blank"를 추가하여 새 창에서 열도록 설정
+    navigate("/checkresult");
   };
 
   return (
     <div className="container">
-      <HeaderNav destination="/" buttonText="로그아웃" />
+      <HeaderNav />
       <div className="Mainpage__Login">
         <UserInfoRrev />
         <div>
-          <button className="matching-button" onClick={handleVisitmatch}>
+          <button className="matching-button" onClick={handleClickmatch}>
             AI 매칭하기 ▶
             <TotalUsersCounter font_size="15px" />
           </button>

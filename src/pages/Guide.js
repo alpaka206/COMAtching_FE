@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 function Guide() {
   return (
     <div className="container">
-      <HeaderNav destination="/" buttonText="처음으로" />
+      <HeaderNav />
       <div className="content">
         <div className="inner-content">
           <div className="title">

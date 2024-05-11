@@ -20,7 +20,6 @@ function Form() {
   const [user, setUser] = useRecoilState(userState);
   const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState);
   const [checkMethod, setCheckMethod] = useState({
-    contactMethod: "phone",
     department: "",
     major: "",
     contactVerified: false,
@@ -31,13 +30,8 @@ function Form() {
     let errorMessage = "";
 
     switch (name) {
-      case "phone":
-        if (!/^\d{0,11}$/.test(value)) {
-          errorMessage =
-            checkMethod.contactMethod === "insta"
-              ? "인스타 아이디는 영어, 숫자, 언더바(_), 마침표(.)만 가능합니다."
-              : "(-) 없이 11자리 전화번호를 입력하세요. (예: 01012345678)";
-        }
+      case "contact_id":
+        setUser((prevUser) => ({ ...prevUser, contact_id_Verified: false }));
         break;
       case "song":
         if (!/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,30}$/.test(value)) {
@@ -57,16 +51,8 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     // 입력값 유효성 검사
-    if (
-      !validateForm(
-        user,
-        checkMethod.major,
-        checkMethod.contactMethod,
-        checkMethod.contactVerified
-      )
-    ) {
+    if (!validateForm(user)) {
       return;
     }
 
@@ -87,6 +73,8 @@ function Form() {
 
     try {
       console.log(user);
+      setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }));
+      navigate("/");
       // 서버로 데이터 전송
       // const response = await axios.post(
       //   "https://onesons.site/register",
@@ -136,6 +124,7 @@ function Form() {
       }${category === "TF" ? value : selectedMBTI.TF}${
         category === "PJ" ? value : selectedMBTI.PJ
       }`,
+      isLoggedIn: true,
     }));
   };
   const handleAgeClick = (value, index) => {
@@ -147,7 +136,7 @@ function Form() {
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
-        <HeaderNav destination="/" buttonText="처음으로" />
+        <HeaderNav />
         <div className="content">
           <div className="form-inner-content">
             <FormTitle />

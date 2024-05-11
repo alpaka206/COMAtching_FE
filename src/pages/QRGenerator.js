@@ -5,7 +5,7 @@ import HeaderNav from "../components/HeaderNav";
 import "../css/pages/QRGenerator.css";
 
 const QRGenerator = () => {
-  const [hashCode, setHashCode] = useState("1111");
+  const [hashCode, setHashCode] = useState("testcode");
 
   // useEffect(() => {
   //   // 해시 코드를 받아오는 API 엔드포인트에 요청을 보냅니다.
@@ -22,7 +22,7 @@ const QRGenerator = () => {
 
   return (
     <div className="container">
-      <HeaderNav destination="/" buttonText="로그아웃" />
+      <HeaderNav />
       <div className="QRGenerator">
         <QRCode value={`https://comatest.web.app/${hashCode}`} />
       </div>

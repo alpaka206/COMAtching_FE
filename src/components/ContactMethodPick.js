@@ -2,12 +2,8 @@ import React from "react";
 import ContactMethodButton from "./ContactMethodButton";
 import "../css/components/ContactMethodPick.css";
 
-function ContactMethodPick({ checkMethod, setCheckMethod, user, setUser }) {
+function ContactMethodPick({ user, setUser }) {
   const handleContactMethod = (method) => {
-    setCheckMethod((prevState) => ({
-      ...prevState,
-      contactMethod: method,
-    }));
     setUser((prev) => ({
       ...prev,
       contact: method,
@@ -19,17 +15,17 @@ function ContactMethodPick({ checkMethod, setCheckMethod, user, setUser }) {
       <h3>연락처</h3>
       <div className="space">&nbsp;</div>
       <ContactMethodButton
-        isActive={checkMethod.contactMethod === "phone"}
-        onClick={() => handleContactMethod("phone")}
-        type="phone"
-        image={process.env.PUBLIC_URL + "assets/phone.svg"}
-        alt="전화번호"
+        isActive={user.contact === "kakao"}
+        onClick={() => handleContactMethod("kakao")}
+        type="kakao"
+        image={process.env.PUBLIC_URL + "assets/kakao.svg"}
+        alt="카카오아이디"
       />
 
       <ContactMethodButton
-        isActive={checkMethod.contactMethod === "insta"}
-        onClick={() => handleContactMethod("insta")}
-        type="insta"
+        isActive={user.contact === "instagram"}
+        onClick={() => handleContactMethod("instagram")}
+        type="instagram"
         image={process.env.PUBLIC_URL + "assets/insta.png"}
         alt="인스타그램"
       />

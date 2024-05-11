@@ -11,7 +11,6 @@ import Checkresult from "./pages/Checkresult";
 import Admin from "./pages/Admin";
 import Loading from "./pages/Loading";
 import Guide from "./pages/Guide";
-import TossChecker from "./pages/TossChecker";
 import CodeReader from "./pages/CodeReader";
 import ProfileBuilder from "./pages/ProfileBuilder";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -35,7 +34,6 @@ function App() {
             <Route path="/Checkresult" element={<Checkresult />} />
             <Route path="/Admin" element={<Admin />} />
             <Route path="/Loading" element={<Loading />} />
-            <Route path="/TossChecker" element={<TossChecker />} />
             <Route path="/CodeReader" element={<CodeReader />} />
             <Route path="/QRGenerator" element={<QRGenerator />} />
             <Route path="/ProfileBuilder" element={<ProfileBuilder />} />
