@@ -8,6 +8,16 @@
   text-align: left;
   padding: 20px 0px 20px 24px;
 }
+.ProfileBuilder-answer {
+  text-align: center;
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  width: 85%;
+  display: inline-block;
+  border-radius: 16px;
+  margin-bottom: 8px;
+  text-align: left;
+  padding: 20px 0px 20px 24px;
+}
 .chat-message {
   margin-top: 25px;
   height: 300px;

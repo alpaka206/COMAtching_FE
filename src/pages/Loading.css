@@ -1,109 +1,45 @@
-.loading-container {
-  min-height: 100vh;
-  font-family: Pretendard;
-  background-image: url("../../public/assets/background.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+@keyframes slideGradient {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+.LoadingBar {
+  width: 90%;
+  height: 300px;
+  margin: auto;
+  /* padding-top: 100px; */
 }
 
-.loading-content {
-  background: #ffffff;
-  width: 90%;
-  height: 400px;
-  margin-top: 27px;
-  display: inline-block;
-  padding-top: 200px;
+.GradientBar {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 25%,
+    #ff775e 50%,
+    rgba(255, 255, 255, 0) 75%
+  );
+  background-size: 200% 100%;
+  animation: slideGradient 1.25s linear infinite;
 }
-.loading-content h3 {
-  text-align: center;
-}
-.loading-submit-button {
-  margin-top: -25px;
-  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
-  color: #ffffff;
-  width: 90%;
-  height: 100px;
-  border-radius: 0 0 32px 32px;
-  font-size: 32px;
-  font-weight: bold;
-}
-.loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.barloader {
-  position: relative;
-  height: 4px;
-  display: block;
+.firstloadingbar,
+.secondloadingbar,
+.thirdloadingbar {
   width: 100%;
-  background-color: #eee;
-  border-radius: 2px;
-  margin: 0.5rem 0 1rem 0;
-  /*   box-sizing: border-box; */
-  overflow: hidden;
+  height: 24px;
+  border-radius: 8px;
+  margin: 20px 0px;
 }
-.barloader-inde {
-  background-color: #00bcd4;
+
+.firstloadingbar {
+  animation-delay: 0s;
 }
-.barloader-inde::before {
-  content: "";
-  position: absolute;
-  background-color: inherit;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  will-change: left, right;
-  animation: anim-inde 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+
+.secondloadingbar {
+  animation-delay: 0.5s;
 }
-.barloader-inde::after {
-  content: "";
-  position: absolute;
-  background-color: inherit;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  will-change: left, right;
-  animation: anim-inde-2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-  animation-delay: 1.15s;
-}
-.loader-first::after {
-  animation-delay: 0.3s;
-}
-.loader-second::after {
-  animation-delay: 0.6s;
-}
-.loader-third::after {
-  animation-delay: 0.9s;
-}
-@keyframes anim-inde {
-  0% {
-    left: -35%;
-    right: 100%;
-  }
-  60% {
-    left: 100%;
-    right: -90%;
-  }
-  100% {
-    left: 100%;
-    right: -90%;
-  }
-}
-@keyframes anim-inde-2 {
-  0% {
-    left: -200%;
-    right: 100%;
-  }
-  60% {
-    left: 107%;
-    right: -8%;
-  }
-  100% {
-    left: 107%;
-    right: -8%;
-  }
+
+.thirdloadingbar {
+  animation-delay: 1s;
 }

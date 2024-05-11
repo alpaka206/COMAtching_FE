@@ -34,7 +34,7 @@ function Checkresult() {
     <div>
       {formData.isLoggedIn ? (
         <div className="container">
-          <HeaderNav destination="/" buttonText="처음으로" />
+          <HeaderNav />
           <div className="checkresult-content">
             {generatedData.map((item, index) => (
               <div key={index} className="CheckresultItem">

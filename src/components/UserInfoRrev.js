@@ -5,7 +5,7 @@ import LoginUserInfoTop from "../components/LoginUserInfoTop";
 import "../css/components/UserInfoRrev.css";
 import UserInfoContainer from "../components/UserInfoContainer";
 
-function UserInfoRrev() {
+function UserInfoRrev({ user }) {
   const formData = useRecoilValue(userState);
   const sliderRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
@@ -20,7 +20,7 @@ function UserInfoRrev() {
 
   return (
     <Fragment>
-      <LoginUserInfoTop />
+      <LoginUserInfoTop username={formData.contact_id} />
 
       <div className="User-Info-Rrev">
         {/* 좌측 화살표 */}
@@ -38,7 +38,7 @@ function UserInfoRrev() {
           <div className="sliderpage">
             <UserInfoContainer
               FirstTopic="전공"
-              FirstText={formData.depart}
+              FirstText={formData.major}
               SecoundTopic="나이"
               SecondText={formData.age}
             />
@@ -50,10 +50,10 @@ function UserInfoRrev() {
             />
           </div>
           <div className="sliderpage">
-            <UserInfoContainer FirstTopic="취미" FirstText={formData.depart} />
+            <UserInfoContainer FirstTopic="취미" FirstText={formData.hobby} />
             <UserInfoContainer
               FirstTopic="연락빈도"
-              FirstText={formData.song}
+              FirstText={formData.contact_frequency}
             />
           </div>
         </div>
@@ -68,7 +68,7 @@ function UserInfoRrev() {
           </div>
         )}
 
-        <div className="User-Contact">@kim.q1</div>
+        <div className="User-Contact">{formData.contact_id}</div>
       </div>
     </Fragment>
   );

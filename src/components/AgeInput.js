@@ -8,8 +8,8 @@ function AgeInput({ value, onChange }) {
     let errorMessage = "";
 
     // 유효성 검사
-    if (!/^(97|98|99|00|01|02|03|04|05)$/.test(value)) {
-      errorMessage = "탄생년도는 97부터 05까지의 숫자로 입력하세요. (예: 05)";
+    if (!/^(20|21|22|23|24|25|26|27|28|29)$/.test(value)) {
+      errorMessage = "나이는 20부터 29까지의 숫자로 입력하세요.";
     }
 
     // 에러 메시지가 있을 경우에만 경고창을 띄웁니다.
@@ -27,7 +27,7 @@ function AgeInput({ value, onChange }) {
           value={value}
           onChange={onChange}
           onBlur={handleBlur}
-          placeholder="97년생부터 05년생만 가능합니다 ex) 05"
+          placeholder="20~29살만 참여 가능합니다 ex) 20"
         />
       </div>
     </Fragment>

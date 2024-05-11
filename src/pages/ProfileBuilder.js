@@ -71,7 +71,7 @@ const ProfileBuilder = () => {
   };
   return (
     <div className="container">
-      <HeaderNav destination="/" buttonText="처음으로" />
+      <HeaderNav />
       <div className="chat-message" ref={chatMessageRef}>
         <div className="ProfileBuilder">
           <TypeAnimation
@@ -97,7 +97,7 @@ const ProfileBuilder = () => {
               />
             </div>
             {showQuestions[0][1] && (
-              <div className="ProfileBuilder">
+              <div className="ProfileBuilder-answer">
                 <TypeAnimation
                   sequence={[
                     showMbtiAnswers[0][chooseAnswer],
@@ -124,7 +124,7 @@ const ProfileBuilder = () => {
               />
             </div>
             {showQuestions[1][1] && (
-              <div className="ProfileBuilder">
+              <div className="ProfileBuilder-answer">
                 <TypeAnimation
                   sequence={[
                     showMbtiAnswers[1][chooseAnswer],
@@ -151,7 +151,7 @@ const ProfileBuilder = () => {
               />
             </div>
             {showQuestions[2][1] && (
-              <div className="ProfileBuilder">
+              <div className="ProfileBuilder-answer">
                 <TypeAnimation
                   sequence={[
                     showMbtiAnswers[2][chooseAnswer],
@@ -160,7 +160,7 @@ const ProfileBuilder = () => {
                     () => handleShowQuestion(3),
                   ]}
                   speed={65}
-                  className="typing-animation"
+                  className="typing-animation "
                   cursor={false}
                 />
               </div>
@@ -178,7 +178,7 @@ const ProfileBuilder = () => {
               />
             </div>
             {showQuestions[3][1] && (
-              <div className="ProfileBuilder">
+              <div className="ProfileBuilder-answer">
                 <TypeAnimation
                   sequence={[
                     showMbtiAnswers[3][chooseAnswer],
@@ -205,7 +205,7 @@ const ProfileBuilder = () => {
               />
             </div>
             {showQuestions[4][1] && (
-              <div className="ProfileBuilder">
+              <div className="ProfileBuilder-answer">
                 <TypeAnimation
                   sequence={[
                     showMbtiAnswers[4][chooseAnswer],

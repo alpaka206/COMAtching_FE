@@ -54,7 +54,7 @@ function Matchresult() {
     <div>
       {formData.isLoggedIn ? (
         <div className="container">
-          <HeaderNav destination="/match" buttonText="이전으로" />
+          <HeaderNav />
           {MatchResult.generatedCode === 2002 ? (
             <div className="matchresult-content">
               <div style={{ textAlign: "center" }}>

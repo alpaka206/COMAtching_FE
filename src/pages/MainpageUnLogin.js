@@ -18,7 +18,7 @@ function MainpageUnLogin() {
 
   return (
     <div className="container">
-      <HeaderNav destination="/" buttonText="처음으로" />
+      <HeaderNav />
       <div className="content">
         <div className="bubble-counter">
           <TotalUsersCounter font_size="16px" />
