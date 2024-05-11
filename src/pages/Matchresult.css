@@ -18,8 +18,8 @@
   color: #777777;
   text-align: left;
   margin-top: 32px;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
+
+  /* animation: fadeIn 1s ease forwards; */
 }
 .MatchResult-Text {
   font-size: 32px;
@@ -28,8 +28,7 @@
   text-align: left;
   margin-left: 16px;
   margin-top: 8px;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards 1s;
+  /* animation: fadeIn 1s ease forwards 1s; */
 }
 
 .MatchResult-Hobby,
@@ -38,13 +37,32 @@
 .MatchResult-MBTI {
   width: 50%;
 }
-
+.MatchResult-Major,
+.MatchResult-Age {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+.MatchResult-Hobby,
+.MatchResult-MBTI {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 0.5s;
+}
+.MatchResult-Song {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 1s;
+}
+.MatchResult-Frequency {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 1.5s;
+}
 .MatchResult-Contact {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 2s;
 }
 .MatchResult-Text-Contact {
   margin-left: 0px;

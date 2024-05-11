@@ -131,7 +131,7 @@ function Match() {
       generatedContact: "insta",
       generatedContact_Id: "@COMA",
     });
-    navigate("/Matchresult");
+    navigate("/loading");
   };
   const handleAgeSelection = (value, location) => {
     setMatchState((prev) => ({
