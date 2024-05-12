@@ -3,6 +3,8 @@ import axios from "axios";
 import "./Admin.css";
 import AdminModal from "../components/AdminModal";
 import UserInfoListItem from "../components/UserInfoListItem";
+import AdminRequestList from "../components/AdminRequestList";
+import AdminFixPoint from "../components/AdminFixPoint";
 
 function Admin() {
   const [userData, setUserData] = useState([]);
@@ -122,68 +124,15 @@ function Admin() {
 
   return (
     <div className="container">
-      <AdminModal
+      {/* <AdminModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         onPasswordSubmit={handlePasswordSubmit}
-      />
-      {adminPassword && (
-        <div>
-          <div className="content">
-            <div className="userInfoList">
-              <div className="userInfoList_header">
-                <h3>이메일</h3>
-                <h3>pick me</h3>
-                <h3>pick someone</h3>
-                <h3>확인</h3>
-                <h3>삭제</h3>
-              </div>
-              {userData.map((user) => (
-                <UserInfoListItem
-                  key={user.id}
-                  email={user.email}
-                  pickMe={pickValues[user.email].pickMe}
-                  pickSomeone={pickValues[user.email].pickSomeone}
-                  pickMeIncrement={() => handlePickMeIncrement(user.email)}
-                  pickMeDecrement={() => handlePickMeDecrement(user.email)}
-                  pickSomeoneIncrement={() =>
-                    handlePickSomeoneIncrement(user.email)
-                  }
-                  pickSomeoneDecrement={() =>
-                    handlePickSomeoneDecrement(user.email)
-                  }
-                  onConfirmClick={() => handleConfirmClick(user.email)}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div
-              className="textDB"
-              style={{
-                paddingTop: "0px",
-              }}
-            >
-              Developed by COMA 19s
-            </div>
-            <hr
-              style={{
-                backgroundColor: "#464646",
-                height: "1px",
-              }}
-            />
-            <div
-              className="textBE"
-              style={{
-                paddingBottom: "40px",
-              }}
-            >
-              BE 서승준 / FE 김규원 신희원 / PM 박승원 박상준
-            </div>
-          </div>
-        </div>
-      )}
+      /> */}
+      <div className="admin-content">
+        <AdminRequestList />
+        <AdminFixPoint />
+      </div>
     </div>
   );
 }

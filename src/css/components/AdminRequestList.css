@@ -1,0 +1,19 @@
+.AdminRequestList {
+  width: 66%;
+}
+.AdminRequestList-title {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: left;
+  margin: 28px 0 0 26px;
+}
+.AdminRequestList-text {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  margin: 8px 0 0 26px;
+}
+.AmdinRequestListBox {
+  max-height: 500px; /* 요청 목록의 최대 높이를 설정합니다. */
+  overflow-y: auto; /* 세로 스크롤바가 필요할 때만 스크롤바를 표시합니다. */
+}
