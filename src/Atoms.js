@@ -3,14 +3,14 @@ import { atom } from "recoil";
 export const userState = atom({
   key: "userState",
   default: {
-    major: "",
-    age: "",
+    major: "eeeee",
+    age: "eeeee",
     contact: "kakao",
-    contact_id: "",
+    contact_id: "eeeee",
     gender: "Male",
-    contact_frequency: "",
-    mbti: "s",
-    hobby: ["음악감상", "그림그리기", "그림그리기", "그림그리기", "그림그리기"],
+    contact_frequency: "eeeee",
+    mbti: "eeeee",
+    hobby: [],
 
     song: "",
     comment: "",

@@ -201,7 +201,11 @@ function Form() {
                     (item) => item.label === hobbyLabel
                   );
                   return (
-                    <div key={index} className="selected-hobby">
+                    <div
+                      key={index}
+                      className="selected-hobby"
+                      onClick={() => navigate("/Hobby")}
+                    >
                       <img
                         src={
                           process.env.PUBLIC_URL + `assets/${hobby.image}.svg`
