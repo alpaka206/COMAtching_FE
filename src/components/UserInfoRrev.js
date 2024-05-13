@@ -29,10 +29,9 @@ function UserInfoRrev({ user }) {
             className="slider-arrow left"
             onClick={() => scroll(currentPage - 1)}
           >
-            &lt;
+            ◀
           </div>
         )}
-
         {/* 슬라이더 컨테이너 */}
         <div className="slider" ref={sliderRef}>
           <div className="sliderpage">
@@ -57,17 +56,15 @@ function UserInfoRrev({ user }) {
             />
           </div>
         </div>
-
         {/* 우측 화살표 */}
         {currentPage < 1 && (
           <div
             className="slider-arrow right"
             onClick={() => scroll(currentPage + 1)}
           >
-            &gt;
+            ▶
           </div>
         )}
-
         <div className="User-Contact">{formData.contact_id}</div>
       </div>
     </Fragment>

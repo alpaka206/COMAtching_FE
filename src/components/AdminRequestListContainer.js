@@ -1,4 +1,3 @@
-// AdminModal.js
 import React, { useState } from "react";
 import "../css/components/AdminRequestListContainer.css";
 
@@ -8,39 +7,42 @@ function AdminRequestListContainer({ userID, reqTime, userPoint }) {
     pickmevalue: 0,
     finalpoint: userPoint,
   });
+
   const handleChargeIncrease = () => {
-    setValue({
-      ...value,
-      finalpoint: value.finalpoint + value.chargepoint,
-    });
+    setValue((prevState) => ({
+      ...prevState,
+      finalpoint: prevState.finalpoint + prevState.chargepoint,
+    }));
   };
+
   const handleIncrease = () => {
-    setValue({
-      ...value,
-      pickmevalue: value.pickmevalue + 1,
-      finalpoint: value.finalpoint - 500,
-    });
+    setValue((prevState) => ({
+      ...prevState,
+      pickmevalue: prevState.pickmevalue + 1,
+      finalpoint: prevState.finalpoint - 500,
+    }));
   };
 
   const handleDecrease = () => {
     if (value.pickmevalue > 0) {
-      setValue({
-        ...value,
-        pickmevalue: value.pickmevalue - 1,
-        finalpoint: value.finalpoint + 500,
-      });
+      setValue((prevState) => ({
+        ...prevState,
+        pickmevalue: prevState.pickmevalue - 1,
+        finalpoint: prevState.finalpoint + 500,
+      }));
     }
   };
+
   const handleInputChange = (event) => {
-    // 입력값이 숫자인지 확인하여 숫자가 아니면 무시
     const inputValue = event.target.value;
     if (inputValue === "" || !isNaN(inputValue)) {
-      setValue({
-        ...value,
-        chargepoint: inputValue === "" ? 0 : parseInt(inputValue), // 빈 문자열인 경우 0으로 대체
-      });
+      setValue((prevState) => ({
+        ...prevState,
+        chargepoint: inputValue === "" ? 0 : parseInt(inputValue),
+      }));
     }
   };
+
   return (
     <div className="AdminRequestListContainer">
       <div className="AdminRequestListElement">
@@ -57,7 +59,7 @@ function AdminRequestListContainer({ userID, reqTime, userPoint }) {
         <input
           type="text"
           value={value.chargepoint}
-          onChange={handleInputChange} // 입력값 변경 이벤트 핸들러 연결
+          onChange={handleInputChange}
         />
         <button onClick={handleChargeIncrease}>확인</button>
         <img src={process.env.PUBLIC_URL + `assets/heart.svg`} alt="heart" />
@@ -75,6 +77,7 @@ function AdminRequestListContainer({ userID, reqTime, userPoint }) {
           type="button"
           onClick={handleIncrease}
           className="AdminRequestListItem-pickme-button"
+          disabled={value.finalpoint <= 500} // finalpoint가 500보다 작거나 같으면 비활성화
         >
           +
         </button>
