@@ -22,17 +22,17 @@ const ProfileBuilder = () => {
     [false, false],
   ]);
   const questions = [
-    "Q1. 당신은 친구들과 놀때 어떤가요?",
-    "Q2. 당신은 어떤 쪽으로 탁월한가요?",
-    "Q3. 당신은 감성적인가요, 현실적인가요?",
+    "Q1. 약속이 취소되었을 때",
+    "Q2. 사과 하면 뭐가 생각나?",
+    "Q3. 나 넘어졌어 아파 ㅠㅠ",
     "Q4. 당신은 계획적인가요, 즉흥적인가요?",
     "Q5. 당신의 연락빈도는 어떤가요?",
   ];
   const [showMbtiAnswers, setShowMbtiAnswers] = useState([
-    ["나는 외향적이야.", "나는 내향적이야.", "E", "I", "EI"],
-    ["나는 상상력이 좋아.", "나는 현재에 집중하는 편이야", "N", "S", "SN"],
-    ["나는 감성적이야", "나는 현실적이야", "F", "T", "TF"],
-    ["나는 즉흥적이야", "나는 계획적이야", "P", "J", "PJ"],
+    ["다른 친구들과 놀러 갈까?", "혼자 집에서 쉬는 게 최고야.", "E", "I", "EI"],
+    ["백설공주, 애플, 뉴턴 등등", "빨갛다, 과일, 맛있다", "N", "S", "SN"],
+    ["많이 다쳤어?", "병원 가봤어?", "F", "T", "TF"],
+    ["계획에 수긍할게.", "찾아보고 제안해봐야지.", "P", "J", "PJ"],
     ["나는 적은편이야", "나는 중간이야", "나는 많은편이야", "", ""],
   ]);
   const [chooseAnswer, setChooseAnswer] = useState(null);
@@ -76,11 +76,11 @@ const ProfileBuilder = () => {
         <div className="ProfileBuilder">
           <TypeAnimation
             sequence={[
-              "반가워요! 저는 Comatching AI 입니다.\n진행하기 전에, 먼저 당신에 대해 알아야 해요.\n\n 간단한 MBTI 검사부터 시작할게요. 😊",
+              "Comatching AI가 매칭 상대를 찾기 위한 몇가지 간단한 질의응답을 진행하겠습니다.",
               1000,
               () => handleShowQuestion(0),
             ]}
-            speed={75}
+            speed={85}
             className="typing-animation"
             cursor={false}
           />
@@ -91,7 +91,7 @@ const ProfileBuilder = () => {
             <div className="ProfileBuilder">
               <TypeAnimation
                 sequence={[questions[0], 1000, () => setShowAnswerBox(true)]}
-                speed={65}
+                speed={85}
                 className="typing-animation"
                 cursor={false}
               />
@@ -105,7 +105,7 @@ const ProfileBuilder = () => {
                     () => setShowAnswerBox(false),
                     () => handleShowQuestion(1),
                   ]}
-                  speed={65}
+                  speed={85}
                   className="typing-animation"
                   cursor={false}
                 />
@@ -118,7 +118,7 @@ const ProfileBuilder = () => {
             <div className="ProfileBuilder">
               <TypeAnimation
                 sequence={[questions[1], 1000, () => setShowAnswerBox(true)]}
-                speed={65}
+                speed={85}
                 className="typing-animation"
                 cursor={false}
               />
@@ -132,7 +132,7 @@ const ProfileBuilder = () => {
                     () => setShowAnswerBox(false),
                     () => handleShowQuestion(2),
                   ]}
-                  speed={65}
+                  speed={85}
                   className="typing-animation"
                   cursor={false}
                 />
@@ -145,7 +145,7 @@ const ProfileBuilder = () => {
             <div className="ProfileBuilder">
               <TypeAnimation
                 sequence={[questions[2], 1000, () => setShowAnswerBox(true)]}
-                speed={65}
+                speed={85}
                 className="typing-animation"
                 cursor={false}
               />
@@ -159,7 +159,7 @@ const ProfileBuilder = () => {
                     () => setShowAnswerBox(false),
                     () => handleShowQuestion(3),
                   ]}
-                  speed={65}
+                  speed={85}
                   className="typing-animation "
                   cursor={false}
                 />
@@ -172,7 +172,7 @@ const ProfileBuilder = () => {
             <div className="ProfileBuilder">
               <TypeAnimation
                 sequence={[questions[3], 1000, () => setShowAnswerBox(true)]}
-                speed={65}
+                speed={85}
                 className="typing-animation"
                 cursor={false}
               />
@@ -186,7 +186,7 @@ const ProfileBuilder = () => {
                     () => setShowAnswerBox(false),
                     () => handleShowQuestion(4),
                   ]}
-                  speed={65}
+                  speed={85}
                   className="typing-animation"
                   cursor={false}
                 />
@@ -199,7 +199,7 @@ const ProfileBuilder = () => {
             <div className="ProfileBuilder">
               <TypeAnimation
                 sequence={[questions[4], 1000, () => setShowAnswerBox(true)]}
-                speed={65}
+                speed={85}
                 className="typing-animation"
                 cursor={false}
               />
@@ -213,7 +213,7 @@ const ProfileBuilder = () => {
                     () => setShowAnswerBox(false),
                     () => navigatehobby(),
                   ]}
-                  speed={65}
+                  speed={85}
                   className="typing-animation"
                   cursor={false}
                 />
