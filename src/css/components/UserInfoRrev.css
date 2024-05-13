@@ -1,8 +1,9 @@
 .User-Info-Rrev {
   background: #ffffff;
   width: 100%;
-  border-radius: 32px 0 32px 32px;
-  height: 204px;
+  border-radius: 32px;
+  height: 203px;
+  margin-top: 16px;
   overflow: hidden; /* 스크롤이 넘치는 부분 숨기기 */
   position: relative; /* 화살표의 위치 지정을 위해 */
 }
@@ -36,12 +37,12 @@
 
 .slider-arrow {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   width: 30px;
   height: 30px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+  background-color: transparent;
+  color: #000000;
   font-size: 20px;
   display: flex;
   align-items: center;

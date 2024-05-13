@@ -9,6 +9,7 @@ import Match from "./pages/Match";
 import Matchresult from "./pages/Matchresult";
 import Checkresult from "./pages/Checkresult";
 import Admin from "./pages/Admin";
+import AdminLogin from "./pages/AdminLogin";
 import Loading from "./pages/Loading";
 import Guide from "./pages/Guide";
 import CodeReader from "./pages/CodeReader";
@@ -33,6 +34,7 @@ function App() {
             <Route path="/Match" element={<Match />} />
             <Route path="/Checkresult" element={<Checkresult />} />
             <Route path="/Admin" element={<Admin />} />
+            <Route path="/AdminLogin" element={<AdminLogin />} />
             <Route path="/Loading" element={<Loading />} />
             <Route path="/CodeReader" element={<CodeReader />} />
             <Route path="/QRGenerator" element={<QRGenerator />} />

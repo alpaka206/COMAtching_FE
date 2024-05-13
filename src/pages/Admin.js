@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Admin.css";
-import AdminModal from "../components/AdminModal";
+// import AdminModal from "../components/AdminModal";
 import UserInfoListItem from "../components/UserInfoListItem";
 import AdminRequestList from "../components/AdminRequestList";
 import AdminFixPoint from "../components/AdminFixPoint";

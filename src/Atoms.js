@@ -3,19 +3,19 @@ import { atom } from "recoil";
 export const userState = atom({
   key: "userState",
   default: {
-    major: "eeeee",
-    age: "eeeee",
+    major: "",
+    age: "",
     contact: "kakao",
-    contact_id: "eeeee",
+    contact_id: "",
     gender: "Male",
-    contact_frequency: "eeeee",
-    mbti: "eeeee",
+    contact_frequency: "",
+    mbti: "",
     hobby: [],
 
     song: "",
     comment: "",
     contact_id_Verified: false,
-    isLoggedIn: true,
+    isLoggedIn: false,
   },
 });
 

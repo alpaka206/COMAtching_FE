@@ -9,7 +9,6 @@ function LoginUserInfoTop({ username }) {
         <br />
         환영합니다.
       </div>
-      <div className="my-info">my info</div>
     </Fragment>
   );
 }
