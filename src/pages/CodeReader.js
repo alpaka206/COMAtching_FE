@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
 import axios from "axios";
 import "../css/pages/CodeReader.css";
+import { useNavigate } from "react-router-dom";
 
 const CodeReader = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState("");
 
   const sendHashCode = (hashCode) => {
@@ -12,6 +14,7 @@ const CodeReader = () => {
       .post("https://onesons.site/user/match/auth", { hashCode })
       .then((response) => {
         console.log(response.data);
+        navigate("/match");
       })
       .catch((error) => {
         console.error("Error sending hash code:", error);

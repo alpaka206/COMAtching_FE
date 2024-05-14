@@ -74,9 +74,7 @@ function Match() {
     console.log("selectedCategory:", MatchState.selectedCategory);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     const submitmbti =
       MatchState.selectedMBTI[0] +
       MatchState.selectedMBTI[1] +
@@ -175,278 +173,289 @@ function Match() {
   return (
     <div>
       {formData.isLoggedIn ? (
-        <div className="container">
-          <form onSubmit={handleSubmit}>
-            <div className="match-header">
-              <div>
-                <img
-                  className="logo-img"
-                  src={process.env.PUBLIC_URL + `assets/logowhite.png`}
-                  alt="로고"
-                  onClick={() => navigate("/")}
-                />
-              </div>
-              <div className="match-point-remaining">
-                잔여포인트
-                <img
-                  src={process.env.PUBLIC_URL + `assets/point.svg`}
-                  alt="cost"
-                />
-                2000
-              </div>
-            </div>
-            <div className="matchcontent">
-              <div className="match-title">
-                <div className="match-title-text">Matching</div>
-                <div className="match-title-inst-txt">
-                  두근두근! 매칭되고 싶은 상대를 입력하세요!
-                </div>
-              </div>
-            </div>
-            <div className="matchcontent">
-              <div className="match-title">
-                <div className="match-title-text">MBTI</div>
-                <div className="match-title-inst-txt">
-                  매칭할 상대의 MBTI를 두개 선택하세요!
-                </div>
-              </div>
-              <MBTISection
-                user={MatchState.selectedMBTI}
-                onClick={handleMBTISelection}
+        <div className="container match-container">
+          <div className="match-header">
+            <div>
+              <img
+                className="logo-img"
+                src={process.env.PUBLIC_URL + `assets/logowhite.png`}
+                alt="로고"
+                onClick={() => navigate("/")}
               />
             </div>
-            <div className="matchcontent">
-              <div className="match-title">
-                <div className="match-premium-option">
-                  <div>
-                    <div className="match-title-text">나이</div>
-                    <div className="match-title-inst-txt">원하는 나이 선택</div>
-                  </div>
-                  <div className="match-premium-option-right">
-                    <div className="match-premium-option-cost">
-                      <img
-                        src={process.env.PUBLIC_URL + `assets/point.svg`}
-                        alt="cost"
-                      />
-                      100
-                    </div>
-                    {!isUseOption[0] ? (
-                      <button
-                        type="button"
-                        className="match-premium-option-unclick-button"
-                        onClick={() => handleButtonClick(0, 100)}
-                      >
-                        +
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="match-premium-option-click-button"
-                        onClick={() => handleButtonClick(0, -100)}
-                      >
-                        <img
-                          src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
-                          alt="닫기"
-                        />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="match-select-button">
-                {" "}
-                <AgeButton
-                  formData={MatchState.formData.age}
-                  value="연하"
-                  onClick={() => handleAgeSelection("연하", "age")}
-                  isClickable={isUseOption[0]}
-                />
-                <AgeButton
-                  formData={MatchState.formData.age}
-                  value="동갑"
-                  onClick={() => handleAgeSelection("동갑", "age")}
-                  isClickable={isUseOption[0]}
-                />
-                <AgeButton
-                  formData={MatchState.formData.age}
-                  value="연상"
-                  onClick={() => handleAgeSelection("연상", "age")}
-                  isClickable={isUseOption[0]}
-                />
+            <div className="match-point-remaining">
+              잔여포인트
+              <img
+                src={process.env.PUBLIC_URL + `assets/point.svg`}
+                alt="cost"
+              />
+              2000
+            </div>
+          </div>
+          <div className="matchcontent">
+            <div className="match-title">
+              <div className="match-title-text">Matching</div>
+              <div className="match-title-inst-txt">
+                두근두근! 매칭되고 싶은 상대를 입력하세요!
               </div>
             </div>
-            <div className="matchcontent">
-              <div className="match-title">
-                <div className="match-premium-option">
-                  <div>
-                    <div className="match-title-text">연락 빈도</div>
-                    <div className="match-title-inst-txt">
-                      원하는 연락 빈도 선택
-                    </div>
-                  </div>
-                  <div className="match-premium-option-right">
-                    <div className="match-premium-option-cost">
-                      <img
-                        src={process.env.PUBLIC_URL + `assets/point.svg`}
-                        alt="cost"
-                      />
-                      100
-                    </div>
-                    {!isUseOption[1] ? (
-                      <button
-                        type="button"
-                        className="match-premium-option-unclick-button"
-                        onClick={() => handleButtonClick(1, 100)}
-                      >
-                        +
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="match-premium-option-click-button"
-                        onClick={() => handleButtonClick(1, -100)}
-                      >
-                        <img
-                          src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
-                          alt="닫기"
-                        />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="match-select-button">
-                <AgeButton
-                  formData={MatchState.formData.contactRate}
-                  value="빠르게"
-                  onClick={() => handleAgeSelection("빠르게", "contactRate")}
-                  isClickable={isUseOption[1]}
-                />
-                <AgeButton
-                  formData={MatchState.formData.contactRate}
-                  value="중간"
-                  onClick={() => handleAgeSelection("중간", "contactRate")}
-                  isClickable={isUseOption[1]}
-                />
-                <AgeButton
-                  formData={MatchState.formData.contactRate}
-                  value="여유있게"
-                  onClick={() => handleAgeSelection("여유있게", "contactRate")}
-                  isClickable={isUseOption[1]}
-                />
+          </div>
+          <div className="matchcontent">
+            <div className="match-title">
+              <div className="match-title-text">MBTI</div>
+              <div className="match-title-inst-txt">
+                매칭할 상대의 MBTI를 두개 선택하세요!
               </div>
             </div>
-            <div className="matchcontent">
-              <div className="match-title">
-                <div className="match-premium-option">
-                  <div>
-                    <div className="match-title-text">취향</div>
-                    <div className="match-title-inst-txt">
-                      함께하고 싶은 취향을 선택하세요.
-                    </div>
-                  </div>
-                  <div className="match-premium-option-right">
-                    <div className="match-premium-option-cost">
-                      <img
-                        src={process.env.PUBLIC_URL + `assets/point.svg`}
-                        alt="cost"
-                      />
-                      100
-                    </div>
-                    {!isUseOption[2] ? (
-                      <button
-                        type="button"
-                        className="match-premium-option-unclick-button"
-                        onClick={() => handleButtonClick(2, 100)}
-                      >
-                        +
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="match-premium-option-click-button"
-                        onClick={() => handleButtonClick(2, -100)}
-                      >
-                        <img
-                          src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
-                          alt="닫기"
-                        />
-                      </button>
-                    )}
-                  </div>
+            <MBTISection
+              user={MatchState.selectedMBTI}
+              onClick={handleMBTISelection}
+            />
+          </div>
+          <div className="matchcontent">
+            <div className="match-title">
+              <div className="match-premium-option">
+                <div>
+                  <div className="match-title-text">나이</div>
+                  <div className="match-title-inst-txt">원하는 나이 선택</div>
                 </div>
-              </div>
-              <div className="match-hobby-grid">
-                {hobbyIcons.map((hobby, index) => (
-                  <button
-                    type="button"
-                    key={index}
-                    className={`hobby-item ${
-                      isUseOption[2]
-                        ? `${
-                            MatchState.formData.hobby.includes(hobby.label)
-                              ? "selected"
-                              : ""
-                          }`
-                        : " "
-                    }`}
-                    onClick={() => handleHobbyClick(hobby.label)}
-                    disabled={!isUseOption[2]}
-                  >
+                <div className="match-premium-option-right">
+                  <div className="match-premium-option-cost">
                     <img
-                      src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`}
-                      alt={hobby.alt}
+                      src={process.env.PUBLIC_URL + `assets/point.svg`}
+                      alt="cost"
                     />
-                    <div>{hobby.label}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="matchcontent">
-              <div className="match-title">
-                <div className="match-premium-option">
-                  <div>
-                    <div className="match-title-text">같은과는 싫어요</div>
-                    <div className="match-title-inst-txt">
-                      과 cc를 피할 수 있어요
-                    </div>
+                    100
                   </div>
-                  <div className="match-premium-option-right">
-                    <div className="match-premium-option-cost">
+                  {!isUseOption[0] ? (
+                    <button
+                      type="button"
+                      className="match-premium-option-unclick-button"
+                      onClick={() => handleButtonClick(0, 100)}
+                    >
+                      +
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="match-premium-option-click-button"
+                      onClick={() => handleButtonClick(0, -100)}
+                    >
                       <img
-                        src={process.env.PUBLIC_URL + `assets/point.svg`}
-                        alt="cost"
+                        src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
+                        alt="닫기"
                       />
-                      200
-                    </div>
-                    {!isUseOption[3] ? (
-                      <button
-                        type="button"
-                        className="match-premium-option-unclick-button"
-                        onClick={() => handleButtonClick(3, 200)}
-                      >
-                        +
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="match-premium-option-click-button"
-                        onClick={() => handleButtonClick(3, -200)}
-                      >
-                        <img
-                          src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
-                          alt="닫기"
-                        />
-                      </button>
-                    )}
-                  </div>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
+            <div className="match-select-button">
+              {" "}
+              <AgeButton
+                formData={MatchState.formData.age}
+                value="연하"
+                onClick={() => handleAgeSelection("연하", "age")}
+                isClickable={isUseOption[0]}
+              />
+              <AgeButton
+                formData={MatchState.formData.age}
+                value="동갑"
+                onClick={() => handleAgeSelection("동갑", "age")}
+                isClickable={isUseOption[0]}
+              />
+              <AgeButton
+                formData={MatchState.formData.age}
+                value="연상"
+                onClick={() => handleAgeSelection("연상", "age")}
+                isClickable={isUseOption[0]}
+              />
+            </div>
+          </div>
+          <div className="matchcontent">
+            <div className="match-title">
+              <div className="match-premium-option">
+                <div>
+                  <div className="match-title-text">연락 빈도</div>
+                  <div className="match-title-inst-txt">
+                    원하는 연락 빈도 선택
+                  </div>
+                </div>
+                <div className="match-premium-option-right">
+                  <div className="match-premium-option-cost">
+                    <img
+                      src={process.env.PUBLIC_URL + `assets/point.svg`}
+                      alt="cost"
+                    />
+                    100
+                  </div>
+                  {!isUseOption[1] ? (
+                    <button
+                      type="button"
+                      className="match-premium-option-unclick-button"
+                      onClick={() => handleButtonClick(1, 100)}
+                    >
+                      +
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="match-premium-option-click-button"
+                      onClick={() => handleButtonClick(1, -100)}
+                    >
+                      <img
+                        src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
+                        alt="닫기"
+                      />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="match-select-button">
+              <AgeButton
+                formData={MatchState.formData.contactRate}
+                value="빠르게"
+                onClick={() => handleAgeSelection("빠르게", "contactRate")}
+                isClickable={isUseOption[1]}
+              />
+              <AgeButton
+                formData={MatchState.formData.contactRate}
+                value="중간"
+                onClick={() => handleAgeSelection("중간", "contactRate")}
+                isClickable={isUseOption[1]}
+              />
+              <AgeButton
+                formData={MatchState.formData.contactRate}
+                value="여유있게"
+                onClick={() => handleAgeSelection("여유있게", "contactRate")}
+                isClickable={isUseOption[1]}
+              />
+            </div>
+          </div>
+          <div className="matchcontent">
+            <div className="match-title">
+              <div className="match-premium-option">
+                <div>
+                  <div className="match-title-text">취향</div>
+                  <div className="match-title-inst-txt">
+                    함께하고 싶은 취향을 선택하세요.
+                  </div>
+                </div>
+                <div className="match-premium-option-right">
+                  <div className="match-premium-option-cost">
+                    <img
+                      src={process.env.PUBLIC_URL + `assets/point.svg`}
+                      alt="cost"
+                    />
+                    100
+                  </div>
+                  {!isUseOption[2] ? (
+                    <button
+                      type="button"
+                      className="match-premium-option-unclick-button"
+                      onClick={() => handleButtonClick(2, 100)}
+                    >
+                      +
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="match-premium-option-click-button"
+                      onClick={() => handleButtonClick(2, -100)}
+                    >
+                      <img
+                        src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
+                        alt="닫기"
+                      />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="match-hobby-grid">
+              {hobbyIcons.map((hobby, index) => (
+                <button
+                  type="button"
+                  key={index}
+                  className={`hobby-item ${
+                    isUseOption[2]
+                      ? `${
+                          MatchState.formData.hobby.includes(hobby.label)
+                            ? "selected"
+                            : ""
+                        }`
+                      : " "
+                  }`}
+                  onClick={() => handleHobbyClick(hobby.label)}
+                  disabled={!isUseOption[2]}
+                >
+                  <img
+                    src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`}
+                    alt={hobby.alt}
+                  />
+                  <div>{hobby.label}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="matchcontent matchfinalcontent">
+            <div className="match-title">
+              <div className="match-premium-option">
+                <div>
+                  <div className="match-title-text">같은과는 싫어요</div>
+                  <div className="match-title-inst-txt">
+                    과 cc를 피할 수 있어요
+                  </div>
+                </div>
+                <div className="match-premium-option-right">
+                  <div className="match-premium-option-cost">
+                    <img
+                      src={process.env.PUBLIC_URL + `assets/point.svg`}
+                      alt="cost"
+                    />
+                    200
+                  </div>
+                  {!isUseOption[3] ? (
+                    <button
+                      type="button"
+                      className="match-premium-option-unclick-button"
+                      onClick={() => handleButtonClick(3, 200)}
+                    >
+                      +
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="match-premium-option-click-button"
+                      onClick={() => handleButtonClick(3, -200)}
+                    >
+                      <img
+                        src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
+                        alt="닫기"
+                      />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
 
-            <button type="submit-button">{MatchState.point}매칭하기</button>
-            <Footer />
-          </form>
+          <button
+            type="button"
+            className="match-submit-button"
+            onClick={() => handleSubmit()}
+          >
+            <div className="match-submit-button-point">
+              <img
+                src={process.env.PUBLIC_URL + `assets/point.svg`}
+                alt="cost"
+              />
+              {MatchState.point}P
+            </div>
+            로 매칭하기
+          </button>
+          <Footer />
         </div>
       ) : (
         <>

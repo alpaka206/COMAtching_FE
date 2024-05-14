@@ -6,7 +6,7 @@
   display: inline-block;
   border-radius: 32px;
   margin-top: 25px;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   position: relative;
 
   padding: 31px 0px;
@@ -201,4 +201,46 @@ button[type="submit-button"] {
   justify-content: space-between;
   align-items: center;
   width: 95%;
+}
+.match-submit-button {
+  position: fixed;
+  bottom: 50px; /* 화면 하단으로부터의 거리 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 80px;
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.match-submit-button-point {
+  display: flex;
+  align-items: center;
+  border-radius: 36px;
+  height: auto;
+  width: auto;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.75);
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+  margin-right: 12px;
+}
+.match-submit-button-point img {
+  height: 32px;
+  width: 32px;
+  margin-right: 4px;
+}
+.match-container {
+  position: relative;
+  min-height: 100vh;
+}
+.matchfinalcontent {
+  margin-bottom: 80px;
 }

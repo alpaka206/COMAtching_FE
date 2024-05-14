@@ -4,9 +4,11 @@ import { userState } from "../Atoms";
 import LoginUserInfoTop from "../components/LoginUserInfoTop";
 import "../css/components/UserInfoRrev.css";
 import UserInfoContainer from "../components/UserInfoContainer";
+import { useNavigate } from "react-router-dom";
 
 function UserInfoRrev({ user }) {
   const formData = useRecoilValue(userState);
+  const navigate = useNavigate();
   const sliderRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -65,7 +67,15 @@ function UserInfoRrev({ user }) {
             ▶
           </div>
         )}
-        <div className="User-Contact">{formData.contact_id}</div>
+        <div className="User-Contact">
+          {formData.contact_id}
+          <button
+            className="Userinfo-fix-button"
+            onClick={() => navigate("/form")}
+          >
+            수정하기
+          </button>
+        </div>
       </div>
     </Fragment>
   );
