@@ -17,44 +17,77 @@ function Matchresult() {
   const alarmUrl = () => {
     alert("url강제 이동시 로그아웃 후 로그인 페이지로 이동됩니다.");
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const postdata = {
-  //     gender: !formData.gender,
-  //     mbti: MatchState.sortedMBTI,
-  //     passwd: formData.userEmail,
-  //   };
-  //   try {
-  //     const response = await axios.get("https://onesons.site/match", postdata);
+  const handleRematch = () => {
+    navigate("/match");
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // const postdata = {
+    //   gender: !formData.gender,
+    //   mbti: MatchState.sortedMBTI,
+    //   passwd: formData.userEmail,
+    // };
+    try {
+      const response = await axios.get(
+        "https://onesons.site/match",
+        MatchState
+      );
 
-  //     const { message, code, isSuccess, result } = response.data;
+      const { message, code, isSuccess, result } = response.data;
 
-  //     if (isSuccess === true) {
-  //       const { gender, phone, depart, song, year, mbti } = result;
-  //       setResultState({
-  //         generatedCode: code,
-  //         generatedGender: gender,
-  //         generatedPhone: phone,
-  //         generatedDepart: depart,
-  //         generatedSong: song,
-  //         generatedYear: year,
-  //         generatedMbti: mbti,
-  //       });
-  //       navigate("/Matchresult");
-  //     } else {
-  //       alert(message);
-  //       return;
-  //     }
-  //     console.log(MatchResultState);
-  //   } catch (error) {
-  //     console.error("오류 발생:", error);
-  //   }
-  // };
+      if (isSuccess === true) {
+        const {
+          major,
+          Age,
+          hobby,
+          mbti,
+          song,
+          Contact_Frequency,
+          Contact,
+          Contact_Id,
+        } = result;
+        setMatchResult({
+          generatedMajor: major,
+          generatedAge: Age,
+          generatedHobby: hobby,
+          generatedMbti: mbti,
+          generatedSong: song,
+          generatedContact_Frequency: Contact_Frequency,
+          generatedContact: Contact,
+          generatedContact_Id: Contact_Id,
+        });
+        navigate("/loading");
+      } else {
+        alert(message);
+        return;
+      }
+      console.log(MatchResultState);
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+  };
   return (
     <div>
       {formData.isLoggedIn ? (
         <div className="container">
-          <HeaderNav />
+          <div className="match-header">
+            <div>
+              <img
+                className="logo-img"
+                src={process.env.PUBLIC_URL + `assets/logowhite.png`}
+                alt="로고"
+                onClick={() => navigate("/")}
+              />
+            </div>
+            <div className="match-point-remaining">
+              잔여포인트
+              <img
+                src={process.env.PUBLIC_URL + `assets/point.svg`}
+                alt="cost"
+              />
+              2000
+            </div>
+          </div>
           {MatchResult.generatedCode === 2002 ? (
             <div className="matchresult-content">
               <div style={{ textAlign: "center" }}>
@@ -129,18 +162,21 @@ function Matchresult() {
                   <div className="MatchResult-Topic">
                     {MatchResult.generatedContact}
                   </div>
-                  <div className="MatchResult-Text MatchResult-Text-Contact">
+                  <div
+                    className="MatchResult-Text MatchResult-Text-Contact"
+                    onClick={() => {
+                      window.open("https://www.instagram.com/Kim.q1/");
+                    }}
+                  >
                     {MatchResult.generatedContact_Id}
                   </div>
                 </div>
               </div>
               <div className="MatchResult-button-container">
-                <button className="Retry-button" /*onClick={handleSubmit}> */>
+                <button className="Retry-button" onClick={handleRematch}>
                   다시뽑기
                 </button>
-                <button
-                  className="Retry-same-button" /*onClick={handleSubmit}> */
-                >
+                <button className="Retry-same-button" onClick={handleSubmit}>
                   <div className="Retry-same-button-point">
                     <img
                       src={process.env.PUBLIC_URL + `assets/point.svg`}

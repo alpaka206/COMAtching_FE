@@ -6,7 +6,7 @@ export const userState = atom({
     major: "",
     age: "",
     contact: "kakao",
-    contact_id: "",
+    contact_id: "sssss",
     gender: "Male",
     contact_frequency: "",
     mbti: "",
@@ -15,7 +15,7 @@ export const userState = atom({
     song: "",
     comment: "",
     contact_id_Verified: false,
-    isLoggedIn: false,
+    isLoggedIn: true,
   },
 });
 
@@ -54,8 +54,8 @@ export const MatchResultState = atom({
     generatedMbti: null,
     generatedSong: null,
     generatedContact_Frequency: null,
-    generatedContact: null,
-    generatedContact_Id: null,
+    generatedContact: "insta",
+    generatedContact_Id: "sss",
   },
 });
 
