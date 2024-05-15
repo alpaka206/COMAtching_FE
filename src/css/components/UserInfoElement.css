@@ -14,3 +14,13 @@
   text-align: left;
   margin-top: 7px;
 }
+
+.User-Info__Element__Items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.User-Info__Element__Item {
+  white-space: nowrap;
+  margin-right: 4px; /* Adjust as needed for spacing between items */
+}

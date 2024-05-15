@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
-import HeaderNav from "../components/HeaderNav";
 import "./Match.css";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { MatchPickState, MatchResultState, userState } from "../Atoms";
-import Login from "./Login";
+import Mainpage from "./Mainpage";
 import MBTISection from "../components/MBTISection";
 import AgeButton from "../components/AgeButton";
 import hobbyIcons from "../data/hobbyIcons";
@@ -460,7 +459,7 @@ function Match() {
       ) : (
         <>
           {alarmUrl()}
-          <Login />
+          <Mainpage />
         </>
       )}
     </div>

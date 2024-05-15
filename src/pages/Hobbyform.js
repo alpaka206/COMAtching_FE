@@ -11,6 +11,10 @@ function Hobbyform() {
   const [pickHobby, setPickHobby] = useRecoilState(userState);
 
   const handleSubmit = () => {
+    if (pickHobby.hobby.length < 1) {
+      alert("관심사를 최소 1개 이상 선택해주세요.");
+      return false;
+    }
     console.log(pickHobby.hobby);
     navigate("/form");
   };

@@ -53,8 +53,10 @@ function UserInfoRrev({ user }) {
           <div className="sliderpage">
             <UserInfoContainer FirstTopic="취미" FirstText={formData.hobby} />
             <UserInfoContainer
-              FirstTopic="연락빈도"
-              FirstText={formData.contact_frequency}
+              FirstTopic="나를 표현하는 한마디"
+              FirstText={formData.comment}
+              SecoundTopic="연락빈도"
+              SecondText={formData.contact_frequency}
             />
           </div>
         </div>

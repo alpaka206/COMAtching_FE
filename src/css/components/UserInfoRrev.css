@@ -1,5 +1,5 @@
 .User-Info-Rrev {
-  background: #ffffff;
+  background-color: rgba(255, 255, 255, 0.65);
   width: 100%;
   border-radius: 32px;
   height: 203px;
@@ -68,8 +68,18 @@
 
 .slider-arrow.left {
   left: 10px;
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+  border-radius: 100px;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .slider-arrow.right {
   right: 10px;
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+  border-radius: 100px;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.25);
 }

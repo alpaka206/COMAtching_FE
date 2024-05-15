@@ -26,15 +26,15 @@ export const validateForm = (user) => {
     alert("MBTI를 모두 선택해주세요.");
     return false;
   }
-  if (user.hobby.length < 3) {
-    alert("관심사를 최소 3개 이상 선택해주세요.");
+  if (user.hobby.length < 1) {
+    alert("관심사를 최소 1개 이상 선택해주세요.");
     return false;
   }
-  if (user.song.length > 30 || user.song.length < 1) {
+  if (user.song.length > 11 || user.song.length < 1) {
     alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
     return false;
   }
-  if (user.comment.length > 30 || user.comment.length < 1) {
+  if (user.comment.length > 11 || user.comment.length < 1) {
     alert("나를 소개할 한마디를 입력해주세요.");
     return false;
   }

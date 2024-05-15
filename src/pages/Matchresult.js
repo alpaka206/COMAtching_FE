@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { MatchResultState, MatchPickState, userState } from "../Atoms";
 import "./Matchresult.css";
 import { useNavigate } from "react-router-dom";
-import Login from "./Login";
+import Mainpage from "./Mainpage";
 import axios from "axios";
 import hobbyIcons from "../data/hobbyIcons";
 
@@ -194,7 +193,7 @@ function Matchresult() {
       ) : (
         <>
           {alarmUrl()}
-          <Login />
+          <Mainpage />
         </>
       )}
     </div>
