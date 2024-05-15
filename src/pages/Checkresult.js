@@ -3,7 +3,7 @@ import axios from "axios";
 import Footer from "../components/Footer";
 import HeaderNav from "../components/HeaderNav";
 import "./Checkresult.css";
-import Login from "./Login";
+import Mainpage from "./Mainpage";
 import { useRecoilState } from "recoil";
 import { generatedDataState, userState } from "../Atoms";
 function Checkresult() {
@@ -67,7 +67,7 @@ function Checkresult() {
       ) : (
         <>
           {alarmUrl()}
-          <Login />
+          <Mainpage />
         </>
       )}
     </div>

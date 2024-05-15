@@ -1,8 +1,6 @@
 import React from "react";
 import { RecoilRoot } from "recoil";
 import Mainpage from "./pages/Mainpage";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Form from "./pages/Form";
 import Hobbyform from "./pages/Hobbyform";
 import Match from "./pages/Match";
@@ -25,8 +23,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Mainpage />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
             <Route path="/Form" element={<Form />} />
             <Route path="/Hobby" element={<Hobbyform />} />
             <Route path="/Guide" element={<Guide />} />
