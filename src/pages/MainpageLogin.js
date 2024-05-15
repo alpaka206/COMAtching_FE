@@ -49,7 +49,7 @@ function MainpageLogin() {
     <div className="container">
       <HeaderNav />
       <div className="Mainpage__Login">
-        <UserInfoRrev />
+        <UserInfoRrev user={formData} ifMainpage={true} />
         <div>
           <button className="matching-button" onClick={handleClickmatch}>
             AI 매칭하기 ▶

@@ -14,7 +14,7 @@ function AdminLogin() {
           <div>관리자 pw:</div>
           <input />
         </div>
-        <button></button>
+        <button>확인</button>
       </div>
     </div>
   );

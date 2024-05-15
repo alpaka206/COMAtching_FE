@@ -14,7 +14,7 @@ export const userState = atom({
     song: "",
     comment: "",
     contact_id_Verified: false,
-    isLoggedIn: false,
+    isLoggedIn: true,
   },
 });
 
@@ -60,5 +60,31 @@ export const MatchResultState = atom({
 
 export const generatedDataState = atom({
   key: "generatedDataState",
-  default: [],
+  default: [
+    {
+      major: "ㅂㅂㅂ",
+      age: "111",
+      contact: "kakao",
+      contact_id: "ㅂㅂㅂ",
+      gender: "Male",
+      contact_frequency: "",
+      mbti: "ㅂㅂㅂ",
+      hobby: [],
+      song: "ㅂㅂㅂ",
+      comment: "ㅂㅂ",
+      review: false,
+    },
+    {
+      major: "ㅂㅂㅂ",
+      age: "ㅂㅂㅂ",
+      contact: "instagram",
+      contact_id: "ㅂㅂ",
+      contact_frequency: "ㅂㅂㅂ",
+      mbti: "ㅂㅂ",
+      hobby: [],
+      song: "ㅂㅂㅂ",
+      comment: "ㅂㅂㅂㅂ",
+      review: true,
+    },
+  ],
 });

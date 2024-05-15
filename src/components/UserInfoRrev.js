@@ -6,8 +6,7 @@ import "../css/components/UserInfoRrev.css";
 import UserInfoContainer from "../components/UserInfoContainer";
 import { useNavigate } from "react-router-dom";
 
-function UserInfoRrev({ user }) {
-  const formData = useRecoilValue(userState);
+function UserInfoRrev({ user, ifMainpage }) {
   const navigate = useNavigate();
   const sliderRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
@@ -22,7 +21,7 @@ function UserInfoRrev({ user }) {
 
   return (
     <Fragment>
-      <LoginUserInfoTop username={formData.contact_id} />
+      {ifMainpage && <LoginUserInfoTop username={user.contact_id} />}
 
       <div className="User-Info-Rrev">
         {/* 좌측 화살표 */}
@@ -39,24 +38,24 @@ function UserInfoRrev({ user }) {
           <div className="sliderpage">
             <UserInfoContainer
               FirstTopic="전공"
-              FirstText={formData.major}
+              FirstText={user.major}
               SecoundTopic="나이"
-              SecondText={formData.age}
+              SecondText={user.age}
             />
             <UserInfoContainer
               FirstTopic="좋아하는 노래"
-              FirstText={formData.song}
+              FirstText={user.song}
               SecoundTopic="MBTI"
-              SecondText={formData.mbti}
+              SecondText={user.mbti}
             />
           </div>
           <div className="sliderpage">
-            <UserInfoContainer FirstTopic="취미" FirstText={formData.hobby} />
+            <UserInfoContainer FirstTopic="취미" FirstText={user.hobby} />
             <UserInfoContainer
               FirstTopic="나를 표현하는 한마디"
-              FirstText={formData.comment}
+              FirstText={user.comment}
               SecoundTopic="연락빈도"
-              SecondText={formData.contact_frequency}
+              SecondText={user.contact_frequency}
             />
           </div>
         </div>
@@ -70,13 +69,25 @@ function UserInfoRrev({ user }) {
           </div>
         )}
         <div className="User-Contact">
-          {formData.contact_id}
-          <button
-            className="Userinfo-fix-button"
-            onClick={() => navigate("/form")}
+          <div
+            onClick={() => {
+              if (user.contact === "instagram") {
+                // user.contact가 'instagram'인 경우에만 작동
+                window.open(`https://www.instagram.com/${user.contact_id}/`);
+              }
+            }}
           >
-            수정하기
-          </button>
+            {user.contact_id}
+          </div>
+
+          {ifMainpage && (
+            <button
+              className="Userinfo-fix-button"
+              onClick={() => navigate("/form")}
+            >
+              수정하기
+            </button>
+          )}
         </div>
       </div>
     </Fragment>
