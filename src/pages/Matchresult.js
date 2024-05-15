@@ -27,7 +27,7 @@ function Matchresult() {
     //   passwd: formData.userEmail,
     // };
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         "https://onesons.site/match",
         MatchState
       );
@@ -67,135 +67,124 @@ function Matchresult() {
   };
   return (
     <div>
-      {formData.isLoggedIn ? (
-        <div className="container">
-          <div className="match-header">
-            <div>
-              <img
-                className="logo-img"
-                src={process.env.PUBLIC_URL + `assets/logowhite.png`}
-                alt="로고"
-                onClick={() => navigate("/")}
-              />
-            </div>
-            <div className="match-point-remaining">
-              잔여포인트
-              <img
-                src={process.env.PUBLIC_URL + `assets/point.svg`}
-                alt="cost"
-              />
-              2000
+      {/* {formData.isLoggedIn ? ( */}
+      <div className="container">
+        <div className="match-header">
+          <div>
+            <img
+              className="logo-img"
+              src={process.env.PUBLIC_URL + `assets/logowhite.png`}
+              alt="로고"
+              onClick={() => navigate("/")}
+            />
+          </div>
+          <div className="match-point-remaining">
+            잔여포인트
+            <img src={process.env.PUBLIC_URL + `assets/point.svg`} alt="cost" />
+            2000
+          </div>
+        </div>
+        {MatchResult.generatedCode === 2002 ? (
+          <div className="matchresult-content">
+            <div style={{ textAlign: "center" }}>
+              <span style={{ fontSize: "24px" }}>
+                이성이 데이터에 한명도 없습니다
+              </span>
             </div>
           </div>
-          {MatchResult.generatedCode === 2002 ? (
+        ) : (
+          <div>
             <div className="matchresult-content">
-              <div style={{ textAlign: "center" }}>
-                <span style={{ fontSize: "24px" }}>
-                  이성이 데이터에 한명도 없습니다
-                </span>
+              <div className="MatchResult-Container">
+                <div className="MatchResult-Major">
+                  <div className="MatchResult-Topic">| 전공</div>
+                  <div className="MatchResult-Text">
+                    {MatchResult.generatedMajor}
+                  </div>
+                </div>
+                <div className="MatchResult-Age">
+                  <div className="MatchResult-Topic">| 나이</div>
+                  <div className="MatchResult-Text">
+                    {MatchResult.generatedAge}
+                  </div>
+                </div>
+              </div>
+              <div className="MatchResult-Container">
+                <div className="MatchResult-Hobby">
+                  <div className="MatchResult-Topic">| 취미</div>
+                  <div className="MatchResult-Text-Hobby">
+                    {MatchResult.generatedHobby.map((hobbyLabel, index) => {
+                      const hobby = hobbyIcons.find(
+                        (item) => item.label === hobbyLabel
+                      );
+                      return (
+                        <div key={index} className="MatchResult-hobby-element">
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              `assets/${hobby.image}.svg`
+                            }
+                            alt={hobby.alt}
+                          />
+                          <div>{hobby.label}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="MatchResult-MBTI">
+                  <div className="MatchResult-Topic">| MBTI</div>
+                  <div className="MatchResult-Text">
+                    {MatchResult.generatedMbti}
+                  </div>
+                </div>
+              </div>
+              <div className="MatchResult-Song">
+                <div className="MatchResult-Topic">| 좋아하는 노래</div>
+                <div className="MatchResult-Text">
+                  {MatchResult.generatedSong}
+                </div>
+              </div>
+              <div className="MatchResult-Frequency">
+                <div className="MatchResult-Topic">| 연락빈도</div>
+                <div className="MatchResult-Text">
+                  {MatchResult.generatedContact_Frequency}
+                </div>
+              </div>
+              <div className="MatchResult-Contact">
+                <div className="MatchResult-Topic">
+                  {MatchResult.generatedContact}
+                </div>
+                <div className="MatchResult-Text MatchResult-Text-Contact">
+                  {MatchResult.generatedContact_Id}
+                </div>
               </div>
             </div>
-          ) : (
-            <div>
-              <div className="matchresult-content">
-                <div className="MatchResult-Container">
-                  <div className="MatchResult-Major">
-                    <div className="MatchResult-Topic">| 전공</div>
-                    <div className="MatchResult-Text">
-                      {MatchResult.generatedMajor}
-                    </div>
-                  </div>
-                  <div className="MatchResult-Age">
-                    <div className="MatchResult-Topic">| 나이</div>
-                    <div className="MatchResult-Text">
-                      {MatchResult.generatedAge}
-                    </div>
-                  </div>
+            <div className="MatchResult-button-container">
+              <button className="Retry-button" onClick={handleRematch}>
+                다시뽑기
+              </button>
+              <button className="Retry-same-button" onClick={handleSubmit}>
+                <div className="Retry-same-button-point">
+                  <img
+                    src={process.env.PUBLIC_URL + `assets/point.svg`}
+                    alt="cost"
+                  />
+                  {MatchState.point}P
                 </div>
-                <div className="MatchResult-Container">
-                  <div className="MatchResult-Hobby">
-                    <div className="MatchResult-Topic">| 취미</div>
-                    <div className="MatchResult-Text-Hobby">
-                      {MatchResult.generatedHobby.map((hobbyLabel, index) => {
-                        const hobby = hobbyIcons.find(
-                          (item) => item.label === hobbyLabel
-                        );
-                        return (
-                          <div
-                            key={index}
-                            className="MatchResult-hobby-element"
-                          >
-                            <img
-                              src={
-                                process.env.PUBLIC_URL +
-                                `assets/${hobby.image}.svg`
-                              }
-                              alt={hobby.alt}
-                            />
-                            <div>{hobby.label}</div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                  <div className="MatchResult-MBTI">
-                    <div className="MatchResult-Topic">| MBTI</div>
-                    <div className="MatchResult-Text">
-                      {MatchResult.generatedMbti}
-                    </div>
-                  </div>
-                </div>
-                <div className="MatchResult-Song">
-                  <div className="MatchResult-Topic">| 좋아하는 노래</div>
-                  <div className="MatchResult-Text">
-                    {MatchResult.generatedSong}
-                  </div>
-                </div>
-                <div className="MatchResult-Frequency">
-                  <div className="MatchResult-Topic">| 연락빈도</div>
-                  <div className="MatchResult-Text">
-                    {MatchResult.generatedContact_Frequency}
-                  </div>
-                </div>
-                <div className="MatchResult-Contact">
-                  <div className="MatchResult-Topic">
-                    {MatchResult.generatedContact}
-                  </div>
-                  <div
-                    className="MatchResult-Text MatchResult-Text-Contact"
-                    onClick={() => {
-                      window.open("https://www.instagram.com/Kim.q1/");
-                    }}
-                  >
-                    {MatchResult.generatedContact_Id}
-                  </div>
-                </div>
-              </div>
-              <div className="MatchResult-button-container">
-                <button className="Retry-button" onClick={handleRematch}>
-                  다시뽑기
-                </button>
-                <button className="Retry-same-button" onClick={handleSubmit}>
-                  <div className="Retry-same-button-point">
-                    <img
-                      src={process.env.PUBLIC_URL + `assets/point.svg`}
-                      alt="cost"
-                    />
-                    {MatchState.point}P
-                  </div>
-                  같은 조건으로 한번 더 뽑기
-                </button>
-              </div>
+                같은 조건으로 한번 더 뽑기
+              </button>
             </div>
-          )}
-          <Footer />
-        </div>
-      ) : (
+          </div>
+        )}
+        <Footer />
+      </div>
+      {/* ) : (
         <>
           {alarmUrl()}
           <Mainpage />
         </>
-      )}
+      )} */}
     </div>
   );
 }
