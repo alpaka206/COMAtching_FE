@@ -1,37 +1,24 @@
 .major-selector {
   display: flex;
+  padding-right: 0px;
 }
 
 .depart {
-  width: calc(50% - 22px);
+  width: calc(33%);
   margin-right: 22px;
-}
-.depart h3 {
-  margin-bottom: 7px;
-  text-align: left;
-}
-select[name="depart"] {
-  display: block;
-  width: 100%;
-  height: 35px;
-  background: white;
-  border: 1px #eaeaea solid;
-  border-radius: 15px;
 }
 
 .major {
-  width: 100%;
+  width: calc(67%);
 }
 
-.major h3 {
-  margin-left: 0px;
-}
-
-select[name="major"] {
+.MajorSelectorElement-select {
   display: block;
   width: 100%;
   height: 35px;
   background: white;
   border: 1px #eaeaea solid;
   border-radius: 15px;
+  padding: 0 12px;
+  /* margin-right: 20px; */
 }

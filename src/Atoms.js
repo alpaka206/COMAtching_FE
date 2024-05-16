@@ -7,7 +7,7 @@ export const userState = atom({
     age: "",
     contact: "kakao",
     contact_id: "",
-    gender: "Male",
+    gender: "남자",
     contact_frequency: "",
     mbti: "",
     hobby: [],
@@ -15,6 +15,8 @@ export const userState = atom({
     comment: "",
     contact_id_Verified: false,
     isLoggedIn: true,
+    point: null,
+    pickme: null,
   },
 });
 
@@ -78,7 +80,7 @@ export const generatedDataState = atom({
       major: "ㅂㅂㅂ",
       age: "ㅂㅂㅂ",
       contact: "instagram",
-      contact_id: "ㅂㅂ",
+      contact_id: "@kim.ql",
       contact_frequency: "ㅂㅂㅂ",
       mbti: "ㅂㅂ",
       hobby: [],

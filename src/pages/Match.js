@@ -311,20 +311,20 @@ function Match() {
           <div className="match-select-button">
             <AgeButton
               formData={MatchState.formData.contactRate}
-              value="빠르게"
-              onClick={() => handleAgeSelection("빠르게", "contactRate")}
+              value="자주"
+              onClick={() => handleAgeSelection("자주", "contactRate")}
               isClickable={isUseOption[1]}
             />
             <AgeButton
               formData={MatchState.formData.contactRate}
-              value="중간"
-              onClick={() => handleAgeSelection("중간", "contactRate")}
+              value="보통"
+              onClick={() => handleAgeSelection("보통", "contactRate")}
               isClickable={isUseOption[1]}
             />
             <AgeButton
               formData={MatchState.formData.contactRate}
-              value="여유있게"
-              onClick={() => handleAgeSelection("여유있게", "contactRate")}
+              value="가끔"
+              onClick={() => handleAgeSelection("가끔", "contactRate")}
               isClickable={isUseOption[1]}
             />
           </div>
