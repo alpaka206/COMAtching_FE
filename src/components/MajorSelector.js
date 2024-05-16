@@ -29,7 +29,6 @@ const MajorSelector = ({ user, setUser, checkMethod, setCheckMethod }) => {
       <MajorSelectorElement
         placeholder="학과"
         fieldType="depart"
-        labelname="depart-select"
         selectname="depart"
         value={checkMethod.department}
         onChange={(e) => handleInputChange("department", e.target.value)}
@@ -38,7 +37,6 @@ const MajorSelector = ({ user, setUser, checkMethod, setCheckMethod }) => {
       <MajorSelectorElement
         placeholder="전공"
         fieldType="major"
-        labelname="major-select"
         selectname="major"
         value={checkMethod.major}
         onChange={handleMajorChange}

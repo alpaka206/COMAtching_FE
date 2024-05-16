@@ -26,14 +26,20 @@ const ProfileBuilder = () => {
     "Q2. 1분 동안 아무 생각 하지마!",
     "Q3. 나 넘어졌어 아파 ㅠㅠ",
     "Q4. 당신은 계획적인가요, 즉흥적인가요?",
-    "Q5. 당신의 연락빈도는 어떤가요?",
+    "Q5. 얼마나 자주 연락하시나요?",
   ];
   const [showMbtiAnswers, setShowMbtiAnswers] = useState([
     ["다른 친구들과 놀러 갈까?", "혼자 집에서 쉬는 게 최고야.", "E", "I", "EI"],
     ["무한한 공간을 생각한다", "진짜 아무 생각 안한다", "N", "S", "SN"],
     ["많이 다쳤어?", "병원 가봤어?", "F", "T", "TF"],
     ["계획에 수긍할게.", "찾아보고 제안해봐야지.", "P", "J", "PJ"],
-    ["나는 적은편이야", "나는 중간이야", "나는 많은편이야", "", ""],
+    [
+      "나는 연락을 자주해",
+      "나는 연락을 평균적으로 해",
+      "나는 연락을 자주 안해",
+      "",
+      "",
+    ],
   ]);
   const [chooseAnswer, setChooseAnswer] = useState(null);
   const [questionNum, setQuestionNum] = useState(0);

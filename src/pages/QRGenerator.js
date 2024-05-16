@@ -10,17 +10,15 @@ const QRGenerator = () => {
   const [hashCode, setHashCode] = useState("testcode");
 
   useEffect(() => {
-    // 해시 코드를 받아오는 API 엔드포인트에 요청을 보냅니다.
-    // axios
-    //   .get("https://onesons.site/admin/match/auth-code")
-    //   .then((response) => {
-    //     // 받아온 해시 코드를 상태에 저장합니다.
-    //     setHashCode(response.data.hashcode);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching hash code:", error);
-    //   });
-    setHashCode("hash123");
+    axios
+      .get("http://13.54.41.253:8080/comatching/code-req/user")
+      .then((response) => {
+        // 받아온 해시 코드를 상태에 저장합니다.
+        setHashCode(response.data.match_code);
+      })
+      .catch((error) => {
+        console.error("Error fetching hash code:", error);
+      });
   }, []);
 
   return (

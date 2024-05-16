@@ -24,38 +24,38 @@ function AgeMaker({
         <button
           type="button"
           className={`AgeMaker ${
-            currentUserState.contact_frequency === "적음" ? "selected" : ""
+            currentUserState.contact_frequency === "자주" ? "selected" : ""
           }`}
-          value={"적음"}
-          onClick={() => handleAgeClick("적음", 0)}
+          value={"자주"}
+          onClick={() => handleAgeClick("자주", 0)}
         >
-          {"적음"}
+          {"자주"}
         </button>
         <button
           type="button"
           className={`AgeMaker ${
-            currentUserState.contact_frequency === "중간" ? "selected" : ""
+            currentUserState.contact_frequency === "보통" ? "selected" : ""
           }`}
-          value={"중간"}
-          onClick={() => handleAgeClick("중간", 1)}
+          value={"보통"}
+          onClick={() => handleAgeClick("보통", 1)}
         >
-          {"중간"}
+          {"보통"}
         </button>
         <button
           type="button"
           className={`AgeMaker ${
-            currentUserState.contact_frequency === "많음" ? "selected" : ""
+            currentUserState.contact_frequency === "가끔" ? "selected" : ""
           }`}
-          value={"많음"}
-          onClick={() => handleAgeClick("많음", 2)}
+          value={"가끔"}
+          onClick={() => handleAgeClick("가끔", 2)}
         >
-          {"많음"}
+          {"가끔"}
         </button>
       </div>
       <button
         className="MBTIMaker-submit-button"
         onClick={() => handleQuestionComplete(4)}
-        disabled={!currentUserState}
+        disabled={currentUserState.contact_frequency.length < 1}
       >
         전송
       </button>

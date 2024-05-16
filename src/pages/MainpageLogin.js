@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import axios from "axios";
 import Footer from "../components/Footer";
 import HeaderNav from "../components/HeaderNav";
@@ -13,12 +13,14 @@ import MyInfoButton from "../components/MyInfoButton";
 
 function MainpageLogin() {
   const navigate = useNavigate();
-  const formData = useRecoilValue(userState);
+  const [formData, setFormData] = useRecoilState(userState);
   const [numParticipants, setNumParticipants] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
+
   const handleToggleClick = () => {
     setIsClicked((prevIsClicked) => !prevIsClicked);
   };
+
   useEffect(() => {
     const fetchParticipants = async () => {
       try {
@@ -29,8 +31,23 @@ function MainpageLogin() {
       }
     };
 
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get(
+          "https://onesons.site/account/register-detail"
+        );
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          ...response.data,
+        }));
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
     fetchParticipants();
-  }, [setNumParticipants]);
+    fetchUserDetails();
+  });
 
   const handleVisitGuide = () => {
     navigate("/guide");
