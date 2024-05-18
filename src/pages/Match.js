@@ -185,7 +185,7 @@ function Match() {
           <div className="match-point-remaining">
             잔여포인트
             <img src={process.env.PUBLIC_URL + `assets/point.svg`} alt="cost" />
-            2000
+            {MatchState.balance}
           </div>
         </div>
         <div className="matchcontent">

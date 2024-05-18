@@ -3,13 +3,15 @@ import axios from "axios";
 import "../css/components/TotalUsersCounter.css";
 
 function TotalUsersCounter({ font_size }) {
-  const [numParticipants, setNumParticipants] = useState(0);
+  const [numParticipants, setNumParticipants] = useState(null);
 
   useEffect(() => {
     const fetchParticipants = async () => {
       try {
-        const response = await axios.get("https://onesons.site/participations");
-        setNumParticipants(response.data);
+        const response = await axios.get(
+          "https://catholic-mibal.site/participation"
+        );
+        setNumParticipants(response.data.data.participations);
       } catch (error) {
         console.error("Error fetching participants:", error);
       }

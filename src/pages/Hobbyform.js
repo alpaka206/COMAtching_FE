@@ -15,7 +15,6 @@ function Hobbyform() {
       alert("관심사를 최소 1개 이상 선택해주세요.");
       return false;
     }
-    console.log(pickHobby.hobby);
     navigate("/form");
   };
 
@@ -32,7 +31,6 @@ function Hobbyform() {
       ...prevUser,
       hobby: updatedHobbies,
     }));
-    console.log(updatedHobbies);
   };
 
   return (

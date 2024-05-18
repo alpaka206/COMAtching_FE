@@ -81,7 +81,7 @@ function Matchresult() {
           <div className="match-point-remaining">
             잔여포인트
             <img src={process.env.PUBLIC_URL + `assets/point.svg`} alt="cost" />
-            2000
+            {MatchState.balance}
           </div>
         </div>
         {MatchResult.generatedCode === 2002 ? (

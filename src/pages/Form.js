@@ -72,44 +72,35 @@ function Form() {
       song: user.song,
       comment: user.comment,
     };
-    console.log(postData);
-    console.log(JSON.stringify(postData));
 
-    // try {
-    //   console.log(postData);
-
-    //   // navigate("/");
-    //   // 서버로 데이터 전송
-    //   const response = await axios.post(
-    //     "13.54.41.253:8080/account/register-detail",
-    //     JSON.stringify(postData)
-    //   );
-    //   console.log(postData);
-    //   console.log("response");
-    //   console.log(response);
-    //   if (response.status === 200) {
-    //     // 등록 성공 시 사용자 정보 초기화 및 로그인 페이지로 이동
-    //     // setUser((prevUser) => ({
-    //     //   userEmail: "",
-    //     //   userPw: "",
-    //     //   depart: "",
-    //     //   age: "",
-    //     //   phone: "",
-    //     //   song: "",
-    //     //   gender: "",
-    //     //   mbti: "",
-    //     // }));
-    //     setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }));
-    //     // navigate("/");
-    //   } else {
-    //     // 등록 실패 시 오류 메시지 표시
-    //     // alert(response.data.message);
-    //     alert("가입 실패");
-    //   }
-    // } catch (error) {
-    //   // 오류 발생 시 콘솔에 오류 로그 출력
-    //   console.error("오류 발생:", error);
-    // }
+    try {
+      const response = await axios.post(
+        "https://catholic-mibal.site/account/register-detail",
+        postData
+      );
+      if (response.data.status === 200) {
+        // 등록 성공 시 사용자 정보 초기화 및 로그인 페이지로 이동
+        // setUser((prevUser) => ({
+        //   userEmail: "",
+        //   userPw: "",
+        //   depart: "",
+        //   age: "",
+        //   phone: "",
+        //   song: "",
+        //   gender: "",
+        //   mbti: "",
+        // }));
+        setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }));
+        navigate("/");
+      } else {
+        // 등록 실패 시 오류 메시지 표시
+        // alert(response.data.message);
+        alert("가입 실패");
+      }
+    } catch (error) {
+      // 오류 발생 시 콘솔에 오류 로그 출력
+      console.error("오류 발생:", error);
+    }
   };
   const handleMBTISelection = (value) => {
     const category =

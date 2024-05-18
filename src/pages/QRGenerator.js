@@ -11,10 +11,11 @@ const QRGenerator = () => {
 
   useEffect(() => {
     axios
-      .get("http://13.54.41.253:8080/comatching/code-req/user")
+      .get("https://catholic-mibal.site/comatching/code-req/user")
       .then((response) => {
         // 받아온 해시 코드를 상태에 저장합니다.
-        setHashCode(response.data.match_code);
+        console.log(response);
+        setHashCode(response.data.data.match_code);
       })
       .catch((error) => {
         console.error("Error fetching hash code:", error);
