@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/pages/MainpageUnLogin.css";
 import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 import TotalUsersCounter from "../components/TotalUsersCounter";
 import { useNavigate } from "react-router-dom";
 import Kakao from "../data/Kakaokey";
+import axios from "axios";
 function MainpageUnLogin() {
   const navigate = useNavigate();
 

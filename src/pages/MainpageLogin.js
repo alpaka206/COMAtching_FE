@@ -14,7 +14,6 @@ import MyInfoButton from "../components/MyInfoButton";
 function MainpageLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useRecoilState(userState);
-  const [numParticipants, setNumParticipants] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
 
   const handleToggleClick = () => {
@@ -22,19 +21,10 @@ function MainpageLogin() {
   };
 
   useEffect(() => {
-    const fetchParticipants = async () => {
-      try {
-        const response = await axios.get("https://onesons.site/participations");
-        setNumParticipants(response.data);
-      } catch (error) {
-        console.error("Error fetching participants:", error);
-      }
-    };
-
     const fetchUserDetails = async () => {
       try {
         const response = await axios.get(
-          "https://onesons.site/account/register-detail"
+          "https://catholic-mibal.site/account/register-detail"
         );
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -45,7 +35,6 @@ function MainpageLogin() {
       }
     };
 
-    fetchParticipants();
     fetchUserDetails();
   });
 

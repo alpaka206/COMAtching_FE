@@ -58,7 +58,6 @@ const ProfileBuilder = () => {
     setShowQuestions((prevShowQuestions) => {
       const updatedQuestions = [...prevShowQuestions];
       updatedQuestions[index][1] = true;
-      console.log("Selected MBTI:", selectedMBTI);
       return updatedQuestions;
     });
   };

@@ -36,6 +36,7 @@ export const MatchPickState = atom({
     selectedMBTI: ["X", "X", "X", "X"],
     selectedCategory: [],
     point: 500,
+    balance: 3000,
     formData: {
       contactRate: "",
       age: "",
