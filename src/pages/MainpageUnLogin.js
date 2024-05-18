@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../css/pages/MainpageUnLogin.css";
 import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 import TotalUsersCounter from "../components/TotalUsersCounter";
 import { useNavigate } from "react-router-dom";
-import Kakao from "../data/Kakaokey";
-import axios from "axios";
+
 function MainpageUnLogin() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    window.location.href = Kakao.kakaoURL;
+    window.location.href =
+      "https://catholic-mibal.site/oauth2/authorization/kakao";
   };
 
   const handleVisitGuide = () => {
@@ -22,7 +22,7 @@ function MainpageUnLogin() {
       <HeaderNav />
       <div className="content">
         <div className="bubble-counter">
-          <TotalUsersCounter font_size="16px" />
+          {/* <TotalUsersCounter font_size="16px" /> */}
         </div>
         <img
           src={process.env.PUBLIC_URL + `assets/helloemoji.svg`}
@@ -32,6 +32,7 @@ function MainpageUnLogin() {
             height: "auto",
             paddingTop: "30px",
           }}
+          className="mainpage-unlogin-userimage"
         />
         <div>
           <img
@@ -42,6 +43,7 @@ function MainpageUnLogin() {
               height: "auto",
               marginTop: "20px",
             }}
+            className="mainpage-unlogin-logoimage"
           />
         </div>
 

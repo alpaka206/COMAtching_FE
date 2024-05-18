@@ -14,7 +14,7 @@ export const userState = atom({
     song: "",
     comment: "",
     contact_id_Verified: false,
-    isLoggedIn: true,
+    isLoggedIn: false,
     point: null,
     pickme: null,
   },

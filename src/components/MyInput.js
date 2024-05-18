@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/components/MyInput.css";
+
 const MyInput = ({
   type = "text",
   name,
