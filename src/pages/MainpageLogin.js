@@ -23,8 +23,14 @@ function MainpageLogin() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await axios.get(
-          "https://catholic-mibal.site/account/register-detail"
+          "https://catholic-mibal.site/account/register-detail",
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
         );
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -44,11 +50,9 @@ function MainpageLogin() {
   const handleClickmatch = () => {
     navigate("/QRGenerator");
   };
-  const handleVisitLoading = () => {
-    navigate("/Loading");
-  };
   const handleVisitcheckresult = () => {
-    navigate("/checkresult");
+    // navigate("/checkresult");
+    alert("5월 22일에 열릴예정입니다!");
   };
 
   return (
@@ -57,7 +61,10 @@ function MainpageLogin() {
       <div className="Mainpage__Login">
         <UserInfoRrev user={formData} ifMainpage={true} />
         <div>
-          <button className="matching-button" onClick={handleClickmatch}>
+          <button
+            className="matching-button"
+            /*onClick={handleClickmatch}*/ onClick={handleVisitGuide}
+          >
             AI 매칭하기 ▶
             <TotalUsersCounter font_size="15px" />
           </button>
@@ -82,7 +89,8 @@ function MainpageLogin() {
               <button
                 className="charge-request-clicked-img"
                 type="button"
-                onClick={handleToggleClick}
+                // onClick={handleToggleClick}
+                onClick={handleVisitGuide}
               >
                 <img
                   src={process.env.PUBLIC_URL + `assets/arrowup.svg`}

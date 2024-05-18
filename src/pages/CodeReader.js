@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
 import axios from "axios";
-import "../css/pages/CodeReader.css";
 import { useNavigate } from "react-router-dom";
 
 const CodeReader = () => {

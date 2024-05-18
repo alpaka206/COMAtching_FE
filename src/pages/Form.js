@@ -72,25 +72,20 @@ function Form() {
       song: user.song,
       comment: user.comment,
     };
-
+    console.log(user.token);
     try {
       const response = await axios.post(
         "https://catholic-mibal.site/account/register-detail",
-        postData
+        postData,
+        {
+          headers: {
+            Authorization: `${user.token}`,
+          },
+        }
       );
       if (response.data.status === 200) {
-        // 등록 성공 시 사용자 정보 초기화 및 로그인 페이지로 이동
-        // setUser((prevUser) => ({
-        //   userEmail: "",
-        //   userPw: "",
-        //   depart: "",
-        //   age: "",
-        //   phone: "",
-        //   song: "",
-        //   gender: "",
-        //   mbti: "",
-        // }));
-        setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }));
+        const token = response.data.data.update_token;
+        localStorage.setItem("token", token);
         navigate("/");
       } else {
         // 등록 실패 시 오류 메시지 표시

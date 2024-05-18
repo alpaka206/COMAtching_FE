@@ -13,8 +13,6 @@ function AgeMaker({
       contact_frequency: value,
     }));
     setChooseAnswer(index);
-    console.log("value: ", value);
-    console.log("index: ", index);
   };
 
   return (

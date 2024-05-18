@@ -15,6 +15,7 @@ import ProfileBuilder from "./pages/ProfileBuilder";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import QRGenerator from "./pages/QRGenerator";
+import Redirection from "./pages/Redirection";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/CodeReader" element={<CodeReader />} />
             <Route path="/QRGenerator" element={<QRGenerator />} />
             <Route path="/ProfileBuilder" element={<ProfileBuilder />} />
+            <Route path="/redirection" element={<Redirection />} />
           </Routes>
         </BrowserRouter>
       </div>
