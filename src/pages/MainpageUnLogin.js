@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/pages/MainpageUnLogin.css";
 import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 import TotalUsersCounter from "../components/TotalUsersCounter";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function MainpageUnLogin() {
   const navigate = useNavigate();
-
+  const [numParticipants, setNumParticipants] = useState(0);
   const handleLogin = () => {
     window.location.href =
       "https://catholic-mibal.site/oauth2/authorization/kakao";
@@ -17,12 +18,33 @@ function MainpageUnLogin() {
     navigate("/guide");
   };
 
+  // useEffect(() => {
+  //   const fetchParticipants = async () => {
+  //     try {
+  //       const token = localStorage.getItem("token");
+
+  //       const response = await axios.get(
+  //         "https://catholic-mibal.site/participation",
+  //         {
+  //           headers: {
+  //             Authorization: `${token}`,
+  //           },
+  //         }
+  //       );
+  //       setNumParticipants(response.data.data.participations);
+  //     } catch (error) {
+  //       console.error("Error fetching participants:", error);
+  //     }
+  //   };
+
+  //   fetchParticipants();
+  // }, [setNumParticipants]);
   return (
     <div className="container">
       <HeaderNav />
       <div className="content">
         <div className="bubble-counter">
-          {/* <TotalUsersCounter font_size="16px" /> */}
+          {/* <TotalUsersCounter font_size="16px" numParticipants={numParticipants}/> */}
         </div>
         <img
           src={process.env.PUBLIC_URL + `assets/helloemoji.svg`}

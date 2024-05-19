@@ -78,8 +78,8 @@
 }
 
 .bubble-counter > * {
-  display: inline-block; /* 내부 요소들도 인라인 블록으로 표시되도록 설정 */
-  white-space: nowrap; /* 줄 바꿈을 방지하여 한 줄에 표시되도록 설정 */
+  display: inline-block;
+  white-space: nowrap;
 }
 .bubble-counter:after,
 .bubble-counter:before {
@@ -121,7 +121,7 @@
 
 .kakao-login p {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
 }
 .kakao-login-element {

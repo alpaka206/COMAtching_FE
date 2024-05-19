@@ -6,7 +6,7 @@ function FormTitle() {
     <div className="form-title">
       <div className="form-title-first-text">거의 다 왔습니다!</div>
       <div className="form-title-second-text">
-        본인의 정보를 모두 입력해 주세요.
+        모든 정보가 맞는지 확인해 주세요
       </div>
     </div>
   );
