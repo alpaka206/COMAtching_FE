@@ -31,10 +31,10 @@ function Form() {
 
     switch (name) {
       case "contact_id":
-        setUser((prevUser) => ({ ...prevUser, contact_id_Verified: false }));
+        setUser((prevUser) => ({ ...prevUser, contact_id_Verified: true }));
         break;
       case "song":
-        if (!/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,30}$/.test(value)) {
+        if (!/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,11}$/.test(value)) {
           errorMessage = "노래에는 특수 기호를 사용할 수 없습니다";
         }
         break;
@@ -79,11 +79,18 @@ function Form() {
         postData,
         {
           headers: {
-            Authorization: `${user.token}`,
+            Authorization: user.token,
           },
         }
       );
-      if (response.data.status === 200) {
+      console.log(response);
+      if (
+        response.data.code === "SEC-001" ||
+        response.data.code === "SEC-002"
+      ) {
+        localStorage.removeItem("token");
+        navigate("/");
+      } else if (response.data.status === 200) {
         const token = response.data.data.update_token;
         localStorage.setItem("token", token);
         navigate("/");
@@ -97,6 +104,7 @@ function Form() {
       console.error("오류 발생:", error);
     }
   };
+
   const handleMBTISelection = (value) => {
     const category =
       value === "E" || value === "I"
@@ -111,6 +119,7 @@ function Form() {
       ...prevMBTI,
       [category]: value,
     }));
+
     setUser((prevUser) => ({
       ...prevUser,
       mbti: `${category === "EI" ? value : selectedMBTI.EI}${
@@ -121,6 +130,7 @@ function Form() {
       isLoggedIn: true,
     }));
   };
+
   const handleAgeClick = (value, index) => {
     setUser((prev) => ({
       ...prev,

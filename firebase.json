@@ -1,8 +1,8 @@
 {
   "hosting": {
-    "site": "comatest",
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "site": "cuk-comatching",
     "rewrites": [
       {
         "source": "**",

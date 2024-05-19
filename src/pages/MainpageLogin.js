@@ -15,6 +15,11 @@ function MainpageLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useRecoilState(userState);
   const [isClicked, setIsClicked] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    numParticipants: 0,
+    leftPoint: 0,
+    Pickme: 0,
+  });
 
   const handleToggleClick = () => {
     setIsClicked((prevIsClicked) => !prevIsClicked);
@@ -25,17 +30,39 @@ function MainpageLogin() {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "https://catholic-mibal.site/account/register-detail",
+          "https://catholic-mibal.site/user/main",
           {
             headers: {
-              Authorization: `${token}`,
+              Authorization: token,
             },
           }
         );
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          ...response.data,
-        }));
+        if (
+          response.data.code === "SEC-001" ||
+          response.data.code === "SEC-002"
+        ) {
+          localStorage.removeItem("token");
+          navigate("/");
+        } else if (response.data.status === 200) {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            major: response.data.major,
+            age: response.data.age,
+            contact_id: response.data.contact_id,
+            gender: response.data.gender,
+            contact_frequency: response.data.contact_frequency,
+            mbti: response.data.mbti,
+            hobby: response.data.hobby,
+            song: response.data.song,
+            comment: response.data.comment,
+          }));
+          setUserInfo((prev) => ({
+            ...prev,
+            numParticipants: response.data.participations,
+            leftPoint: response.data.left_point,
+            Pickme: response.data.pick_me,
+          }));
+        }
       } catch (error) {
         console.error("Error fetching user details:", error);
       }
@@ -59,7 +86,11 @@ function MainpageLogin() {
     <div className="container">
       <HeaderNav />
       <div className="Mainpage__Login">
-        <UserInfoRrev user={formData} ifMainpage={true} />
+        <UserInfoRrev
+          user={formData}
+          ifMainpage={true}
+          numParticipants={userInfo.numParticipants}
+        />
         <div>
           <button
             className="matching-button"
@@ -72,12 +103,12 @@ function MainpageLogin() {
         <div className="button-group">
           <MyInfoButton
             imgSrc={`assets/point.svg`}
-            infoText="100p"
+            infoText={`${userInfo.leftPoint}P`}
             buttonText="잔여포인트"
           />
           <MyInfoButton
             imgSrc={`assets/heart.svg`}
-            infoText="1회"
+            infoText={`${userInfo.Pickme}회`}
             buttonText="나를 뽑을 횟수"
           />
         </div>

@@ -19,13 +19,11 @@ function Redirection() {
         // 역할 확인
         if (decoded.role === "ROLE_SOCIAL") {
           console.log("회원가입 유저");
-          localStorage.setItem("token", token);
-          localStorage.setItem("decodedToken", JSON.stringify(decoded));
+          // localStorage.setItem("token", token);
           navigate("/profilebuilder");
         } else if (decoded.role === "ROLE_USER") {
           console.log("로그인 유저");
-          localStorage.setItem("token", token);
-          localStorage.setItem("decodedToken", JSON.stringify(decoded));
+          // localStorage.setItem("token", token);
           navigate("/");
         } else {
           console.error("Unknown role:", decoded.role);

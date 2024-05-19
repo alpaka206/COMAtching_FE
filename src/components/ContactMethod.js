@@ -14,7 +14,7 @@ function ContactMethod({ user, handleChange, setUser }) {
         handleChange={handleChange}
       />
       <h6
-        className={`check-message ${user.contact_id_Verified ? "hidden" : ""}`}
+        className={`check-message ${user.contact_id_Verified ? "" : "hidden"}`}
       >
         중복입력 방지를 위해 확인버튼을 눌러주세요
       </h6>

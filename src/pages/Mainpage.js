@@ -9,19 +9,19 @@ function Mainpage() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token") || "";
         const response = await axios.get(
-          "https://catholic-mibal.site/comatching/code-req/user",
+          "https://catholic-mibal.site/token/check",
           {
             headers: {
-              Authorization: `${token}`,
+              Authorization: token,
             },
           }
         );
         console.log(response.data);
         if (
-          response.data.message[0] === "token is expired" ||
-          response.data.message[0] === "token is available"
+          response.data.code === "SEC-001" ||
+          response.data.code === "SEC-002"
         ) {
           setIsLoggedIn(false);
         } else {

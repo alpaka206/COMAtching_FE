@@ -13,10 +13,11 @@ export const userState = atom({
     hobby: [],
     song: "",
     comment: "",
-    contact_id_Verified: false,
+    contact_id_Verified: true,
     isLoggedIn: false,
     point: null,
     pickme: null,
+    token: null,
   },
 });
 

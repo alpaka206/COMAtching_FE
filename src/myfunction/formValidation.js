@@ -14,7 +14,7 @@ export const validateForm = (user) => {
     alert("연락처를 입력해주세요");
     return false;
   }
-  if (user.contact_id_Verified === false) {
+  if (user.contact_id_Verified === true) {
     alert("연락처 중복체크를 해주세요");
     return false;
   }
@@ -31,11 +31,11 @@ export const validateForm = (user) => {
     return false;
   }
   if (user.song.length > 11 || user.song.length < 1) {
-    alert("최대 30자 이내로 좋아하는 노래를 입력해주세요.");
+    alert("최대 11자 이내로 좋아하는 노래를 입력해주세요.");
     return false;
   }
   if (user.comment.length > 11 || user.comment.length < 1) {
-    alert("나를 소개할 한마디를 입력해주세요.");
+    alert("나를 소개할 한마디를 11자 이내로 입력해주세요.");
     return false;
   }
   return true;
