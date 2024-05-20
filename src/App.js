@@ -15,12 +15,14 @@ import ProfileBuilder from "./pages/ProfileBuilder";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import QRGenerator from "./pages/QRGenerator";
-import Redirection from "./pages/Redirection";
+import Redirection from "./pages/RedirectionPage";
+import OpenExternalBrowser from "./OpenExternalBrowser";
 
 function App() {
   return (
     <RecoilRoot>
       <div className="App">
+        <OpenExternalBrowser />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Mainpage />} />

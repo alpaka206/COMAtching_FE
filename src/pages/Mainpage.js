@@ -4,12 +4,13 @@ import MainpageLogin from "./MainpageLogin";
 import axios from "axios";
 
 function Mainpage() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const token = localStorage.getItem("token") || "";
+        console.log(token);
         const response = await axios.get(
           "https://catholic-mibal.site/token/check",
           {
@@ -20,8 +21,8 @@ function Mainpage() {
         );
         console.log(response.data);
         if (
-          response.data.code === "SEC-001" ||
-          response.data.code === "SEC-002"
+          response.data.code[0] === "SEC-001" ||
+          response.data.code[0] === "SEC-002"
         ) {
           setIsLoggedIn(false);
         } else {
@@ -29,7 +30,7 @@ function Mainpage() {
         }
       } catch (error) {
         console.error(error);
-        setIsLoggedIn(false);
+        // setIsLoggedIn(false);
       }
     };
 

@@ -8,18 +8,35 @@ import { useNavigate } from "react-router-dom";
 const QRGenerator = () => {
   const navigate = useNavigate();
   const [hashCode, setHashCode] = useState("testcode");
-
   useEffect(() => {
-    axios
-      .get("https://catholic-mibal.site/comatching/code-req/user")
-      .then((response) => {
-        // 받아온 해시 코드를 상태에 저장합니다.
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "https://catholic-mibal.site/comatching/code-req/user",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
         console.log(response);
-        setHashCode(response.data.data.match_code);
-      })
-      .catch((error) => {
-        console.error("Error fetching hash code:", error);
-      });
+        if (
+          response.data.code === "SEC-001" ||
+          response.data.code === "SEC-002"
+        ) {
+          localStorage.removeItem("token");
+          navigate("/");
+        } else if (response.status === 200) {
+          setHashCode(response.data.data.match_code);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle errors if needed
+      }
+    };
+
+    fetchData(); // Call the async function immediately
   }, []);
 
   return (

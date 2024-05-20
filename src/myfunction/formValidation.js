@@ -1,6 +1,9 @@
-export const validateForm = (user) => {
+export const validateForm = (user, registerCheck) => {
   const AgeInt = parseInt(user.age, 10);
-
+  if (registerCheck.check === false) {
+    alert("개인정보 동의를 체크해주세요");
+    return false;
+  }
   if (user.major.length < 1) {
     alert("전공을 선택하세요.");
     return false;
@@ -30,7 +33,7 @@ export const validateForm = (user) => {
     alert("관심사를 최소 1개 이상 선택해주세요.");
     return false;
   }
-  if (user.song.length > 11 || user.song.length < 1) {
+  if (user.song.length > 20 || user.song.length < 1) {
     alert("최대 11자 이내로 좋아하는 노래를 입력해주세요.");
     return false;
   }

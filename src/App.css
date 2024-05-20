@@ -219,4 +219,5 @@ table {
   margin-top: 25px;
   margin-bottom: 50px;
   position: relative;
+  backdrop-filter: blur(12px);
 }

@@ -48,9 +48,9 @@ function AgreementBox({ handleCloseAgreement }) {
         7. 개인정보 수집 및 이용 동의 * 본인은 개인정보 수집 및 이용에 대해
         동의합니다.
       </p>
-      <button className="cancel-button" onClick={handleCloseAgreement}>
+      <div className="cancel-button" onClick={handleCloseAgreement}>
         닫기
-      </button>
+      </div>
     </div>
   );
 }

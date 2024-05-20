@@ -1,10 +1,18 @@
 .MBTIMaker {
   text-align: center;
-  background: #d3b5b5;
+  background: rgba (255, 255, 255, 0.8); /* Existing background */
   width: 85%;
   display: inline-block;
   border-radius: 16px;
   padding: 24px 20px 15px 20px;
+  /* New styles */
+  backdrop-filter: blur(100px); /* Background Blur */
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25); /* Drop Shadow */
+  border: 1px solid rgba(255, 255, 255, 0.8); /* Stroke */
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.8) 30%,
+    transparent 70%
+  ); /* Fill */
 }
 
 .MBTIMaker-text {
@@ -18,22 +26,37 @@
   display: flex;
   align-items: center;
   background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 32px;
   margin-bottom: 12px;
-  font-size: 20px;
-  font-weight: bold;
   width: 100%;
+
+  font-family: "Pretendard", sans-serif;
+  color: #000000;
+  font-size: 18px;
+  font-weight: bold;
 }
 .MBTIMaker-choose-button.selected {
   display: flex;
   align-items: center;
-  background-color: #ff775e;
+  background-color: #ff775e; /* Existing background color */
+  border: 1px solid rgba(255, 119, 94, 0.8); /* Updated border color with 0.8 opacity */
   border-radius: 32px;
   margin-bottom: 12px;
-  font-size: 20px;
-  font-weight: bold;
   width: 100%;
+
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+
+  box-shadow: inset 2px 2px 10px rgba(255, 119, 94, 0.5),
+    /* Inner shadow with color #FF775E at 50% opacity */ inset 0px 4px 10px
+      rgba(0, 0, 0, 0.15),
+    /* Inner shadow with color #000000 at 15% opacity */ inset 4px 4px 15px
+      rgba(0, 0, 0, 0.2); /* Inner shadow with color #000000 at 20% opacity */
 }
+
 .MBTIMaker-button-title {
   display: flex;
   justify-content: center;
@@ -56,4 +79,6 @@
   font-size: 20px;
   font-weight: bold;
   margin-left: 60%;
+
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
