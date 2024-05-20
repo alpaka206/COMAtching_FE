@@ -14,10 +14,16 @@ import ContactMethod from "../components/ContactMethod";
 import GenderSelect from "../components/GenderSelect";
 import MBTISection from "../components/MBTISection";
 import hobbyIcons from "../data/hobbyIcons";
+import AgreementBox from "../components/AgreementBox";
+import Agreement from "../components/Agreement";
 
 function Form() {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
+  const [registerCheck, setRegisterCheck] = useState({
+    showregister: false,
+    check: false,
+  });
   const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState);
   const [checkMethod, setCheckMethod] = useState({
     department: "",
@@ -34,8 +40,9 @@ function Form() {
         setUser((prevUser) => ({ ...prevUser, contact_id_Verified: true }));
         break;
       case "song":
-        if (!/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,11}$/.test(value)) {
-          errorMessage = "노래에는 특수 기호를 사용할 수 없습니다";
+        if (!/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,20}$/.test(value)) {
+          errorMessage =
+            "노래에는 특수 기호를 사용할 수 없고 20자리 이내로 작성해주세요";
         }
         break;
       default:
@@ -52,7 +59,7 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // 입력값 유효성 검사
-    if (!validateForm(user)) {
+    if (!validateForm(user, registerCheck)) {
       return;
     }
 
@@ -93,6 +100,14 @@ function Form() {
       } else if (response.data.status === 200) {
         const token = response.data.data.update_token;
         localStorage.setItem("token", token);
+
+        document.cookie.split(";").forEach((cookie) => {
+          const [name] = cookie.split("=");
+          document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+        });
+
+        document.cookie = `token=${token};path=/;`;
+        alert("가입이 완료되었습니다.");
         navigate("/");
       } else {
         // 등록 실패 시 오류 메시지 표시
@@ -227,7 +242,7 @@ function Form() {
                   name="song"
                   value={user.song}
                   onChange={handleChange}
-                  placeholder="ex) Antifreeze"
+                  placeholder="ex) SPOT!"
                   className="song-input"
                 />
               </div>
@@ -241,15 +256,18 @@ function Form() {
                   name="comment"
                   value={user.comment}
                   onChange={handleChange}
-                  placeholder="상대에게 전하고 싶은 말을 자유롭게 작성해 주세요"
+                  placeholder="상대에게 전하고 싶은 말을 11자 이내로 작성해 주세요"
                   className="comment-input"
                 />
               </div>
             </label>
           </div>
-
+          <Agreement
+            registerCheck={registerCheck}
+            setRegisterCheck={setRegisterCheck}
+          />
           {/* <button type="submit-button" disabled={!isContactVerified}> */}
-          <button className="submit-button">다음으로</button>
+          <button className="submit-button">코매칭 시작하기</button>
         </div>
       </form>
     </div>

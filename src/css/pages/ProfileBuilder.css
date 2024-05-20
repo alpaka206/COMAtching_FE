@@ -1,22 +1,35 @@
 .ProfileBuilder {
-  text-align: center;
-  background: #ffffff;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.8);
   width: calc(95% - 48px);
   display: inline-block;
   border-radius: 16px;
   margin-bottom: 8px;
-  text-align: left;
-  padding: 20px 24px 20px 24px;
+  padding: 20px 24px;
+
+  backdrop-filter: blur(100px); /* Background Blur */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); /* Drop Shadow */
+  border: 1px solid rgba(255, 255, 255, 0.8); /* Solid Stroke */
+
+  font-family: "Pretendard", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
 }
+
 .ProfileBuilder-answer {
-  text-align: center;
+  text-align: left;
   background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
   width: calc(95% - 48px);
   display: inline-block;
   border-radius: 16px;
   margin-bottom: 8px;
-  text-align: left;
   padding: 20px 24px 20px 24px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); /* Drop Shadow */
+
+  font-family: "Pretendard", sans-serif; /* Pretendard font */
+  font-weight: bold; /* Bold font weight */
+  font-size: 16px; /* Font size of 18px */
+  color: white; /* Font color white */
 }
 .chat-message {
   margin-top: 25px;
@@ -30,6 +43,7 @@
 .Answer-box {
   height: 250px;
 }
+
 .ProfileMaker {
   text-align: center;
   background: #d3b5b5;

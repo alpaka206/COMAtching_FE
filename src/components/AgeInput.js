@@ -27,7 +27,7 @@ function AgeInput({ value, onChange }) {
           value={value}
           onChange={onChange}
           onBlur={handleBlur}
-          placeholder="20~29살만 참여 가능합니다 ex) 20"
+          placeholder="20~29살만 참여 가능합니다 만나이 🙅‍♂️"
         />
       </div>
     </Fragment>

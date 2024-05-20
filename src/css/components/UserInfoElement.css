@@ -13,6 +13,10 @@
   color: #000000;
   text-align: left;
   margin-top: 7px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .User-Info__Element__Items {

@@ -11,6 +11,7 @@
   margin-bottom: 20px;
   position: relative;
   padding: 38px 35px;
+  backdrop-filter: blur(12px);
 }
 .MatchResult-Topic {
   font-size: 36px;

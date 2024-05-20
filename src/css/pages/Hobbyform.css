@@ -13,6 +13,10 @@
   align-items: center;
   border: 0;
   background-color: transparent;
+
+  font-family: "Pretendard", sans-serif;
+  font-weight: bold;
+  color: black;
 }
 
 .hobby-item img {

@@ -13,12 +13,19 @@ import MyInfoButton from "../components/MyInfoButton";
 
 function MainpageLogin() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useRecoilState(userState);
   const [isClicked, setIsClicked] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    numParticipants: 0,
-    leftPoint: 0,
-    Pickme: 0,
+    numParticipants: null,
+    leftPoint: null,
+    Pickme: null,
+    major: null,
+    age: null,
+    contact_id: null,
+    contact_frequency: null,
+    mbti: null,
+    hobby: [],
+    song: null,
+    comment: null,
   });
 
   const handleToggleClick = () => {
@@ -26,50 +33,47 @@ function MainpageLogin() {
   };
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "https://catholic-mibal.site/user/main",
+          "https://catholic-mibal.site/account/user/main",
           {
             headers: {
               Authorization: token,
             },
           }
         );
+        console.log(response);
         if (
           response.data.code === "SEC-001" ||
           response.data.code === "SEC-002"
         ) {
           localStorage.removeItem("token");
-          navigate("/");
-        } else if (response.data.status === 200) {
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            major: response.data.major,
-            age: response.data.age,
-            contact_id: response.data.contact_id,
-            gender: response.data.gender,
-            contact_frequency: response.data.contact_frequency,
-            mbti: response.data.mbti,
-            hobby: response.data.hobby,
-            song: response.data.song,
-            comment: response.data.comment,
-          }));
+        } else if (response.status === 200) {
           setUserInfo((prev) => ({
             ...prev,
-            numParticipants: response.data.participations,
-            leftPoint: response.data.left_point,
-            Pickme: response.data.pick_me,
+            numParticipants: response.data.data.participation,
+            leftPoint: response.data.data.left_point,
+            Pickme: response.data.data.pick_me,
+            major: response.data.data.major,
+            age: response.data.data.age,
+            contact_id: response.data.data.contact_id,
+            contact_frequency: response.data.data.contact_frequency,
+            mbti: response.data.data.mbti,
+            hobby: response.data.data.hobby_list,
+            song: response.data.data.song,
+            comment: response.data.data.comment,
           }));
         }
       } catch (error) {
-        console.error("Error fetching user details:", error);
+        console.error("Error fetching data:", error);
+        // Handle errors if needed
       }
     };
 
-    fetchUserDetails();
-  });
+    fetchData(); // Call the async function immediately
+  }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
 
   const handleVisitGuide = () => {
     navigate("/guide");
@@ -81,23 +85,39 @@ function MainpageLogin() {
     // navigate("/checkresult");
     alert("5월 22일에 열릴예정입니다!");
   };
+  const handleLogout = () => {
+    // Remove token from localStorage
+    localStorage.removeItem("token");
+
+    // Clear all cookies
+    document.cookie.split(";").forEach((cookie) => {
+      const [name] = cookie.split("=");
+      document.cookie = `${name.trim()}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    });
+
+    // Navigate to the home page
+    window.location.reload();
+  };
 
   return (
     <div className="container">
       <HeaderNav />
       <div className="Mainpage__Login">
         <UserInfoRrev
-          user={formData}
-          ifMainpage={true}
+          user={userInfo}
+          // ifMainpage={true}
           numParticipants={userInfo.numParticipants}
         />
         <div>
           <button
             className="matching-button"
-            /*onClick={handleClickmatch}*/ onClick={handleVisitGuide}
+            /*onClick={handleClickmatch}*/ onClick={handleVisitcheckresult}
           >
             AI 매칭하기 ▶
-            <TotalUsersCounter font_size="15px" />
+            <TotalUsersCounter
+              font_size="15px"
+              numParticipants={userInfo.numParticipants}
+            />
           </button>
         </div>
         <div className="button-group">
@@ -109,7 +129,7 @@ function MainpageLogin() {
           <MyInfoButton
             imgSrc={`assets/heart.svg`}
             infoText={`${userInfo.Pickme}회`}
-            buttonText="나를 뽑을 횟수"
+            buttonText="내가 뽑힐 횟수"
           />
         </div>
 
@@ -121,7 +141,7 @@ function MainpageLogin() {
                 className="charge-request-clicked-img"
                 type="button"
                 // onClick={handleToggleClick}
-                onClick={handleVisitGuide}
+                onClick={handleVisitcheckresult}
               >
                 <img
                   src={process.env.PUBLIC_URL + `assets/arrowup.svg`}
@@ -145,7 +165,8 @@ function MainpageLogin() {
             <button
               className="charge-request-unclicked-img"
               type="button"
-              onClick={handleToggleClick}
+              //onClick={handleToggleClick}
+              onClick={handleVisitcheckresult}
             >
               <img
                 src={process.env.PUBLIC_URL + `assets/arrowbottom.svg`}
@@ -177,7 +198,7 @@ function MainpageLogin() {
             buttonText="설문조사"
           />
           <BottomNavButton
-            onClick={handleVisitGuide}
+            onClick={handleLogout}
             imgSrc={`assets/logout.svg`}
             imgText="로그아웃"
             buttonText="로그아웃"

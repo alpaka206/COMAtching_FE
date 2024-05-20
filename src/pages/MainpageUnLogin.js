@@ -8,7 +8,7 @@ import axios from "axios";
 
 function MainpageUnLogin() {
   const navigate = useNavigate();
-  const [numParticipants, setNumParticipants] = useState(0);
+  const [numParticipants, setNumParticipants] = useState(null);
   const handleLogin = () => {
     window.location.href =
       "https://catholic-mibal.site/oauth2/authorization/kakao";
@@ -18,33 +18,37 @@ function MainpageUnLogin() {
     navigate("/guide");
   };
 
-  // useEffect(() => {
-  //   const fetchParticipants = async () => {
-  //     try {
-  //       const token = localStorage.getItem("token");
+  useEffect(() => {
+    const fetchParticipants = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-  //       const response = await axios.get(
-  //         "https://catholic-mibal.site/participation",
-  //         {
-  //           headers: {
-  //             Authorization: `${token}`,
-  //           },
-  //         }
-  //       );
-  //       setNumParticipants(response.data.data.participations);
-  //     } catch (error) {
-  //       console.error("Error fetching participants:", error);
-  //     }
-  //   };
+        const response = await axios.get(
+          "https://catholic-mibal.site/participation/count",
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+        console.log(response);
+        setNumParticipants(response.data.participation);
+      } catch (error) {
+        console.error("Error fetching participants:", error);
+      }
+    };
 
-  //   fetchParticipants();
-  // }, [setNumParticipants]);
+    fetchParticipants();
+  }, [setNumParticipants]);
   return (
     <div className="container">
       <HeaderNav />
       <div className="content">
         <div className="bubble-counter">
-          {/* <TotalUsersCounter font_size="16px" numParticipants={numParticipants}/> */}
+          <TotalUsersCounter
+            font_size="16px"
+            numParticipants={numParticipants}
+          />
         </div>
         <img
           src={process.env.PUBLIC_URL + `assets/helloemoji.svg`}
@@ -69,11 +73,11 @@ function MainpageUnLogin() {
           />
         </div>
 
-        <h1>
+        <div className="welcome">
           캠퍼스의 설렘,
           <br />
           코매칭에서 만나보세요!
-        </h1>
+        </div>
         <div className="bubble">⚡️10초만에 빠른 가입⚡️</div>
         <button className="kakao-login" onClick={handleLogin}>
           <div className="kakao-login-element">
