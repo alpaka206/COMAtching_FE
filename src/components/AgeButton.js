@@ -1,8 +1,8 @@
 import React from "react";
 import "../css/components/AgeButton.css";
 
-function AgeButton({ formData, value, onClick, isClickable }) {
-  const isActive = formData.includes(value);
+function AgeButton({ formData, value, onClick, isClickable, text }) {
+  const isActive = formData === value;
 
   const handleClick = () => {
     if (isClickable) {
@@ -20,7 +20,7 @@ function AgeButton({ formData, value, onClick, isClickable }) {
       onClick={handleClick}
       disabled={!isClickable}
     >
-      {value}
+      {text}
     </button>
   );
 }

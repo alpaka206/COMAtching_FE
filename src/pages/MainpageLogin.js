@@ -4,7 +4,7 @@ import axios from "axios";
 import Footer from "../components/Footer";
 import HeaderNav from "../components/HeaderNav";
 import UserInfoRrev from "../components/UserInfoRrev";
-import { userState } from "../Atoms";
+import { charge, userState } from "../Atoms";
 import "../css/pages/MainpageLogin.css";
 import { useNavigate } from "react-router-dom";
 import TotalUsersCounter from "../components/TotalUsersCounter";
@@ -27,7 +27,7 @@ function MainpageLogin() {
     song: null,
     comment: null,
   });
-
+  const [chargeclick, setchargeclick] = useRecoilState(charge);
   const handleToggleClick = () => {
     setIsClicked((prevIsClicked) => !prevIsClicked);
   };
@@ -98,7 +98,26 @@ function MainpageLogin() {
     // Navigate to the home page
     window.location.reload();
   };
-
+  const handleChargeRequest = async () => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      "https://catholic-mibal.site/user/charge/request",
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    setchargeclick({
+      chargeclick: true,
+    });
+    console.log(response);
+    if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
+      localStorage.removeItem("token");
+    } else if (response.data.code === "CHR-001") {
+      alert("이미 요청되었습니다.");
+    }
+  };
   return (
     <div className="container">
       <HeaderNav />
@@ -140,8 +159,8 @@ function MainpageLogin() {
               <button
                 className="charge-request-clicked-img"
                 type="button"
-                // onClick={handleToggleClick}
-                onClick={handleVisitcheckresult}
+                onClick={handleToggleClick}
+                //onClick={handleVisitcheckresult}
               >
                 <img
                   src={process.env.PUBLIC_URL + `assets/arrowup.svg`}
@@ -150,12 +169,22 @@ function MainpageLogin() {
               </button>
             </div>
             <li className="charge-request-clicked-text">
+              입금 후 포인트 충전을 원하거나
+            </li>
+            <li className="charge-request-clicked-text">
+              포인트를 PickMe로 바꾸고 싶을때 버튼을 눌러 주세요
+            </li>
+            <li className="charge-request-clicked-text">
               요청 후에는 입금 화면과 아이디를 보여 주세요.
             </li>
             <li className="charge-request-clicked-text">
               버튼 남용 시 이용이 제한될 수 있으니 유의 바랍니다.
             </li>
-            <button className="charge-request-clicked-button">
+            <button
+              className="charge-request-clicked-button"
+              onClick={handleChargeRequest}
+              disabled={chargeclick.chargeclick}
+            >
               충전 요청하기
             </button>
           </div>
@@ -165,8 +194,8 @@ function MainpageLogin() {
             <button
               className="charge-request-unclicked-img"
               type="button"
-              //onClick={handleToggleClick}
-              onClick={handleVisitcheckresult}
+              onClick={handleToggleClick}
+              //onClick={handleVisitcheckresult}
             >
               <img
                 src={process.env.PUBLIC_URL + `assets/arrowbottom.svg`}

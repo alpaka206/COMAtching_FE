@@ -65,3 +65,8 @@
   margin-left: 27px;
   background-color: #ff775e;
 }
+.AdminRequestListElement-result_point {
+  color: red;
+  font-size: 24px;
+  font-weight: 900;
+}

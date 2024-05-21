@@ -24,11 +24,11 @@ function Redirection() {
         } else if (decoded.role === "ROLE_USER") {
           console.log("로그인 유저");
           localStorage.setItem("token", token);
-          navigate("/");
+          navigate("/main");
         } else if (decoded.role === "ROLE_ADMIN") {
           console.log("관리자");
           localStorage.setItem("token", token);
-          navigate("/");
+          navigate("/AdminLogin");
         } else {
           console.error("Unknown role:", decoded.role);
           navigate("/");

@@ -72,11 +72,11 @@
   background: #ffffff;
   border: 1px solid #ff4d61;
   border-radius: 24px;
-  padding: 4px 12px;
+  padding: 2px 12px 6px 12px;
   left: 45%;
   transform: translateX(-50%);
   display: inline-block;
-  margin-top: 16%;
+  margin-top: 12%;
 }
 
 .bubble-counter > * {

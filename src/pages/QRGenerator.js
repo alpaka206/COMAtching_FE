@@ -44,7 +44,7 @@ const QRGenerator = () => {
       <HeaderNav />
       <div className="content">
         <div className="QRGenerator">
-          <QRCode value={`https://comatest.web.app/${hashCode}`} />
+          <QRCode value={`https://cuk-comatching.web.app/${hashCode}`} />
         </div>
         <button className="QRGenerator-Button" onClick={() => navigate("/")}>
           코매칭 시작하기!

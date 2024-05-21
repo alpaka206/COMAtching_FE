@@ -11,9 +11,6 @@ function ContactMethodInput({ handleChange, user, setUser }) {
       ? user.contact_id.slice(1)
       : user.contact_id;
     const contact = user.contact;
-    console.log("token : ", user.token);
-    console.log("contactId : ", contactId);
-    console.log("contact : ", contact);
     const response = await axios.get(
       `https://catholic-mibal.site/account/contact/duplication?contactId=${contactId}&contactType=${contact}`,
       {
@@ -22,11 +19,6 @@ function ContactMethodInput({ handleChange, user, setUser }) {
         },
       }
     );
-    console.log("response : ", response);
-    console.log("response data : ", response.data);
-    console.log("response data status: ", response.data.status);
-    console.log("response data code: ", response.data.code);
-    console.log("response duplication : ", response.data.data.is_duplication);
     if (
       response.data.code[0] === "SEC-001" ||
       response.data.code[0] === "SEC-002"
@@ -34,9 +26,7 @@ function ContactMethodInput({ handleChange, user, setUser }) {
       localStorage.removeItem("token");
       navigate("/");
     } else if (response.data.status === 200) {
-      console.log("duplication : ", response.data.data.is_duplication);
       const duplication = response.data.data.is_duplication;
-      console.log("duplication test : ", duplication);
       return duplication;
     } else {
       throw new Error("Unexpected response code or status");
