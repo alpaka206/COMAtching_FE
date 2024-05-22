@@ -24,7 +24,6 @@ function AdminRequestList() {
             },
           }
         );
-        console.log(response);
         if (
           response.data.code === "SEC-001" ||
           response.data.code === "SEC-002"
@@ -49,7 +48,6 @@ function AdminRequestList() {
     fetchData();
   }, []);
 
-  const filteredRequests = requests.filter((request) => !request.isChecked);
   return (
     <div className="AdminRequestList">
       <div className="content">
@@ -58,13 +56,16 @@ function AdminRequestList() {
           유저로부터 이름, 아이디, 입금 내역 확인해서 그만큼 충전
         </div>
         <div className="AmdinRequestListBox">
-          {filteredRequests.map((request, index) => (
-            <AdminRequestListContainer
-              key={index}
-              request={request}
-              setRequests={setRequests}
-            />
-          ))}
+          {requests.map(
+            (request, index) =>
+              !request.isChecked && (
+                <AdminRequestListContainer
+                  key={index}
+                  request={request}
+                  setRequests={setRequests}
+                />
+              )
+          )}
           {/* map 함수를 사용하여 각 요청 정보를 처리 */}
           {/* {requests.map((request, index) => (
             <AdminRequestListContainer

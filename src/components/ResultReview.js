@@ -12,42 +12,50 @@ const blackStarStyles = {
 function ResultReview({ user, setIsReview }) {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
-  const handleReviewSubmit = () => {
+  const handleReviewSubmit = async () => {
     const FormData = {
-      comatch_history_id: user.comatch_history_id,
+      history_id: user.history_id,
       grade: score,
     };
 
-    console.log(FormData);
     const token = localStorage.getItem("token");
-    const response = axios.post(
-      "https://catholic-mibal.site/admin/manage/charge",
-      FormData,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-    console.log(response);
-    if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
-      localStorage.removeItem("token");
-      navigate("/");
-    } else if (response.data.status === 200) {
-      setIsReview((prev) =>
-        prev.map((item) =>
-          item.comatch_history_id === user.comatch_history_id
-            ? { ...item, isFeedback: "COMPLETE" }
-            : item
-        )
+    try {
+      const response = await axios.post(
+        "https://catholic-mibal.site/user/comatch/feedback",
+        FormData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       );
+
+      if (
+        response.data.code === "SEC-001" ||
+        response.data.code === "SEC-002"
+      ) {
+        localStorage.removeItem("token");
+        navigate("/");
+      } else if (response.data.status === 200) {
+        setIsReview((prev) =>
+          prev.map((item) =>
+            item.history_id === user.history_id
+              ? { ...item, feedback_state: "COMPLETE" }
+              : item
+          )
+        );
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
     <div className="ResultReview">
       <div className="ResultReview-text">
         <div className="ResultReview-text-top">
-          <div className="ResultReview-text-username">{user.contact_id}</div>
+          <div className="ResultReview-text-username">
+            {user.enemy_info.contact_id}
+          </div>
           님에 대한
         </div>
         ComatchingAI의 매칭은 어떠셨나요?

@@ -44,7 +44,6 @@ function MainpageLogin() {
             },
           }
         );
-        console.log(response);
         if (
           response.data.code === "SEC-001" ||
           response.data.code === "SEC-002"
@@ -75,6 +74,9 @@ function MainpageLogin() {
     fetchData(); // Call the async function immediately
   }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
 
+  const handleNotService = () => {
+    alert("23일에 다시 서비스합니다!");
+  };
   const handleVisitGuide = () => {
     navigate("/guide");
   };
@@ -82,8 +84,7 @@ function MainpageLogin() {
     navigate("/QRGenerator");
   };
   const handleVisitcheckresult = () => {
-    // navigate("/checkresult");
-    alert("5월 22일에 열릴예정입니다!");
+    navigate("/checkresult");
   };
   const handleLogout = () => {
     // Remove token from localStorage
@@ -111,7 +112,6 @@ function MainpageLogin() {
     setchargeclick({
       chargeclick: true,
     });
-    console.log(response);
     if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
       localStorage.removeItem("token");
     } else if (response.data.code === "CHR-001") {
@@ -127,11 +127,11 @@ function MainpageLogin() {
           // ifMainpage={true}
           numParticipants={userInfo.numParticipants}
         />
-        <div>
-          <button
-            className="matching-button"
-            /*onClick={handleClickmatch}*/ onClick={handleVisitcheckresult}
-          >
+        <div
+          //onClick={handleClickmatch}
+          onClick={handleNotService}
+        >
+          <button className="matching-button">
             AI 매칭하기 ▶
             <TotalUsersCounter
               font_size="15px"
@@ -159,8 +159,8 @@ function MainpageLogin() {
               <button
                 className="charge-request-clicked-img"
                 type="button"
-                onClick={handleToggleClick}
-                //onClick={handleVisitcheckresult}
+                onClick={handleNotService}
+                //onClick={handleToggleClick}
               >
                 <img
                   src={process.env.PUBLIC_URL + `assets/arrowup.svg`}
@@ -182,7 +182,8 @@ function MainpageLogin() {
             </li>
             <button
               className="charge-request-clicked-button"
-              onClick={handleChargeRequest}
+              //onClick={handleChargeRequest}
+              onClick={handleNotService}
               disabled={chargeclick.chargeclick}
             >
               충전 요청하기
@@ -194,8 +195,8 @@ function MainpageLogin() {
             <button
               className="charge-request-unclicked-img"
               type="button"
-              onClick={handleToggleClick}
-              //onClick={handleVisitcheckresult}
+              // onClick={handleToggleClick}
+              onClick={handleNotService}
             >
               <img
                 src={process.env.PUBLIC_URL + `assets/arrowbottom.svg`}
@@ -207,7 +208,8 @@ function MainpageLogin() {
 
         <div className="button-group">
           <BottomNavButton
-            onClick={handleVisitcheckresult}
+            //onClick={handleVisitcheckresult}
+            onClick={handleNotService}
             imgSrc={`assets/checkresult.svg`}
             imgText="조회버튼"
             buttonText="조회하기"
@@ -221,7 +223,8 @@ function MainpageLogin() {
         </div>
         <div className="button-group">
           <BottomNavButton
-            onClick={handleVisitcheckresult}
+            //onClick={handleVisitcheckresult}
+            onClick={handleNotService}
             imgSrc={`assets/survey.svg`}
             imgText="설문조사"
             buttonText="설문조사"

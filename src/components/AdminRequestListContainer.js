@@ -11,16 +11,15 @@ function AdminRequestListContainer({ request, setRequests }) {
     add_pick_me: 0,
     result_point: request.point,
   });
-  const handleAdminSubmit = () => {
+  const handleAdminSubmit = async () => {
     const FormData = {
       add_point: value.add_point,
       add_pick_me: value.add_pick_me,
       result_point: value.result_point,
       contact_id: request.contact_id,
     };
-    console.log(FormData);
     const token = localStorage.getItem("token");
-    const response = axios.post(
+    const response = await axios.post(
       "https://catholic-mibal.site/admin/manage/charge",
       FormData,
       {
@@ -29,36 +28,41 @@ function AdminRequestListContainer({ request, setRequests }) {
         },
       }
     );
-    console.log(response);
+    console.log(request);
     if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
       localStorage.removeItem("token");
       navigate("/");
     } else if (response.data.status === 200) {
-      setRequests((prev) => ({
-        ...prev,
-        isChecked: true,
-      }));
+      setRequests((prev) =>
+        prev.map((item) =>
+          item.contact_id === request.contact_id
+            ? { ...item, isChecked: true }
+            : item
+        )
+      );
     }
   };
-  const handleChargeDelete = () => {
+  const handleChargeDelete = async () => {
     const token = localStorage.getItem("token");
-    const response = axios.get(
-      "https://catholic-mibal.site/admin/manage/main",
+    const response = await axios.get(
+      `https://catholic-mibal.site/admin/manage/delete?contactId=${request.contact_id}`,
       {
         headers: {
           Authorization: token,
         },
       }
     );
-    console.log(response);
     if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
       localStorage.removeItem("token");
       navigate("/");
     } else if (response.data.status === 200) {
-      setRequests((prev) => ({
-        ...prev,
-        isChecked: true,
-      }));
+      setRequests((prev) =>
+        prev.map((item) =>
+          item.contact_id === request.contact_id
+            ? { ...item, isChecked: true }
+            : item
+        )
+      );
     }
   };
 
@@ -123,7 +127,7 @@ function AdminRequestListContainer({ request, setRequests }) {
         <div className="AdminRequestListElement-result_point">
           총 잔액 :{value.result_point}
         </div>
-        <button /*onClick={handleChargeDelete}*/>X</button>
+        <button onClick={handleChargeDelete}>X</button>
       </div>
 
       <div className="AdminRequestListItem">

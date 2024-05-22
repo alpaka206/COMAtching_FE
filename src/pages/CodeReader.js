@@ -31,13 +31,12 @@ const CodeReader = () => {
     } else if (response.data.status === 200) {
       setCodeState((prev) => ({
         ...prev,
-        balance: response.data.data.current_point,
+        balance: response.data.data.currentPoint,
         formData: {
           ...prev.formData,
           match_code: hashCode,
         },
       }));
-      console.log(codeState);
       navigate("/match");
     } else {
       throw new Error("Unexpected response code or status");

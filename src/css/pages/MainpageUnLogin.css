@@ -134,10 +134,14 @@
   justify-content: center;
 }
 .mainpage-unlogin-userimage {
-  width: 100%;
+  width: 80%;
+  height: auto;
+  padding-top: 30px;
 }
 .mainpage-unlogin-logoimage {
-  width: 100%;
+  width: 75%;
+  height: auto;
+  margin-top: 20px;
 }
 
 .help-text {

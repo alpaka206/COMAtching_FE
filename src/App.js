@@ -1,6 +1,5 @@
 import React from "react";
 import { RecoilRoot } from "recoil";
-import Fix from "./pages/Fix";
 import Mainpage from "./pages/Mainpage";
 import Form from "./pages/Form";
 import Hobbyform from "./pages/Hobbyform";
@@ -26,8 +25,7 @@ function App() {
         <OpenExternalBrowser />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Fix />} />
-            <Route path="/main" element={<Mainpage />} />
+            <Route path="/" element={<Mainpage />} />
             <Route path="/Form" element={<Form />} />
             <Route path="/Hobby" element={<Hobbyform />} />
             <Route path="/Guide" element={<Guide />} />

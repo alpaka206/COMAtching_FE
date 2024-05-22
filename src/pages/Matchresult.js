@@ -15,50 +15,49 @@ function Matchresult() {
     navigate("/match");
   };
   const handleSubmit = async () => {
-    console.log(MatchState);
     if (MatchState.balance < MatchState.point) {
       alert("돈이 부족합니다");
       return false;
     }
-    // try {
-    //   const token = localStorage.getItem("token");
-    //   const response = await axios.post(
-    //     "https://catholic-mibal.site//comatching/match",
-    //     MatchState,
-    //     {
-    //       headers: {
-    //         Authorization: token,
-    //       },
-    //     }
-    //   );
-    //   if (
-    //     response.data.code[0] === "SEC-001" ||
-    //     response.data.code[0] === "SEC-002"
-    //   ) {
-    //     localStorage.removeItem("token");
-    //     navigate("/");
-    //   } else if (response.data.status === 200) {
-    //     setMatchPageResult({
-    //       major: response.data.data.major,
-    //       age: response.data.data.age,
-    //       hobby: response.data.data.hobby,
-    //       mbti: response.data.data.mbti,
-    //       song: response.data.data.song,
-    //       contactFrequency: response.data.data.contactFrequency,
-    //       contactId: response.data.data.contactId,
-    //       word: response.data.data.word,
-    //       });
-    // setMatchState((prev) => ({
-    //   ...prev,
-    //   balance: response.data.data.currentPoint,
-    // }));
-    //     navigate("/loading");
-    //   } else {
-    //     throw new Error("Unexpected response code or status");
-    //   }
-    // } catch (error) {
-    //   console.error("Error during match request", error);
-    // }
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "https://catholic-mibal.site/comatching/match",
+        MatchState.formData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (
+        response.data.code[0] === "SEC-001" ||
+        response.data.code[0] === "SEC-002"
+      ) {
+        localStorage.removeItem("token");
+        navigate("/");
+      } else if (response.data.status === 200) {
+        setMatchResult({
+          major: response.data.data.major,
+          age: response.data.data.age,
+          hobby: response.data.data.hobby,
+          mbti: response.data.data.mbti,
+          song: response.data.data.song,
+          contactFrequency: response.data.data.contactFrequency,
+          contactId: response.data.data.contactId,
+          word: response.data.data.word,
+        });
+        setMatchState((prev) => ({
+          ...prev,
+          balance: response.data.data.currentPoint,
+        }));
+        navigate("/loading");
+      } else {
+        throw new Error("Unexpected response code or status");
+      }
+    } catch (error) {
+      console.error("Error during match request", error);
+    }
   };
   const handleMatchLogo = () => {
     setMatchState({
@@ -165,6 +164,10 @@ function Matchresult() {
                 <div className="MatchResult-Text">
                   {MatchResult.contactFrequency}
                 </div>
+              </div>
+              <div className="MatchResult-Frequency">
+                <div className="MatchResult-Topic">| 성별</div>
+                <div className="MatchResult-Text">{MatchResult.gender}</div>
               </div>
               <div className="MatchResult-Contact">
                 <div className="MatchResult-Topic">

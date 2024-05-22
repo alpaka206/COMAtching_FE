@@ -20,7 +20,6 @@ const QRGenerator = () => {
             },
           }
         );
-        console.log(response);
         if (
           response.data.code === "SEC-001" ||
           response.data.code === "SEC-002"
@@ -32,11 +31,10 @@ const QRGenerator = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle errors if needed
       }
     };
 
-    fetchData(); // Call the async function immediately
+    fetchData();
   }, []);
 
   return (

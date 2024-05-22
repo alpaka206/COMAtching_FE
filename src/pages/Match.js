@@ -15,7 +15,6 @@ function Match() {
   const [MatchState, setMatchState] = useRecoilState(MatchPickState);
   const [matchPageResult, setMatchPageResult] =
     useRecoilState(MatchResultState);
-  // const [isUseOption, setIsUseOption] = useState([false, false, false, false]);
 
   const handleMBTISelection = (value) => {
     const category =
@@ -68,7 +67,6 @@ function Match() {
     const aiOptionCount = MatchState.isUseOption.filter(
       (option) => option
     ).length;
-    // Make the function async
     const updatedFormData = {
       ...MatchState.formData,
       mbti: MatchState.selectedMBTI.join(""),
@@ -95,46 +93,46 @@ function Match() {
       formData: updatedFormData,
     }));
     console.log(updatedFormData);
-    navigate("/loading");
-    // try {
-    //   const token = localStorage.getItem("token");
-    //   const response = await axios.post(
-    //     "https://catholic-mibal.site//comatching/match",
-    //     updatedFormData,
-    //     {
-    //       headers: {
-    //         Authorization: token,
-    //       },
-    //     }
-    //   );
-    //   if (
-    //     response.data.code[0] === "SEC-001" ||
-    //     response.data.code[0] === "SEC-002"
-    //   ) {
-    //     localStorage.removeItem("token");
-    //     navigate("/");
-    //   } else if (response.data.status === 200) {
-    //     setMatchPageResult({
-    //       major: response.data.data.major,
-    //       age: response.data.data.age,
-    //       hobby: response.data.data.hobby,
-    //       mbti: response.data.data.mbti,
-    //       song: response.data.data.song,
-    //       contactFrequency: response.data.data.contactFrequency,
-    //       contactId: response.data.data.contactId,
-    //       word: response.data.data.word,
-    //     });
-    // setMatchState((prev) => ({
-    //   ...prev,
-    //   balance: response.data.data.currentPoint,
-    // }));
-    //     navigate("/loading");
-    //   } else {
-    //     throw new Error("Unexpected response code or status");
-    //   }
-    // } catch (error) {
-    //   console.error("Error during match request", error);
-    // }
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "https://catholic-mibal.site/comatching/match",
+        updatedFormData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (
+        response.data.code[0] === "SEC-001" ||
+        response.data.code[0] === "SEC-002"
+      ) {
+        localStorage.removeItem("token");
+        navigate("/");
+      } else if (response.data.status === 200) {
+        setMatchPageResult({
+          major: response.data.data.major,
+          age: response.data.data.age,
+          hobby: response.data.data.hobby,
+          mbti: response.data.data.mbti,
+          song: response.data.data.song,
+          contactFrequency: response.data.data.contactFrequency,
+          contactId: response.data.data.contactId,
+          word: response.data.data.word,
+          gender: response.data.data.gender,
+        });
+        setMatchState((prev) => ({
+          ...prev,
+          balance: response.data.data.currentPoint,
+        }));
+        navigate("/loading");
+      } else {
+        throw new Error("Unexpected response code or status");
+      }
+    } catch (error) {
+      console.error("Error during match request", error);
+    }
   };
   const handleAgeSelection = (value, location) => {
     setMatchState((prev) => ({
@@ -153,18 +151,8 @@ function Match() {
         i === index ? !option : option
       ),
     }));
-    // if (index === 3) {
-    //   setMatchState((prev) => ({
-    //     ...prev,
-    //     formData: {
-    //       ...prev.formData,
-    //       no_same_major_option: !prev.formData.no_same_major_option,
-    //     },
-    //   }));
-    // }
   };
   const handleHobbyClick = (index) => {
-    // 이미 선택한 취미인지 확인
     const isAlreadySelected = MatchState.formData.hobby_option.includes(index);
     const updatedHobbies = isAlreadySelected
       ? MatchState.formData.hobby_option.filter((hobby) => hobby !== index)
@@ -179,7 +167,6 @@ function Match() {
         hobby_option: updatedHobbies,
       },
     }));
-    console.log(updatedHobbies);
   };
   const handleMatchLogo = () => {
     setMatchState({
@@ -454,7 +441,7 @@ function Match() {
               <div>
                 <div className="match-title-text">같은과는 싫어요</div>
                 <div className="match-title-inst-txt">
-                  과 cc를 피할 수 있어요
+                  과 CC를 피할 수 있어요
                 </div>
               </div>
               <div className="match-premium-option-right">
@@ -503,12 +490,6 @@ function Match() {
         </button>
         <Footer />
       </div>
-      {/* ) : (
-        <>
-          {alarmUrl()}
-          <Mainpage />
-        </>
-      )} */}
     </div>
   );
 }
