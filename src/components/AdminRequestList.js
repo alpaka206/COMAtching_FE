@@ -1,21 +1,52 @@
 // AdminRequestList.js
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/components/AdminRequestList.css";
 import AdminRequestListContainer from "./AdminRequestListContainer";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { adminRequests } from "../Atoms";
 
 function AdminRequestList() {
-  // 요청 정보 배열 생성
-  const requests = [
-    { userID: "winterizcoming_", reqTime: "23:09:00", userPoint: 1000 },
-    { userID: "rodo_sangjun", reqTime: "23:19:00", userPoint: 3000 },
-    { userID: "oxqnd_", reqTime: "23:29:00", userPoint: 8000 },
-    { userID: "ssj_leadpay", reqTime: "23:39:00", userPoint: 5000 },
-    { userID: "kim.q.1", reqTime: "23:49:00", userPoint: 10000 },
-    { userID: "kim.q.1", reqTime: "23:49:00", userPoint: 10000 },
-    { userID: "kim.q.1", reqTime: "23:49:00", userPoint: 10000 },
-    { userID: "kim.q.1", reqTime: "23:49:00", userPoint: 10000 },
-  ];
+  const navigate = useNavigate();
+  const [requests, setRequests] = useRecoilState(adminRequests);
+  useEffect(() => {
+    setRequests([]);
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "https://catholic-mibal.site/admin/manage/main",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (
+          response.data.code === "SEC-001" ||
+          response.data.code === "SEC-002"
+        ) {
+          localStorage.removeItem("token");
+          navigate("/");
+        } else if (response.data.status === 200) {
+          const updatedData = response.data.data.charge_request_info_list.map(
+            (item) => ({
+              ...item,
+              isChecked: false,
+            })
+          );
+          setRequests(updatedData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle errors if needed
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="AdminRequestList">
@@ -25,15 +56,24 @@ function AdminRequestList() {
           유저로부터 이름, 아이디, 입금 내역 확인해서 그만큼 충전
         </div>
         <div className="AmdinRequestListBox">
+          {requests.map(
+            (request, index) =>
+              !request.isChecked && (
+                <AdminRequestListContainer
+                  key={index}
+                  request={request}
+                  setRequests={setRequests}
+                />
+              )
+          )}
           {/* map 함수를 사용하여 각 요청 정보를 처리 */}
-          {requests.map((request, index) => (
+          {/* {requests.map((request, index) => (
             <AdminRequestListContainer
               key={index}
-              userID={request.userID}
-              reqTime={request.reqTime}
-              userPoint={request.userPoint}
+              request={request}
+              setRequests={setRequests}
             />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

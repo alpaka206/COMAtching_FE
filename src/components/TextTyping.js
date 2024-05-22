@@ -6,7 +6,6 @@ const TextTyping = ({ text, onComplete }) => {
   const [isTypingPaused, setIsTypingPaused] = useState(false);
 
   useEffect(() => {
-    console.log("teset");
     const typingInterval = setInterval(() => {
       if (isTypingPaused) {
         setIsTypingPaused(false);

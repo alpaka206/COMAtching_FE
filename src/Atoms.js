@@ -1,5 +1,15 @@
 import { atom } from "recoil";
+export const charge = atom({
+  key: "charge",
+  default: {
+    chargeclick: false,
+  },
+});
 
+export const adminRequests = atom({
+  key: "adminRequests",
+  default: [],
+});
 export const userState = atom({
   key: "userState",
   default: {
@@ -37,13 +47,16 @@ export const MatchPickState = atom({
     selectedMBTI: ["X", "X", "X", "X"],
     selectedCategory: [],
     point: 500,
-    balance: 3000,
+    balance: 1000,
+    isUseOption: [false, false, false, false],
     formData: {
-      contactRate: "",
-      age: "",
       mbti: "",
-      samemajor: false,
-      hobby: [],
+      contact_frequency_option: "",
+      hobby_option: [],
+      age_option: "",
+      match_code: "",
+      no_same_major_option: false,
+      ai_option_count: 0,
     },
   },
 });
@@ -51,44 +64,18 @@ export const MatchPickState = atom({
 export const MatchResultState = atom({
   key: "MatchResultState",
   default: {
-    generatedMajor: null,
-    generatedAge: null,
-    generatedHobby: [],
-    generatedMbti: null,
-    generatedSong: null,
-    generatedContact_Frequency: null,
-    generatedContact: null,
-    generatedContact_Id: null,
+    major: null,
+    age: null,
+    hobby: [],
+    mbti: null,
+    song: null,
+    contactFrequency: null,
+    contactId: null,
+    word: null,
   },
 });
 
-export const generatedDataState = atom({
-  key: "generatedDataState",
-  default: [
-    {
-      major: "ㅂㅂㅂ",
-      age: "111",
-      contact: "kakao",
-      contact_id: "ㅂㅂㅂ",
-      gender: "Male",
-      contact_frequency: "",
-      mbti: "ㅂㅂㅂ",
-      hobby: [],
-      song: "ㅂㅂㅂ",
-      comment: "ㅂㅂ",
-      review: false,
-    },
-    {
-      major: "ㅂㅂㅂ",
-      age: "ㅂㅂㅂ",
-      contact: "instagram",
-      contact_id: "@kim.ql",
-      contact_frequency: "ㅂㅂㅂ",
-      mbti: "ㅂㅂ",
-      hobby: [],
-      song: "ㅂㅂㅂ",
-      comment: "ㅂㅂㅂㅂ",
-      review: true,
-    },
-  ],
+export const checkresultState = atom({
+  key: "checkresultState",
+  default: [],
 });

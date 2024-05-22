@@ -79,7 +79,6 @@ function Form() {
       song: user.song,
       comment: user.comment,
     };
-    console.log(user.token);
     try {
       const response = await axios.post(
         "https://catholic-mibal.site/account/register-detail",
@@ -90,7 +89,6 @@ function Form() {
           },
         }
       );
-      console.log(response);
       if (
         response.data.code === "SEC-001" ||
         response.data.code === "SEC-002"

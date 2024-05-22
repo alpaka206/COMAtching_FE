@@ -1,73 +1,95 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { MatchResultState, MatchPickState, userState } from "../Atoms";
+import { MatchResultState, MatchPickState } from "../Atoms";
 import "./Matchresult.css";
 import { useNavigate } from "react-router-dom";
-import Mainpage from "./Mainpage";
 import axios from "axios";
 import hobbyIcons from "../data/hobbyIcons";
 
 function Matchresult() {
   const navigate = useNavigate();
-  const formData = useRecoilValue(userState);
   const [MatchState, setMatchState] = useRecoilState(MatchPickState);
   const [MatchResult, setMatchResult] = useRecoilState(MatchResultState);
-  const alarmUrl = () => {
-    alert("url강제 이동시 로그아웃 후 로그인 페이지로 이동됩니다.");
-  };
   const handleRematch = () => {
     navigate("/match");
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // const postdata = {
-    //   gender: !formData.gender,
-    //   mbti: MatchState.sortedMBTI,
-    //   passwd: formData.userEmail,
-    // };
+  const handleSubmit = async () => {
+    if (MatchState.balance < MatchState.point) {
+      alert("돈이 부족합니다");
+      return false;
+    }
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://onesons.site/match",
-        MatchState
+        "https://catholic-mibal.site/comatching/match",
+        MatchState.formData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       );
-
-      const { message, code, isSuccess, result } = response.data;
-
-      if (isSuccess === true) {
-        const {
-          major,
-          Age,
-          hobby,
-          mbti,
-          song,
-          Contact_Frequency,
-          Contact,
-          Contact_Id,
-        } = result;
+      if (
+        response.data.code[0] === "SEC-001" ||
+        response.data.code[0] === "SEC-002"
+      ) {
+        localStorage.removeItem("token");
+        navigate("/");
+      } else if (response.data.status === 200) {
         setMatchResult({
-          generatedMajor: major,
-          generatedAge: Age,
-          generatedHobby: hobby,
-          generatedMbti: mbti,
-          generatedSong: song,
-          generatedContact_Frequency: Contact_Frequency,
-          generatedContact: Contact,
-          generatedContact_Id: Contact_Id,
+          major: response.data.data.major,
+          age: response.data.data.age,
+          hobby: response.data.data.hobby,
+          mbti: response.data.data.mbti,
+          song: response.data.data.song,
+          contactFrequency: response.data.data.contactFrequency,
+          contactId: response.data.data.contactId,
+          word: response.data.data.word,
         });
+        setMatchState((prev) => ({
+          ...prev,
+          balance: response.data.data.currentPoint,
+        }));
         navigate("/loading");
       } else {
-        alert(message);
-        return;
+        throw new Error("Unexpected response code or status");
       }
-      console.log(MatchResultState);
     } catch (error) {
-      console.error("오류 발생:", error);
+      console.error("Error during match request", error);
     }
+  };
+  const handleMatchLogo = () => {
+    setMatchState({
+      selectedMBTI: ["X", "X", "X", "X"],
+      selectedCategory: [],
+      point: 500,
+      balance: null,
+      isUseOption: [false, false, false, false],
+      formData: {
+        mbti: "",
+        contact_frequency_option: "",
+        hobby_option: [],
+        age_option: "",
+        match_code: "",
+        no_same_major_option: false,
+        ai_option_count: 0,
+      },
+    });
+    setMatchResult({
+      major: null,
+      age: null,
+      hobby: [],
+      mbti: null,
+      song: null,
+      contactFrequency: null,
+      contactId: null,
+      word: null,
+    });
+    navigate("/CodeReader");
   };
   return (
     <div>
-      {/* {formData.isLoggedIn ? ( */}
       <div className="container">
         <div className="match-header">
           <div>
@@ -75,7 +97,7 @@ function Matchresult() {
               className="logo-img"
               src={process.env.PUBLIC_URL + `assets/logowhite.png`}
               alt="로고"
-              onClick={() => navigate("/")}
+              onClick={handleMatchLogo}
             />
           </div>
           <div className="match-point-remaining">
@@ -98,22 +120,18 @@ function Matchresult() {
               <div className="MatchResult-Container">
                 <div className="MatchResult-Major">
                   <div className="MatchResult-Topic">| 전공</div>
-                  <div className="MatchResult-Text">
-                    {MatchResult.generatedMajor}
-                  </div>
+                  <div className="MatchResult-Text">{MatchResult.major}</div>
                 </div>
                 <div className="MatchResult-Age">
                   <div className="MatchResult-Topic">| 나이</div>
-                  <div className="MatchResult-Text">
-                    {MatchResult.generatedAge}
-                  </div>
+                  <div className="MatchResult-Text">{MatchResult.age}</div>
                 </div>
               </div>
               <div className="MatchResult-Container">
                 <div className="MatchResult-Hobby">
                   <div className="MatchResult-Topic">| 취미</div>
                   <div className="MatchResult-Text-Hobby">
-                    {MatchResult.generatedHobby.map((hobbyLabel, index) => {
+                    {MatchResult.hobby.map((hobbyLabel, index) => {
                       const hobby = hobbyIcons.find(
                         (item) => item.label === hobbyLabel
                       );
@@ -134,29 +152,29 @@ function Matchresult() {
                 </div>
                 <div className="MatchResult-MBTI">
                   <div className="MatchResult-Topic">| MBTI</div>
-                  <div className="MatchResult-Text">
-                    {MatchResult.generatedMbti}
-                  </div>
+                  <div className="MatchResult-Text">{MatchResult.mbti}</div>
                 </div>
               </div>
               <div className="MatchResult-Song">
                 <div className="MatchResult-Topic">| 좋아하는 노래</div>
-                <div className="MatchResult-Text">
-                  {MatchResult.generatedSong}
-                </div>
+                <div className="MatchResult-Text">{MatchResult.song}</div>
               </div>
               <div className="MatchResult-Frequency">
                 <div className="MatchResult-Topic">| 연락빈도</div>
                 <div className="MatchResult-Text">
-                  {MatchResult.generatedContact_Frequency}
+                  {MatchResult.contactFrequency}
                 </div>
+              </div>
+              <div className="MatchResult-Frequency">
+                <div className="MatchResult-Topic">| 성별</div>
+                <div className="MatchResult-Text">{MatchResult.gender}</div>
               </div>
               <div className="MatchResult-Contact">
                 <div className="MatchResult-Topic">
-                  {MatchResult.generatedContact}
+                  {MatchResult.contactId[0] === "@" ? "instagram" : "kakao"}
                 </div>
                 <div className="MatchResult-Text MatchResult-Text-Contact">
-                  {MatchResult.generatedContact_Id}
+                  {MatchResult.contactId}
                 </div>
               </div>
             </div>
@@ -179,12 +197,6 @@ function Matchresult() {
         )}
         <Footer />
       </div>
-      {/* ) : (
-        <>
-          {alarmUrl()}
-          <Mainpage />
-        </>
-      )} */}
     </div>
   );
 }

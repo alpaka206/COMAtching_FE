@@ -31,7 +31,6 @@ function MainpageUnLogin() {
             },
           }
         );
-        console.log(response);
         setNumParticipants(response.data.participation);
       } catch (error) {
         console.error("Error fetching participants:", error);

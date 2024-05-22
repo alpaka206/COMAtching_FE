@@ -11,7 +11,6 @@ function Redirection() {
   useEffect(() => {
     // 쿠키에서 토큰 가져오기
     const token = new URL(window.location.href).searchParams.get("token");
-    setUserToken((prevUser) => ({ ...prevUser, token: token }));
 
     if (token) {
       const decoded = decodeJWT(token);
@@ -19,7 +18,7 @@ function Redirection() {
         // 역할 확인
         if (decoded.role === "ROLE_SOCIAL") {
           console.log("회원가입 유저");
-          // localStorage.setItem("token", token);
+          setUserToken((prevUser) => ({ ...prevUser, token: token }));
           navigate("/profilebuilder");
         } else if (decoded.role === "ROLE_USER") {
           console.log("로그인 유저");
@@ -28,7 +27,7 @@ function Redirection() {
         } else if (decoded.role === "ROLE_ADMIN") {
           console.log("관리자");
           localStorage.setItem("token", token);
-          navigate("/");
+          navigate("/AdminLogin");
         } else {
           console.error("Unknown role:", decoded.role);
           navigate("/");
@@ -54,7 +53,7 @@ function Redirection() {
     }
   };
 
-  return <div className="container">Redirection Page</div>;
+  return <div></div>;
 }
 
 export default Redirection;
