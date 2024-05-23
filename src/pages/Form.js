@@ -208,7 +208,11 @@ function Form() {
             </div>
           </div>
           <h3>MBTI</h3>
-          <MBTISection user={user.mbti} onClick={handleMBTISelection} />
+          <MBTISection
+            user={user.mbti}
+            onClick={handleMBTISelection}
+            name="form-MBTIButton"
+          />
           <div>
             <h3>취미</h3>
             <div className="form-selected-hobbies">

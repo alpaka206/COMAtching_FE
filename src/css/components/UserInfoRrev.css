@@ -16,6 +16,7 @@
 .slider {
   display: flex;
   overflow-x: auto; /* 가로 스크롤을 허용 */
+  overflow-y: hidden;
   scroll-snap-type: x mandatory; /* 가로로 스크롤할 때 스냅되도록 함 */
   scroll-behavior: smooth; /* 스크롤 애니메이션 부드럽게 */
 }
@@ -23,6 +24,10 @@
 .sliderpage {
   flex: 0 0 auto;
   width: 100%; /* 각 슬라이드 페이지의 너비를 100%로 설정 */
+}
+
+.sliderpage:nth-child(2) {
+  width: 90%; /* 두 번째 페이지의 너비를 90%로 설정 */
 }
 
 .User-Contact {
