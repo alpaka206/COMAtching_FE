@@ -19,6 +19,7 @@ function Matchresult() {
       alert("돈이 부족합니다");
       return false;
     }
+    console.log(MatchState.formData);
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -67,7 +68,7 @@ function Matchresult() {
       balance: null,
       isUseOption: [false, false, false, false],
       formData: {
-        mbti: "",
+        mbti_option: "",
         contact_frequency_option: "",
         hobby_option: [],
         age_option: "",
@@ -165,10 +166,7 @@ function Matchresult() {
                   {MatchResult.contactFrequency}
                 </div>
               </div>
-              <div className="MatchResult-Frequency">
-                <div className="MatchResult-Topic">| 성별</div>
-                <div className="MatchResult-Text">{MatchResult.gender}</div>
-              </div>
+
               <div className="MatchResult-Contact">
                 <div className="MatchResult-Topic">
                   {MatchResult.contactId[0] === "@" ? "instagram" : "kakao"}

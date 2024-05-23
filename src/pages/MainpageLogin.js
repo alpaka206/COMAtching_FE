@@ -127,10 +127,7 @@ function MainpageLogin() {
           // ifMainpage={true}
           numParticipants={userInfo.numParticipants}
         />
-        <div
-          //onClick={handleClickmatch}
-          onClick={handleNotService}
-        >
+        <div onClick={handleClickmatch}>
           <button className="matching-button">
             AI 매칭하기 ▶
             <TotalUsersCounter
@@ -159,8 +156,7 @@ function MainpageLogin() {
               <button
                 className="charge-request-clicked-img"
                 type="button"
-                onClick={handleNotService}
-                //onClick={handleToggleClick}
+                onClick={handleToggleClick}
               >
                 <img
                   src={process.env.PUBLIC_URL + `assets/arrowup.svg`}
@@ -182,8 +178,7 @@ function MainpageLogin() {
             </li>
             <button
               className="charge-request-clicked-button"
-              //onClick={handleChargeRequest}
-              onClick={handleNotService}
+              onClick={handleChargeRequest}
               disabled={chargeclick.chargeclick}
             >
               충전 요청하기
@@ -195,8 +190,7 @@ function MainpageLogin() {
             <button
               className="charge-request-unclicked-img"
               type="button"
-              // onClick={handleToggleClick}
-              onClick={handleNotService}
+              onClick={handleToggleClick}
             >
               <img
                 src={process.env.PUBLIC_URL + `assets/arrowbottom.svg`}
@@ -208,8 +202,7 @@ function MainpageLogin() {
 
         <div className="button-group">
           <BottomNavButton
-            //onClick={handleVisitcheckresult}
-            onClick={handleNotService}
+            onClick={handleVisitcheckresult}
             imgSrc={`assets/checkresult.svg`}
             imgText="조회버튼"
             buttonText="조회하기"
@@ -223,8 +216,7 @@ function MainpageLogin() {
         </div>
         <div className="button-group">
           <BottomNavButton
-            //onClick={handleVisitcheckresult}
-            onClick={handleNotService}
+            onClick={handleVisitcheckresult}
             imgSrc={`assets/survey.svg`}
             imgText="설문조사"
             buttonText="설문조사"

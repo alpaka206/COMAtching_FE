@@ -106,12 +106,13 @@ function AdminRequestListContainer({ request, setRequests }) {
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
-    if (inputValue === "" || !isNaN(inputValue)) {
-      setValue((prevState) => ({
-        ...prevState,
-        add_point: inputValue === "" ? 0 : parseInt(inputValue),
-      }));
-    }
+    // Remove any non-numeric characters, including the minus sign
+    const sanitizedValue = inputValue.replace(/[^0-9]/g, "");
+
+    setValue((prevState) => ({
+      ...prevState,
+      add_point: sanitizedValue === "" ? 0 : parseInt(sanitizedValue),
+    }));
   };
 
   return (

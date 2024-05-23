@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "../css/components/MBTIButton.css";
 
-function MBTIButton({ user, onClick, letter }) {
+function MBTIButton({ user, onClick, letter, name }) {
   const isActive = user.includes(letter);
 
   const handleClick = () => {
@@ -13,7 +13,7 @@ function MBTIButton({ user, onClick, letter }) {
     <div className="MBTIElement">
       <button
         type="button"
-        className={`MBTIButton ${isActive ? "active" : ""}`}
+        className={`${name} ${isActive ? "active" : ""}`}
         onClick={handleClick}
       >
         {letter}

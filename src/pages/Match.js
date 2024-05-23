@@ -69,7 +69,7 @@ function Match() {
     ).length;
     const updatedFormData = {
       ...MatchState.formData,
-      mbti: MatchState.selectedMBTI.join(""),
+      mbti_option: MatchState.selectedMBTI.join(""),
       ai_option_count: aiOptionCount,
       age_option: MatchState.isUseOption[0]
         ? MatchState.formData.age_option
@@ -80,14 +80,9 @@ function Match() {
       hobby_option: MatchState.isUseOption[2]
         ? MatchState.formData.hobby_option
         : ["NONE"],
-      no_same_major_option: MatchState.isUseOption[3]
-        ? MatchState.formData.no_same_major_option
-        : false,
+      no_same_major_option: MatchState.isUseOption[3] ? true : false,
       match_code: MatchState.formData.match_code,
     };
-    if (!matchValidation(MatchState, updatedFormData)) {
-      return;
-    }
     setMatchState((prev) => ({
       ...prev,
       formData: updatedFormData,
@@ -104,6 +99,7 @@ function Match() {
           },
         }
       );
+      console.log(response.data.data);
       if (
         response.data.code[0] === "SEC-001" ||
         response.data.code[0] === "SEC-002"
@@ -120,7 +116,6 @@ function Match() {
           contactFrequency: response.data.data.contactFrequency,
           contactId: response.data.data.contactId,
           word: response.data.data.word,
-          gender: response.data.data.gender,
         });
         setMatchState((prev) => ({
           ...prev,
@@ -176,7 +171,7 @@ function Match() {
       balance: null,
       isUseOption: [false, false, false, false],
       formData: {
-        mbti: "",
+        mbti_option: "",
         contact_frequency_option: "",
         hobby_option: [],
         age_option: "",
@@ -234,6 +229,7 @@ function Match() {
           <MBTISection
             user={MatchState.selectedMBTI}
             onClick={handleMBTISelection}
+            name="MBTIButton"
           />
         </div>
         <div className="matchcontent">

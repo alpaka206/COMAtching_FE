@@ -6,10 +6,21 @@
     background-position: 100% 0;
   }
 }
+
+.LoadingText {
+  font-family: "Pretendard", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #737373;
+  text-align: left;
+  margin: 56px 0px 32px 40px;
+}
+
 .LoadingBar {
   width: 90%;
   height: 300px;
   margin: auto;
+  /* padding-top: 100px; */
 }
 
 .GradientBar {
