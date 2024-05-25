@@ -19,6 +19,7 @@ function Redirection() {
         if (decoded.role === "ROLE_SOCIAL") {
           console.log("회원가입 유저");
           setUserToken((prevUser) => ({ ...prevUser, token: token }));
+          // alert("회원가입은 불가능합니다.");
           navigate("/profilebuilder");
         } else if (decoded.role === "ROLE_USER") {
           console.log("로그인 유저");
