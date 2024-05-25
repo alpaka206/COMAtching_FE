@@ -75,7 +75,7 @@ function MainpageLogin() {
   }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
 
   const handleNotService = () => {
-    alert("23일에 다시 서비스합니다!");
+    alert("서비스가 종료되었습니다.");
   };
   const handleVisitGuide = () => {
     navigate("/guide");
@@ -127,7 +127,10 @@ function MainpageLogin() {
           // ifMainpage={true}
           numParticipants={userInfo.numParticipants}
         />
-        <div onClick={handleClickmatch}>
+        <div
+          //onClick={handleClickmatch}
+          onClick={handleNotService}
+        >
           <button className="matching-button">
             AI 매칭하기 ▶
             <TotalUsersCounter
@@ -156,7 +159,8 @@ function MainpageLogin() {
               <button
                 className="charge-request-clicked-img"
                 type="button"
-                onClick={handleToggleClick}
+                //onClick={handleToggleClick}
+                onClick={handleNotService}
               >
                 <img
                   src={process.env.PUBLIC_URL + `assets/arrowup.svg`}
@@ -190,7 +194,8 @@ function MainpageLogin() {
             <button
               className="charge-request-unclicked-img"
               type="button"
-              onClick={handleToggleClick}
+              //onClick={handleToggleClick}
+              onClick={handleNotService}
             >
               <img
                 src={process.env.PUBLIC_URL + `assets/arrowbottom.svg`}

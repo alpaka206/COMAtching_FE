@@ -77,7 +77,8 @@ function MainpageUnLogin() {
           <br />
           코매칭에서 만나보세요!
         </div>
-        <div className="bubble">⚡️10초만에 빠른 가입⚡️</div>
+        {/* <div className="bubble">⚡️10초만에 빠른 가입⚡️</div> */}
+        <div className="bubble">26일 자정까지 조회하기만 가능합니다!</div>
         <button className="kakao-login" onClick={handleLogin}>
           <div className="kakao-login-element">
             <img
