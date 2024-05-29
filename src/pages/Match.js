@@ -190,7 +190,7 @@ function Match() {
       contactId: null,
       word: null,
     });
-    navigate("/CodeReader");
+    navigate("/code-reader");
   };
   return (
     <div>

@@ -12,7 +12,7 @@ const Loading = () => {
       setOffset((prevOffset) => (prevOffset < 100 ? prevOffset + 1 : -100));
     }, 15); // 1500ms / 100 steps
     const redirectTimeout = setTimeout(() => {
-      navigate("/Matchresult");
+      navigate("/match-result");
     }, 2000);
 
     return () => {

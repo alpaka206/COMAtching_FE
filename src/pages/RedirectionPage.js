@@ -20,7 +20,7 @@ function Redirection() {
           console.log("회원가입 유저");
           setUserToken((prevUser) => ({ ...prevUser, token: token }));
           // alert("회원가입은 불가능합니다.");
-          navigate("/profilebuilder");
+          navigate("/profile-builder");
         } else if (decoded.role === "ROLE_USER") {
           console.log("로그인 유저");
           localStorage.setItem("token", token);
@@ -28,7 +28,7 @@ function Redirection() {
         } else if (decoded.role === "ROLE_ADMIN") {
           console.log("관리자");
           localStorage.setItem("token", token);
-          navigate("/AdminLogin");
+          navigate("/admin-login");
         } else {
           console.error("Unknown role:", decoded.role);
           navigate("/");

@@ -12,12 +12,11 @@ import Loading from "./pages/Loading";
 import Guide from "./pages/Guide";
 import CodeReader from "./pages/CodeReader";
 import ProfileBuilder from "./pages/ProfileBuilder";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
 import QRGenerator from "./pages/QRGenerator";
 import Redirection from "./pages/RedirectionPage";
 import OpenExternalBrowser from "./OpenExternalBrowser";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
 function App() {
   return (
     <RecoilRoot>
@@ -26,18 +25,18 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Mainpage />} />
-            <Route path="/Form" element={<Form />} />
-            <Route path="/Hobby" element={<Hobbyform />} />
-            <Route path="/Guide" element={<Guide />} />
-            <Route path="/Matchresult" element={<Matchresult />} />
-            <Route path="/Match" element={<Match />} />
-            <Route path="/Checkresult" element={<Checkresult />} />
-            <Route path="/Admin" element={<Admin />} />
-            <Route path="/AdminLogin" element={<AdminLogin />} />
-            <Route path="/Loading" element={<Loading />} />
-            <Route path="/CodeReader" element={<CodeReader />} />
-            <Route path="/QRGenerator" element={<QRGenerator />} />
-            <Route path="/ProfileBuilder" element={<ProfileBuilder />} />
+            <Route path="/form" element={<Form />} />
+            <Route path="/hobby" element={<Hobbyform />} />
+            <Route path="/guide" element={<Guide />} />
+            <Route path="/match-result" element={<Matchresult />} />
+            <Route path="/match" element={<Match />} />
+            <Route path="/check-result" element={<Checkresult />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/loading" element={<Loading />} />
+            <Route path="/code-reader" element={<CodeReader />} />
+            <Route path="/QR-generator" element={<QRGenerator />} />
+            <Route path="/profile-builder" element={<ProfileBuilder />} />
             <Route path="/redirection" element={<Redirection />} />
           </Routes>
         </BrowserRouter>

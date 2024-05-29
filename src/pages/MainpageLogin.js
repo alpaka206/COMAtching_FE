@@ -81,10 +81,10 @@ function MainpageLogin() {
     navigate("/guide");
   };
   const handleClickmatch = () => {
-    navigate("/QRGenerator");
+    navigate("/QR-generator");
   };
   const handleVisitcheckresult = () => {
-    navigate("/checkresult");
+    navigate("/check-result");
   };
   const handleLogout = () => {
     // Remove token from localStorage

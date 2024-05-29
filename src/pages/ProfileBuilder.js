@@ -72,7 +72,7 @@ const ProfileBuilder = () => {
       ...prev,
       mbti: `${selectedMBTI.EI}${selectedMBTI.SN}${selectedMBTI.TF}${selectedMBTI.PJ}`,
     }));
-    navigate("/Hobby");
+    navigate("/hobby");
   };
   return (
     <div className="container">
