@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
 import HeaderNav from "../components/HeaderNav";
-import "./Checkresult.css";
+import "../css/pages/Checkresult.css";
 import { useRecoilState } from "recoil";
 import { checkresultState } from "../Atoms";
 import UserInfoRrev from "../components/UserInfoRrev";

@@ -7,7 +7,7 @@ import Match from "./pages/Match";
 import Matchresult from "./pages/Matchresult";
 import Checkresult from "./pages/Checkresult";
 import Admin from "./pages/Admin";
-import AdminLogin from "./pages/AdminLogin";
+import AdminSelect from "./pages/AdminSelect";
 import Loading from "./pages/Loading";
 import Guide from "./pages/Guide";
 import CodeReader from "./pages/CodeReader";
@@ -32,7 +32,7 @@ function App() {
             <Route path="/match" element={<Match />} />
             <Route path="/check-result" element={<Checkresult />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/admin-select" element={<AdminSelect />} />
             <Route path="/loading" element={<Loading />} />
             <Route path="/code-reader" element={<CodeReader />} />
             <Route path="/QR-generator" element={<QRGenerator />} />
