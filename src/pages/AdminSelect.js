@@ -1,9 +1,9 @@
 // import React, { useState, useEffect } from "react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../css/pages/AdminLogin.css";
+import "../css/pages/AdminSelect.css";
 
-function AdminLogin() {
+function AdminSelect() {
   const navigate = useNavigate();
   return (
     <div className="container">
@@ -19,4 +19,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default AdminSelect;

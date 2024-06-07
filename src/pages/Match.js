@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
-import "./Match.css";
+import "../css/pages/Match.css";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { MatchPickState, MatchResultState } from "../Atoms";

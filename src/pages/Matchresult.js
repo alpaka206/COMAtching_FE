@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { MatchResultState, MatchPickState } from "../Atoms";
-import "./Matchresult.css";
+import "../css/pages/Matchresult.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import hobbyIcons from "../data/hobbyIcons";
