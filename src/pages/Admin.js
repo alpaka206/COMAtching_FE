@@ -1,4 +1,4 @@
-import "./Admin.css";
+import "../css/pages/Admin.css";
 import AdminRequestList from "../components/AdminRequestList";
 
 function Admin() {
@@ -6,7 +6,6 @@ function Admin() {
     <div className="container">
       <div className="admin-content">
         <AdminRequestList />
-        {/* <AdminFixPoint /> */}
       </div>
     </div>
   );
