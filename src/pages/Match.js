@@ -9,6 +9,7 @@ import MBTISection from "../components/MBTISection";
 import AgeButton from "../components/AgeButton";
 import hobbyIcons from "../data/hobbyIcons";
 import { matchValidation } from "../myfunction/matchValidation";
+import MatchHeader from "../components/MatchHeader";
 
 function Match() {
   const navigate = useNavigate();
@@ -163,40 +164,17 @@ function Match() {
       },
     }));
   };
-  const handleMatchLogo = () => {
-    setMatchState({
-      selectedMBTI: ["X", "X", "X", "X"],
-      selectedCategory: [],
-      point: 500,
-      balance: null,
-      isUseOption: [false, false, false, false],
-      formData: {
-        mbti_option: "",
-        contact_frequency_option: "",
-        hobby_option: [],
-        age_option: "",
-        match_code: "",
-        no_same_major_option: false,
-        ai_option_count: 0,
-      },
-    });
-    setMatchPageResult({
-      major: null,
-      age: null,
-      hobby: [],
-      mbti: null,
-      song: null,
-      contactFrequency: null,
-      contactId: null,
-      word: null,
-    });
-    navigate("/code-reader");
-  };
+
   return (
     <div>
       {/* {formData.isLoggedIn ? ( */}
       <div className="container match-container">
-        <div className="match-header">
+        <MatchHeader
+          MatchState={MatchState}
+          setMatchState={setMatchState}
+          setMatchPageResult={setMatchPageResult}
+        />
+        {/* <div className="match-header">
           <div>
             <img
               className="logo-img"
@@ -210,7 +188,7 @@ function Match() {
             <img src={process.env.PUBLIC_URL + `assets/point.svg`} alt="cost" />
             {MatchState.balance}
           </div>
-        </div>
+        </div> */}
         <div className="matchcontent">
           <div className="match-title">
             <div className="match-title-text">Matching</div>
