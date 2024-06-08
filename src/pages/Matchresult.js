@@ -6,6 +6,7 @@ import "../css/pages/Matchresult.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import hobbyIcons from "../data/hobbyIcons";
+import MatchHeader from "../components/MatchHeader";
 
 function Matchresult() {
   const navigate = useNavigate();
@@ -60,39 +61,44 @@ function Matchresult() {
       console.error("Error during match request", error);
     }
   };
-  const handleMatchLogo = () => {
-    setMatchState({
-      selectedMBTI: ["X", "X", "X", "X"],
-      selectedCategory: [],
-      point: 500,
-      balance: null,
-      isUseOption: [false, false, false, false],
-      formData: {
-        mbti_option: "",
-        contact_frequency_option: "",
-        hobby_option: [],
-        age_option: "",
-        match_code: "",
-        no_same_major_option: false,
-        ai_option_count: 0,
-      },
-    });
-    setMatchResult({
-      major: null,
-      age: null,
-      hobby: [],
-      mbti: null,
-      song: null,
-      contactFrequency: null,
-      contactId: null,
-      word: null,
-    });
-    navigate("/CodeReader");
-  };
+  // const handleMatchLogo = () => {
+  //   setMatchState({
+  //     selectedMBTI: ["X", "X", "X", "X"],
+  //     selectedCategory: [],
+  //     point: 500,
+  //     balance: null,
+  //     isUseOption: [false, false, false, false],
+  //     formData: {
+  //       mbti_option: "",
+  //       contact_frequency_option: "",
+  //       hobby_option: [],
+  //       age_option: "",
+  //       match_code: "",
+  //       no_same_major_option: false,
+  //       ai_option_count: 0,
+  //     },
+  //   });
+  //   setMatchResult({
+  //     major: null,
+  //     age: null,
+  //     hobby: [],
+  //     mbti: null,
+  //     song: null,
+  //     contactFrequency: null,
+  //     contactId: null,
+  //     word: null,
+  //   });
+  //   navigate("/CodeReader");
+  // };
   return (
     <div>
       <div className="container">
-        <div className="match-header">
+        <MatchHeader
+          MatchState={MatchState}
+          setMatchState={setMatchState}
+          setMatchPageResult={setMatchResult}
+        />
+        {/* <div className="match-header">
           <div>
             <img
               className="logo-img"
@@ -106,7 +112,7 @@ function Matchresult() {
             <img src={process.env.PUBLIC_URL + `assets/point.svg`} alt="cost" />
             {MatchState.balance}
           </div>
-        </div>
+        </div> */}
         {MatchResult.generatedCode === 2002 ? (
           <div className="matchresult-content">
             <div style={{ textAlign: "center" }}>
