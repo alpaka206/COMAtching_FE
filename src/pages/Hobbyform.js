@@ -4,12 +4,12 @@ import HeaderNav from "../components/HeaderNav";
 import "../css/pages/Hobbyform.css";
 import { useRecoilState } from "recoil";
 import { userState } from "../Atoms";
-import hobbyIcons from "../data/hobbyIcons";
-
+import hobbyIcons from "../data/hobbyIcons"; // 취미 아이콘 데이터
 function Hobbyform() {
   const navigate = useNavigate();
   const [pickHobby, setPickHobby] = useRecoilState(userState);
 
+  // 제출 버튼 클릭 시 실행
   const handleSubmit = () => {
     if (pickHobby.hobby.length < 1) {
       alert("관심사를 최소 1개 이상 선택해주세요.");
@@ -18,8 +18,9 @@ function Hobbyform() {
     navigate("/form");
   };
 
+  // 취미 아이템 클릭 시 실행되는 함수
   const handleHobbyClick = (index) => {
-    // 이미 선택한 취미인지 확인
+    // 이미 선택한 취미인지, 5개 미만인지 확인
     const isAlreadySelected = pickHobby.hobby.includes(index);
     const updatedHobbies = isAlreadySelected
       ? pickHobby.hobby.filter((hobby) => hobby !== index)

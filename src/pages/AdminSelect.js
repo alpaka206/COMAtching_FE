@@ -2,7 +2,7 @@
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../css/pages/AdminSelect.css";
-
+// 충전 페이지로 갈지 뽑기 페이지로 갈지 선택하는 페이지입니다.
 function AdminSelect() {
   const navigate = useNavigate();
   return (

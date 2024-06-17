@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import MainpageUnLogin from "./MainpageUnLogin";
 import MainpageLogin from "./MainpageLogin";
 import axios from "axios";
-
+// mainpage 로그인 비로그인 페이지를 구분하기 위한 페이지입니다
+// 토큰의 유무로 확인하였으며 response를 통해 상태를 확인합니다.
 function Mainpage() {
   // 로그인 상태를 관리하기 위한 state
   const [isLoggedIn, setIsLoggedIn] = useState(false);

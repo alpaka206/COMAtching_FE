@@ -19,28 +19,31 @@ import Agreement from "../components/Agreement";
 
 function Form() {
   const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userState);
+  const [user, setUser] = useRecoilState(userState); // 유저 상태 관리
   const [registerCheck, setRegisterCheck] = useState({
+    // 약관 체크 확인
     showregister: false,
     check: false,
   });
-  const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState);
+  const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState); // 선택된 MBTI 상태 관리
   const [checkMethod, setCheckMethod] = useState({
     department: "",
     major: "",
     contactVerified: false,
   });
 
+  // 입력값 변경 시 실행되는 함수
   const handleChange = (e) => {
     const { name, value } = e.target;
     let errorMessage = "";
 
     switch (name) {
       case "contact_id":
-        setUser((prevUser) => ({ ...prevUser, contact_id_Verified: true }));
+        setUser((prevUser) => ({ ...prevUser, contact_id_Verified: true })); // 타이핑시 연락처 검사 다시하도록
         break;
       case "song":
         if (!/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,20}$/.test(value)) {
+          // 특수기호 타이핑 확인
           errorMessage =
             "노래에는 특수 기호를 사용할 수 없고 20자리 이내로 작성해주세요";
         }
@@ -56,6 +59,7 @@ function Form() {
     }
   };
 
+  // 폼 제출 시 실행되는 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
     // 입력값 유효성 검사
@@ -63,14 +67,13 @@ function Form() {
       return;
     }
 
-    // 학번을 정수형으로 변환
+    // 나이를 정수형으로 변환
     const ageAsInt = parseInt(user.age, 10);
 
     // POST 요청에 필요한 데이터 구성
     const postData = {
       major: user.major,
       age: ageAsInt,
-      // contact: user.contact,
       contact_id: user.contact_id,
       gender: user.gender,
       contact_frequency: user.contact_frequency,
@@ -108,16 +111,14 @@ function Form() {
         alert("가입이 완료되었습니다.");
         navigate("/");
       } else {
-        // 등록 실패 시 오류 메시지 표시
-        // alert(response.data.message);
         alert("가입 실패");
       }
     } catch (error) {
-      // 오류 발생 시 콘솔에 오류 로그 출력
       console.error("오류 발생:", error);
     }
   };
 
+  // MBTI 선택 시 실행되는 함수
   const handleMBTISelection = (value) => {
     const category =
       value === "E" || value === "I"
@@ -144,6 +145,7 @@ function Form() {
     }));
   };
 
+  // 연락 빈도 클릭 시 실행되는 함수
   const handleAgeClick = (value, index) => {
     setUser((prev) => ({
       ...prev,
@@ -163,7 +165,6 @@ function Form() {
             setCheckMethod={setCheckMethod}
           />
           <AgeInputInput value={user.age} onChange={handleChange} />
-
           <ContactMethod
             checkMethod={checkMethod}
             setCheckMethod={setCheckMethod}
@@ -226,6 +227,7 @@ function Form() {
                     className="selected-hobby"
                     onClick={() => navigate("/Hobby")}
                   >
+                    {/* 클릭시 hobby로 돌아가서 다시 선택 */}
                     <img
                       src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`}
                       alt={hobby.alt}
@@ -270,6 +272,7 @@ function Form() {
           />
           {/* <button type="submit-button" disabled={!isContactVerified}> */}
           <button className="submit-button">코매칭 시작하기</button>
+          {/* 버튼 클릭시 form태그로 전송 */}
         </div>
       </form>
     </div>

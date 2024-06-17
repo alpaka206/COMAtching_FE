@@ -8,13 +8,13 @@ import { checkresultState } from "../Atoms";
 import UserInfoRrev from "../components/UserInfoRrev";
 import ResultReview from "../components/ResultReview";
 import { useNavigate } from "react-router-dom";
-
+// 뽑은 결과를 볼수 있는 페이지 입니다.
 function Checkresult() {
   const navigate = useNavigate();
-  const [isReview, setIsReview] = useRecoilState(checkresultState);
-  const currentTime = new Date();
+  const [isReview, setIsReview] = useRecoilState(checkresultState); // 결과 리뷰 상태 관리
+  const currentTime = new Date(); // 현재 시간
   useEffect(() => {
-    // setIsReview([]);
+    // 결과 데이터를 가져오는 비동기 함수
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -45,6 +45,8 @@ function Checkresult() {
 
     fetchData(); // Call the async function immediately
   }, []);
+
+  // 미국 시간을 한국 시간으로 변환하는 함수(백엔에서 시간을 미국 시간으로 줍니다.)
   function convertUSToKST(USDate) {
     // 미국 시간을 UTC로 변환
     var UTCDate = new Date(USDate);

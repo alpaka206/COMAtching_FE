@@ -13,11 +13,13 @@ import MatchHeader from "../components/MatchHeader";
 
 function Match() {
   const navigate = useNavigate();
-  const [MatchState, setMatchState] = useRecoilState(MatchPickState);
+  const [MatchState, setMatchState] = useRecoilState(MatchPickState); // 뽑은 선택 리스트
   const [matchPageResult, setMatchPageResult] =
-    useRecoilState(MatchResultState);
+    useRecoilState(MatchResultState); // 뽑기 결과 상태 관리
 
+  // MBTI 선택 핸들러
   const handleMBTISelection = (value) => {
+    // 선택한 것의 카테고리 구분
     const category =
       value === "E" || value === "I"
         ? 0
@@ -26,7 +28,7 @@ function Match() {
         : value === "T" || value === "F"
         ? 2
         : 3;
-
+    // 카테고리에 해당하는 값이 이미 들어있을경우 변경
     if (MatchState.selectedCategory.includes(category)) {
       setMatchState((prev) => {
         const updatedMBTI = [...prev.selectedMBTI];
@@ -34,6 +36,7 @@ function Match() {
         return { ...prev, selectedMBTI: updatedMBTI };
       });
     } else {
+      // 카테고리에 해당하는 값은 없지만 2개 이상 선택되었을경우
       if (MatchState.selectedCategory.length >= 2) {
         setMatchState((prev) => {
           const updatedMBTI = [...prev.selectedMBTI];
@@ -49,6 +52,7 @@ function Match() {
           };
         });
       } else {
+        // 아무것도 없을 경우 or 1개 들어있을 경우
         setMatchState((prev) => {
           const updatedMBTI = [...prev.selectedMBTI];
           updatedMBTI[category] = value;
@@ -64,10 +68,13 @@ function Match() {
     }
   };
 
+  // 폼 제출 핸들러
   const handleSubmit = async () => {
+    // 유료 옵션이 몇개인가
     const aiOptionCount = MatchState.isUseOption.filter(
       (option) => option
     ).length;
+    // 유료 옵션을 안골랐을때 값 넣어주기
     const updatedFormData = {
       ...MatchState.formData,
       mbti_option: MatchState.selectedMBTI.join(""),
@@ -84,6 +91,7 @@ function Match() {
       no_same_major_option: MatchState.isUseOption[3] ? true : false,
       match_code: MatchState.formData.match_code,
     };
+    // 값 업데이트(후에 다시 뽑기시 값이 필요해서 recoil 사용)
     setMatchState((prev) => ({
       ...prev,
       formData: updatedFormData,
@@ -108,6 +116,7 @@ function Match() {
         localStorage.removeItem("token");
         navigate("/");
       } else if (response.data.status === 200) {
+        // 결과값 저장
         setMatchPageResult({
           major: response.data.data.major,
           age: response.data.data.age,
@@ -130,6 +139,7 @@ function Match() {
       console.error("Error during match request", error);
     }
   };
+  // 나이 선택 핸들러
   const handleAgeSelection = (value, location) => {
     setMatchState((prev) => ({
       ...prev,
@@ -139,6 +149,8 @@ function Match() {
       },
     }));
   };
+
+  // 유료 버튼 사용 클릭 핸들러
   const handleButtonClick = (index, cost) => {
     setMatchState((prev) => ({
       ...prev,
@@ -148,6 +160,8 @@ function Match() {
       ),
     }));
   };
+
+  // 취미 선택 핸들러
   const handleHobbyClick = (index) => {
     const isAlreadySelected = MatchState.formData.hobby_option.includes(index);
     const updatedHobbies = isAlreadySelected
