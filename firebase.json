@@ -2,7 +2,7 @@
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "site": "cuk-comatching",
+    "site": "comatest",
     "rewrites": [
       {
         "source": "**",
