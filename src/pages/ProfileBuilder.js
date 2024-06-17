@@ -11,9 +11,9 @@ import AgeMaker from "../components/AgeMaker";
 
 const ProfileBuilder = () => {
   const navigate = useNavigate();
-  const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState);
-  const [currentUserState, setCurrentUserState] = useRecoilState(userState);
-
+  const [selectedMBTI, setSelectedMBTI] = useRecoilState(selectedMBTIState); // 선택한 MBTI 저장
+  const [currentUserState, setCurrentUserState] = useRecoilState(userState); // 선택한 정보 저장
+  // 질문 보여줬는지, 대답이 보여졌는지 상태 확인
   const [showQuestions, setShowQuestions] = useState([
     [false, false],
     [false, false],
@@ -21,6 +21,7 @@ const ProfileBuilder = () => {
     [false, false],
     [false, false],
   ]);
+  // 질문 리스트
   const questions = [
     "Q1. 약속이 취소되었을 때",
     "Q2. 1분 동안 아무 생각 하지마!",
@@ -28,6 +29,10 @@ const ProfileBuilder = () => {
     "Q4. 여행 계획을 세울 때",
     "Q5. 얼마나 자주 연락하시나요?",
   ];
+
+  // 보여질 질문 선택지들
+  // 1~4는 질문1, 질문2, 앞에 보일 MBTI1, 앞에 보일 MBTI2, MBTI 카테고리
+  // 연락은 그냥 질문1, 질문2, 질문3
   const [showMbtiAnswers, setShowMbtiAnswers] = useState([
     ["다른 친구들과 놀러 갈까?", "혼자 집에서 쉬는 게 최고야.", "E", "I", "EI"],
     ["무한한 공간을 생각한다", "진짜 아무 생각 안한다", "N", "S", "SN"],
@@ -41,10 +46,11 @@ const ProfileBuilder = () => {
       "",
     ],
   ]);
-  const [chooseAnswer, setChooseAnswer] = useState(null);
-  const [questionNum, setQuestionNum] = useState(0);
-  const [showAnswerBox, setShowAnswerBox] = useState(false);
+  const [chooseAnswer, setChooseAnswer] = useState(null); // 어떤 선택지를 골랐는지 저장
+  const [questionNum, setQuestionNum] = useState(0); // 현재 몇번째 질문인지 저장
+  const [showAnswerBox, setShowAnswerBox] = useState(false); // 질문 타이핑이 끝나면 선택지가 나오도록 상태 저장
 
+  // 주어진 인덱스의 질문을 표시
   const handleShowQuestion = (index) => {
     setShowQuestions((prevShowQuestions) => {
       const updatedQuestions = [...prevShowQuestions];
@@ -54,6 +60,7 @@ const ProfileBuilder = () => {
     setQuestionNum(index);
   };
 
+  // 주어진 인덱스의 질문을 완료로 표시
   const handleQuestionComplete = (index) => {
     setShowQuestions((prevShowQuestions) => {
       const updatedQuestions = [...prevShowQuestions];
@@ -62,11 +69,15 @@ const ProfileBuilder = () => {
     });
   };
   const chatMessageRef = useRef(null);
+
+  // 새로운 질문이 나타날 때마다 채팅창을 맨 아래로 스크롤
   useEffect(() => {
     if (chatMessageRef.current) {
       chatMessageRef.current.scrollTop = chatMessageRef.current.scrollHeight;
     }
   }, [showQuestions]);
+
+  // MBTI를 저장한 후 취미 페이지로 이동
   const navigatehobby = () => {
     setCurrentUserState((prev) => ({
       ...prev,
@@ -229,22 +240,26 @@ const ProfileBuilder = () => {
       </div>
       <div className="Answer-box">
         {showAnswerBox &&
-          (questionNum < 4 ? (
-            <MBTIMaker
-              mbtiAnswers={showMbtiAnswers}
-              questionNum={questionNum}
-              handleQuestionComplete={handleQuestionComplete}
-              setSelectedMBTI={setSelectedMBTI}
-              setChooseAnswer={setChooseAnswer}
-            />
-          ) : (
-            <AgeMaker
-              handleQuestionComplete={handleQuestionComplete}
-              setCurrentUserState={setCurrentUserState}
-              currentUserState={currentUserState}
-              setChooseAnswer={setChooseAnswer}
-            />
-          ))}
+          {
+            /* 4 이하면 mbti 아니면 연락 빈도 */
+          }(
+            questionNum < 4 ? (
+              <MBTIMaker
+                mbtiAnswers={showMbtiAnswers}
+                questionNum={questionNum}
+                handleQuestionComplete={handleQuestionComplete}
+                setSelectedMBTI={setSelectedMBTI}
+                setChooseAnswer={setChooseAnswer}
+              />
+            ) : (
+              <AgeMaker
+                handleQuestionComplete={handleQuestionComplete}
+                setCurrentUserState={setCurrentUserState}
+                currentUserState={currentUserState}
+                setChooseAnswer={setChooseAnswer}
+              />
+            )
+          )}
       </div>
       <Footer />
     </div>

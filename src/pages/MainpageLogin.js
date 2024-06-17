@@ -12,8 +12,8 @@ import BottomNavButton from "../components/BottomNavButton";
 import MyInfoButton from "../components/MyInfoButton";
 
 function MainpageLogin() {
-  const navigate = useNavigate();
-  const [isClicked, setIsClicked] = useState(false);
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
+  const [isClicked, setIsClicked] = useState(false); // 충전 요청 토글 클릭 상태를 저장하는 상태 변수
   const [userInfo, setUserInfo] = useState({
     numParticipants: null,
     leftPoint: null,
@@ -27,15 +27,19 @@ function MainpageLogin() {
     song: null,
     comment: null,
   });
+  // 충전 요청 상태를 관리하는 Recoil 상태(너무 자주 못누르게 하기 위해서 임시방편이였습니다. 회의를 통해 방식 수정이 필요합니다)
   const [chargeclick, setchargeclick] = useRecoilState(charge);
   const handleToggleClick = () => {
     setIsClicked((prevIsClicked) => !prevIsClicked);
   };
 
+  // 사용자 정보를 가져오는 비동기 함수
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // 로컬 스토리지에서 토큰 가져오기
         const token = localStorage.getItem("token");
+        // 서버에서 사용자 정보를 가져오는 API 호출
         const response = await axios.get(
           "https://catholic-mibal.site/account/user/main",
           {
@@ -48,7 +52,7 @@ function MainpageLogin() {
           response.data.code === "SEC-001" ||
           response.data.code === "SEC-002"
         ) {
-          localStorage.removeItem("token");
+          localStorage.removeItem("token"); // 유효하지 않은 토큰인 경우 토큰 삭제 => 로그인 비로그인 관리
         } else if (response.status === 200) {
           setUserInfo((prev) => ({
             ...prev,
@@ -67,12 +71,11 @@ function MainpageLogin() {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle errors if needed
       }
     };
 
-    fetchData(); // Call the async function immediately
-  }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
+    fetchData();
+  }, []); // 빈배열 이므로 한번만 실행
 
   const handleNotService = () => {
     alert("서비스가 종료되었습니다.");
@@ -87,18 +90,18 @@ function MainpageLogin() {
     navigate("/check-result");
   };
   const handleLogout = () => {
-    // Remove token from localStorage
     localStorage.removeItem("token");
 
-    // Clear all cookies
+    // 쿠키 삭제인데 지금보면 필요없어 보이긴합니다.
     document.cookie.split(";").forEach((cookie) => {
       const [name] = cookie.split("=");
       document.cookie = `${name.trim()}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
     });
 
-    // Navigate to the home page
     window.location.reload();
   };
+
+  // 충전 요청
   const handleChargeRequest = async () => {
     const token = localStorage.getItem("token");
     const response = await axios.get(
@@ -110,12 +113,12 @@ function MainpageLogin() {
       }
     );
     setchargeclick({
-      chargeclick: true,
+      chargeclick: true, // 클릭된 것으로 상태 변경, 클릭시 관리자 페이지에 뜹니다.
     });
     if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
       localStorage.removeItem("token");
     } else if (response.data.code === "CHR-001") {
-      alert("이미 요청되었습니다.");
+      alert("이미 요청되었습니다."); // 이미 요청된 경우 알림
     }
   };
   return (

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-
+// 카카오로 링크를 접속해도 크롬이나 사파리로 보게 하기 위한 코드입니다.
+// 이 코드는 따로 건들이실 필요 없을것같습니다. 아마도..?
 const OpenExternalBrowser = () => {
   useEffect(() => {
     const userAgent = navigator.userAgent.toLowerCase();
