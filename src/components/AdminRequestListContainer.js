@@ -11,6 +11,7 @@ function AdminRequestListContainer({ request, setRequests }) {
     add_pick_me: 0,
     result_point: request.point,
   });
+  // 충전 확인 함수
   const handleAdminSubmit = async () => {
     const FormData = {
       add_point: value.add_point,
@@ -33,6 +34,7 @@ function AdminRequestListContainer({ request, setRequests }) {
       localStorage.removeItem("token");
       navigate("/");
     } else if (response.data.status === 200) {
+      // 요청이 성공하면 해당 요청의 isChecked를 true로 변경하여 목록에서 제거
       setRequests((prev) =>
         prev.map((item) =>
           item.contact_id === request.contact_id
@@ -42,6 +44,7 @@ function AdminRequestListContainer({ request, setRequests }) {
       );
     }
   };
+  // 충전 삭제 함수
   const handleChargeDelete = async () => {
     const token = localStorage.getItem("token");
     const response = await axios.get(
@@ -56,6 +59,7 @@ function AdminRequestListContainer({ request, setRequests }) {
       localStorage.removeItem("token");
       navigate("/");
     } else if (response.data.status === 200) {
+      // 요청이 성공하면 해당 요청의 isChecked를 true로 변경하여 목록에서 제거
       setRequests((prev) =>
         prev.map((item) =>
           item.contact_id === request.contact_id
@@ -66,6 +70,7 @@ function AdminRequestListContainer({ request, setRequests }) {
     }
   };
 
+  // 잔액 증가 함수
   const handleChargeIncrease = () => {
     setValue((prevState) => ({
       ...prevState,
@@ -73,6 +78,8 @@ function AdminRequestListContainer({ request, setRequests }) {
       chargeCheck: true,
     }));
   };
+
+  // 잔액 감소 함수
   const handleChargeDecrease = () => {
     if (value.result_point >= value.add_point) {
       setValue((prevState) => ({
@@ -85,7 +92,7 @@ function AdminRequestListContainer({ request, setRequests }) {
       alert("pickme를 취소해주세요");
     }
   };
-
+  // Pickme 증가 함수
   const handleIncrease = () => {
     setValue((prevState) => ({
       ...prevState,
@@ -93,7 +100,7 @@ function AdminRequestListContainer({ request, setRequests }) {
       result_point: prevState.result_point - 500,
     }));
   };
-
+  // Pickme 감소 함수
   const handleDecrease = () => {
     if (value.add_pick_me > 0) {
       setValue((prevState) => ({
@@ -104,9 +111,10 @@ function AdminRequestListContainer({ request, setRequests }) {
     }
   };
 
+  // 입력값 변경 핸들러
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
-    // Remove any non-numeric characters, including the minus sign
+    // 숫자 이외의 문자 및 마이너스 기호 제거
     const sanitizedValue = inputValue.replace(/[^0-9]/g, "");
 
     setValue((prevState) => ({

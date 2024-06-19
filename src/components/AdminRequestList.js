@@ -12,6 +12,7 @@ function AdminRequestList() {
   const navigate = useNavigate();
   const [requests, setRequests] = useRecoilState(adminRequests);
   useEffect(() => {
+    // 초기 요청 목록 초기화
     setRequests([]);
     const fetchData = async () => {
       try {
@@ -66,14 +67,6 @@ function AdminRequestList() {
                 />
               )
           )}
-          {/* map 함수를 사용하여 각 요청 정보를 처리 */}
-          {/* {requests.map((request, index) => (
-            <AdminRequestListContainer
-              key={index}
-              request={request}
-              setRequests={setRequests}
-            />
-          ))} */}
         </div>
       </div>
     </div>

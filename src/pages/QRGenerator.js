@@ -4,11 +4,13 @@ import axios from "axios";
 import HeaderNav from "../components/HeaderNav";
 import "../css/pages/QRGenerator.css";
 import { useNavigate } from "react-router-dom";
-
+// QR코드 만들기
 const QRGenerator = () => {
   const navigate = useNavigate();
-  const [hashCode, setHashCode] = useState("testcode");
+  const [hashCode, setHashCode] = useState(""); // 기본은 빈값
+
   useEffect(() => {
+    // 컴포넌트가 마운트될 때 API 요청을 보냄
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");

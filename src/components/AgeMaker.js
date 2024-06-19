@@ -7,6 +7,7 @@ function AgeMaker({
   setCurrentUserState,
   setChooseAnswer,
 }) {
+  // 연락 빈도를 클릭했을 때 처리하는 함수
   const handleAgeClick = (value, index) => {
     setCurrentUserState((prev) => ({
       ...prev,
@@ -19,6 +20,19 @@ function AgeMaker({
     <div className="MBTIMaker">
       <div className="MBTIMaker-text">내 답변</div>
       <div className="match-select-button">
+        {/* 연락 빈도 선택 버튼 */}
+        {/* {["자주", "보통", "가끔"].map((value, index) => (
+          <button
+            key={index}
+            type="button"
+            className={`AgeMaker ${
+              currentUserState.contact_frequency === value ? "selected" : ""
+            }`}
+            onClick={() => handleAgeClick(value, index)}
+          >
+            {value}
+          </button>
+        ))} */}
         <button
           type="button"
           className={`AgeMaker ${
