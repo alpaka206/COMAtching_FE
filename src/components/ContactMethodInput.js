@@ -6,11 +6,15 @@ import { useNavigate } from "react-router-dom";
 
 function ContactMethodInput({ handleChange, user, setUser }) {
   const navigate = useNavigate();
+
+  // 중복 여부 확인 함수
   const checkIfExists = async () => {
+    // contact_id가 @로 시작하면 @를 제거
     const contactId = user.contact_id.startsWith("@")
       ? user.contact_id.slice(1)
       : user.contact_id;
     const contact = user.contact;
+    // 서버에 중복 여부를 확인하는 GET 요청
     const response = await axios.get(
       `https://catholic-mibal.site/account/contact/duplication?contactId=${contactId}&contactType=${contact}`,
       {
@@ -19,6 +23,7 @@ function ContactMethodInput({ handleChange, user, setUser }) {
         },
       }
     );
+    // 응답 코드에 따른 처리
     if (
       response.data.code[0] === "SEC-001" ||
       response.data.code[0] === "SEC-002"
@@ -33,13 +38,14 @@ function ContactMethodInput({ handleChange, user, setUser }) {
     }
     return response;
   };
-
+  // 입력 값 확인 및 유효성 검사 함수
   const handleCheck = async () => {
+    // 카카오 ID 유효성 검사 패턴
     const kakaoPattern = /^[a-z0-9-_.]{3,15}$/;
-
+    // 인스타그램 ID 유효성 검사 패턴
     const instagramPattern = /^@[a-z0-9_.]+$/;
 
-    // 입력된 값과 정규식을 사용하여 유효성 검사
+    // contact 값에 따른 유효성 검사
     if (user.contact === "kakao") {
       if (!kakaoPattern.test(user.contact_id)) {
         alert("카카오 ID 형식이 올바르지 않습니다.");
@@ -53,10 +59,8 @@ function ContactMethodInput({ handleChange, user, setUser }) {
         return;
       }
     }
-    // setUser((prevState) => ({
-    //   ...prevState,
-    //   contact_id_Verified: true,
-    // }));
+
+    // 중복 여부 확인
     const alreadyExists = await checkIfExists();
     if (alreadyExists) {
       alert(

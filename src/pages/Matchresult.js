@@ -12,10 +12,15 @@ function Matchresult() {
   const navigate = useNavigate();
   const [MatchState, setMatchState] = useRecoilState(MatchPickState);
   const [MatchResult, setMatchResult] = useRecoilState(MatchResultState);
+
+  // 다시뽑기 버튼 핸들러
   const handleRematch = () => {
     navigate("/match");
   };
+
+  // 같은 조건으로 다시 매칭하기 핸들러
   const handleSubmit = async () => {
+    // 포인트 확인
     if (MatchState.balance < MatchState.point) {
       alert("돈이 부족합니다");
       return false;
@@ -39,6 +44,7 @@ function Matchresult() {
         localStorage.removeItem("token");
         navigate("/");
       } else if (response.data.status === 200) {
+        // 다시 결과 값 받아오기
         setMatchResult({
           major: response.data.data.major,
           age: response.data.data.age,

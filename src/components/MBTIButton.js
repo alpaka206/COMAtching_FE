@@ -22,10 +22,4 @@ function MBTIButton({ user, onClick, letter, name }) {
   );
 }
 
-// MBTIButton.propTypes = {
-//   user: PropTypes.object.isRequired,
-//   handleMBTISelection: PropTypes.func.isRequired,
-//   letter: PropTypes.string.isRequired,
-// };
-
 export default MBTIButton;
