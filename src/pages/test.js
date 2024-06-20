@@ -216,7 +216,7 @@ function MainPage() {
             paddingBottom: "40px",
           }}
         >
-          BE 서승준 / FE 김규원 신희원 / PM 박승원 박상준
+          BE 서승준 / FE 김규원 / PM 박승원 박상준
         </div>
       </div>
     </div>
