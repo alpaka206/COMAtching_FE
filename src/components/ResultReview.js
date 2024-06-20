@@ -4,6 +4,7 @@ import Rating from "@mui/material/Rating";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// 스타 스타일 설정
 const blackStarStyles = {
   color: "#FF775E",
   fontSize: "40px",
@@ -12,6 +13,7 @@ const blackStarStyles = {
 function ResultReview({ user, setIsReview }) {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
+  // 리뷰 제출 핸들러
   const handleReviewSubmit = async () => {
     const FormData = {
       history_id: user.history_id,
@@ -37,6 +39,8 @@ function ResultReview({ user, setIsReview }) {
         localStorage.removeItem("token");
         navigate("/");
       } else if (response.data.status === 200) {
+        // 리뷰 제출 후 상태 업데이트
+        // 리뷰 제출할때마다 다시 받아오는것은 불필요하다고 생각해서 리뷰하기만 사라지도록 했습니다.
         setIsReview((prev) =>
           prev.map((item) =>
             item.history_id === user.history_id
