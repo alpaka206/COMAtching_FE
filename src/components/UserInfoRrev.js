@@ -10,7 +10,8 @@ function UserInfoRrev({ user, ifMainpage }) {
   const navigate = useNavigate();
   const sliderRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
-
+  // 유저정보 컨테이너를 슬라이딩하기 위함입니다.
+  // 위아래는 지정하지 않았는데 슬라이딩되어서 수정이 필요합니다.
   // 슬라이드 함수 정의
   const scroll = (pageIndex) => {
     if (sliderRef.current) {

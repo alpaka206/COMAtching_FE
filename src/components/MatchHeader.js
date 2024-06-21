@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/components/HeaderNav.css";
-
+// 뽑기관련된 페이지의 헤더 컴포넌트입니다.
+// 로고 클릭시 모든 데이터가 초기화 된채로 돌아가야합니다.
 function MatchHeader({ MatchState, setMatchState, setMatchPageResult }) {
   const navigate = useNavigate();
   const handleMatchLogo = () => {
