@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import base64 from "base-64";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../Atoms";
+import DecodeJWT from "../components/DecodeJWT";
 
 function Redirection() {
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
@@ -13,7 +13,9 @@ function Redirection() {
     const token = new URL(window.location.href).searchParams.get("token");
 
     if (token) {
-      const decoded = decodeJWT(token); // 토큰 디코딩
+      // JWT 디코딩 함수(base64 이용) 역활 확인을 위해서
+      //DecodeJWT 컴포넌트 진행후 테스트 못해봄
+      const decoded = DecodeJWT(token);
       if (decoded) {
         // 역할 확인
         if (decoded.role === "ROLE_SOCIAL") {
@@ -42,18 +44,6 @@ function Redirection() {
       navigate("/");
     }
   }, []); // 빈 배열이므로 컴포넌트가 처음 마운트될 때만 실행
-
-  // JWT 디코딩 함수(base64 이용)
-  const decodeJWT = (token) => {
-    try {
-      const payload = token.split(".")[1];
-      const decodedPayload = base64.decode(payload);
-      return JSON.parse(decodedPayload); // 디코딩된 페이로드를 JSON 객체로 변환
-    } catch (error) {
-      console.error("Invalid token", error); // 디코딩 중 오류 발생 시 처리
-      return null;
-    }
-  };
 
   return <div></div>;
 }

@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import { selectedMBTIState, userState } from "../Atoms";
 import { useNavigate } from "react-router-dom";
 import AgeMaker from "../components/AgeMaker";
+import ShowQuestion from "../components/ShowQuestion";
 
 const ProfileBuilder = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const ProfileBuilder = () => {
     [false, false],
     [false, false],
   ]);
+
   // 질문 리스트
   const questions = [
     "Q1. 약속이 취소되었을 때",
@@ -29,11 +31,10 @@ const ProfileBuilder = () => {
     "Q4. 여행 계획을 세울 때",
     "Q5. 얼마나 자주 연락하시나요?",
   ];
-
   // 보여질 질문 선택지들
   // 1~4는 질문1, 질문2, 앞에 보일 MBTI1, 앞에 보일 MBTI2, MBTI 카테고리
   // 연락은 그냥 질문1, 질문2, 질문3
-  const [showMbtiAnswers, setShowMbtiAnswers] = useState([
+  const showMbtiAnswers = [
     ["다른 친구들과 놀러 갈까?", "혼자 집에서 쉬는 게 최고야.", "E", "I", "EI"],
     ["무한한 공간을 생각한다", "진짜 아무 생각 안한다", "N", "S", "SN"],
     ["많이 다쳤어?", "병원 가봤어?", "F", "T", "TF"],
@@ -45,7 +46,7 @@ const ProfileBuilder = () => {
       "",
       "",
     ],
-  ]);
+  ];
   const [chooseAnswer, setChooseAnswer] = useState(null); // 어떤 선택지를 골랐는지 저장
   const [questionNum, setQuestionNum] = useState(0); // 현재 몇번째 질문인지 저장
   const [showAnswerBox, setShowAnswerBox] = useState(false); // 질문 타이핑이 끝나면 선택지가 나오도록 상태 저장
@@ -101,165 +102,39 @@ const ProfileBuilder = () => {
             cursor={false}
           />
         </div>
-
-        {showQuestions[0][0] && (
-          <Fragment>
-            <div className="ProfileBuilder">
-              <TypeAnimation
-                sequence={[questions[0], 1000, () => setShowAnswerBox(true)]}
-                speed={85}
-                className="typing-animation"
-                cursor={false}
-              />
-            </div>
-            {showQuestions[0][1] && (
-              <div className="ProfileBuilder-answer">
-                <TypeAnimation
-                  sequence={[
-                    showMbtiAnswers[0][chooseAnswer],
-                    1000,
-                    () => setShowAnswerBox(false),
-                    () => handleShowQuestion(1),
-                  ]}
-                  speed={85}
-                  className="typing-animation"
-                  cursor={false}
-                />
-              </div>
-            )}
-          </Fragment>
-        )}
-        {showQuestions[1][0] && (
-          <Fragment>
-            <div className="ProfileBuilder">
-              <TypeAnimation
-                sequence={[questions[1], 1000, () => setShowAnswerBox(true)]}
-                speed={85}
-                className="typing-animation"
-                cursor={false}
-              />
-            </div>
-            {showQuestions[1][1] && (
-              <div className="ProfileBuilder-answer">
-                <TypeAnimation
-                  sequence={[
-                    showMbtiAnswers[1][chooseAnswer],
-                    1000,
-                    () => setShowAnswerBox(false),
-                    () => handleShowQuestion(2),
-                  ]}
-                  speed={85}
-                  className="typing-animation"
-                  cursor={false}
-                />
-              </div>
-            )}
-          </Fragment>
-        )}
-        {showQuestions[2][0] && (
-          <Fragment>
-            <div className="ProfileBuilder">
-              <TypeAnimation
-                sequence={[questions[2], 1000, () => setShowAnswerBox(true)]}
-                speed={85}
-                className="typing-animation"
-                cursor={false}
-              />
-            </div>
-            {showQuestions[2][1] && (
-              <div className="ProfileBuilder-answer">
-                <TypeAnimation
-                  sequence={[
-                    showMbtiAnswers[2][chooseAnswer],
-                    1000,
-                    () => setShowAnswerBox(false),
-                    () => handleShowQuestion(3),
-                  ]}
-                  speed={85}
-                  className="typing-animation "
-                  cursor={false}
-                />
-              </div>
-            )}
-          </Fragment>
-        )}
-        {showQuestions[3][0] && (
-          <Fragment>
-            <div className="ProfileBuilder">
-              <TypeAnimation
-                sequence={[questions[3], 1000, () => setShowAnswerBox(true)]}
-                speed={85}
-                className="typing-animation"
-                cursor={false}
-              />
-            </div>
-            {showQuestions[3][1] && (
-              <div className="ProfileBuilder-answer">
-                <TypeAnimation
-                  sequence={[
-                    showMbtiAnswers[3][chooseAnswer],
-                    1000,
-                    () => setShowAnswerBox(false),
-                    () => handleShowQuestion(4),
-                  ]}
-                  speed={85}
-                  className="typing-animation"
-                  cursor={false}
-                />
-              </div>
-            )}
-          </Fragment>
-        )}
-        {showQuestions[4][0] && (
-          <Fragment>
-            <div className="ProfileBuilder">
-              <TypeAnimation
-                sequence={[questions[4], 1000, () => setShowAnswerBox(true)]}
-                speed={85}
-                className="typing-animation"
-                cursor={false}
-              />
-            </div>
-            {showQuestions[4][1] && (
-              <div className="ProfileBuilder-answer">
-                <TypeAnimation
-                  sequence={[
-                    showMbtiAnswers[4][chooseAnswer],
-                    1000,
-                    () => setShowAnswerBox(false),
-                    () => navigatehobby(),
-                  ]}
-                  speed={85}
-                  className="typing-animation"
-                  cursor={false}
-                />
-              </div>
-            )}
-          </Fragment>
-        )}
+        {questions.map((_, index) => (
+          <ShowQuestion
+            key={index}
+            showQuestions={showQuestions}
+            QuestionNum={index}
+            setShowAnswerBox={setShowAnswerBox}
+            chooseAnswer={chooseAnswer}
+            handleShowQuestion={handleShowQuestion}
+            navigatehobby={navigatehobby}
+            showMbtiAnswers={showMbtiAnswers}
+            questions={questions}
+          />
+        ))}
       </div>
       <div className="Answer-box">
+        {/* 4 미만이면 mbti,  4면 연락처 */}
         {showAnswerBox &&
-          {
-            /* 4 이하면 mbti 아니면 연락 빈도 */
-          }(
-            questionNum < 4 ? (
-              <MBTIMaker
-                mbtiAnswers={showMbtiAnswers}
-                questionNum={questionNum}
-                handleQuestionComplete={handleQuestionComplete}
-                setSelectedMBTI={setSelectedMBTI}
-                setChooseAnswer={setChooseAnswer}
-              />
-            ) : (
-              <AgeMaker
-                handleQuestionComplete={handleQuestionComplete}
-                setCurrentUserState={setCurrentUserState}
-                currentUserState={currentUserState}
-                setChooseAnswer={setChooseAnswer}
-              />
-            )
-          )}
+          (questionNum < 4 ? (
+            <MBTIMaker
+              mbtiAnswers={showMbtiAnswers}
+              questionNum={questionNum}
+              handleQuestionComplete={handleQuestionComplete}
+              setSelectedMBTI={setSelectedMBTI}
+              setChooseAnswer={setChooseAnswer}
+            />
+          ) : (
+            <AgeMaker
+              handleQuestionComplete={handleQuestionComplete}
+              setCurrentUserState={setCurrentUserState}
+              currentUserState={currentUserState}
+              setChooseAnswer={setChooseAnswer}
+            />
+          ))}
       </div>
       <Footer />
     </div>
