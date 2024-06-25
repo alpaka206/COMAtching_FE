@@ -18,6 +18,7 @@ function ShowQuestion({
       navigatehobby();
     }
   };
+
   return (
     <Fragment>
       {showQuestions[QuestionNum][0] && (
@@ -56,4 +57,7 @@ function ShowQuestion({
   );
 }
 
-export default ShowQuestion;
+// React.memo 적용
+export const MemoizedShowQuestion = React.memo(ShowQuestion);
+
+export default MemoizedShowQuestion;

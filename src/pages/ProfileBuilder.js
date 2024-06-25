@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { selectedMBTIState, userState } from "../Atoms";
 import { useNavigate } from "react-router-dom";
 import AgeMaker from "../components/AgeMaker";
-import ShowQuestion from "../components/ShowQuestion";
+import MemoizedShowQuestion from "../components/ShowQuestion";
 
 const ProfileBuilder = () => {
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ const ProfileBuilder = () => {
           />
         </div>
         {questions.map((_, index) => (
-          <ShowQuestion
+          <MemoizedShowQuestion
             key={index}
             showQuestions={showQuestions}
             QuestionNum={index}

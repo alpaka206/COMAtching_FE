@@ -188,21 +188,7 @@ function Match() {
           setMatchState={setMatchState}
           setMatchPageResult={setMatchPageResult}
         />
-        {/* <div className="match-header">
-          <div>
-            <img
-              className="logo-img"
-              src={process.env.PUBLIC_URL + `assets/logowhite.png`}
-              alt="로고"
-              onClick={handleMatchLogo}
-            />
-          </div>
-          <div className="match-point-remaining">
-            잔여포인트
-            <img src={process.env.PUBLIC_URL + `assets/point.svg`} alt="cost" />
-            {MatchState.balance}
-          </div>
-        </div> */}
+
         <div className="matchcontent">
           <div className="match-title">
             <div className="match-title-text">Matching</div>
