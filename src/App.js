@@ -17,7 +17,7 @@ import Redirection from "./pages/RedirectionPage";
 import OpenExternalBrowser from "./OpenExternalBrowser";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-function App() {
+export default function App() {
   return (
     <RecoilRoot>
       <div className="App">
@@ -44,5 +44,3 @@ function App() {
     </RecoilRoot>
   );
 }
-
-export default App;
