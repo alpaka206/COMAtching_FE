@@ -4,6 +4,8 @@
   justify-content: space-between;
   width: 100%;
   white-space: nowrap;
+
+  margin-top: 6px;
 }
 .contact-input input {
   margin-right: 10px;
@@ -21,4 +23,12 @@
 
 input[name="phone"] {
   margin-top: 7px;
+}
+.checkbutton {
+  width: 30%;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  margin-left: auto;
 }

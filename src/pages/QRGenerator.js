@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import QRCode from "react-qr-code";
-import axios from "axios";
+import axios from "../axiosConfig";
 import HeaderNav from "../components/HeaderNav";
 import "../css/pages/QRGenerator.css";
 import { useNavigate } from "react-router-dom";
@@ -13,29 +13,14 @@ const QRGenerator = () => {
     // 컴포넌트가 마운트될 때 API 요청을 보냄
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          "https://catholic-mibal.site/comatching/code-req/user",
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        if (
-          response.data.code === "SEC-001" ||
-          response.data.code === "SEC-002"
-        ) {
-          localStorage.removeItem("token");
-          navigate("/");
-        } else if (response.status === 200) {
+        const response = await axios.get("/comatching/code-req/user");
+        if (response.status === 200) {
           setHashCode(response.data.data.match_code);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 

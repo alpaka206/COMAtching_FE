@@ -26,7 +26,7 @@ function ContactMethodPick({ user, setUser }) {
         isActive={user.contact === "instagram"}
         onClick={() => handleContactMethod("instagram")}
         type="instagram"
-        image={process.env.PUBLIC_URL + "assets/insta.png"}
+        image={process.env.PUBLIC_URL + "assets/insta.svg"}
         alt="인스타그램"
       />
     </div>

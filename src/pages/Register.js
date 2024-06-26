@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../axiosConfig";
 import { validateForm } from "../myfunction/formValidation";
 import { useRecoilState } from "recoil";
 import { userState, selectedMBTIState } from "../Atoms";
@@ -8,16 +8,15 @@ import MyInput from "../components/MyInput";
 import HeaderNav from "../components/HeaderNav";
 import MajorSelector from "../components/MajorSelector";
 import FormTitle from "../components/FormTitle";
-import "../css/pages/Form.css";
+import "../css/pages/Register.css";
 import AgeInputInput from "../components/AgeInput";
 import ContactMethod from "../components/ContactMethod";
 import GenderSelect from "../components/GenderSelect";
 import MBTISection from "../components/MBTISection";
 import hobbyIcons from "../data/hobbyIcons";
-import AgreementBox from "../components/AgreementBox";
 import Agreement from "../components/Agreement";
 
-function Form() {
+function Register() {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState); // 유저 상태 관리
   const [registerCheck, setRegisterCheck] = useState({
@@ -44,8 +43,7 @@ function Form() {
       case "song":
         if (!/^[^?~!@#$%^&*()+'"<>\\/|{}[\]_=;:]{0,20}$/.test(value)) {
           // 특수기호 타이핑 확인
-          errorMessage =
-            "노래에는 특수 기호를 사용할 수 없고 20자리 이내로 작성해주세요";
+          errorMessage = "노래에는 특수 기호를 사용할 수 없고 20자리 이내로 작성해주세요";
         }
         break;
       default:
@@ -83,19 +81,12 @@ function Form() {
       comment: user.comment,
     };
     try {
-      const response = await axios.post(
-        "https://catholic-mibal.site/account/register-detail",
-        postData,
-        {
-          headers: {
-            Authorization: user.token,
-          },
-        }
-      );
-      if (
-        response.data.code === "SEC-001" ||
-        response.data.code === "SEC-002"
-      ) {
+      const response = await axios.post("https://catholic-mibal.site/account/register-detail", postData, {
+        headers: {
+          Authorization: user.token,
+        },
+      });
+      if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
         localStorage.removeItem("token");
         navigate("/");
       } else if (response.data.status === 200) {
@@ -136,11 +127,9 @@ function Form() {
 
     setUser((prevUser) => ({
       ...prevUser,
-      mbti: `${category === "EI" ? value : selectedMBTI.EI}${
-        category === "SN" ? value : selectedMBTI.SN
-      }${category === "TF" ? value : selectedMBTI.TF}${
-        category === "PJ" ? value : selectedMBTI.PJ
-      }`,
+      mbti: `${category === "EI" ? value : selectedMBTI.EI}${category === "SN" ? value : selectedMBTI.SN}${
+        category === "TF" ? value : selectedMBTI.TF
+      }${category === "PJ" ? value : selectedMBTI.PJ}`,
       isLoggedIn: true,
     }));
   };
@@ -158,12 +147,7 @@ function Form() {
         <HeaderNav />
         <div className="form-inner-content">
           <FormTitle />
-          <MajorSelector
-            user={user}
-            setUser={setUser}
-            checkMethod={checkMethod}
-            setCheckMethod={setCheckMethod}
-          />
+          <MajorSelector user={user} setUser={setUser} checkMethod={checkMethod} setCheckMethod={setCheckMethod} />
           <AgeInputInput value={user.age} onChange={handleChange} />
           <ContactMethod
             checkMethod={checkMethod}
@@ -178,9 +162,7 @@ function Form() {
             <div className="match-select-button">
               <button
                 type="button"
-                className={`form-AgeMaker ${
-                  user.contact_frequency === "자주" ? "selected" : ""
-                }`}
+                className={`form-AgeMaker ${user.contact_frequency === "자주" ? "selected" : ""}`}
                 value={"자주"}
                 onClick={() => handleAgeClick("자주", 0)}
               >
@@ -188,9 +170,7 @@ function Form() {
               </button>
               <button
                 type="button"
-                className={`form-AgeMaker ${
-                  user.contact_frequency === "보통" ? "selected" : ""
-                }`}
+                className={`form-AgeMaker ${user.contact_frequency === "보통" ? "selected" : ""}`}
                 value={"보통"}
                 onClick={() => handleAgeClick("보통", 1)}
               >
@@ -198,9 +178,7 @@ function Form() {
               </button>
               <button
                 type="button"
-                className={`form-AgeMaker ${
-                  user.contact_frequency === "가끔" ? "selected" : ""
-                }`}
+                className={`form-AgeMaker ${user.contact_frequency === "가끔" ? "selected" : ""}`}
                 value={"가끔"}
                 onClick={() => handleAgeClick("가끔", 2)}
               >
@@ -209,29 +187,16 @@ function Form() {
             </div>
           </div>
           <h3>MBTI</h3>
-          <MBTISection
-            user={user.mbti}
-            onClick={handleMBTISelection}
-            name="form-MBTIButton"
-          />
+          <MBTISection user={user.mbti} onClick={handleMBTISelection} name="form-MBTIButton" />
           <div>
             <h3>취미</h3>
             <div className="form-selected-hobbies">
               {user.hobby.map((hobbyLabel, index) => {
-                const hobby = hobbyIcons.find(
-                  (item) => item.label === hobbyLabel
-                );
+                const hobby = hobbyIcons.find((item) => item.label === hobbyLabel);
                 return (
-                  <div
-                    key={index}
-                    className="selected-hobby"
-                    onClick={() => navigate("/Hobby")}
-                  >
+                  <div key={index} className="selected-hobby" onClick={() => navigate("/Hobby")}>
                     {/* 클릭시 hobby로 돌아가서 다시 선택 */}
-                    <img
-                      src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`}
-                      alt={hobby.alt}
-                    />
+                    <img src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`} alt={hobby.alt} />
                     <div>{hobby.label}</div>
                   </div>
                 );
@@ -266,10 +231,7 @@ function Form() {
               </div>
             </label>
           </div>
-          <Agreement
-            registerCheck={registerCheck}
-            setRegisterCheck={setRegisterCheck}
-          />
+          <Agreement registerCheck={registerCheck} setRegisterCheck={setRegisterCheck} />
           {/* <button type="submit-button" disabled={!isContactVerified}> */}
           <button className="submit-button">코매칭 시작하기</button>
           {/* 버튼 클릭시 form태그로 전송 */}
@@ -279,4 +241,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default Register;
