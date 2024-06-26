@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { userState } from "../Atoms";
 import DecodeJWT from "../components/DecodeJWT";
 
 function Redirection() {
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
-  const [userToken, setUserToken] = useRecoilState(userState); // 사용자 토큰 상태를 관리하는 Recoil 상태
 
   useEffect(() => {
     // 쿼리 스트링으로 토큰가져오기
@@ -20,15 +17,18 @@ function Redirection() {
         // 역할 확인
         if (decoded.role === "ROLE_SOCIAL") {
           console.log("회원가입 유저");
-          setUserToken((prevUser) => ({ ...prevUser, token: token }));
+          localStorage.removeItem("token");
+          localStorage.setItem("token", token);
           // 회원가입 페이지로 이동
           navigate("/profile-builder");
         } else if (decoded.role === "ROLE_USER") {
           console.log("로그인 유저");
+          localStorage.removeItem("token");
           localStorage.setItem("token", token); // 토큰을 로컬 스토리지에 저장
           navigate("/");
         } else if (decoded.role === "ROLE_ADMIN") {
           console.log("관리자");
+          localStorage.removeItem("token");
           localStorage.setItem("token", token);
           navigate("/admin-select"); // 관리자 페이지로 이동
         } else {

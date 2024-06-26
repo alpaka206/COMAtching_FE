@@ -4,6 +4,7 @@ import HeaderNav from "../components/HeaderNav";
 import { useNavigate } from "react-router-dom";
 
 // 단순한 로딩 페이지입니다. (원래는 ai답변 대기시간를 위한 것이였는데 개발 당시 시간 부족으로 그저 AI답변 효과처럼 표현하는것으로 바꿨습니다.)
+// match 결과창에서 스켈레톤 ui처럼 바꿀건지 얘기해보면 좋을거같습니다
 
 const Loading = () => {
   const [offset, setOffset] = useState(-100);
@@ -32,18 +33,9 @@ const Loading = () => {
           비슷한 매칭 상대를 찾고 있어요..
         </div>
         <div className="LoadingBar">
-          <div
-            className="GradientBar firstloadingbar"
-            style={{ backgroundPosition: `${offset}% 0` }}
-          />
-          <div
-            className="GradientBar secondloadingbar"
-            style={{ backgroundPosition: `${offset}% 0` }}
-          />
-          <div
-            className="GradientBar thirdloadingbar"
-            style={{ backgroundPosition: `${offset}% 0` }}
-          />
+          <div className="GradientBar firstloadingbar" style={{ backgroundPosition: `${offset}% 0` }} />
+          <div className="GradientBar secondloadingbar" style={{ backgroundPosition: `${offset}% 0` }} />
+          <div className="GradientBar thirdloadingbar" style={{ backgroundPosition: `${offset}% 0` }} />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderNav from "../components/HeaderNav";
 import "../css/pages/Hobbyform.css";
@@ -15,7 +15,7 @@ function Hobbyform() {
       alert("관심사를 최소 1개 이상 선택해주세요.");
       return false;
     }
-    navigate("/form");
+    navigate("/Register");
   };
 
   // 취미 아이템 클릭 시 실행되는 함수
@@ -39,18 +39,13 @@ function Hobbyform() {
       <HeaderNav />
       <div className="content">
         <div className="select-hobby-topic">취미 선택하기</div>
-        <div className="select-hobby-text">
-          본인의 취미를 알려주세요. (1-5개)
-        </div>
+        <div className="select-hobby-text">본인의 취미를 알려주세요. (1-5개)</div>
         <div className="selected-hobbies">
-          {pickHobby.hobby.map((hobbyLabel, index) => {
-            const hobby = hobbyIcons.find((item) => item.label === hobbyLabel);
+          {pickHobby.hobby.map((label, index) => {
+            const hobby = hobbyIcons.find((item) => item.label === label);
             return (
               <div key={index} className="selected-hobby">
-                <img
-                  src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`}
-                  alt={hobby.alt}
-                />
+                <img src={hobby.image} alt={hobby.alt} />
                 <div>{hobby.label}</div>
               </div>
             );
@@ -60,15 +55,10 @@ function Hobbyform() {
           {hobbyIcons.map((hobby, index) => (
             <button
               key={index}
-              className={`hobby-item ${
-                pickHobby.hobby.includes(hobby.label) ? "selected" : ""
-              }`}
+              className={`hobby-item ${pickHobby.hobby.includes(hobby.label) ? "selected" : ""}`}
               onClick={() => handleHobbyClick(hobby.label)}
             >
-              <img
-                src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`}
-                alt={hobby.alt}
-              />
+              <img src={hobby.image} alt={hobby.alt} />
               <div>{hobby.label}</div>
             </button>
           ))}

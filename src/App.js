@@ -1,7 +1,7 @@
 import React from "react";
 import { RecoilRoot } from "recoil";
 import Mainpage from "./pages/Mainpage";
-import Form from "./pages/Form";
+import Register from "./pages/Register";
 import Hobbyform from "./pages/Hobbyform";
 import Match from "./pages/Match";
 import Matchresult from "./pages/Matchresult";
@@ -17,6 +17,8 @@ import Redirection from "./pages/RedirectionPage";
 import OpenExternalBrowser from "./OpenExternalBrowser";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import "./axiosConfig";
+
 export default function App() {
   return (
     <RecoilRoot>
@@ -25,7 +27,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Mainpage />} />
-            <Route path="/form" element={<Form />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/hobby" element={<Hobbyform />} />
             <Route path="/guide" element={<Guide />} />
             <Route path="/match-result" element={<Matchresult />} />
