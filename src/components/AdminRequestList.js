@@ -16,22 +16,8 @@ function AdminRequestList() {
     setRequests([]);
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          "https://catholic-mibal.site/admin/manage/main",
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        if (
-          response.data.code === "SEC-001" ||
-          response.data.code === "SEC-002"
-        ) {
-          localStorage.removeItem("token");
-          navigate("/");
-        } else if (response.data.status === 200) {
+        const response = await axios.get("/admin/manage/main");
+        if (response.data.status === 200) {
           const updatedData = response.data.data.charge_request_info_list.map(
             (item) => ({
               ...item,

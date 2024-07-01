@@ -25,28 +25,20 @@ function MainpageUnLogin() {
 
   // 참가자 수를 가져오는 비동기 함수
   useEffect(() => {
-    const fetchParticipants = async () => {
+    // 컴포넌트가 마운트될 때 API 요청을 보냄
+    const fetchData = async () => {
       try {
-        // 로컬 스토리지에서 토큰을 가져옴
-        const token = localStorage.getItem("token");
-        // 서버에서 참가자 수를 가져오는 API 호출
-        const response = await axios.get(
-          "https://catholic-mibal.site/participation/count",
-          {
-            headers: {
-              Authorization: `${token}`,
-            },
-          }
-        );
-        // 참가자 수를 상태 변수에 설정
-        setNumParticipants(response.data.participation);
+        const response = await axios.get("/participation/count");
+        if (response.status === 200) {
+          setNumParticipants(response.data.participation);
+        }
       } catch (error) {
-        console.error("Error fetching participants:", error);
+        console.error("Error fetching data:", error);
       }
     };
-
-    fetchParticipants();
+    fetchData();
   }, [setNumParticipants]);
+
   return (
     <div className="container">
       <HeaderNav />

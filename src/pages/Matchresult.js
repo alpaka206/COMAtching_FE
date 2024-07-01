@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import hobbyIcons from "../data/hobbyIcons";
 import MatchHeader from "../components/MatchHeader";
+import MemoizedHobbyElement from "../components/HobbyElement";
 
 function Matchresult() {
   const navigate = useNavigate();
@@ -28,12 +29,19 @@ function Matchresult() {
     console.log(MatchState.formData);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("https://catholic-mibal.site/comatching/match", MatchState.formData, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      if (response.data.code[0] === "SEC-001" || response.data.code[0] === "SEC-002") {
+      const response = await axios.post(
+        "https://catholic-mibal.site/comatching/match",
+        MatchState.formData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (
+        response.data.code[0] === "SEC-001" ||
+        response.data.code[0] === "SEC-002"
+      ) {
         localStorage.removeItem("token");
         navigate("/");
       } else if (response.data.status === 200) {
@@ -64,12 +72,18 @@ function Matchresult() {
   return (
     <div>
       <div className="container">
-        <MatchHeader MatchState={MatchState} setMatchState={setMatchState} setMatchPageResult={setMatchResult} />
+        <MatchHeader
+          MatchState={MatchState}
+          setMatchState={setMatchState}
+          setMatchPageResult={setMatchResult}
+        />
 
         {MatchResult.generatedCode === 2002 ? (
           <div className="matchresult-content">
             <div style={{ textAlign: "center" }}>
-              <span style={{ fontSize: "24px" }}>이성이 데이터에 한명도 없습니다</span>
+              <span style={{ fontSize: "24px" }}>
+                이성이 데이터에 한명도 없습니다
+              </span>
             </div>
           </div>
         ) : (
@@ -90,12 +104,19 @@ function Matchresult() {
                   <div className="MatchResult-Topic">| 취미</div>
                   <div className="MatchResult-Text-Hobby">
                     {MatchResult.hobby.map((hobbyLabel, index) => {
-                      const hobby = hobbyIcons.find((item) => item.label === hobbyLabel);
+                      const hobby = hobbyIcons.find(
+                        (item) => item.label === hobbyLabel
+                      );
                       return (
-                        <div key={index} className="MatchResult-hobby-element">
-                          <img src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`} alt={hobby.alt} />
-                          <div>{hobby.label}</div>
-                        </div>
+                        <MemoizedHobbyElement
+                          index={index}
+                          hobby={hobby}
+                          className="MatchResult-hobby-element"
+                        />
+                        // <div key={index} className="MatchResult-hobby-element">
+                        //   <img src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`} alt={hobby.alt} />
+                        //   <div>{hobby.label}</div>
+                        // </div>
                       );
                     })}
                   </div>
@@ -111,12 +132,18 @@ function Matchresult() {
               </div>
               <div className="MatchResult-Frequency">
                 <div className="MatchResult-Topic">| 연락빈도</div>
-                <div className="MatchResult-Text">{MatchResult.contactFrequency}</div>
+                <div className="MatchResult-Text">
+                  {MatchResult.contactFrequency}
+                </div>
               </div>
 
               <div className="MatchResult-Contact">
-                <div className="MatchResult-Topic">{MatchResult.contactId[0] === "@" ? "instagram" : "kakao"}</div>
-                <div className="MatchResult-Text MatchResult-Text-Contact">{MatchResult.contactId}</div>
+                <div className="MatchResult-Topic">
+                  {MatchResult.contactId[0] === "@" ? "instagram" : "kakao"}
+                </div>
+                <div className="MatchResult-Text MatchResult-Text-Contact">
+                  {MatchResult.contactId}
+                </div>
               </div>
             </div>
             <div className="MatchResult-button-container">
@@ -125,7 +152,10 @@ function Matchresult() {
               </button>
               <button className="Retry-same-button" onClick={handleSubmit}>
                 <div className="Retry-same-button-point">
-                  <img src={process.env.PUBLIC_URL + `assets/point.svg`} alt="cost" />
+                  <img
+                    src={process.env.PUBLIC_URL + `assets/point.svg`}
+                    alt="cost"
+                  />
                   {MatchState.point}P
                 </div>
                 같은 조건으로 한번 더 뽑기

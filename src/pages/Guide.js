@@ -1,5 +1,4 @@
 import React from "react";
-import "../css/pages/Guide.css";
 import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
 

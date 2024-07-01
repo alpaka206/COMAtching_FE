@@ -12,23 +12,10 @@ const CodeReader = () => {
 
   // 서버로 해시 코드를 보내는 함수
   const sendHashCode = async (hashCode) => {
-    const token = localStorage.getItem("token");
     const response = await axios.get(
-      `https://catholic-mibal.site/comatching/code-req/admin?code=${hashCode}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
+      `/comatching/code-req/admin?code=${hashCode}`
     );
-    if (
-      response.data.code[0] === "SEC-001" ||
-      response.data.code[0] === "SEC-002"
-    ) {
-      localStorage.removeItem("token");
-
-      navigate("/");
-    } else if (response.data.status === 200) {
+    if (response.data.status === 200) {
       // 코드 상태 업데이트
       setCodeState((prev) => ({
         ...prev,
@@ -44,7 +31,7 @@ const CodeReader = () => {
     }
   };
 
-  // 데이터에서 hashCode를 추출하는 함수
+  // 데이터에서 hashCode를 추출하는 함수(페이지로 이동해서 하는 경우든 변경해도 괜찮을듯)
   const extractHashCode = (data) => {
     const match = data.match(/https:\/\/cuk-comatching\.web\.app\/(\w+)/);
     if (match && match.length > 1) {

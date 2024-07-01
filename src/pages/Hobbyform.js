@@ -5,6 +5,7 @@ import "../css/pages/Hobbyform.css";
 import { useRecoilState } from "recoil";
 import { userState } from "../Atoms";
 import hobbyIcons from "../data/hobbyIcons"; // 취미 아이콘 데이터
+import MemoizedHobbyElement from "../components/HobbyElement";
 function Hobbyform() {
   const navigate = useNavigate();
   const [pickHobby, setPickHobby] = useRecoilState(userState);
@@ -39,15 +40,23 @@ function Hobbyform() {
       <HeaderNav />
       <div className="content">
         <div className="select-hobby-topic">취미 선택하기</div>
-        <div className="select-hobby-text">본인의 취미를 알려주세요. (1-5개)</div>
+        <div className="select-hobby-text">
+          본인의 취미를 알려주세요. (1-5개)
+        </div>
+        {/*고른 취미 보여주는 칸(컴포넌트화 해도 될거같은데 쓰이는게 애매해서 selected-hobby만 할까 고민중입니다.) */}
         <div className="selected-hobbies">
           {pickHobby.hobby.map((label, index) => {
             const hobby = hobbyIcons.find((item) => item.label === label);
             return (
-              <div key={index} className="selected-hobby">
-                <img src={hobby.image} alt={hobby.alt} />
-                <div>{hobby.label}</div>
-              </div>
+              <MemoizedHobbyElement
+                index={index}
+                hobby={hobby}
+                className="selected-hobby"
+              />
+              // <div key={index} className="selected-hobby">
+              //   <img src={hobby.image} alt={hobby.alt} />
+              //   <div>{hobby.label}</div>
+              // </div>
             );
           })}
         </div>
@@ -55,7 +64,9 @@ function Hobbyform() {
           {hobbyIcons.map((hobby, index) => (
             <button
               key={index}
-              className={`hobby-item ${pickHobby.hobby.includes(hobby.label) ? "selected" : ""}`}
+              className={`hobby-item ${
+                pickHobby.hobby.includes(hobby.label) ? "selected" : ""
+              }`}
               onClick={() => handleHobbyClick(hobby.label)}
             >
               <img src={hobby.image} alt={hobby.alt} />

@@ -34,26 +34,13 @@ function MainpageLogin() {
   };
 
   // 사용자 정보를 가져오는 비동기 함수
+
   useEffect(() => {
+    // 컴포넌트가 마운트될 때 API 요청을 보냄
     const fetchData = async () => {
       try {
-        // 로컬 스토리지에서 토큰 가져오기
-        const token = localStorage.getItem("token");
-        // 서버에서 사용자 정보를 가져오는 API 호출
-        const response = await axios.get(
-          "https://catholic-mibal.site/account/user/main",
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        if (
-          response.data.code === "SEC-001" ||
-          response.data.code === "SEC-002"
-        ) {
-          localStorage.removeItem("token"); // 유효하지 않은 토큰인 경우 토큰 삭제 => 로그인 비로그인 관리
-        } else if (response.status === 200) {
+        const response = await axios.get("/account/user/main");
+        if (response.status === 200) {
           setUserInfo((prev) => ({
             ...prev,
             numParticipants: response.data.data.participation,
@@ -73,7 +60,6 @@ function MainpageLogin() {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []); // 빈배열 이므로 한번만 실행
 
@@ -103,21 +89,11 @@ function MainpageLogin() {
 
   // 충전 요청
   const handleChargeRequest = async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(
-      "https://catholic-mibal.site/user/charge/request",
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.get("/user/charge/request");
     setchargeclick({
       chargeclick: true, // 클릭된 것으로 상태 변경, 클릭시 관리자 페이지에 뜹니다.
     });
-    if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
-      localStorage.removeItem("token");
-    } else if (response.data.code === "CHR-001") {
+    if (response.data.code === "CHR-001") {
       alert("이미 요청되었습니다."); // 이미 요청된 경우 알림
     }
   };
