@@ -8,6 +8,7 @@ import { checkresultState } from "../Atoms";
 import UserInfoRrev from "../components/UserInfoRrev";
 import ResultReview from "../components/ResultReview";
 import { useNavigate } from "react-router-dom";
+import convertUSToKST from "../components/convertUSToKST";
 // 뽑은 결과를 볼수 있는 페이지 입니다.
 function Checkresult() {
   const navigate = useNavigate();
@@ -17,21 +18,8 @@ function Checkresult() {
     // 결과 데이터를 가져오는 비동기 함수
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          "https://catholic-mibal.site/user/comatch-history",
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        if (
-          response.data.code === "SEC-001" ||
-          response.data.code === "SEC-002"
-        ) {
-          localStorage.removeItem("token");
-        } else if (response.status === 200) {
+        const response = await axios.get("/user/comatch-history");
+        if (response.status === 200) {
           setIsReview(response.data.data.history_list);
         } else if (response.data.code === "HIS-001") {
           alert("결과가 남아있지 않습니다.");
@@ -46,14 +34,6 @@ function Checkresult() {
     fetchData(); // Call the async function immediately
   }, []);
 
-  // 미국 시간을 한국 시간으로 변환하는 함수(백엔에서 시간을 미국 시간으로 줍니다.)
-  function convertUSToKST(USDate) {
-    // 미국 시간을 UTC로 변환
-    var UTCDate = new Date(USDate);
-    // UTC에 16시간 (9시간: 미국과 한국의 시차 + 7시간: 미국과 UTC의 시차)을 더하여 한국 시간으로 변환
-    var KSTDate = new Date(UTCDate.getTime() + 9 * 60 * 60 * 1000);
-    return KSTDate;
-  }
   return (
     <div>
       <div className="container">

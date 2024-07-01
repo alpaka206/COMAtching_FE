@@ -19,21 +19,9 @@ function AdminRequestListContainer({ request, setRequests }) {
       result_point: value.result_point,
       contact_id: request.contact_id,
     };
-    const token = localStorage.getItem("token");
-    const response = await axios.post(
-      "https://catholic-mibal.site/admin/manage/charge",
-      FormData,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.post("/admin/manage/charge", FormData);
     console.log(request);
-    if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
-      localStorage.removeItem("token");
-      navigate("/");
-    } else if (response.data.status === 200) {
+    if (response.data.status === 200) {
       // 요청이 성공하면 해당 요청의 isChecked를 true로 변경하여 목록에서 제거
       setRequests((prev) =>
         prev.map((item) =>
@@ -46,19 +34,10 @@ function AdminRequestListContainer({ request, setRequests }) {
   };
   // 충전 삭제 함수
   const handleChargeDelete = async () => {
-    const token = localStorage.getItem("token");
     const response = await axios.get(
-      `https://catholic-mibal.site/admin/manage/delete?contactId=${request.contact_id}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
+      `/admin/manage/delete?contactId=${request.contact_id}`
     );
-    if (response.data.code === "SEC-001" || response.data.code === "SEC-002") {
-      localStorage.removeItem("token");
-      navigate("/");
-    } else if (response.data.status === 200) {
+    if (response.data.status === 200) {
       // 요청이 성공하면 해당 요청의 isChecked를 true로 변경하여 목록에서 제거
       setRequests((prev) =>
         prev.map((item) =>
