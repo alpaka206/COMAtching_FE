@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
 import "../css/pages/Match.css";
@@ -10,6 +10,7 @@ import AgeButton from "../components/AgeButton";
 import hobbyIcons from "../data/hobbyIcons";
 import { matchValidation } from "../myfunction/matchValidation";
 import MatchHeader from "../components/MatchHeader";
+import MatchOptionButton from "../components/MatchOptionButton";
 
 function Match() {
   const navigate = useNavigate();
@@ -98,24 +99,9 @@ function Match() {
     }));
     console.log(updatedFormData);
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "https://catholic-mibal.site/comatching/match",
-        updatedFormData,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const response = await axios.post("/comatching/match", updatedFormData);
       console.log(response.data.data);
-      if (
-        response.data.code[0] === "SEC-001" ||
-        response.data.code[0] === "SEC-002"
-      ) {
-        localStorage.removeItem("token");
-        navigate("/");
-      } else if (response.data.status === 200) {
+      if (response.data.status === 200) {
         // 결과값 저장
         setMatchPageResult({
           major: response.data.data.major,
@@ -181,7 +167,6 @@ function Match() {
 
   return (
     <div>
-      {/* {formData.isLoggedIn ? ( */}
       <div className="container match-container">
         <MatchHeader
           MatchState={MatchState}
@@ -217,35 +202,12 @@ function Match() {
                 <div className="match-title-text">나이</div>
                 <div className="match-title-inst-txt">원하는 나이 선택</div>
               </div>
-              <div className="match-premium-option-right">
-                <div className="match-premium-option-cost">
-                  <img
-                    src={process.env.PUBLIC_URL + `assets/point.svg`}
-                    alt="cost"
-                  />
-                  100
-                </div>
-                {!MatchState.isUseOption[0] ? (
-                  <button
-                    type="button"
-                    className="match-premium-option-unclick-button"
-                    onClick={() => handleButtonClick(0, 100)}
-                  >
-                    +
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="match-premium-option-click-button"
-                    onClick={() => handleButtonClick(0, -100)}
-                  >
-                    <img
-                      src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
-                      alt="닫기"
-                    />
-                  </button>
-                )}
-              </div>
+              <MatchOptionButton
+                state={MatchState.isUseOption[0]}
+                num={0}
+                money={100}
+                handleButtonClick={handleButtonClick}
+              />
             </div>
           </div>
           <div className="match-select-button">
@@ -282,35 +244,12 @@ function Match() {
                   원하는 연락 빈도 선택
                 </div>
               </div>
-              <div className="match-premium-option-right">
-                <div className="match-premium-option-cost">
-                  <img
-                    src={process.env.PUBLIC_URL + `assets/point.svg`}
-                    alt="cost"
-                  />
-                  100
-                </div>
-                {!MatchState.isUseOption[1] ? (
-                  <button
-                    type="button"
-                    className="match-premium-option-unclick-button"
-                    onClick={() => handleButtonClick(1, 100)}
-                  >
-                    +
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="match-premium-option-click-button"
-                    onClick={() => handleButtonClick(1, -100)}
-                  >
-                    <img
-                      src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
-                      alt="닫기"
-                    />
-                  </button>
-                )}
-              </div>
+              <MatchOptionButton
+                state={MatchState.isUseOption[1]}
+                num={1}
+                money={100}
+                handleHobbyClick={handleHobbyClick}
+              />
             </div>
           </div>
           <div className="match-select-button">
@@ -352,35 +291,12 @@ function Match() {
                   함께하고 싶은 취향을 선택하세요.
                 </div>
               </div>
-              <div className="match-premium-option-right">
-                <div className="match-premium-option-cost">
-                  <img
-                    src={process.env.PUBLIC_URL + `assets/point.svg`}
-                    alt="cost"
-                  />
-                  100
-                </div>
-                {!MatchState.isUseOption[2] ? (
-                  <button
-                    type="button"
-                    className="match-premium-option-unclick-button"
-                    onClick={() => handleButtonClick(2, 100)}
-                  >
-                    +
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="match-premium-option-click-button"
-                    onClick={() => handleButtonClick(2, -100)}
-                  >
-                    <img
-                      src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
-                      alt="닫기"
-                    />
-                  </button>
-                )}
-              </div>
+              <MatchOptionButton
+                state={MatchState.isUseOption[2]}
+                num={2}
+                money={100}
+                handleButtonClick={handleButtonClick}
+              />
             </div>
           </div>
           <div className="match-hobby-grid">
@@ -418,35 +334,12 @@ function Match() {
                   과 CC를 피할 수 있어요
                 </div>
               </div>
-              <div className="match-premium-option-right">
-                <div className="match-premium-option-cost">
-                  <img
-                    src={process.env.PUBLIC_URL + `assets/point.svg`}
-                    alt="cost"
-                  />
-                  200
-                </div>
-                {!MatchState.isUseOption[3] ? (
-                  <button
-                    type="button"
-                    className="match-premium-option-unclick-button"
-                    onClick={() => handleButtonClick(3, 200)}
-                  >
-                    +
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="match-premium-option-click-button"
-                    onClick={() => handleButtonClick(3, -200)}
-                  >
-                    <img
-                      src={process.env.PUBLIC_URL + `assets/Backspace.svg`}
-                      alt="닫기"
-                    />
-                  </button>
-                )}
-              </div>
+              <MatchOptionButton
+                state={MatchState.isUseOption[3]}
+                num={3}
+                money={200}
+                handleButtonClick={handleButtonClick}
+              />
             </div>
           </div>
         </div>
