@@ -113,10 +113,6 @@ function Matchresult() {
                           hobby={hobby}
                           className="MatchResult-hobby-element"
                         />
-                        // <div key={index} className="MatchResult-hobby-element">
-                        //   <img src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`} alt={hobby.alt} />
-                        //   <div>{hobby.label}</div>
-                        // </div>
                       );
                     })}
                   </div>
