@@ -1,0 +1,19 @@
+.age {
+  color: #858585;
+  font-family: "Pretendard", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 8px 0px;
+  margin-top: 6px;
+  position: relative;
+}
+
+.age input {
+  flex: 1;
+  border: none;
+}

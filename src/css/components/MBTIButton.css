@@ -1,0 +1,58 @@
+.MBTIElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+}
+.MBTIButton {
+  width: 90%;
+  height: 54px;
+
+  margin: 0px 6px 10px 6px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25); /* Drop shadow with 25% opacity */
+
+  border: 1px solid #e0e0e0; /* Stroke: E0E0E0 with 100% opacity and 1px width */
+
+  font-size: 20px;
+  font-family: "Pretendard", sans-serif; /* Font family set to Pretendard */
+  font-weight: bold; /* Bold font weight */
+  color: #a5a5a5; /* Pretendard Bold color A5A5A5 at 18px */
+}
+
+.MBTIButton.active {
+  background-color: #ff775e;
+  color: #ffffff;
+  border: none;
+
+  font-family: "Pretendard-SemiBold", Helvetica;
+  font-weight: bold;
+  font-size: 20px;
+  color: #ffffff;
+
+  box-shadow: inset 2px 2px 10px rgba(255, 119, 94, 0.5),
+    /* Inner shadow with color #FF775E at 50% opacity */ inset 0px 4px 10px
+      rgba(0, 0, 0, 0.15),
+    /* Inner shadow with color #000000 at 15% opacity */ inset 4px 4px 15px
+      rgba(0, 0, 0, 0.2); /* Inner shadow with color #000000 at 20% opacity */
+}
+.form-MBTIButton {
+  width: 90%;
+  height: 54px;
+  font-family: "Pretendard-SemiBold", Helvetica;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0px 6px 10px 6px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  color: #a5a5a5;
+  border: 2px solid #e0e0e0;
+}
+
+.form-MBTIButton.active {
+  background-color: #ff775e;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}

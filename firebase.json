@@ -1,17 +1,8 @@
 {
   "hosting": {
-<<<<<<< HEAD
-    "public": "build",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-=======
-    "site": "comatching",
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
->>>>>>> 294ab0b45cc25d50643e1ff619fda3c3155381a6
+    "site": "comatest",
     "rewrites": [
       {
         "source": "**",

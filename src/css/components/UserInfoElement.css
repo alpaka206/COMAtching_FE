@@ -1,0 +1,30 @@
+.User-Info__Element__Topic {
+  font-size: 16px;
+  font-weight: bold;
+  color: #777777;
+  text-align: left;
+  margin-top: 17px;
+}
+
+.User-Info__Element__Text {
+  min-width: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+  margin-top: 7px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.User-Info__Element__Items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.User-Info__Element__Item {
+  white-space: nowrap;
+  margin-right: 4px; /* Adjust as needed for spacing between items */
+}

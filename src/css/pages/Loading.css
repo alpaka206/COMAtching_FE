@@ -1,0 +1,55 @@
+@keyframes slideGradient {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+.LoadingText {
+  font-family: "Pretendard", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #737373;
+  text-align: left;
+  margin: 56px 0px 32px 40px;
+}
+
+.LoadingBar {
+  width: 90%;
+  height: 300px;
+  margin: auto;
+  /* padding-top: 100px; */
+}
+
+.GradientBar {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 25%,
+    #ff775e 50%,
+    rgba(255, 255, 255, 0) 75%
+  );
+  background-size: 200% 100%;
+  animation: slideGradient 1.25s linear infinite;
+}
+.firstloadingbar,
+.secondloadingbar,
+.thirdloadingbar {
+  width: 100%;
+  height: 24px;
+  border-radius: 8px;
+  margin: 20px 0px;
+}
+
+.firstloadingbar {
+  animation-delay: 0s;
+}
+
+.secondloadingbar {
+  animation-delay: 0.5s;
+}
+
+.thirdloadingbar {
+  animation-delay: 1s;
+}

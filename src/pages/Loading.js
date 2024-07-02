@@ -1,54 +1,45 @@
-import React, { useEffect } from "react";
-import "./Loading.css";
-import ComatHeader from "../components/ComatHeader";
-import Footer from "./../components/Footer";
-import FadeLoader from "react-spinners/FadeLoader";
-import Login from "./Login";
-import { useRecoilValue } from "recoil";
-import { userState } from "../Atoms";
+import React, { useState, useEffect } from "react";
+import "../css/pages/Loading.css";
+import HeaderNav from "../components/HeaderNav";
 import { useNavigate } from "react-router-dom";
 
-function Loading() {
+// 단순한 로딩 페이지입니다. (원래는 ai답변 대기시간를 위한 것이였는데 개발 당시 시간 부족으로 그저 AI답변 효과처럼 표현하는것으로 바꿨습니다.)
+// match 결과창에서 스켈레톤 ui처럼 바꿀건지 얘기해보면 좋을거같습니다
+
+const Loading = () => {
+  const [offset, setOffset] = useState(-100);
   const navigate = useNavigate();
 
-  const formData = useRecoilValue(userState);
-  const goback = () => {
-    navigate("/");
-  };
   useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data) that sets loading to false when completed.
-    const fetchData = async () => {
-      // Simulating a delay of 2 seconds
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-    };
+    const interval = setInterval(() => {
+      setOffset((prevOffset) => (prevOffset < 100 ? prevOffset + 1 : -100));
+    }, 15); // 1500ms / 100 steps
+    const redirectTimeout = setTimeout(() => {
+      navigate("/match-result");
+    }, 2000);
 
-    fetchData();
-  }, []);
-  const alarmUrl = () => {
-    alert("url강제 이동시 로그아웃 후 로그인 페이지로 이동됩니다.");
-  };
+    return () => {
+      clearInterval(interval);
+      clearTimeout(redirectTimeout); // Clear the timeout to prevent memory leaks
+    };
+  }, [navigate]);
+
   return (
-    <div>
-      {formData.isLoggedIn ? (
-        <div className="loading-container">
-          <ComatHeader destination="/" buttonText="처음으로" />
-          <div className="loading-content">
-            <FadeLoader color="#C63DEE" height={30} width={10} margin={30} />
-            <h3>로딩중 입니다</h3>
-          </div>
-          <button className="loading-submit-button" onClick={goback}>
-            취소하기
-          </button>
-          <Footer />
+    <div className="container">
+      <HeaderNav />
+      <div className="content">
+        <div className="LoadingText">
+          코매칭 AI가 입력하신 결과를 바탕으로 <br />
+          비슷한 매칭 상대를 찾고 있어요..
         </div>
-      ) : (
-        <>
-          {alarmUrl()}
-          <Login />
-        </>
-      )}
+        <div className="LoadingBar">
+          <div className="GradientBar firstloadingbar" style={{ backgroundPosition: `${offset}% 0` }} />
+          <div className="GradientBar secondloadingbar" style={{ backgroundPosition: `${offset}% 0` }} />
+          <div className="GradientBar thirdloadingbar" style={{ backgroundPosition: `${offset}% 0` }} />
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default Loading;

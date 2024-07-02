@@ -1,112 +1,97 @@
-import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { numParticipantsState } from "../Atoms";
-import axios from "axios";
-import "./MainpageUnLogin.css";
-import ComatHeader from "../components/ComatHeader";
+import React, { useEffect, useState } from "react";
+import "../css/pages/MainpageUnLogin.css";
+import HeaderNav from "../components/HeaderNav";
 import Footer from "../components/Footer";
-// import AgreementBox from "../components/AgreementBox";
+import TotalUsersCounter from "../components/TotalUsersCounter";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+// 로그인 되지 않은 메인페이지입니다.
 function MainpageUnLogin() {
-  const navigate = useNavigate();
-  const [numParticipants, setNumParticipants] =
-    useRecoilState(numParticipantsState);
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
+  const [numParticipants, setNumParticipants] = useState(null); // 참가자 수를 저장할 상태 변수
 
-  const handleSubmit = () => {
-    navigate("/Login");
+  // 카카오 로그인 핸들러
+  // 일반적인 형식과 다를텐데 아래 링크로 이동시켜서 백엔드에서 카카오 로그인을 처리한뒤
+  // Redirection페이지로 옮겨서 role을 확인하는 과정을 거쳤습니다.
+  const handleLogin = () => {
+    window.location.href =
+      "https://catholic-mibal.site/oauth2/authorization/kakao";
   };
+
+  // 서비스 이용법 안내 페이지로 이동하는 핸들러
   const handleVisitGuide = () => {
-    navigate("/guide"); // "_blank"를 추가하여 새 창에서 열도록 설정
+    navigate("/guide");
   };
+
+  // 참가자 수를 가져오는 비동기 함수
   useEffect(() => {
-    const fetchParticipants = async () => {
+    // 컴포넌트가 마운트될 때 API 요청을 보냄
+    const fetchData = async () => {
       try {
-        const response = await axios.get("https://onesons.site/participations");
-        setNumParticipants(response.data);
+        const response = await axios.get("/participation/count");
+        if (response.status === 200) {
+          setNumParticipants(response.data.participation);
+        }
       } catch (error) {
-        console.error("Error fetching participants:", error);
+        console.error("Error fetching data:", error);
       }
     };
-
-    fetchParticipants();
+    fetchData();
   }, [setNumParticipants]);
+
   return (
     <div className="container">
-      <ComatHeader destination="/" buttonText="처음으로" />
+      <HeaderNav />
       <div className="content">
-        {/* <h4
-          style={{ textAlign: "center", marginTop: "40px", color: "#FF4D61" }}
-        >
-          현재 이벤트 진행중!
-        </h4> */}
+        <div className="bubble-counter">
+          <TotalUsersCounter
+            font_size="16px"
+            numParticipants={numParticipants}
+          />
+        </div>
+        {/* 이미지가 컴퓨터로 봤을때 너무 크게 유지되어서 고쳐도 좋을것 같습니다. */}
         <img
-          src={process.env.PUBLIC_URL + `assets/helloemoji.png`}
+          src={process.env.PUBLIC_URL + `assets/helloemoji.svg`}
           alt="사람 이미지"
           style={{
             width: "80%",
             height: "auto",
             paddingTop: "30px",
           }}
+          className="mainpage-unlogin-userimage"
         />
         <div>
           <img
-            src={process.env.PUBLIC_URL + `assets/logoblack.png`}
+            src={process.env.PUBLIC_URL + `assets/logoblack.svg`}
             alt="로고이미지"
             style={{
               width: "75%",
               height: "auto",
               marginTop: "20px",
             }}
+            className="mainpage-unlogin-logoimage"
           />
         </div>
-        {numParticipants !== null && (
-          <div
-            style={{
-              fontSize: "25px",
-              fontWeight: "w600",
-              marginTop: "5px",
-            }}
-          >
-            현재{" "}
-            <span style={{ color: "#FF4D61", fontWeight: "900" }}>
-              {numParticipants}
-            </span>
-            명 참여중이에요!
-          </div>
-        )}
-        <div className="checkbox-label">
-          <label
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "14px",
-              fontWeight: "bold",
-              margin: "10px 0",
-            }}
-          >
-            <div
-              style={{
-                paddingTop: "2px",
-              }}
-            >
-              이용에 도움이 필요하신가요?
-            </div>
-          </label>
+
+        <div className="welcome">
+          캠퍼스의 설렘,
+          <br />
+          코매칭에서 만나보세요!
         </div>
+        <div className="bubble">⚡️10초만에 빠른 가입⚡️</div>
+        <button className="kakao-login" onClick={handleLogin}>
+          <div className="kakao-login-element">
+            <img
+              src={process.env.PUBLIC_URL + `assets/kakao.svg`}
+              alt="카카오"
+            />
+            <p>카카오로 시작하기</p>
+          </div>
+        </button>
+        <div className="help-text">이용에 도움이 필요하신가요?</div>
         <div>
-          {/* <button className="privacy-button" onClick={handleAgreementClick}> */}
           <button className="privacy-button" onClick={handleVisitGuide}>
             서비스 이용법 안내
-          </button>
-        </div>
-        {/* {showAgreement && (
-          <AgreementBox handleCloseAgreement={handleCloseAgreement} />
-        )} */}
-        <div>
-          <button className="mainpage-submit-button" onClick={handleSubmit}>
-            시작하기
           </button>
         </div>
       </div>

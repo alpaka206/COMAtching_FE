@@ -1,0 +1,158 @@
+.MatchResult-Container {
+  display: flex;
+}
+.matchresult-content {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.75);
+  width: calc(90% - 70px);
+  margin: auto;
+  border-radius: 32px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  position: relative;
+  padding: 38px 35px;
+
+  backdrop-filter: blur(12px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+.MatchResult-Topic {
+  font-size: 36px;
+  font-weight: bold;
+  color: #777777;
+  text-align: left;
+  margin-top: 32px;
+
+  /* animation: fadeIn 1s ease forwards; */
+}
+.MatchResult-Text {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+  margin-left: 16px;
+  margin-top: 8px;
+  /* animation: fadeIn 1s ease forwards 1s; */
+}
+
+.MatchResult-Hobby,
+.MatchResult-Age,
+.MatchResult-Major,
+.MatchResult-MBTI {
+  width: 50%;
+}
+.MatchResult-Major,
+.MatchResult-Age {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+.MatchResult-Hobby,
+.MatchResult-MBTI {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 0.5s;
+}
+.MatchResult-Song {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 1s;
+}
+.MatchResult-Frequency {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 1.5s;
+}
+.MatchResult-Contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 2s;
+}
+.MatchResult-Text-Contact {
+  margin-left: 0px;
+  color: #ff4d61;
+}
+.MatchResult-Text-Hobby {
+  display: flex;
+  flex-wrap: wrap;
+}
+.MatchResult-hobby-element {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  height: auto;
+  background-color: #ffffff;
+  width: auto;
+  border-radius: 24px;
+  padding: 10px 20px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+
+  margin-right: 8px;
+
+  font-family: "Pretendard", sans-serif;
+  font-weight: 900;
+}
+.MatchResult-hobby-element img {
+  height: 24px;
+  width: 24px;
+  padding-right: 8px;
+}
+
+.MatchResult-button-container {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  justify-content: space-between;
+}
+.Retry-button {
+  background-color: #ffffff;
+  font-size: 24px;
+  width: 34%;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 900;
+  color: #6f6f6f;
+  height: 64px;
+  border-radius: 15px;
+
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+.Retry-same-button {
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  font-size: 22px;
+  width: 63%;
+
+  font-family: "Pretendard", sans-serif;
+  font-weight: 900;
+  color: white;
+  height: 64px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+.Retry-same-button-point {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  padding: 4px 12px;
+  border-radius: 36px;
+  background-color: rgba(255, 255, 255, 0.95);
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 12px;
+}
+.Retry-same-button-point img {
+  width: 25px;
+  height: 25px;
+  margin-right: 4px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

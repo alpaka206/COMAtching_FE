@@ -14,8 +14,8 @@ function AgreementBox({ handleCloseAgreement }) {
         <br />
         - 가톨릭대학교 중앙동아리 COMA는 다음 목적을 위해 개인정보를 수집합니다:
         <br />
-        &nbsp; - 총동아리연합회 주관 다맛제 노점 COMA의 이벤트인 COMAtching의
-        참여
+        &nbsp; - 가톨릭대학교 총학생회 주관 아우름제 COMA 노점 이벤트인
+        COMAtching의 참여
         <br />
         <br />
         2. 수집하는 개인정보 항목 * 수집하는 개인정보 항목은 다음과 같습니다:{" "}
@@ -28,7 +28,7 @@ function AgreementBox({ handleCloseAgreement }) {
         &nbsp; &nbsp;* COMAtching 참여자 <br />
         4. 개인정보 보유 및 이용기간 <br />
         <br />
-        &nbsp;2023년 9월 14일 16시 30분까지
+        &nbsp;2024년 5월 24일 23시 59분까지
         <br />
         <br /> * 개인정보는 수집 및 이용목적이 달성되면 지체 없이 파기됩니다.
         다만, 관련 법규에 따라 보존할 필요가 있는 경우에는 해당 기간 동안
@@ -48,9 +48,9 @@ function AgreementBox({ handleCloseAgreement }) {
         7. 개인정보 수집 및 이용 동의 * 본인은 개인정보 수집 및 이용에 대해
         동의합니다.
       </p>
-      <button className="cancel-button" onClick={handleCloseAgreement}>
+      <div className="cancel-button" onClick={handleCloseAgreement}>
         닫기
-      </button>
+      </div>
     </div>
   );
 }

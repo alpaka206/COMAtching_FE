@@ -1,0 +1,10 @@
+.ContactMethodPick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  white-space: nowrap;
+}
+.space {
+  width: 40%;
+}

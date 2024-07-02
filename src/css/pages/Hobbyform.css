@@ -1,0 +1,69 @@
+.hobby-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 각 행에 3개의 아이템이 올 수 있도록 */
+  padding: 20px;
+}
+
+.hobby-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0;
+  background-color: transparent;
+
+  font-family: "Pretendard", sans-serif;
+  font-weight: bold;
+  color: black;
+}
+
+.hobby-item img {
+  background-color: #ffffff;
+  width: 36px;
+  height: 36px;
+  padding: 18px;
+  border-radius: 50%; /* 동그라미 모양 */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); /* drop shadow */
+  margin-bottom: 7px;
+}
+
+.hobby-item.selected img {
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25); /* innershadow 효과 */
+}
+.selected-hobbies {
+  width: 80%;
+  /* min-height: 28px; */
+  margin: 12px 40px 0px 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.selected-hobby {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  width: auto;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 0px 8px;
+  margin: 2px 2px;
+  white-space: nowrap;
+}
+.selected-hobby img {
+  width: 16px;
+  height: 16px;
+}
+.select-hobby-topic {
+  text-align: left;
+  margin: 40px 0px 0px 40px;
+  font-size: 36px;
+  font-weight: bold;
+}
+.select-hobby-text {
+  text-align: left;
+  margin: 12px 0px 0px 40px;
+  font-size: 16px;
+  font-weight: medium;
+  color: #858585;
+}

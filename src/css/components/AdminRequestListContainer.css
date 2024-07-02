@@ -1,0 +1,72 @@
+.AdminRequestListElement {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.AdminRequestListContainer {
+  width: 90%;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  margin: 10px auto;
+}
+.AdminRequestListItem {
+  display: flex;
+  align-items: center;
+  margin: 16px 25px 0 43px;
+}
+.AdminRequestListElement {
+  margin: 8px 15px 0 15px;
+}
+.AdminRequestListItem img {
+  width: 48px;
+  height: 48px;
+}
+.AdminRequestListItem input {
+  width: 100px;
+  height: 48px;
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 15px;
+  margin-right: 73px;
+}
+.AdminRequestListElement-userID {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #828282;
+}
+.AdminRequestListElement-userID-ID {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+}
+.AdminRequestListItem-pickme-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+  font-size: 30px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.AdminRequestListItem-pickme-value {
+  width: 55px;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.AdminRequestListItem-submit-button {
+  margin-left: 27px;
+  background-color: #ff775e;
+}
+.AdminRequestListElement-result_point {
+  color: red;
+  font-size: 24px;
+  font-weight: 900;
+}

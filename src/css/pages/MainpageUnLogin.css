@@ -1,0 +1,165 @@
+/* .agreement-box {
+  background-color: #ffffff; 
+  border: 2px solid #000000; 
+  border-radius: 10px; 
+  padding: 20px; 
+  margin-top: 20px;
+} */
+/* .start-button {
+  margin-top: 10px;
+  background-image: linear-gradient(135deg, #ff775e, #ff4d61, #e83abc);
+  color: #ffffff;
+  width: 100%;
+  height: 89px;
+  border-radius: 0 0 32px 32px;
+  font-size: 32px;
+  font-weight: bold;
+} */
+
+.welcome {
+  /* font-family: "Pretendard", sans-serif; */
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.bubble {
+  position: absolute;
+  background: #ffffff;
+  border: 1px solid #ff4d61;
+  border-radius: 24px;
+  padding: 4px 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  white-space: nowrap;
+
+  /* font-family: "Pretendard", sans-serif; */
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.bubble:after,
+.bubble:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.bubble:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #ffffff;
+  border-width: 7px;
+  margin-left: -7px;
+}
+
+.bubble:before {
+  border-color: rgba(255, 77, 97, 0);
+  border-top-color: #ff4d61;
+  border-width: 8px;
+  margin-left: -8px;
+}
+
+.bubble-counter {
+  position: absolute;
+  background: #ffffff;
+  border: 1px solid #ff4d61;
+  border-radius: 24px;
+  padding: 2px 12px 6px 12px;
+  left: 45%;
+  transform: translateX(-50%);
+  display: inline-block;
+  margin-top: 12%;
+}
+
+.bubble-counter > * {
+  display: inline-block;
+  white-space: nowrap;
+}
+.bubble-counter:after,
+.bubble-counter:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.bubble-counter:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #ffffff;
+  border-width: 7px;
+  margin-left: -37px;
+}
+.bubble-counter:before {
+  border-color: rgba(255, 77, 97, 0);
+  border-top-color: #ff4d61;
+  border-width: 8px;
+  margin-left: -38px;
+}
+
+.kakao-login {
+  margin-top: 48px;
+  border-radius: 15px;
+  height: 48px;
+  width: 80%;
+  background-color: #fee500;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.kakao-login img {
+  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.kakao-login p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+  color: #191919; /* iOS에서 폰트가 파란색으로 뜨는 현상 해결 */
+}
+.kakao-login-element {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mainpage-unlogin-userimage {
+  width: 80%;
+  height: auto;
+  padding-top: 30px;
+}
+.mainpage-unlogin-logoimage {
+  width: 75%;
+  height: auto;
+  margin-top: 20px;
+}
+
+.help-text {
+  font-family: "Pretendard", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #7a7a7a;
+  padding-top: 24px;
+}
+
+.privacy-button {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #7a7a7a;
+  text-decoration: underline;
+  margin-bottom: 24px;
+}

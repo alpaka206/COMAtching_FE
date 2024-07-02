@@ -1,220 +1,362 @@
-import React, { useEffect } from "react";
+import React from "react";
 import axios from "axios";
-import MBTIButton from "../components/MBTIButton";
 import Footer from "../components/Footer";
-import ComatHeader from "../components/ComatHeader";
-import "./Match.css";
+import "../css/pages/Match.css";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { MatchRecoilState, MatchResultRecoilState, userState } from "../Atoms";
-import Login from "./Login";
+import { useRecoilState } from "recoil";
+import { MatchPickState, MatchResultState } from "../Atoms";
+import MBTISection from "../components/MBTISection";
+import AgeButton from "../components/AgeButton";
+import hobbyIcons from "../data/hobbyIcons";
+import { matchValidation } from "../myfunction/matchValidation";
+import MatchHeader from "../components/MatchHeader";
+import MatchOptionButton from "../components/MatchOptionButton";
 
 function Match() {
   const navigate = useNavigate();
-  const formData = useRecoilValue(userState);
-  const [MatchState, setMatchState] = useRecoilState(MatchRecoilState);
-  const [MatchResultState, setMatchResultState] = useRecoilState(
-    MatchResultRecoilState
-  );
+  const [MatchState, setMatchState] = useRecoilState(MatchPickState); // 뽑은 선택 리스트
+  const [matchPageResult, setMatchPageResult] =
+    useRecoilState(MatchResultState); // 뽑기 결과 상태 관리
 
-  useEffect(() => {
-    // selectedMBTI 값 변경시 sortedMBTI값 변경
-    const sortedMBTI = [
-      ...MatchState.selectedMBTI.filter((mbti) => mbti === "E" || mbti === "I"),
-      ...MatchState.selectedMBTI.filter((mbti) => mbti === "S" || mbti === "N"),
-      ...MatchState.selectedMBTI.filter((mbti) => mbti === "T" || mbti === "F"),
-      ...MatchState.selectedMBTI.filter((mbti) => mbti === "P" || mbti === "J"),
-    ];
-    setMatchState((prev) => ({ ...prev, sortedMBTI }));
-    console.log("Sorted MBTI:", sortedMBTI);
-  }, [MatchState.selectedMBTI]);
-  const alarmUrl = () => {
-    alert("url강제 이동시 로그아웃 후 로그인 페이지로 이동됩니다.");
-  };
+  // MBTI 선택 핸들러
   const handleMBTISelection = (value) => {
+    // 선택한 것의 카테고리 구분
     const category =
       value === "E" || value === "I"
-        ? "EI"
+        ? 0
         : value === "S" || value === "N"
-        ? "SN"
+        ? 1
         : value === "T" || value === "F"
-        ? "TF"
-        : "PJ";
-
-    if (MatchState.history.includes(category)) {
-      // 이미 선택된 카테고리가 있다면, 해당 카테고리에서 선택한 값만 변경
+        ? 2
+        : 3;
+    // 카테고리에 해당하는 값이 이미 들어있을경우 변경
+    if (MatchState.selectedCategory.includes(category)) {
       setMatchState((prev) => {
         const updatedMBTI = [...prev.selectedMBTI];
-        updatedMBTI.pop(); // 마지막 항목을 제거
-        updatedMBTI.push(value); // 새로운 MBTI 추가
-        console.log("Updated MBTI:", updatedMBTI);
-        // return updatedMBTI;
+        updatedMBTI[category] = value;
         return { ...prev, selectedMBTI: updatedMBTI };
       });
     } else {
-      if (MatchState.selectedMBTI.length >= 2) {
-        // 이미 두 개의 MBTI를 선택한 상태이면, 첫 번째 선택한 MBTI를 해제하고 새로운 MBTI 추가
+      // 카테고리에 해당하는 값은 없지만 2개 이상 선택되었을경우
+      if (MatchState.selectedCategory.length >= 2) {
         setMatchState((prev) => {
           const updatedMBTI = [...prev.selectedMBTI];
-          updatedMBTI.shift();
-          updatedMBTI.push(value);
-          console.log("Updated MBTI:", updatedMBTI);
-          return { ...prev, selectedMBTI: updatedMBTI, history: [category] };
+          updatedMBTI[category] = value;
+          const updatedMBTICategory = [...prev.selectedCategory];
+          updatedMBTI[updatedMBTICategory[0]] = "X";
+          updatedMBTICategory.shift();
+          updatedMBTICategory.push(category);
+          return {
+            ...prev,
+            selectedMBTI: updatedMBTI,
+            selectedCategory: updatedMBTICategory,
+          };
         });
-        console.log("Updated History:", category);
       } else {
-        setMatchState((prev) => ({
-          ...prev,
-          selectedMBTI: [...prev.selectedMBTI, value],
-          history: [category],
-        }));
-        console.log("Updated History:", category);
-        console.log("Updated MBTI:", [...MatchState.selectedMBTI, value]);
+        // 아무것도 없을 경우 or 1개 들어있을 경우
+        setMatchState((prev) => {
+          const updatedMBTI = [...prev.selectedMBTI];
+          updatedMBTI[category] = value;
+          const updatedMBTICategory = [...prev.selectedCategory];
+          updatedMBTICategory.push(category);
+          return {
+            ...prev,
+            selectedMBTI: updatedMBTI,
+            selectedCategory: updatedMBTICategory,
+          };
+        });
       }
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const postdata = {
-      passwd: formData.passwd,
-      gender: !formData.gender,
-      mbti: MatchState.sortedMBTI[0] + MatchState.sortedMBTI[1],
+  // 폼 제출 핸들러
+  const handleSubmit = async () => {
+    // 유료 옵션이 몇개인가
+    const aiOptionCount = MatchState.isUseOption.filter(
+      (option) => option
+    ).length;
+    // 유료 옵션을 안골랐을때 값 넣어주기
+    const updatedFormData = {
+      ...MatchState.formData,
+      mbti_option: MatchState.selectedMBTI.join(""),
+      ai_option_count: aiOptionCount,
+      age_option: MatchState.isUseOption[0]
+        ? MatchState.formData.age_option
+        : "NONE",
+      contact_frequency_option: MatchState.isUseOption[1]
+        ? MatchState.formData.contact_frequency_option
+        : "NONE",
+      hobby_option: MatchState.isUseOption[2]
+        ? MatchState.formData.hobby_option
+        : ["NONE"],
+      no_same_major_option: MatchState.isUseOption[3] ? true : false,
+      match_code: MatchState.formData.match_code,
     };
-    console.log(postdata);
+    // 값 업데이트(후에 다시 뽑기시 값이 필요해서 recoil 사용)
+    setMatchState((prev) => ({
+      ...prev,
+      formData: updatedFormData,
+    }));
+    console.log(updatedFormData);
     try {
-      const response = await axios.get("https://onesons.site/match", {
-        params: {
-          mbti: MatchState.sortedMBTI[0] + MatchState.sortedMBTI[1],
-          passwd: formData.passwd,
-          gender: !formData.gender,
-        },
-      });
-
-      if (response.data.isSuccess === true) {
-        setMatchResultState({
-          generatedGender: response.data.result.gender,
-          generatedPhone: response.data.result.phone,
-          generatedDepart: response.data.result.depart,
-          generatedSong: response.data.result.song,
-          generatedYear: response.data.result.year,
-          generatedMbti: response.data.result.mbti,
+      const response = await axios.post("/comatching/match", updatedFormData);
+      console.log(response.data.data);
+      if (response.data.status === 200) {
+        // 결과값 저장
+        setMatchPageResult({
+          major: response.data.data.major,
+          age: response.data.data.age,
+          hobby: response.data.data.hobby,
+          mbti: response.data.data.mbti,
+          song: response.data.data.song,
+          contactFrequency: response.data.data.contactFrequency,
+          contactId: response.data.data.contactId,
+          word: response.data.data.word,
         });
-        navigate("/Matchresult");
+        setMatchState((prev) => ({
+          ...prev,
+          balance: response.data.data.currentPoint,
+        }));
+        navigate("/loading");
       } else {
-        alert(response.data.message);
-        return;
+        throw new Error("Unexpected response code or status");
       }
-
-      // setMatchResultState({
-      //   generatedPhone: "01024120339",
-      //   generatedDepart: "정보통신전자공학부",
-      //   generatedSong: "1322",
-      //   generatedYear: "11",
-      //   generatedMbti: "estj",
-      // });
-      navigate("/Matchresult");
     } catch (error) {
-      console.error("오류 발생:", error);
+      console.error("Error during match request", error);
     }
+  };
+  // 나이 선택 핸들러
+  const handleAgeSelection = (value, location) => {
+    setMatchState((prev) => ({
+      ...prev,
+      formData: {
+        ...prev.formData,
+        [location]: value,
+      },
+    }));
+  };
+
+  // 유료 버튼 사용 클릭 핸들러
+  const handleButtonClick = (index, cost) => {
+    setMatchState((prev) => ({
+      ...prev,
+      point: prev.point + cost,
+      isUseOption: prev.isUseOption.map((option, i) =>
+        i === index ? !option : option
+      ),
+    }));
+  };
+
+  // 취미 선택 핸들러
+  const handleHobbyClick = (index) => {
+    const isAlreadySelected = MatchState.formData.hobby_option.includes(index);
+    const updatedHobbies = isAlreadySelected
+      ? MatchState.formData.hobby_option.filter((hobby) => hobby !== index)
+      : MatchState.formData.hobby_option.length < 5
+      ? [...MatchState.formData.hobby_option, index]
+      : MatchState.formData.hobby_option;
+
+    setMatchState((prev) => ({
+      ...prev,
+      formData: {
+        ...prev.formData,
+        hobby_option: updatedHobbies,
+      },
+    }));
   };
 
   return (
     <div>
-      {formData.isLoggedIn ? (
-        <div className="container">
-          <form onSubmit={handleSubmit}>
-            <ComatHeader destination="/check" buttonText="조회하기" />
-            <div className="content">
-              <div className="match-inner-content">
-                <br />
-                <br />
+      <div className="container match-container">
+        <MatchHeader
+          MatchState={MatchState}
+          setMatchState={setMatchState}
+          setMatchPageResult={setMatchPageResult}
+        />
 
-                <label>
-                  <div className="match-title">
-                    <div className="match-title-text">Matching</div>
-                    <div className="match-title-inst-txt">
-                      매칭할 상대의 MBTI를 두개 선택하세요!
-                    </div>
-                  </div>
-                  <div className="match-mbtidiv">
-                    <div className="match-mbtibutton-container">
-                      {/* First row */}
-                      <div className="match-mbtibutton-row">
-                        <MBTIButton
-                          isActive={MatchState.sortedMBTI.includes("E")}
-                          onClick={() => handleMBTISelection("E")}
-                          label="E"
-                          className="match-mbtibutton"
-                        />
-                        <MBTIButton
-                          isActive={MatchState.sortedMBTI.includes("I")}
-                          onClick={() => handleMBTISelection("I")}
-                          label="I"
-                          className="match-mbtibutton"
-                        />
-                      </div>
-                      {/* Second row */}
-                      <div className="match-mbtibutton-row">
-                        <MBTIButton
-                          isActive={MatchState.sortedMBTI.includes("N")}
-                          onClick={() => handleMBTISelection("N")}
-                          label="N"
-                          className="match-mbtibutton"
-                        />
-                        <MBTIButton
-                          isActive={MatchState.sortedMBTI.includes("S")}
-                          onClick={() => handleMBTISelection("S")}
-                          label="S"
-                          className="match-mbtibutton"
-                        />
-                      </div>
-                      {/* Third row */}
-                      <div className="match-mbtibutton-row">
-                        <MBTIButton
-                          isActive={MatchState.sortedMBTI.includes("F")}
-                          onClick={() => handleMBTISelection("F")}
-                          label="F"
-                          className="match-mbtibutton"
-                        />
-                        <MBTIButton
-                          isActive={MatchState.sortedMBTI.includes("T")}
-                          onClick={() => handleMBTISelection("T")}
-                          label="T"
-                          className="match-mbtibutton"
-                        />
-                      </div>
-                      {/* Fourth row */}
-                      <div className="match-mbtibutton-row">
-                        <MBTIButton
-                          isActive={MatchState.sortedMBTI.includes("P")}
-                          onClick={() => handleMBTISelection("P")}
-                          label="P"
-                          className="match-mbtibutton"
-                        />
-                        <MBTIButton
-                          isActive={MatchState.sortedMBTI.includes("J")}
-                          onClick={() => handleMBTISelection("J")}
-                          label="J"
-                          className="match-mbtibutton"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </label>
-
-                <button type="submit-button">매칭하기</button>
-              </div>
+        <div className="matchcontent">
+          <div className="match-title">
+            <div className="match-title-text">Matching</div>
+            <div className="match-title-inst-txt">
+              두근두근! 매칭되고 싶은 상대를 입력하세요!
             </div>
-            <Footer />
-          </form>
+          </div>
         </div>
-      ) : (
-        <>
-          {alarmUrl()}
-          <Login />
-        </>
-      )}
+        <div className="matchcontent">
+          <div className="match-title">
+            <div className="match-title-text">MBTI</div>
+            <div className="match-title-inst-txt">
+              매칭할 상대의 MBTI를 두개 선택하세요!
+            </div>
+          </div>
+          <MBTISection
+            user={MatchState.selectedMBTI}
+            onClick={handleMBTISelection}
+            name="MBTIButton"
+          />
+        </div>
+        <div className="matchcontent">
+          <div className="match-title">
+            <div className="match-premium-option">
+              <div>
+                <div className="match-title-text">나이</div>
+                <div className="match-title-inst-txt">원하는 나이 선택</div>
+              </div>
+              <MatchOptionButton
+                state={MatchState.isUseOption[0]}
+                num={0}
+                money={100}
+                handleButtonClick={handleButtonClick}
+              />
+            </div>
+          </div>
+          <div className="match-select-button">
+            {" "}
+            <AgeButton
+              formData={MatchState.formData.age_option}
+              value="YOUNGER"
+              text="연하"
+              onClick={() => handleAgeSelection("YOUNGER", "age_option")}
+              isClickable={MatchState.isUseOption[0]}
+            />
+            <AgeButton
+              formData={MatchState.formData.age_option}
+              value="EQUAL"
+              text="동갑"
+              onClick={() => handleAgeSelection("EQUAL", "age_option")}
+              isClickable={MatchState.isUseOption[0]}
+            />
+            <AgeButton
+              formData={MatchState.formData.age_option}
+              text="연상"
+              value="OLDER"
+              onClick={() => handleAgeSelection("OLDER", "age_option")}
+              isClickable={MatchState.isUseOption[0]}
+            />
+          </div>
+        </div>
+        <div className="matchcontent">
+          <div className="match-title">
+            <div className="match-premium-option">
+              <div>
+                <div className="match-title-text">연락 빈도</div>
+                <div className="match-title-inst-txt">
+                  원하는 연락 빈도 선택
+                </div>
+              </div>
+              <MatchOptionButton
+                state={MatchState.isUseOption[1]}
+                num={1}
+                money={100}
+                handleHobbyClick={handleHobbyClick}
+              />
+            </div>
+          </div>
+          <div className="match-select-button">
+            <AgeButton
+              formData={MatchState.formData.contact_frequency_option}
+              text="자주"
+              value="FREQUENT"
+              onClick={() =>
+                handleAgeSelection("FREQUENT", "contact_frequency_option")
+              }
+              isClickable={MatchState.isUseOption[1]}
+            />
+            <AgeButton
+              formData={MatchState.formData.contact_frequency_option}
+              text="보통"
+              value="NORMAL"
+              onClick={() =>
+                handleAgeSelection("NORMAL", "contact_frequency_option")
+              }
+              isClickable={MatchState.isUseOption[1]}
+            />
+            <AgeButton
+              formData={MatchState.formData.contact_frequency_option}
+              text="가끔"
+              value="NOT_FREQUENT"
+              onClick={() =>
+                handleAgeSelection("NOT_FREQUENT", "contact_frequency_option")
+              }
+              isClickable={MatchState.isUseOption[1]}
+            />
+          </div>
+        </div>
+        <div className="matchcontent">
+          <div className="match-title">
+            <div className="match-premium-option">
+              <div>
+                <div className="match-title-text">취향</div>
+                <div className="match-title-inst-txt">
+                  함께하고 싶은 취향을 선택하세요.
+                </div>
+              </div>
+              <MatchOptionButton
+                state={MatchState.isUseOption[2]}
+                num={2}
+                money={100}
+                handleButtonClick={handleButtonClick}
+              />
+            </div>
+          </div>
+          <div className="match-hobby-grid">
+            {hobbyIcons.map((hobby, index) => (
+              <button
+                type="button"
+                key={index}
+                className={`hobby-item ${
+                  MatchState.isUseOption[2]
+                    ? `${
+                        MatchState.formData.hobby_option.includes(hobby.label)
+                          ? "selected"
+                          : ""
+                      }`
+                    : " "
+                }`}
+                onClick={() => handleHobbyClick(hobby.label)}
+                disabled={!MatchState.isUseOption[2]}
+              >
+                <img
+                  src={process.env.PUBLIC_URL + `assets/${hobby.image}.svg`}
+                  alt={hobby.alt}
+                />
+                <div>{hobby.label}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="matchcontent matchfinalcontent">
+          <div className="match-title">
+            <div className="match-premium-option">
+              <div>
+                <div className="match-title-text">같은과는 싫어요</div>
+                <div className="match-title-inst-txt">
+                  과 CC를 피할 수 있어요
+                </div>
+              </div>
+              <MatchOptionButton
+                state={MatchState.isUseOption[3]}
+                num={3}
+                money={200}
+                handleButtonClick={handleButtonClick}
+              />
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className="match-submit-button"
+          onClick={() => handleSubmit()}
+        >
+          <div className="match-submit-button-point">
+            <img src={process.env.PUBLIC_URL + `assets/point.svg`} alt="cost" />
+            {MatchState.point}P
+          </div>
+          로 매칭하기
+        </button>
+        <Footer />
+      </div>
     </div>
   );
 }

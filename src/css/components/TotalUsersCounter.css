@@ -1,0 +1,9 @@
+.Total-Users-Counter {
+  /* font-size: 25px; */
+  font-weight: 600;
+  margin-top: 5px;
+}
+.Total-Users-Counter span {
+  color: #ff4d61;
+  font-weight: 900;
+}
